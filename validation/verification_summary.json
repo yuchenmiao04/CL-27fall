@@ -6,7 +6,7 @@
     "errors": 0,
     "failures": 0,
     "skipped": 0,
-    "seconds": 6.345
+    "seconds": 7.19
   },
   "environment": {
     "python": "3.10.11",
@@ -62,7 +62,7 @@
     "cl27/cores/shared_basis.py": "fc5b47be4a0d32029fee667f557c21bc05f82929d95766b89ce87efa00fb96b5",
     "cl27/cores/transport.py": "632d13b5dad439d7a4eeed0849668fc7dc103d2a838cebea861e42d85865ccd9",
     "cl27/current/__init__.py": "6583bfdc6053466a527279590da98319bf33fa2575b5f49f65c5142488a5d93e",
-    "cl27/current/engine.py": "27e62b52eec54248f8b7da212be155940c48ccb0dd66d9595e9005000d37403d",
+    "cl27/current/engine.py": "f936e940e8b81aa721c4a06285ed5a8b6bad629dfe77ca381475d5513f6c9107",
     "cl27/current/episodes.py": "114dbb71f97a954f6bca786dd83599ca82caf2fcb273c93ab21e1500512a062f",
     "cl27/current/readout.py": "a08cd3c7f036f589081dbb0422bd22114e8e002c2f96b122b9aab234a9c39547",
     "cl27/data.py": "2c0fb07b4abb29b2a9ec93fbc0bf67bdee7c80032f3e0986ba7f72d314de65b0",

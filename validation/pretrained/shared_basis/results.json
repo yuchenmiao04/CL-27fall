@@ -1,0 +1,342 @@
+{
+  "status": "validation_partial",
+  "method": "shared_basis",
+  "phase": "development",
+  "performance_claim": false,
+  "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63",
+  "config_fingerprint": "23b7666a9442066f6f646122e2b790cb877504c19790fcc56b674f1dafbbaaeb",
+  "data_fingerprint": "2edbb274c28b847fe36adbeb8211a48e11f649a402c9614f19d7fbf684fdfb6f",
+  "metrics": {
+    "final_accuracy": 0.7333333333333333,
+    "aia": 0.7833333333333333,
+    "forgetting_previous": 0.06666666666666665,
+    "forgetting_including_final": 0.06666666666666665,
+    "accuracy_matrix": [
+      [
+        0.8333333333333334,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        0.7666666666666667,
+        0.7,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    ],
+    "completed_tasks": 2,
+    "definition": "Fractions; AIA is mean stage sample-weighted all-seen accuracy; forgetting averages old tasks only."
+  },
+  "stages": [
+    {
+      "task": 0,
+      "seen_classes": 10,
+      "accuracy": 0.8333333333333334,
+      "task_accuracy": [
+        0.8333333333333334,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "task_counts": [
+        30,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "evaluation_images": 30,
+      "prediction_space": "all_seen_classes_without_task_id",
+      "cnn_report": {
+        "grouped": {
+          "total": 83.33,
+          "00-09": 83.33,
+          "old": 0,
+          "new": 83.33
+        },
+        "top1": 83.33,
+        "top5": 96.67
+      },
+      "nme_report": null,
+      "evaluation_head": "cnn",
+      "heads": {
+        "cnn": {
+          "accuracy": 0.8333333333333334,
+          "task_accuracy": [
+            0.8333333333333334,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "task_counts": [
+            30,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "evaluation_images": 30
+        }
+      },
+      "extra_evaluation_pass_for_raw_matrix": false,
+      "extra_nme_evaluation_pass_for_raw_matrix": false,
+      "wall_seconds": 5.871454375002941
+    },
+    {
+      "task": 1,
+      "seen_classes": 20,
+      "accuracy": 0.7333333333333333,
+      "task_accuracy": [
+        0.7666666666666667,
+        0.7,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "task_counts": [
+        30,
+        30,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "evaluation_images": 60,
+      "prediction_space": "all_seen_classes_without_task_id",
+      "cnn_report": {
+        "grouped": {
+          "total": 73.33,
+          "00-09": 76.67,
+          "10-19": 70.0,
+          "old": 76.67,
+          "new": 70.0
+        },
+        "top1": 73.33,
+        "top5": 95.0
+      },
+      "nme_report": null,
+      "evaluation_head": "cnn",
+      "heads": {
+        "cnn": {
+          "accuracy": 0.7333333333333333,
+          "task_accuracy": [
+            0.7666666666666667,
+            0.7,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "task_counts": [
+            30,
+            30,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "evaluation_images": 60
+        }
+      },
+      "extra_evaluation_pass_for_raw_matrix": false,
+      "extra_nme_evaluation_pass_for_raw_matrix": false,
+      "wall_seconds": 5.3887170829984825
+    }
+  ],
+  "evaluation_head": "cnn",
+  "metrics_by_head": {
+    "cnn": {
+      "final_accuracy": 0.7333333333333333,
+      "aia": 0.7833333333333333,
+      "forgetting_previous": 0.06666666666666665,
+      "forgetting_including_final": 0.06666666666666665,
+      "accuracy_matrix": [
+        [
+          0.8333333333333334,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          0.7666666666666667,
+          0.7,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "completed_tasks": 2,
+      "definition": "Fractions; AIA is mean stage sample-weighted all-seen accuracy; forgetting averages old tasks only."
+    }
+  },
+  "task_diagnostics": [
+    {
+      "method": "shared_predictor_basis",
+      "task": 0,
+      "new_classes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "classes": 10,
+      "samples": 30,
+      "new_samples": 30,
+      "rank_limit": 4,
+      "class_identified_rank_cap": 4,
+      "epsilon": 0.001,
+      "noise_variance": 1.0,
+      "iterations": 1,
+      "converged": true,
+      "stop_reason": "relative_log_likelihood_tolerance",
+      "basis_updated": true,
+      "marginal_log_likelihood": -280.0752700806018,
+      "log_likelihood_history": [
+        -280.0752700806018,
+        -280.0752700806018
+      ],
+      "centered_gram_roundoff_correction_fro": 1.4492544844595326e-14,
+      "bias": "flat prior, recovered from centered moments",
+      "weighting": "unit weight per historical fitting row; no class reweighting",
+      "history": "exact sufficient statistics for the caller's immutable feature map",
+      "effective_rank": 0,
+      "numeric_state_bytes": 4872352,
+      "backbone_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+      "feature_normalization": "l2",
+      "current_fitting_ids_sha256": "9b2760645ead7e04da092d6378590b5641e390612a5cbc8e901dafe08cc67678",
+      "raw_replay_images": 0,
+      "feature_map_frozen": true,
+      "training_source": "current task only, deterministic test transform"
+    },
+    {
+      "method": "shared_predictor_basis",
+      "task": 1,
+      "new_classes": [
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "classes": 20,
+      "samples": 60,
+      "new_samples": 30,
+      "rank_limit": 4,
+      "class_identified_rank_cap": 4,
+      "epsilon": 0.001,
+      "noise_variance": 1.0,
+      "iterations": 1,
+      "converged": true,
+      "stop_reason": "relative_log_likelihood_tolerance",
+      "basis_updated": true,
+      "marginal_log_likelihood": -1113.2239381069478,
+      "log_likelihood_history": [
+        -1113.2239381069478,
+        -1113.2239381069478
+      ],
+      "centered_gram_roundoff_correction_fro": 1.9023787117949385e-14,
+      "bias": "flat prior, recovered from centered moments",
+      "weighting": "unit weight per historical fitting row; no class reweighting",
+      "history": "exact sufficient statistics for the caller's immutable feature map",
+      "effective_rank": 0,
+      "numeric_state_bytes": 4995392,
+      "backbone_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+      "feature_normalization": "l2",
+      "current_fitting_ids_sha256": "b8669ded0b59775d5f1cfa48036b015cb60ffa43a325e88986d81954dca61dd0",
+      "raw_replay_images": 0,
+      "feature_map_frozen": true,
+      "training_source": "current task only, deterministic test transform"
+    }
+  ],
+  "backbone_provenance": {
+    "kind": "pretrained",
+    "timm_version": "0.6.12",
+    "checkpoint_family": "augreg_in21k_ft_in1k",
+    "public_weight_url": "https://storage.googleapis.com/vit_models/augreg/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+    "weight_file_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+    "initial_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+    "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63"
+  },
+  "execution": {
+    "torch": "2.0.1",
+    "numpy": "1.26.4",
+    "device_type": "cpu",
+    "wall_seconds": 11.280788415999268,
+    "numeric_checkpoint_payload_bytes": 348066976,
+    "gpu_peak_allocated_bytes": null
+  }
+}

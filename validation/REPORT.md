@@ -40,7 +40,17 @@
 - 初始模型状态 SHA-256：`1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9`。
 - 对应 IN21K→IN1K AugReg 公共源和精确文件名见协议说明。
 
-限定 CIFAR 训练子集的三路线真实 ViT 训练状态会在完成后单独记录。仅加载和一次前向不能证明真实训练已通过，亦不能替代正式性能实验。`scripts/verify_pretrained.py` 明确限制两阶段、每类 2–3 张训练图像、一个 epoch，评估只使用 train 留出，不读取官方 test。
+随后通过 `scripts/verify_pretrained.py` 完成了三条路线的真实 ViT 限定训练，均为原生 `main.py` 子进程。官方 CIFAR-100 train 通过文件校验；seed1993，两阶段各十类，每类三张拟合图像和三张训练内留出图像，一个 epoch，最终累计 60 张拟合、60 张留出。官方 test 不参与该流水线。
+
+| 方法 | 两阶段完成 | 历史计数 | 主骨干 | 模块 / 共享对象 |
+| --- | --- | --- | --- | --- |
+| shared_basis | 通过 | 30 → 60，未重复计数 | 保持冻结 | 完成共享先验拟合，旧图像量 0 |
+| history_transport | 通过 | 30 → 60，未重复计数 | 两阶段均有更新 | 冻结 anchor 未变，读出有限，回放 30 → 60 |
+| current_adapted | 通过 | 30 → 60，未重复计数 | 两阶段均有更新 | 固定模块库两阶段均有更新，回放 30 → 60 |
+
+汇总原始证据：[pretrained/verification_report.json](pretrained/verification_report.json)。三个子目录保留阶段结果、训练 / 留出摘要和去掉本机路径的配置。`config_redacted.json` 仅替换 data_root / output_dir；结果中的原始 config fingerprint 绑定本机实际执行配置，不能与替换后的展示配置直接重算比较。数据 fingerprint 未改。
+
+该检查的 rank、模块数量、迭代预算和每类样本数均刻意缩小；不是正式配置的性能复现。完整参数见快照。容量 2000 足以保存所有旧样本，因此真实 ViT 检查不覆盖非驻留历史迁移；该分支另有数值 / 小网络覆盖。结果 JSON 中的小样本准确率仅用于检查有限输出，不据此比较方法效果。
 
 ## 4. 独立复核与本轮修复
 

@@ -647,7 +647,10 @@ class FixedLibraryEngine(nn.Module):
             "epoch_summaries": summaries,
             "counters": dict(self.counters),
             "solver_history": "current task added once after all learning epochs",
-            "compute_note": "Four episode attempts per current minibatch; not matched FLOPs to supervised methods",
+            "compute_note": (
+                f"{self.options['outer_updates']} episode attempts per current minibatch; "
+                "not matched FLOPs to supervised methods"
+            ),
         }
 
     def forward(self, images, base_only=False):
