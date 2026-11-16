@@ -27,7 +27,11 @@ def test_moments_match_explicit_joint_data_and_new_columns_are_zero_on_history()
     x, y = data()
     model = SharedPredictorBasis(5, rank=0, epsilon=0.2)
     first = y != 21
-    model.observe(x[first], y[first])
+    first_report = model.observe(x[first], y[first])
+    assert (
+        first_report["history"]
+        == "exact sufficient statistics for the caller's immutable feature map"
+    )
     old_cross, old_gram = model.C, model.G
     model.observe(x[~first], y[~first])
     assert model.classes == [3, 8, 21]

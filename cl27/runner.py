@@ -214,7 +214,7 @@ def run(args):
     if args.get("resume"):
         if args["model_name"] not in NEW_METHODS:
             raise ValueError(
-                "Task-boundary resume is implemented only for the three new learners"
+                "Task-boundary resume is implemented only for registered CL27 learners"
             )
         state = torch.load(args["resume"], map_location="cpu", weights_only=False)
         if (

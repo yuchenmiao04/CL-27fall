@@ -1,0 +1,18 @@
+{
+  "reference_result": "validation/pretrained/history_transport/results.json",
+  "candidate_result": "validation/pretrained/plastic_shared_basis/results.json",
+  "status": "passed",
+  "checks": [
+    {
+      "task": 0,
+      "body_hash_equal": true,
+      "CE_training_diagnostics_equal": true
+    },
+    {
+      "task": 1,
+      "body_hash_equal": true,
+      "CE_training_diagnostics_equal": true
+    }
+  ],
+  "performance_claim": false
+}

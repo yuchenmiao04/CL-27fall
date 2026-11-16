@@ -1,0 +1,94 @@
+{
+  "status": "passed",
+  "reference_commit": "e6d6063698d2dce4238248d53d1fa5e3f4e5116c",
+  "reference_source_sha256": "fc5b47be4a0d32029fee667f557c21bc05f82929d95766b89ce87efa00fb96b5",
+  "current_source_sha256": "78bf3c39430dff022d61a22c90380ce57c0c3623e5c2271c653d6243c2d454a0",
+  "seed": 20261117,
+  "checks": [
+    {
+      "rank": 0,
+      "skip_middle": false,
+      "task": 0,
+      "full_state_and_scores_bitwise_equal": true,
+      "legacy_checkpoint_loads": true
+    },
+    {
+      "rank": 0,
+      "skip_middle": false,
+      "task": 1,
+      "full_state_and_scores_bitwise_equal": true,
+      "legacy_checkpoint_loads": true
+    },
+    {
+      "rank": 0,
+      "skip_middle": false,
+      "task": 2,
+      "full_state_and_scores_bitwise_equal": true,
+      "legacy_checkpoint_loads": true
+    },
+    {
+      "rank": 0,
+      "skip_middle": true,
+      "task": 0,
+      "full_state_and_scores_bitwise_equal": true,
+      "legacy_checkpoint_loads": true
+    },
+    {
+      "rank": 0,
+      "skip_middle": true,
+      "task": 1,
+      "full_state_and_scores_bitwise_equal": true,
+      "legacy_checkpoint_loads": true
+    },
+    {
+      "rank": 0,
+      "skip_middle": true,
+      "task": 2,
+      "full_state_and_scores_bitwise_equal": true,
+      "legacy_checkpoint_loads": true
+    },
+    {
+      "rank": 3,
+      "skip_middle": false,
+      "task": 0,
+      "full_state_and_scores_bitwise_equal": true,
+      "legacy_checkpoint_loads": true
+    },
+    {
+      "rank": 3,
+      "skip_middle": false,
+      "task": 1,
+      "full_state_and_scores_bitwise_equal": true,
+      "legacy_checkpoint_loads": true
+    },
+    {
+      "rank": 3,
+      "skip_middle": false,
+      "task": 2,
+      "full_state_and_scores_bitwise_equal": true,
+      "legacy_checkpoint_loads": true
+    },
+    {
+      "rank": 3,
+      "skip_middle": true,
+      "task": 0,
+      "full_state_and_scores_bitwise_equal": true,
+      "legacy_checkpoint_loads": true
+    },
+    {
+      "rank": 3,
+      "skip_middle": true,
+      "task": 1,
+      "full_state_and_scores_bitwise_equal": true,
+      "legacy_checkpoint_loads": true
+    },
+    {
+      "rank": 3,
+      "skip_middle": true,
+      "task": 2,
+      "full_state_and_scores_bitwise_equal": true,
+      "legacy_checkpoint_loads": true
+    }
+  ],
+  "performance_claim": false
+}

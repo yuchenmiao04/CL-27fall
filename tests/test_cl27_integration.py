@@ -21,7 +21,12 @@ from cl27.replay import ReplayMemory
 from cl27.runner import run, stage_record, summarize
 
 
-METHODS = ("shared_basis", "history_transport", "current_adapted")
+METHODS = (
+    "shared_basis",
+    "history_transport",
+    "current_adapted",
+    "plastic_shared_basis",
+)
 REPO = Path(__file__).resolve().parents[1]
 
 
@@ -186,6 +191,7 @@ def test_protocol_accepts_historical_dataset_specific_memory_rules(dataset):
     shared = formal_config(dataset, "shared_basis")
     shared.update(memory_size=0, memory_per_class=0)
     validate_protocol(shared)
+    validate_protocol(formal_config(dataset, "plastic_shared_basis"))
 
 
 @pytest.mark.parametrize(

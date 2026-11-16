@@ -21,6 +21,11 @@ targets, a misspecified likelihood. A shared subspace and its canonical eigenbas
 are possible knowledge-sharing objects; basis columns are not uniquely identified
 semantic units (especially at repeated eigenvalues). No accuracy, interpretability,
 or transfer guarantee follows from an EM likelihood improvement.
+
+``fit_moments`` is a separate replacement API for an already aggregated full
+snapshot. It resets the prior to epsilon I and never adds those moments to the
+previous snapshot. Surrogate moments yield a surrogate moment objective, not
+the marginal likelihood of unknown real historical representations.
 """
 
 from __future__ import annotations
@@ -304,15 +309,155 @@ class SharedPredictorBasis:
         n_samples = self._n_samples + len(x)
         if not all(np.isfinite(a).all() for a in (gram, cross, feature_sum)):
             raise FloatingPointError("Nonfinite accumulated sufficient statistics")
+        return self._fit_snapshot(
+            gram,
+            cross,
+            feature_sum,
+            counts,
+            n_samples,
+            classes,
+            tasks=self._tasks + 1,
+            initial_basis=self._D.copy(),
+            update_basis=bool(update_basis),
+            incoming=incoming,
+            new_samples=len(x),
+            history="exact sufficient statistics for the caller's immutable feature map",
+            objective="fixed-feature centered Gaussian marginal likelihood",
+            initialization="previous same-coordinate basis",
+        )
+
+    def fit_moments(
+        self,
+        gram: Any,
+        cross: Any,
+        feature_sum: Any,
+        counts: Any,
+        n_samples: int,
+        classes: Any,
+        tasks: int,
+        *,
+        moment_kind: str = "surrogate",
+    ) -> dict[str, Any]:
+        """Replace a complete snapshot and refit from an isotropic prior.
+
+        The input contains *all* currently represented history, not a new task
+        increment. No previous moment, basis or predictor is added/reused. This
+        API is appropriate after a coordinate change; ``observe`` instead adds
+        new rows in an immutable coordinate system and preserves its warm start.
+
+        Counts must represent positive integer class masses. The joint feature /
+        one-hot moment matrix must be PSD. Surrogate population scatters need not
+        have the finite-sample rank of an actual N-row feature table; the caller
+        must label them ``surrogate`` rather than claim a real-data likelihood.
+        Validation and fitting finish before any state is committed.
+        """
+        if moment_kind not in {"surrogate", "exact_fixed_features"}:
+            raise ValueError("Unknown replacement moment interpretation")
+        n = _integer(n_samples, "n_samples", 1)
+        task_count = _integer(tasks, "tasks", 1)
+        try:
+            vocabulary = list(classes)
+        except TypeError as error:
+            raise ValueError(
+                "Replacement classes must be an integer vocabulary"
+            ) from error
+        if not vocabulary or any(
+            isinstance(c, (bool, np.bool_)) or not isinstance(c, (int, np.integer))
+            for c in vocabulary
+        ):
+            raise ValueError("Replacement classes must be an integer vocabulary")
+        vocabulary = list(map(int, vocabulary))
+        if len(set(vocabulary)) != len(vocabulary) or task_count > len(vocabulary):
+            raise ValueError("Inconsistent replacement classes/tasks")
+        if any(np.iscomplexobj(value) for value in (gram, cross, feature_sum, counts)):
+            raise ValueError("Replacement moments must be real valued")
+        if np.asarray(counts).dtype.kind not in "iuf":
+            raise ValueError("Replacement counts must be numeric integer class masses")
+        d, c = self.feature_dim, len(vocabulary)
+        g = _array(gram, (d, d), "replacement G")
+        xy = _array(cross, (d, c), "replacement C")
+        sx = _array(feature_sum, (d,), "replacement feature_sum")
+        masses = _array(counts, (c,), "replacement counts")
+        if (
+            (masses <= 0).any()
+            or (masses >= np.iinfo(np.int64).max).any()
+            or not np.allclose(masses, np.round(masses), atol=1e-8, rtol=0)
+        ):
+            raise ValueError("Replacement counts must be positive integer class masses")
+        integer_counts = np.round(masses).astype(np.int64)
+        if sum(map(int, integer_counts)) != n:
+            raise ValueError("Replacement counts do not sum to n_samples")
+        if not np.allclose(g, g.T, atol=1e-10, rtol=1e-10):
+            raise ValueError("Replacement Gram must be symmetric")
+        if not np.allclose(xy.sum(axis=1), sx, atol=1e-10, rtol=1e-10):
+            raise ValueError("Replacement class sums disagree with feature_sum")
+        # Schur complement of diag(n_c) in the feature / one-hot moment matrix.
+        # Checking only G>=0 misses impossible feature/label cross moments.
+        within = _symmetric(g - (xy / integer_counts[None, :]) @ xy.T)
+        eigenvalues = np.linalg.eigvalsh(within)
+        scale = max(1.0, float(np.linalg.norm(g, ord=2)))
+        if eigenvalues[0] < -1e-9 * scale:
+            raise ValueError("Replacement feature/label joint moments are inconsistent")
+        exact = moment_kind == "exact_fixed_features"
+        if exact and np.count_nonzero(eigenvalues > 1e-9 * scale) > n - c:
+            raise ValueError(
+                "Exact replacement within-class scatter exceeds the N-C sample-rank bound"
+            )
+        return self._fit_snapshot(
+            _symmetric(g),
+            xy,
+            sx,
+            integer_counts,
+            n,
+            vocabulary,
+            tasks=task_count,
+            initial_basis=np.empty((d, 0)),
+            update_basis=True,
+            incoming=[],
+            new_samples=None,
+            history=(
+                "caller-supplied exact fixed-feature full snapshot"
+                if exact
+                else "caller-supplied surrogate full snapshot; true nonlinear history unknown"
+            ),
+            objective=(
+                "fixed-feature centered Gaussian marginal likelihood"
+                if exact
+                else "centered Gaussian moment surrogate; not true-history marginal likelihood"
+            ),
+            initialization="reset to isotropic epsilon I in current feature coordinates",
+            replacement=True,
+        )
+
+    def _fit_snapshot(
+        self,
+        gram,
+        cross,
+        feature_sum,
+        counts,
+        n_samples,
+        classes,
+        *,
+        tasks,
+        initial_basis,
+        update_basis,
+        incoming,
+        new_samples,
+        history,
+        objective,
+        initialization,
+        replacement=False,
+    ):
+        """Shared centered posterior/EM implementation, committed transactionally."""
         centered = self._center(gram, cross, feature_sum, counts, n_samples)
         gc, cc, mean_x, frequencies, trace_yy, roundoff_correction = centered
         cap = min(self.rank, self.feature_dim, max(0, len(classes) - 1))
-        d = self._D.copy()
+        d = initial_basis.copy()
         covariance = self.epsilon * np.eye(self.feature_dim) + d @ d.T
         likelihood, mean, posterior_covariance = _log_likelihood(
             gc, cc, covariance, self.noise_variance, trace_yy, n_samples - 1
         )
-        history = [likelihood]
+        likelihood_history = [likelihood]
         converged = bool(not update_basis or not cap or not self.max_iter)
         reason = (
             "basis_frozen"
@@ -343,7 +488,7 @@ class SharedPredictorBasis:
                         "Constrained EM decreased marginal log likelihood"
                     )
                 change = abs(updated - likelihood) / (1.0 + abs(likelihood))
-                history.append(updated)
+                likelihood_history.append(updated)
                 likelihood = updated
                 if change <= self.tol:
                     converged = True
@@ -354,11 +499,11 @@ class SharedPredictorBasis:
             raise FloatingPointError("Nonfinite recovered flat-prior intercept")
         diagnostics = {
             "method": "shared_predictor_basis",
-            "task": self._tasks,
+            "task": tasks - 1,
             "new_classes": incoming,
             "classes": len(classes),
             "samples": n_samples,
-            "new_samples": len(x),
+            "new_samples": new_samples,
             "rank_limit": self.rank,
             "class_identified_rank_cap": cap,
             "epsilon": self.epsilon,
@@ -368,12 +513,25 @@ class SharedPredictorBasis:
             "stop_reason": reason,
             "basis_updated": bool(update_basis and cap and self.max_iter),
             "marginal_log_likelihood": likelihood,
-            "log_likelihood_history": history,
+            "log_likelihood_history": likelihood_history,
             "centered_gram_roundoff_correction_fro": roundoff_correction,
             "bias": "flat prior, recovered from centered moments",
             "weighting": "unit weight per historical fitting row; no class reweighting",
-            "history": "exact sufficient statistics for the caller's immutable feature map",
+            "history": history,
         }
+        if replacement:
+            collapse_threshold = float(np.max(counts)) / len(classes)
+            diagnostics.update(
+                {
+                    "snapshot_replaced": True,
+                    "objective_interpretation": objective,
+                    "prior_initialization": initialization,
+                    "reset_collapse_threshold_noise_variance": collapse_threshold,
+                    "reset_collapse_sufficient_condition": self.noise_variance
+                    >= collapse_threshold,
+                    "reset_collapse_condition_is_necessary": False,
+                }
+            )
         self._classes, self._gram, self._cross = classes, gram, cross
         self._feature_sum, self._counts, self._n_samples = (
             feature_sum,
@@ -381,7 +539,7 @@ class SharedPredictorBasis:
             n_samples,
         )
         self._D, self._weights, self._intercept = d, mean, intercept
-        self._tasks += 1
+        self._tasks = tasks
         diagnostics["effective_rank"] = self.effective_rank
         diagnostics["numeric_state_bytes"] = self.resource_bytes()
         self._diagnostics = diagnostics

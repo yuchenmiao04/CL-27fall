@@ -17,7 +17,12 @@ import subprocess
 import sys
 
 
-METHODS = ("shared_basis", "history_transport", "current_adapted")
+METHODS = (
+    "shared_basis",
+    "history_transport",
+    "current_adapted",
+    "plastic_shared_basis",
+)
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -78,6 +83,13 @@ def configuration(method, options):
         "crossfit_folds": 2,
         "save_checkpoints": bool(options.save_checkpoints),
     }
+    if method == "plastic_shared_basis":
+        # A predeclared mechanics setting, not selected by validation accuracy.
+        # With three rows/class and C=10 or 20, s²=1 provably cannot open a
+        # nonzero basis from an isotropic reset (s² >= max(n_c)/C). Use a lower
+        # working noise to exercise learned-basis prediction in this tiny check.
+        # Formal configs retain the original frozen-route defaults.
+        config.update(basis_noise_variance=0.01, basis_reset_each_task=True)
     config.update(options.overrides.get("common", {}))
     config.update(options.overrides.get(method, {}))
     # Overrides may adjust hyperparameters for a targeted check, but never turn
@@ -155,7 +167,7 @@ def validate_result(method, result, manifest, config):
             replay = diag["raw_replay_images"]
             if not diag["feature_map_frozen"] or replay != 0:
                 raise ValueError("Shared route did not stay frozen/exemplar-free")
-        elif method == "history_transport":
+        elif method in {"history_transport", "plastic_shared_basis"}:
             count = diag["statistics"]["statistics_count"]
             replay = diag["replay_images"]
             if diag["training"]["current_training_visits"] != 10 * per:
@@ -164,6 +176,17 @@ def validate_result(method, result, manifest, config):
                 diag["training"]["loss_mean"]
             ):
                 raise ValueError("Invalid plastic training/anchor diagnostics")
+            if method == "plastic_shared_basis":
+                statistics = diag["statistics"]
+                if statistics["shared_basis"]["samples"] != arrivals:
+                    raise ValueError("Shared basis accumulated a full snapshot twice")
+                if (
+                    statistics.get("historical_objective")
+                    != "transported_moment_surrogate"
+                ):
+                    raise ValueError("Transported basis objective is mislabeled")
+                if statistics.get("basis_reset_each_task") is not True:
+                    raise ValueError("Old-coordinate basis was silently retained")
         else:
             count = diag["history_count"]
             replay = diag["replay_images"]
@@ -186,6 +209,10 @@ def validate_result(method, result, manifest, config):
                 "modules_changed": diag.get("modules_changed", False),
             }
         )
+        if method == "plastic_shared_basis":
+            checks[-1]["basis_effective_rank"] = diag["statistics"]["shared_basis"][
+                "effective_rank"
+            ]
     if method != "shared_basis" and not any(row["body_changed"] for row in checks):
         raise ValueError(
             "No evidence of plastic native backbone updates in this short stream"
@@ -194,6 +221,10 @@ def validate_result(method, result, manifest, config):
         row["modules_changed"] for row in checks
     ):
         raise ValueError("No evidence of fixed-library learning in this short stream")
+    if method == "plastic_shared_basis" and not any(
+        row["basis_effective_rank"] > 0 for row in checks
+    ):
+        raise ValueError("This mechanics check did not exercise a nonzero shared basis")
     for name in ("final_accuracy", "aia"):
         if not math.isfinite(result["metrics"][name]):
             raise ValueError("Nonfinite summary metric")
@@ -205,7 +236,7 @@ def validate_result(method, result, manifest, config):
         "wall_seconds": result["execution"]["wall_seconds"],
         "accuracy_is_not_a_performance_claim": True,
         "transport_nonresident_branch_exercised": (
-            False if method == "history_transport" else None
+            False if method in {"history_transport", "plastic_shared_basis"} else None
         ),
         "limitation": "Protocol buffer2000 retains every old image in this small subset; missing-history transport is covered by separate core unit tests.",
     }

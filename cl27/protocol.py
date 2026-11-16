@@ -5,6 +5,7 @@ from .common import NEW_METHODS
 
 REPLAY_METHODS = {
     "history_transport",
+    "plastic_shared_basis",
     "current_adapted",
     "icarl",
     "coil",

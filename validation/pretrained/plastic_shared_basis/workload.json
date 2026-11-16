@@ -1,0 +1,21 @@
+{
+  "dataset_download": false,
+  "epochs": 1,
+  "fit_images_per_class": {
+    "plastic_shared_basis": 3
+  },
+  "full_experiment": false,
+  "kind": "genuine_pretrained_pipeline_correctness_only",
+  "methods": [
+    "plastic_shared_basis"
+  ],
+  "new_classes_per_task": 10,
+  "note": "All retained replay is resident in this tiny subset; no missing-history transport test is claimed.",
+  "official_test_access": false,
+  "prepared_only": false,
+  "tasks": 2,
+  "train_holdout_images_per_class": {
+    "plastic_shared_basis": 3
+  },
+  "weight_download_if_uncached": true
+}

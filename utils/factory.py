@@ -6,6 +6,8 @@ def get_model(model_name, args):
         from models.history_transport import Learner
     elif name == "current_adapted":
         from models.current_adapted import Learner
+    elif name == "plastic_shared_basis":
+        from models.plastic_shared_basis import Learner
     elif name == "simplecil":
         from models.simplecil import Learner
     elif name == "aper_finetune":

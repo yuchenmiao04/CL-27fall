@@ -1,4 +1,4 @@
-"""Native PILOT interfaces shared by the three additional learners."""
+"""Native PILOT interfaces shared by the additional learners."""
 
 from __future__ import annotations
 
@@ -15,7 +15,12 @@ from torch.utils.data import DataLoader
 from models.base import BaseLearner
 
 UPSTREAM_COMMIT = "7a6e904c5bc5cb7a4e1823b3434020be27469b63"
-NEW_METHODS = {"shared_basis", "history_transport", "current_adapted"}
+NEW_METHODS = {
+    "shared_basis",
+    "history_transport",
+    "current_adapted",
+    "plastic_shared_basis",
+}
 
 
 def seed_everything(seed):

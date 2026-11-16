@@ -37,29 +37,37 @@ class Learner(IntegratedLearner):
         )
         self.anchor = copy.deepcopy(self.backbone).eval().requires_grad_(False)
         self.normalization = feature_normalization(args)
-        self.core = TransportHistory(
-            self.backbone.out_dim,
-            mode=args.get("transport_mode", "direct"),
-            residual=args.get("residual_model", "class_conditional_psd"),
-            ridge=float(args.get("head_ridge", 0.01)),
-            map_ridge=float(args.get("map_ridge", 0.01)),
-            covariance_shrinkage=float(args.get("covariance_shrinkage", 0.1)),
-            mean_shrinkage=float(args.get("mean_shrinkage", 20.0)),
-            crossfit_folds=int(args.get("crossfit_folds", 5)),
-            seed=int(args.get("seed", 0)),
-            reference_feature_rtol=float(
-                args.get(
-                    "reference_feature_rtol",
-                    64 * torch.finfo(next(self.backbone.parameters()).dtype).eps,
-                )
-            ),
-        )
+        self.core = self._build_core()
         self.replay = ReplayMemory(args)
         self.ce_head = None
         self.rng = np.random.default_rng(int(args.get("seed", 0)) + 113)
         self.anchor_hash = state_hash(self.anchor)
         self._initial_anchor_hash = self.anchor_hash
         self._install_network()
+
+    def _transport_options(self):
+        """Identical transport settings shared by ridge and EB-head variants."""
+        args = self.args
+        return {
+            "mode": args.get("transport_mode", "direct"),
+            "residual": args.get("residual_model", "class_conditional_psd"),
+            "ridge": float(args.get("head_ridge", 0.01)),
+            "map_ridge": float(args.get("map_ridge", 0.01)),
+            "covariance_shrinkage": float(args.get("covariance_shrinkage", 0.1)),
+            "mean_shrinkage": float(args.get("mean_shrinkage", 20.0)),
+            "crossfit_folds": int(args.get("crossfit_folds", 5)),
+            "seed": int(args.get("seed", 0)),
+            "reference_feature_rtol": float(
+                args.get(
+                    "reference_feature_rtol",
+                    64 * torch.finfo(next(self.backbone.parameters()).dtype).eps,
+                )
+            ),
+        }
+
+    def _build_core(self):
+        """Factory seam; the original route remains a TransportHistory core."""
+        return TransportHistory(self.backbone.out_dim, **self._transport_options())
 
     @property
     def exemplar_size(self):
@@ -156,7 +164,7 @@ class Learner(IntegratedLearner):
         self.task_diagnostics.append(
             {
                 "task": self._cur_task,
-                "method": "history_transport",
+                "method": self.args.get("model_name", "history_transport"),
                 "training": training,
                 "statistics": statistics,
                 "unique_current_arrivals": len(current),
@@ -225,7 +233,7 @@ class Learner(IntegratedLearner):
         candidate_anchor.eval().requires_grad_(False)
         if state_hash(candidate_anchor) != state["anchor_hash"]:
             raise ValueError("Frozen anchor checkpoint hash differs")
-        candidate_core = TransportHistory(**self.core._config())
+        candidate_core = self._build_core()
         candidate_core.load_state_dict(state["analytic"])
         candidate_replay = ReplayMemory(self.args)
         candidate_replay.load_state_dict(state["replay"])

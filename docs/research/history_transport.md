@@ -2,6 +2,12 @@
 
 ## Implemented scope and relationship to the preceding design
 
+The fourth learner [plastic_shared_basis](plastic_shared_basis.md) reuses this
+route's exact CE/backbone/replay trajectory and moment estimator, then deploys a
+learned predictor covariance prior in place of this route's isotropic ridge
+head. The original `history_transport` algorithm and checkpoint schema remain
+available. The factory seam is described in [plastic_shared_wrapper.md](plastic_shared_wrapper.md).
+
 The learner is `models/history_transport.py`, registered through PILOT's learner
 factory. The numerical estimator is `cl27/cores/transport.py`; the current-task
 gradient loop is `cl27/transport_training.py`. It implements task-based
