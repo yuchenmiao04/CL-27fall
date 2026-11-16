@@ -3,6 +3,7 @@
 
 Default workload per method: two CIFAR-100 class tasks, ten classes/task,
 three fitting images/class plus three train-holdout images/class, one epoch.
+Joint instead fits the same twenty-class union once and reports Final only.
 The complete official training pickle supplies the split; the official test
 pickle is never opened. No dataset download is attempted. PILOT/timm may fetch
 the selected public pretrained weight if it is not cached.
@@ -22,6 +23,8 @@ METHODS = (
     "history_transport",
     "current_adapted",
     "plastic_shared_basis",
+    "er",
+    "joint",
 )
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -90,6 +93,15 @@ def configuration(method, options):
         # working noise to exercise learned-basis prediction in this tiny check.
         # Formal configs retain the original frozen-route defaults.
         config.update(basis_noise_variance=0.01, basis_reset_each_task=True)
+    if method == "joint":
+        config.pop("max_tasks")
+        config.update(
+            joint_max_classes=20,
+            memory_size=0,
+            memory_per_class=0,
+            fixed_memory=False,
+            replay_batch_size=0,
+        )
     config.update(options.overrides.get("common", {}))
     config.update(options.overrides.get(method, {}))
     # Overrides may adjust hyperparameters for a targeted check, but never turn
@@ -109,6 +121,14 @@ def configuration(method, options):
         "backbone_type": "vit_base_patch16_224",
         "model_name": method,
     }
+    if method == "joint":
+        required.update(
+            max_tasks=None,
+            joint_max_classes=20,
+            memory_size=0,
+            memory_per_class=0,
+            replay_batch_size=0,
+        )
     if any(config.get(k) != v for k, v in required.items()):
         raise ValueError(
             "Overrides cannot change the short training-only verification protocol"
@@ -145,6 +165,64 @@ def validate_result(method, result, manifest, config):
     for name in ("weight_file_sha256", "initial_state_sha256"):
         if len(provenance.get(name, "")) != 64:
             raise ValueError("Missing pretrained hash: " + name)
+    if method == "joint":
+        stages, diagnostics = result["stages"], result["task_diagnostics"]
+        metrics = result["metrics"]
+        classes = config["joint_max_classes"]
+        arrivals = classes * config["validation_max_per_class"]
+        if (
+            result.get("evaluation_mode") != "offline_joint_final"
+            or result.get("completed_fits") != 1
+            or len(stages) != 1
+            or len(diagnostics) != 1
+            or stages[0]["seen_classes"] != classes
+            or stages[0]["evaluation_images"] != arrivals
+        ):
+            raise ValueError(
+                "Joint did not perform one all-selected fit and final evaluation"
+            )
+        if any(
+            metrics.get(key) is not None
+            for key in ("aia", "forgetting_previous", "forgetting_including_final")
+        ):
+            raise ValueError(
+                "Offline Joint must not report incremental AIA or forgetting"
+            )
+        diag = diagnostics[0]
+        if (
+            diag["unique_training_images"] != arrivals
+            or diag["training"]["current_training_visits"] != arrivals
+            or diag["training"]["replay_training_visits"] != 0
+            or diag["replay_images"] != 0
+            or not diag["backbone_changed"]
+            or diag["evaluation_during_training"] is not False
+            or diag["resources"]["training_backbones"] != 1
+        ):
+            raise ValueError("Joint training, data-access or resource checks failed")
+        if (
+            not math.isfinite(metrics["final_accuracy"])
+            or not 0 <= metrics["final_accuracy"] <= 1
+        ):
+            raise ValueError("Invalid Joint final accuracy")
+        return {
+            "method": "joint",
+            "status": "verified",
+            "pretrained": provenance,
+            "evaluation_mode": "offline_joint_final",
+            "completed_fits": 1,
+            "checks": [
+                {
+                    "selected_classes": classes,
+                    "fitting_images": arrivals,
+                    "heldout_images": arrivals,
+                    "body_changed": True,
+                    "replay_images": 0,
+                }
+            ],
+            "wall_seconds": result["execution"]["wall_seconds"],
+            "accuracy_is_not_a_performance_claim": True,
+            "limitation": "A bounded offline twenty-class union; no full-data reference or incremental metrics are claimed.",
+        }
     stages = result["stages"]
     diagnostics = result["task_diagnostics"]
     per = config["validation_max_per_class"]
@@ -167,6 +245,16 @@ def validate_result(method, result, manifest, config):
             replay = diag["raw_replay_images"]
             if not diag["feature_map_frozen"] or replay != 0:
                 raise ValueError("Shared route did not stay frozen/exemplar-free")
+        elif method == "er":
+            count = diag["unique_fitting_images_seen"]
+            replay = diag["replay_images"]
+            if (
+                diag["training"]["current_training_visits"] != 10 * per
+                or diag["resources"]["training_backbones"] != 1
+                or diag["resources"]["training_frozen_anchor_parameter_bytes"] != 0
+                or diag["resources"]["historical_statistics_bytes"] != 0
+            ):
+                raise ValueError("ER was not a one-body plain CE replay baseline")
         elif method in {"history_transport", "plastic_shared_basis"}:
             count = diag["statistics"]["statistics_count"]
             replay = diag["replay_images"]
@@ -320,7 +408,12 @@ def main(argv=None):
     workload = {
         "kind": "genuine_pretrained_pipeline_correctness_only",
         "methods": list(configs),
-        "tasks": 2,
+        "protocol_prefix_tasks": 2,
+        "training_mode_by_method": {
+            m: "offline_joint_final" if m == "joint" else "class_incremental"
+            for m in configs
+        },
+        "fits_or_stages_by_method": {m: 1 if m == "joint" else 2 for m in configs},
         "new_classes_per_task": 10,
         "epochs": 1,
         "fit_images_per_class": {

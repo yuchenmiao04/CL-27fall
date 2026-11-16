@@ -1,0 +1,37 @@
+{
+  "dataset_download": false,
+  "epochs": 1,
+  "fit_images_per_class": {
+    "er": 3,
+    "history_transport": 3,
+    "joint": 3
+  },
+  "fits_or_stages_by_method": {
+    "er": 2,
+    "history_transport": 2,
+    "joint": 1
+  },
+  "full_experiment": false,
+  "kind": "genuine_pretrained_pipeline_correctness_only",
+  "methods": [
+    "er",
+    "joint",
+    "history_transport"
+  ],
+  "new_classes_per_task": 10,
+  "note": "All retained replay is resident in this tiny subset; no missing-history transport test is claimed.",
+  "official_test_access": false,
+  "prepared_only": false,
+  "protocol_prefix_tasks": 2,
+  "train_holdout_images_per_class": {
+    "er": 3,
+    "history_transport": 3,
+    "joint": 3
+  },
+  "training_mode_by_method": {
+    "er": "class_incremental",
+    "history_transport": "class_incremental",
+    "joint": "offline_joint_final"
+  },
+  "weight_download_if_uncached": true
+}

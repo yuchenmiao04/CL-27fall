@@ -1,6 +1,6 @@
 # CL-27fall
 
-在固定版本 LAMDA-PILOT 中接入四个类别增量学习候选方法。当前交付范围是实现与小规模正确性验证，尚未运行完整 CIFAR-100 / ImageNet-R 实验，不包含性能提升结论。
+在固定版本 LAMDA-PILOT 中接入四个类别增量学习候选方法，并提供 ER 与离线 Joint 两个基础对照。当前交付范围是实现与小规模正确性验证，尚未运行完整 CIFAR-100 / ImageNet-R 实验，不包含性能提升结论。
 
 | 方法名 | 学习对象 | 历史信息 | 骨干更新 |
 | --- | --- | --- | --- |
@@ -11,6 +11,11 @@
 
 原生调用链保持为 `main.py → trainer.train → utils.factory.get_model → BaseLearner`。新方法继承 PILOT 的 `BaseLearner`，数据管理器复用原始任务构建、`DummyDataset` 与图像预处理。冻结 `shared_basis` 保留作对照，第四方法新增为独立候选，不替换前三种方法。
 
+| 基础对照 | 数据访问 / 模型 | 主要指标 |
+| --- | --- | --- |
+| `er` | 单个可塑 ViT＋普通 CE 头，当前数据＋PILOT 配额的图像回放 | Final、AIA、遗忘 |
+| `joint` | 相同预训练起点，一次训练全部类别并集，不受历史图像配额限制 | 只报 Final；AIA、遗忘为 null |
+
 ## 来源与文档
 
 - 上游：[LAMDA-PILOT，固定提交 7a6e904](https://github.com/LAMDA-CL/LAMDA-PILOT/tree/7a6e904c5bc5cb7a4e1823b3434020be27469b63)。原 Python / JSON / Markdown 源文件摘要在 [UPSTREAM_PIN.json](UPSTREAM_PIN.json)，原 README 在 [UPSTREAM_README.md](UPSTREAM_README.md)。上游算法文件保留；接入修改位于 `trainer.py` 和 `utils/factory.py`。
@@ -18,6 +23,7 @@
 - [统一实验协议](docs/PROTOCOL.md)：具体权重、存储预算、划分、评测公式及比较边界。
 - 详细推导：[共享预测基](docs/research/shared_basis.md)、[可塑骨干与统计迁移](docs/research/history_transport.md)、[当前模块方法适配](docs/research/current_adapted.md)。
 - 第四方法：[数学组合与噪声条件](docs/research/plastic_shared_basis.md)、[原生训练与恢复](docs/research/plastic_shared_wrapper.md)、[文献及开源代码复核](docs/research/plastic_shared_literature_review.md)。
+- 基础对照：[ER](docs/research/er.md)、[Joint](docs/research/joint.md)。ER 直接部署训练 CE 头，没有 anchor 或统计矩；Joint 是独立数据访问条件的离线参考。
 - [验证报告](validation/REPORT.md)：实际执行的检查与限制；不把合成准确率作为正式成绩。
 
 ## 环境
@@ -33,16 +39,18 @@ python -m pytest -q tests
 
 ## 小规模验证
 
-无需下载数据的合成检查通过原生 PILOT 入口运行，每个配置为三任务、每任务两类。`tiny` 只用于合成验证。
+无需下载数据的合成检查通过原生 PILOT 入口运行，持续学习配置为三任务、每任务两类；Joint 对六类并集只训练一次。`tiny` 只用于合成验证。
 
 ```bash
 python main.py --config exps/smoke/shared_basis.json
 python main.py --config exps/smoke/history_transport.json
 python main.py --config exps/smoke/current_adapted.json
 python main.py --config exps/smoke/plastic_shared_basis.json
+python main.py --config exps/smoke/er.json
+python main.py --config exps/smoke/joint.json
 ```
 
-输出目录必须为空；重复执行前指定新的 `output_dir`。完整 checkpoint 只在任务完成后保存。恢复时保留原配置，添加 `resume` 指向任务边界 checkpoint，并更换 `output_dir`。该恢复协议仅适用于四个新增 learner；多种子恢复同一个 checkpoint 会拒绝。
+输出目录必须为空；重复执行前指定新的 `output_dir`。持续学习 checkpoint 在任务完成后保存。恢复时保留原配置，添加 `resume` 指向任务边界 checkpoint，并更换 `output_dir`。四个候选及 ER 支持这种恢复。Joint 只保存完整联合训练 checkpoint，恢复保留已有 Final，不重新训练 / 评估，也不支持中途 epoch 恢复。多种子恢复同一个 checkpoint 会拒绝。
 
 真实预训练 ViT 的限定检查只用 CIFAR-100 训练集内部划分，每类三个拟合样本与三个留出样本、两任务、每任务十类、一个 epoch。脚本不下载数据；缺少权重时 timm 会下载公开权重。是否成功以验证报告为准。
 
@@ -57,12 +65,16 @@ python scripts/verify_pretrained.py \
 
 仅验证第四方法可加 `--methods plastic_shared_basis`。其极小样本检查预先指定 `basis_noise_variance=0.01`，目的是覆盖非零共享基；正式配置仍为 1.0。该差异源于明确的各向同性退化条件，不是按留出准确率选参，详见数学说明与验证报告。
 
+仅验证新基础对照可加 `--methods er joint`：ER 运行两个增量阶段，Joint 对相同20类并集只拟合一次。两者仅使用每类三张训练及三张 train 留出，一个 epoch。Joint 用 `joint_max_classes=20` 限制开发检查；正式 Joint 禁止这种限制，也不接受 `max_tasks`。
+
 ## 正式配置
 
-正式配置在 `exps/pilot_figure2/`，本轮不启动。CIFAR-100 为 10×10 类、固定总回放容量 2000；ImageNet-R 为 10×20 类、每类 20 张。共享预测基实际旧图像量为 0。统一使用历史 timm 的 IN21K→IN1K ViT-B/16、seed1993，测试不给任务编号。
+正式配置在 `exps/pilot_figure2/`，本轮不启动。ER 与使用回放的候选采用 CIFAR-100 10×10 类、固定总回放容量2000；ImageNet-R 10×20 类、每类20张。冻结共享基实际旧图像量为0；Joint 一次访问全部训练类并集，只报 Final。统一使用历史 timm 的 IN21K→IN1K ViT-B/16、seed1993，测试不给任务编号。
 
 设置 `data_root` 后才可运行。CIFAR 根目录包含官方 `cifar-100-python/train` 和 `test`；ImageNet-R 使用 PILOT 准备后 `train/<class>/...`、`test/<class>/...`，不能任意重新划分后仍声称是原论文协议。
 
-`baseline_*.json` 保留原方法超参数并显式统一协议，未在本轮完整复测。原 `exps/*.json` 保留原样。FOSTER 的 CIFAR 存储规则和 EASE 的增量步长存在源配置与选定历史报告协议的差异，详见协议说明。已有 DER 指 Dynamically Expandable Representation，不是 DER++。
+`baseline_er_*.json` 和 `baseline_joint_*.json` 是新增对照；其余 `baseline_*.json` 保留 PILOT 原方法超参数并显式统一协议，未在本轮完整复测。原 `exps/*.json` 保留原样。FOSTER 的 CIFAR 存储规则和 EASE 的增量步长存在源配置与选定历史报告协议的差异，详见协议说明。已有 DER 指 Dynamically Expandable Representation，不是 DER++。
+
+确定性提特征使用独立的 DataLoader 随机数生成器，避免额外 anchor 编码影响后续 CE 头初始化或训练顺序。这修复了早期代码的一项随机流耦合；旧提交的验证记录保留为历史证据，不能期待与修复后训练权重逐位相同。新版本另外核对 ER 与统计迁移路线的匹配训练轨迹。
 
 本仓库不包含数据集、权重、运行 checkpoint 或服务器访问资料。上游作者归属与参考文献保留于原 README；使用相应代码时需引用 PILOT 及所用方法。

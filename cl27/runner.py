@@ -14,13 +14,23 @@ import torch
 from utils import factory
 from .common import (
     UPSTREAM_COMMIT,
-    NEW_METHODS,
+    CHECKPOINT_METHODS,
     jsonable,
     numeric_bytes,
     seed_everything,
 )
 from .data import ProtocolDataManager
 from .protocol import validate_protocol
+
+RANDOM_STREAM_POLICY = "canonical_loader_isolated_v1"
+
+
+def validate_checkpoint_random_stream(state):
+    if state.get("random_stream_policy") != RANDOM_STREAM_POLICY:
+        raise ValueError(
+            "Checkpoint random-stream policy differs or predates canonical RNG isolation; "
+            "continue it with its original code version or restart this run"
+        )
 
 
 def write_json(path, value):
@@ -162,6 +172,135 @@ def summarize(stages):
     }
 
 
+def _run_joint(args, model, dm, output, fingerprint, device):
+    """One offline union fit and one final evaluation, never a CIL curve."""
+    began = time.perf_counter()
+    limit = args.get("joint_max_classes")
+    selected = dm.nb_classes if limit is None else int(limit)
+    if args.get("resume"):
+        state = torch.load(args["resume"], map_location="cpu", weights_only=False)
+        validate_checkpoint_random_stream(state)
+        if (
+            state.get("evaluation_mode") != "offline_joint_final"
+            or state["config_fingerprint"] != fingerprint
+            or state["data_fingerprint"] != dm.manifest["fingerprint"]
+        ):
+            raise ValueError(
+                "Joint resume configuration, dataset or evaluation mode differs"
+            )
+        model.restore_checkpoint(state["learner"])
+        stages = copy.deepcopy(state["stages"])
+        restore_rng(state["rng"])
+        if (
+            len(stages) != 1
+            or model._known_classes != selected
+            or model._total_classes != selected
+            or stages[0]["seen_classes"] != selected
+        ):
+            raise ValueError("Joint completed-fit checkpoint counters disagree")
+        endpoint = model._cur_task
+        if sum(dm.get_task_size(i) for i in range(endpoint + 1)) != selected:
+            raise ValueError(
+                "Joint checkpoint endpoint differs from selected class union"
+            )
+        resumed = True
+    else:
+        tick = time.perf_counter()
+        model.incremental_train(dm)
+        endpoint = model._cur_task
+        if model._total_classes != selected:
+            raise ValueError("Joint did not fit the full selected class union")
+        cnn, nme = model.eval_task()
+        row = stage_record(model, cnn, nme, dm, endpoint)
+        row.update(
+            evaluation_mode="offline_joint_final",
+            wall_seconds=time.perf_counter() - tick,
+        )
+        model.after_task()
+        stages = [row]
+        resumed = False
+    metrics = {
+        "final_accuracy": stages[0]["accuracy"],
+        "aia": None,
+        "forgetting_previous": None,
+        "forgetting_including_final": None,
+        "accuracy_matrix": [],
+        "completed_fits": 1,
+        "definition": "One offline joint fit; Final only. No incremental AIA or forgetting is defined.",
+    }
+    if args.get("save_checkpoints", True):
+        checkpoint = {
+            "version": 1,
+            "random_stream_policy": RANDOM_STREAM_POLICY,
+            "evaluation_mode": "offline_joint_final",
+            "config_fingerprint": fingerprint,
+            "data_fingerprint": dm.manifest["fingerprint"],
+            "learner": model.checkpoint_state(),
+            "stages": stages,
+            "rng": rng_state(),
+        }
+        temporary = output / "checkpoint.tmp"
+        torch.save(checkpoint, temporary)
+        temporary.replace(output / "checkpoint.pt")
+    status = "complete" if selected == dm.nb_classes else "validation_partial"
+    result = {
+        "status": status,
+        "method": "joint",
+        "phase": args["phase"],
+        "evaluation_mode": "offline_joint_final",
+        "data_access": "all_selected_training_classes_jointly",
+        "performance_claim": (
+            False
+            if args.get("validation_only")
+            else "offline reference, not a proven upper bound"
+        ),
+        "upstream_commit": UPSTREAM_COMMIT,
+        "config_fingerprint": fingerprint,
+        "data_fingerprint": dm.manifest["fingerprint"],
+        "selected_classes": selected,
+        "dataset_classes": dm.nb_classes,
+        "completed_fits": 1,
+        "metrics": metrics,
+        "metrics_by_head": {"cnn": copy.deepcopy(metrics)},
+        "evaluation_head": args.get("evaluation_head", "cnn"),
+        "stages": stages,
+        "final_evaluation": copy.deepcopy(stages[0]),
+        "task_diagnostics": model.task_diagnostics,
+        "backbone_provenance": getattr(model.backbone, "cl27_provenance", None),
+        "execution": {
+            "torch": str(torch.__version__),
+            "numpy": str(np.__version__),
+            "device_type": device.type,
+            "wall_seconds": time.perf_counter() - began,
+            "numeric_checkpoint_payload_bytes": numeric_bytes(model.checkpoint_core()),
+            "gpu_peak_allocated_bytes": (
+                torch.cuda.max_memory_allocated(device)
+                if device.type == "cuda"
+                else None
+            ),
+            "resumed_completed_fit_without_retraining": resumed,
+            "random_stream_policy": RANDOM_STREAM_POLICY,
+        },
+    }
+    write_json(
+        output / "progress.json",
+        {"status": status, "metrics": metrics, "stages": stages},
+    )
+    write_json(output / "results.json", result)
+    print(
+        json.dumps(
+            {
+                "joint_complete": True,
+                "phase": args["phase"],
+                "classes": selected,
+                "final_accuracy": metrics["final_accuracy"],
+            }
+        ),
+        flush=True,
+    )
+    return result
+
+
 def run(args):
     args = copy.deepcopy(args)
     args.setdefault("phase", "final")
@@ -209,14 +348,17 @@ def run(args):
     args["nb_classes"] = dm.nb_classes
     args["nb_tasks"] = dm.nb_tasks
     model = factory.get_model(args["model_name"], args)
+    if args["model_name"] == "joint":
+        return _run_joint(args, model, dm, output, fingerprint, device)
     stages = []
     start = 0
     if args.get("resume"):
-        if args["model_name"] not in NEW_METHODS:
+        if args["model_name"] not in CHECKPOINT_METHODS:
             raise ValueError(
                 "Task-boundary resume is implemented only for registered CL27 learners"
             )
         state = torch.load(args["resume"], map_location="cpu", weights_only=False)
+        validate_checkpoint_random_stream(state)
         if (
             state["config_fingerprint"] != fingerprint
             or state["data_fingerprint"] != dm.manifest["fingerprint"]
@@ -243,9 +385,13 @@ def run(args):
             output / "progress.json",
             {"status": "running", "stages": stages, "metrics": summarize(stages)},
         )
-        if args.get("save_checkpoints", True) and args["model_name"] in NEW_METHODS:
+        if (
+            args.get("save_checkpoints", True)
+            and args["model_name"] in CHECKPOINT_METHODS
+        ):
             state = {
                 "version": 1,
+                "random_stream_policy": RANDOM_STREAM_POLICY,
                 "config_fingerprint": fingerprint,
                 "data_fingerprint": dm.manifest["fingerprint"],
                 "learner": model.checkpoint_state(),
@@ -273,7 +419,7 @@ def run(args):
         provenance = getattr(model, "backbone_provenance", None)
     state_bytes = (
         numeric_bytes(model.checkpoint_core())
-        if args["model_name"] in NEW_METHODS
+        if args["model_name"] in CHECKPOINT_METHODS
         else None
     )
     head_metrics = {
@@ -303,6 +449,7 @@ def run(args):
             "torch": str(torch.__version__),
             "numpy": str(np.__version__),
             "device_type": device.type,
+            "random_stream_policy": RANDOM_STREAM_POLICY,
             "wall_seconds": time.perf_counter() - began,
             "numeric_checkpoint_payload_bytes": state_bytes,
             "gpu_peak_allocated_bytes": (

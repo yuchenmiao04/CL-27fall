@@ -1,8 +1,8 @@
-"""Backbone adaptation for history transport, using current data and bounded replay.
+"""Shared supervised backbone adaptation on current data and optional replay.
 
-The CE head is a training instrument. Deployment uses the transported analytic
-head. Statistics are not updated by this loop; the caller commits each new task
-once after adaptation. Optimizer state is intentionally reset at task boundaries.
+Transport callers subsequently rebuild an analytic head; ER and offline Joint
+deploy this trained CE head. The helper does not update historical statistics.
+Optimizer state resets for each call, i.e. each continual task or one Joint fit.
 """
 
 from __future__ import annotations

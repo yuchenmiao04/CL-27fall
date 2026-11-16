@@ -1,19 +1,20 @@
 # 实现与验证报告
 
-日期：2026-11-17。范围：在固定版本 PILOT 中接入四个候选方法，完成数值和小规模正确性验证；未启动完整实验。前三方法的历史记录保留，新增第四方法单独附有验证记录。
+日期：2026-11-17。范围：在固定版本 PILOT 中接入四个候选方法及 ER / Joint 两个基础对照，完成数值和小规模正确性验证；未启动完整实验。既有记录按对应历史提交保留，新增基础对照有独立验证记录。
 
 ## 1. 交付
 
 - 四个 `BaseLearner`：`shared_basis`、`history_transport`、`current_adapted`、`plastic_shared_basis`；通过原 `main.py`、trainer 和方法工厂调用。冻结版保留。
+- ER：单个可塑 ViT＋CE 头＋受限回放；Joint：同预训练起点、单次离线全类别联合训练，只报 Final。
 - 数据、回放、任务边界 checkpoint、原始阶段矩阵及预先指定 CNN/NME 读出规则。
-- 两个数据集的八份方法配置、二十份来源可追溯的原生 baseline 派生配置、四份合成配置。
+- 两个数据集的八份候选方法配置、二十份 PILOT 原生 baseline 派生配置、四份新基础对照配置，共32份正式配置；六份合成验证配置。
 - 方法总说明、各方法详细数学推导与文献适配说明、第四路线独立阅读 / 代码审查、统一实验协议及受限预训练验证脚本。
 
 ## 2. 实际执行的检查
 
 独立 Python 3.10 环境：PyTorch 2.0.1、torchvision 0.15.2、timm 0.6.12、NumPy 1.26.4、SciPy 1.13.1。CPU 本地执行，未使用服务器。
 
-第一轮完整检查 **114 项通过**；新增第四方法并完成独立复核后，当前完整检查为 **151 项通过**、28份正式配置通过协议检查。覆盖如下。可重跑结果、精确依赖和代码摘要以 [verification_summary.json](verification_summary.json)、[JUnit XML](unit-tests.xml) 为准。
+首轮114项、增加第四方法后151项检查均通过。本轮增加基础对照及随机流隔离后，**191项测试通过**、32份正式配置通过协议检查；机器记录见 [verification_summary.json](verification_summary.json)、[JUnit XML](unit-tests.xml)。下表保留原候选方法的检查范围，新基础对照见第3.3节。
 
 | 检查 | 证据及范围 |
 | --- | --- |
@@ -68,6 +69,29 @@
 
 额外将当前共享基与冻结版原提交 `e6d6063698d2dce4238248d53d1fa5e3f4e5116c` 的数值核心直接比较。rank0 / rank3、正常更新 / 中间阶段冻结基、三个任务，共 **12 项组合**的完整 state、诊断及预测逐位一致；旧版 checkpoint 可直接载入新核心，见 [frozen_compatibility.json](fourth_method/frozen_compatibility.json)。比较使用 seed20261117、五维特征、六类各12个合成样本，属于回归检查。
 
+### 3.3 ER / Joint 的新增验证
+
+新增 `tests/test_er.py`、`tests/test_joint.py`、`tests/test_baseline_integration.py`，覆盖以下实际行为：
+
+- ER 的两种存储配额、三阶段真实梯度 / 参数更新、旧 CE 行保留、全部已见类别输出、没有 anchor / 解析矩，当前新类只通过规定视图访问。
+- 在带随机水平翻转的小网络检查中，ER 与原统计迁移的主骨干、CE 头、回放身份、训练 RNG 轨迹精确一致；直推、链式两种控制均覆盖。
+- Joint 只读取一次全部指定类别训练并集，一次初始化完整 CE 头，全部训练结束后才访问评估视图；拒绝重复拟合、历史回放预算及歧义 `max_tasks`。
+- 原生 CLI：ER 三阶段；Joint 六类并集一次拟合，结果只有一个 Final，AIA / 两种遗忘均为 null，无伪增量曲线。
+- ER 任务边界恢复的完整状态及 RNG 一致；Joint 完成态恢复不重新训练或评估。来源、非有限参数、类别 / 样本计数不符的状态被拒绝。
+- 训练内留出未进入优化；Joint 的限定类别必须是完整阶段前缀，显式 null 限制等价于使用全部类别；确定性提特征不影响训练随机数。
+
+同时完成了新版本真实预训练 ViT 的限定检查，记录见 [basic_baselines/pretrained/verification_report.json](basic_baselines/pretrained/verification_report.json)。三个新运行均使用 seed1993、相同类别顺序、同一官方 CIFAR 训练内划分，每类三张拟合及三张留出、一个 epoch：
+
+| 运行 | 类别与优化方式 | 实际检查 |
+| --- | --- | --- |
+| ER | 两阶段各十类，累计60张拟合 / 60张留出 | 主骨干更新，回放30→60，无 anchor / 历史统计 |
+| Joint | 一次拟合20类并集，60张拟合 / 60张留出 | 主骨干更新、一次拟合 / 最终评估、AIA与遗忘为空 |
+| history_transport 配对检查 | 同 ER 的两阶段及预算 | 与 ER 的两阶段骨干 SHA、CE 训练诊断及回放数量完全一致 |
+
+配对证据见 [paired_training_checks.json](basic_baselines/pretrained/paired_training_checks.json)。三者初始骨干哈希和数据 fingerprint 相同，Joint 从新预训练实例开始。每个子目录保留结果、数据清单及仅替换本机路径的配置。小样本准确率不用于判断算法效果，也不能验证 Joint 应高于持续学习方法。
+
+本轮没有访问官方 test，没有进行完整联合训练或十阶段基准，也没有据留出分数调参。ImageNet-R 的真实数据输入仍未运行。
+
 ## 4. 独立复核与本轮修复
 
 不同实现者交叉审阅了三条路线的公式、代码、数据流和文档。发现并修正：
@@ -83,6 +107,10 @@
 原始源码摘要核对只发现预期的 README、trainer、factory 差异；其余上游 Python / JSON / Markdown 源保持原样。派生配置保留算法学习率、优化器、轮数及损失参数；EASE CIFAR 步长与 FOSTER CIFAR 存储规则的显式差异见协议说明。
 
 第四方法补充了整快照替换、联合矩 PSD / 类质量、总体代理秩解释、先验坐标重置、噪声坍缩充分条件、匹配 lambda 的 rank0 约简、拟合失败回滚、部署 EB 头、两种预算及迁移模式、原生 CLI 与完整流恢复等检查。独立审查还将高秩总体代理的目标与联合矩因子化后的普通高斯参考计算核对。新增方法复用共享核心时发现一项诊断字符串被同名列表覆盖的问题，已修正，并加入冻结版字段回归断言；没有放宽数学容差。
+
+本轮 ER 公平性审查发现：原确定性特征 DataLoader 即使 `shuffle=false` 也会为 base_seed 消耗全局 Torch RNG，因此额外 anchor 编码会改变下一步头初始化 / 训练顺序。现已给只读编码独立的 generator，加入 RNG 保持和特征输出等价检查；未改动数据、类别顺序、损失、epoch、优化器或回放规则。它会改变历史提交的偶然训练随机轨迹。第3节前两轮原始记录及其配对哈希属于各自历史提交，不能要求它们与本轮新训练哈希相同；本轮配对记录单独存放。
+
+公共 runner 新 checkpoint 绑定该随机流策略。无标记 / 不同标记的旧断点需在对应旧代码下继续，当前 runner 会明确拒绝，避免静默混用两套随机轨迹。ER 和 Joint 均有拒绝旧策略断点的检查，数值核心独立 state 格式未改变。
 
 ## 5. 限制与后续检验
 

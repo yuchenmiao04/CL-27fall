@@ -68,6 +68,8 @@ def main():
         "models/history_transport.py",
         "models/current_adapted.py",
         "models/plastic_shared_basis.py",
+        "models/er.py",
+        "models/joint.py",
         "scripts/*.py",
         "tests/*.py",
         "exps/pilot_figure2/*.json",

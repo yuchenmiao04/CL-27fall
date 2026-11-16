@@ -1,0 +1,37 @@
+{
+  "model_name": "joint",
+  "cl27_protocol": "pilot_figure2",
+  "dataset": "imagenetr",
+  "phase": "final",
+  "prefix": "cl27_basic_baseline",
+  "seed": [
+    1993
+  ],
+  "device": [
+    0
+  ],
+  "shuffle": true,
+  "init_cls": 20,
+  "increment": 20,
+  "backbone_type": "vit_base_patch16_224",
+  "pretrained": true,
+  "memory_size": 0,
+  "memory_per_class": 0,
+  "fixed_memory": false,
+  "replay_selection": "herding",
+  "data_root": "data/imagenet-r",
+  "download": false,
+  "epochs": 20,
+  "batch_size": 64,
+  "replay_batch_size": 0,
+  "backbone_lr": 1e-05,
+  "head_lr": 0.001,
+  "weight_decay": 0.0001,
+  "feature_batch_size": 16,
+  "eval_batch_size": 64,
+  "num_workers": 0,
+  "cpu_threads": 4,
+  "save_checkpoints": true,
+  "output_dir": "runs/joint_imagenetr_1993",
+  "evaluation_head": "cnn"
+}

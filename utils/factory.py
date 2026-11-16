@@ -8,6 +8,10 @@ def get_model(model_name, args):
         from models.current_adapted import Learner
     elif name == "plastic_shared_basis":
         from models.plastic_shared_basis import Learner
+    elif name == "er":
+        from models.er import Learner
+    elif name == "joint":
+        from models.joint import Learner
     elif name == "simplecil":
         from models.simplecil import Learner
     elif name == "aper_finetune":

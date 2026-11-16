@@ -54,7 +54,27 @@ ImageNet-R 需采用 PILOT 链接的准备后划分，不能对原始数据任�
 
 ## 5. Baseline 配置与差异
 
-`exps/pilot_figure2/baseline_*.json` 来源于未修改的 `exps/*.json`，统一数据名、十阶段、seed、路径、评测及存储规则，记录 `cl27_source_config`。现提供 FineTune、SimpleCIL、RanPAC、EASE、SLCA、iCaRL、Coil、DER、MEMO、FOSTER 的两个数据集配置，未在本轮完整复测。
+### 5.1 本项目新增的 ER 与 Joint
+
+当前主实验计划包含四个候选方法、ER 和 Joint，共六行；本轮只实现和验证，未启动正式训练。其他 PILOT 方法的原生代码及派生配置继续保留，公开结果可另列文献参考，不冒充本地复测值。
+
+ER：`models/er.py`，单个可塑预训练 ViT-B/16＋普通 raw-CLS 线性 CE 头。每阶段扩大到全部已见类别，保留旧权重 / bias 行；使用当前新类与允许的回放训练，损失和测试都不按任务编号屏蔽输出。没有 anchor、模块、解析历史矩或统计迁移。回放 CIFAR 固定总量2000，ImageNet-R 固定20/类，herding 与逐类缩减规则沿用共同实现。直接部署训练 CE 头。
+
+其训练完全复用可塑统计路线的 `adapt_backbone` 与 `expand_head`：20 epochs / 阶段，AdamW，骨干 LR1e−5、头 LR1e−3、weight decay1e−4，当前 batch64＋最多64张回放，逐阶段 cosine 并重置优化器。测试每阶段全部已见类，报告 Final、AIA 和两种遗忘。这是本项目在选定多 epoch Class-IL 协议下的 ER 适配，不是原 Tiny Episodic Memories 单遍 / 任务编号评测的复现，也不等同 PILOT FineTune。
+
+Joint：`models/joint.py`，从相同预训练起点重新创建一个模型，一次获得 CIFAR-100 全部100类或 ImageNet-R 全部200类的训练并集，初始化完整 CE 头，训练一次。默认同样20 epochs、AdamW、两组 LR及weight decay；一个完整 cosine 周期，没有逐任务头扩展、回放、anchor 或统计矩。训练结束后才请求评估视图并执行一次最终评估。报告 Final；AIA、遗忘均为 null，不能把 Final 当 AIA、把遗忘写成0，也不产生伪十阶段曲线。
+
+Joint 的历史数据权限是 `offline/all training data`，不受2000或20/类限制。配置中的两个 memory 字段设0表示没有独立回放池，不表示零历史数据或 exemplar-free CIL。它是离线联合训练参考，不是已证明的准确率上界；相同 epochs 也不是相同 FLOPs。主表须将其数据权限和不适用指标标清。
+
+正式配置：`baseline_er_{cifar224,imagenetr}.json` 与 `baseline_joint_{cifar224,imagenetr}.json`。Joint 复用 PILOT 类别顺序 / 标签及划分，但十阶段仅作为类别协议元数据，不触发十次拟合。开发检查可显式设 `joint_max_classes=20` 等完整阶段前缀；正式配置禁止该字段。Joint 一律拒绝 `max_tasks`，其 checkpoint 只支持完整拟合后恢复已有结果，不支持中途 epoch 继续。
+
+为使 ER 与统计迁移路线公平匹配，确定性提特征 DataLoader 使用独立 seed0 的 CPU generator。即便 `shuffle=false`，原 DataLoader 迭代也会消耗全局训练 RNG；多一次 anchor 编码会改变头初始化或数据顺序。该修复隔离了只读编码与训练随机流，没有修改训练数据、类别顺序、损失、回放配额、epoch 或优化器。它改变了早期提交的偶然随机轨迹，所以旧训练验证记录按历史提交解释；当前版本另行核对匹配轨迹。
+
+新的公共 runner checkpoint 显式绑定 `random_stream_policy=canonical_loader_isolated_v1`。缺少或不匹配此标记的旧 runner 断点拒绝在新随机流策略下继续，须使用其原代码版本或重新开始；不是对旧权重文件的自动迁移。各数值核心的独立 state 接口及既有格式保留。
+
+### 5.2 PILOT 原生 baseline 派生配置
+
+除新增 ER / Joint 外，其余 `exps/pilot_figure2/baseline_*.json` 来源于未修改的 `exps/*.json`，统一数据名、十阶段、seed、路径、评测及存储规则，记录 `cl27_source_config`。现提供 FineTune、SimpleCIL、RanPAC、EASE、SLCA、iCaRL、Coil、DER、MEMO、FOSTER 的两个数据集配置，未在本轮完整复测。
 
 1. 源 `exps/foster.json` 设 CIFAR 每类 20 张；历史 README 报告固定总量 2000。本次派生配置按选定历史规则改为后者，原文件保留。
 2. 源 EASE CIFAR 配置每次增加 5 类，派生配置改为 10 类，其余方法超参数保留。EASE 也不是历史 v1 报告中的原始行。

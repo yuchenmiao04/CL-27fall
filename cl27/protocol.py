@@ -1,9 +1,10 @@
 """Fail visibly when a reported run is not the chosen historical protocol."""
 
 import operator
-from .common import NEW_METHODS
+from .common import CHECKPOINT_METHODS
 
 REPLAY_METHODS = {
+    "er",
     "history_transport",
     "plastic_shared_basis",
     "current_adapted",
@@ -16,6 +17,25 @@ REPLAY_METHODS = {
 
 
 def validate_protocol(args):
+    if args.get("model_name") == "joint":
+        if args.get("max_tasks") is not None:
+            raise ValueError(
+                "Joint fits one class union; use validation-only joint_max_classes instead of max_tasks"
+            )
+        if args.get("memory_size", 0) or args.get("memory_per_class", 0):
+            raise ValueError(
+                "Offline Joint has no replay buffer; all training data access is reported separately"
+            )
+        if args.get("joint_max_classes") is not None:
+            value = args["joint_max_classes"]
+            if isinstance(value, bool) or not isinstance(value, int) or value < 1:
+                raise ValueError("joint_max_classes must be a positive integer")
+            if args.get("phase", "final") == "final" or not args.get(
+                "validation_only", False
+            ):
+                raise ValueError("Joint class subsets are validation-only")
+    elif args.get("joint_max_classes") is not None:
+        raise ValueError("joint_max_classes is only valid for offline Joint")
     for key in ("init_cls", "increment"):
         value = args.get(key)
         if isinstance(value, bool):
@@ -53,7 +73,9 @@ def validate_protocol(args):
     width = 10 if args["dataset"] == "cifar224" else 20
     if (args["init_cls"], args["increment"]) != (width, width):
         raise ValueError("Main comparison has ten equal stages")
-    if args.get("model_name") in NEW_METHODS and args.get("backbone_type") not in {
+    if args.get("model_name") in CHECKPOINT_METHODS and args.get(
+        "backbone_type"
+    ) not in {
         "vit_base_patch16_224",
         "pretrained_vit_b16_224",
     }:
@@ -105,13 +127,13 @@ def smoke_config(method, output_dir):
         "validation_only": True,
         "validation_fraction": 0.25,
         "split_seed": 0,
-        "memory_size": 0 if method == "shared_basis" else 12,
+        "memory_size": 0 if method in {"shared_basis", "joint"} else 12,
         "memory_per_class": 0,
         "fixed_memory": False,
         "replay_selection": "herding",
         "epochs": 2,
         "batch_size": 8,
-        "replay_batch_size": 8,
+        "replay_batch_size": 0 if method == "joint" else 8,
         "eval_batch_size": 12,
         "feature_batch_size": 8,
         "num_workers": 0,

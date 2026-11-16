@@ -21,6 +21,8 @@ NEW_METHODS = {
     "current_adapted",
     "plastic_shared_basis",
 }
+BASELINE_METHODS = {"er", "joint"}
+CHECKPOINT_METHODS = NEW_METHODS | BASELINE_METHODS
 
 
 def seed_everything(seed):
@@ -181,8 +183,16 @@ def extract_features(backbone, dataset, device, batch_size=64, normalization="l2
     backbone.eval()
     features = []
     labels = []
+    # Even a nonshuffled DataLoader consumes a base_seed at iterator creation.
+    # Canonical read-only encoding must not change head initialization or the
+    # subsequent training shuffle merely because a method has an extra anchor.
+    loader_rng = torch.Generator().manual_seed(0)
     for _, images, target in DataLoader(
-        dataset, batch_size=batch_size, shuffle=False, num_workers=0
+        dataset,
+        batch_size=batch_size,
+        shuffle=False,
+        num_workers=0,
+        generator=loader_rng,
     ):
         raw = backbone(images.to(device))
         features.append(

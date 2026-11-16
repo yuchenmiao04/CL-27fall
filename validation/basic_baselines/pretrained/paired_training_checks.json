@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "scope": "paired current-code two-stage ER and history-transport CE body; not an accuracy improvement test",
+  "checks": [
+    {
+      "task": 0,
+      "body_sha_equal": true,
+      "CE_training_diagnostics_equal": true,
+      "replay_count_equal": true
+    },
+    {
+      "task": 1,
+      "body_sha_equal": true,
+      "CE_training_diagnostics_equal": true,
+      "replay_count_equal": true
+    }
+  ],
+  "data_identity_equal": true,
+  "pretrained_initial_hashes_equal": true,
+  "joint_fits": 1,
+  "joint_aia_and_forgetting_null": true
+}
