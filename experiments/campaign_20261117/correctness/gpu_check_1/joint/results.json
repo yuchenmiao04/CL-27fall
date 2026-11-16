@@ -1,0 +1,273 @@
+{
+  "status": "validation_partial",
+  "method": "joint",
+  "phase": "development",
+  "evaluation_mode": "offline_joint_final",
+  "data_access": "all_selected_training_classes_jointly",
+  "performance_claim": false,
+  "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63",
+  "config_fingerprint": "154b2718318a46bdd11d6fc140241e79fc1a4af5d2940928362a894280beea96",
+  "data_fingerprint": "2edbb274c28b847fe36adbeb8211a48e11f649a402c9614f19d7fbf684fdfb6f",
+  "selected_classes": 20,
+  "dataset_classes": 100,
+  "completed_fits": 1,
+  "metrics": {
+    "final_accuracy": 0.18333333333333332,
+    "aia": null,
+    "forgetting_previous": null,
+    "forgetting_including_final": null,
+    "accuracy_matrix": [],
+    "completed_fits": 1,
+    "definition": "One offline joint fit; Final only. No incremental AIA or forgetting is defined."
+  },
+  "metrics_by_head": {
+    "cnn": {
+      "final_accuracy": 0.18333333333333332,
+      "aia": null,
+      "forgetting_previous": null,
+      "forgetting_including_final": null,
+      "accuracy_matrix": [],
+      "completed_fits": 1,
+      "definition": "One offline joint fit; Final only. No incremental AIA or forgetting is defined."
+    }
+  },
+  "evaluation_head": "cnn",
+  "stages": [
+    {
+      "task": 1,
+      "seen_classes": 20,
+      "accuracy": 0.18333333333333332,
+      "task_accuracy": [
+        0.13333333333333333,
+        0.23333333333333334,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "task_counts": [
+        30,
+        30,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "evaluation_images": 60,
+      "prediction_space": "all_seen_classes_without_task_id",
+      "cnn_report": {
+        "grouped": {
+          "total": 18.33,
+          "00-09": 13.33,
+          "10-19": 23.33,
+          "old": 0,
+          "new": 18.33
+        },
+        "top1": 18.33,
+        "top5": 56.67
+      },
+      "nme_report": null,
+      "evaluation_head": "cnn",
+      "heads": {
+        "cnn": {
+          "accuracy": 0.18333333333333332,
+          "task_accuracy": [
+            0.13333333333333333,
+            0.23333333333333334,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "task_counts": [
+            30,
+            30,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "evaluation_images": 60
+        }
+      },
+      "extra_evaluation_pass_for_raw_matrix": false,
+      "extra_nme_evaluation_pass_for_raw_matrix": false,
+      "evaluation_mode": "offline_joint_final",
+      "wall_seconds": 1.656936302781105
+    }
+  ],
+  "final_evaluation": {
+    "task": 1,
+    "seen_classes": 20,
+    "accuracy": 0.18333333333333332,
+    "task_accuracy": [
+      0.13333333333333333,
+      0.23333333333333334,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "task_counts": [
+      30,
+      30,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "evaluation_images": 60,
+    "prediction_space": "all_seen_classes_without_task_id",
+    "cnn_report": {
+      "grouped": {
+        "total": 18.33,
+        "00-09": 13.33,
+        "10-19": 23.33,
+        "old": 0,
+        "new": 18.33
+      },
+      "top1": 18.33,
+      "top5": 56.67
+    },
+    "nme_report": null,
+    "evaluation_head": "cnn",
+    "heads": {
+      "cnn": {
+        "accuracy": 0.18333333333333332,
+        "task_accuracy": [
+          0.13333333333333333,
+          0.23333333333333334,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "task_counts": [
+          30,
+          30,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "evaluation_images": 60
+      }
+    },
+    "extra_evaluation_pass_for_raw_matrix": false,
+    "extra_nme_evaluation_pass_for_raw_matrix": false,
+    "evaluation_mode": "offline_joint_final",
+    "wall_seconds": 1.656936302781105
+  },
+  "task_diagnostics": [
+    {
+      "method": "joint",
+      "evaluation_mode": "offline_joint_final",
+      "selected_classes": 20,
+      "protocol_endpoint_task": 1,
+      "protocol_task_sizes": [
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10,
+        10
+      ],
+      "protocol_total_classes": 100,
+      "unique_training_images": 60,
+      "fitting_ids_sha256": "5a6f662da2ae503bc41127e241c0fb8356031c2958eacf9028428b5e25f16511",
+      "offline_fit_count": 1,
+      "training": {
+        "optimizer": "AdamW",
+        "schedule": "cosine_per_task",
+        "epochs": 1,
+        "optimizer_state_reset_per_task": true,
+        "optimizer_updates": 8,
+        "current_training_visits": 60,
+        "replay_training_visits": 0,
+        "loss_first": 4.778604030609131,
+        "loss_last": 4.199192047119141,
+        "loss_mean": 4.9540804624557495,
+        "backbone_gradient_l2_rms": 94.81720651220148,
+        "backbone_gradient_l2_max": 100.1356430053711,
+        "backbone_lr": 1e-05,
+        "head_lr": 0.001,
+        "batch_size": 8,
+        "replay_batch_size": 0
+      },
+      "backbone_changed": true,
+      "backbone_sha256_before": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+      "backbone_sha256_after": "474859fd3a3582eb07cc24840902fa14455a477c9d9c9e56cbae5ce1ef5fb1c1",
+      "raw_replay_images": 0,
+      "replay_images": 0,
+      "historical_statistics_bytes": 0,
+      "data_access": "all selected training classes jointly available before a single offline fit",
+      "evaluation_during_training": false,
+      "aia_applicable": false,
+      "forgetting_applicable": false,
+      "resources": {
+        "deployment_backbone_parameter_bytes": 343194624,
+        "deployment_ce_head_bytes": 61520,
+        "inference_backbones": 1,
+        "training_backbones": 1,
+        "replay_raw_payload_bytes": 0,
+        "historical_statistics_bytes": 0,
+        "offline_training_union_access": true
+      }
+    }
+  ],
+  "backbone_provenance": {
+    "kind": "pretrained",
+    "timm_version": "0.6.12",
+    "checkpoint_family": "augreg_in21k_ft_in1k",
+    "public_weight_url": "https://storage.googleapis.com/vit_models/augreg/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+    "weight_file_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+    "initial_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+    "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63"
+  },
+  "execution": {
+    "torch": "2.7.1+cu128",
+    "numpy": "1.26.4",
+    "device_type": "cuda",
+    "wall_seconds": 1.6570290587842464,
+    "numeric_checkpoint_payload_bytes": 343256144,
+    "gpu_peak_allocated_bytes": 2616752128,
+    "resumed_completed_fit_without_retraining": false,
+    "random_stream_policy": "canonical_loader_isolated_v1"
+  }
+}

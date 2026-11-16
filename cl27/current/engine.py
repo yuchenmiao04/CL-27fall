@@ -10,7 +10,9 @@ from __future__ import annotations
 
 import copy
 import hashlib
+import json
 import math
+import time
 from contextlib import contextmanager
 
 import numpy as np
@@ -479,25 +481,36 @@ class FixedLibraryEngine(nn.Module):
                         )
                         self._inc("vjp_" + path + "_images", len(images))
             trainable = [p for p in self.encoder.parameters() if p.requires_grad]
-            if any(
-                p.grad is not None and not torch.isfinite(p.grad).all()
-                for p in trainable
-            ):
-                raise FloatingPointError("Nonfinite parameter gradient")
-            gradient_norm = (
-                sum(
-                    float(p.grad.detach().square().sum())
-                    for p in trainable
-                    if p.grad is not None
-                )
-                ** 0.5
-            )
+            gradients = [p.grad for p in trainable if p.grad is not None]
+            if gradients:
+                # Keep the original per-tensor reductions, but transfer their
+                # scalar results together instead of synchronizing per tensor.
+                # Float64 preserves every FP32 partial sum exactly; the final
+                # Python sum retains the original parameter order and norm.
+                gradient_statistics = torch.stack(
+                    (
+                        torch.stack([torch.isfinite(g).all() for g in gradients]).to(
+                            torch.float64
+                        ),
+                        torch.stack(
+                            [g.detach().square().sum() for g in gradients]
+                        ).to(torch.float64),
+                    ),
+                    dim=1,
+                ).cpu().tolist()
+                if any(not finite for finite, _ in gradient_statistics):
+                    raise FloatingPointError("Nonfinite parameter gradient")
+                gradient_norm = sum(value for _, value in gradient_statistics) ** 0.5
+            else:
+                gradient_norm = 0.0
             if step:
                 self.optimizers[phase].step()
                 self.updates += 1
                 self.module_updates += int(phase == "modules")
                 self.backbone_updates += int(phase == "backbone")
-            if any(not torch.isfinite(p).all() for p in trainable):
+            if trainable and not bool(
+                torch.stack([torch.isfinite(p).all() for p in trainable]).all().cpu()
+            ):
                 raise FloatingPointError("Nonfinite parameter")
             return {
                 "kind": episode.kind,
@@ -549,6 +562,11 @@ class FixedLibraryEngine(nn.Module):
             "backbone": self.options["backbone_lr"],
         }
         for epoch in range(epochs):
+            epoch_started = time.perf_counter()
+            epoch_updates = self.updates
+            epoch_module_updates = self.module_updates
+            epoch_backbone_updates = self.backbone_updates
+            epoch_skipped = skipped
             factor = 0.5 * (1 + math.cos(math.pi * epoch / epochs))
             for name, opt in self.optimizers.items():
                 for group in opt.param_groups:
@@ -597,6 +615,29 @@ class FixedLibraryEngine(nn.Module):
                     "mean_query_ce": float(np.mean(losses)) if losses else None,
                     "lr_factor": factor,
                 }
+            )
+            print(
+                json.dumps(
+                    {
+                        "epoch_progress": True,
+                        "method": "current_adapted",
+                        "training": "fixed_library_episodes",
+                        "task": self.completed_tasks,
+                        "epoch": epoch + 1,
+                        "epochs": epochs,
+                        "loss_mean": summaries[-1]["mean_query_ce"],
+                        "optimizer_updates": self.updates - epoch_updates,
+                        "optimizer_updates_total": self.updates,
+                        "module_updates": self.module_updates - epoch_module_updates,
+                        "backbone_updates": self.backbone_updates
+                        - epoch_backbone_updates,
+                        "skipped_episodes": skipped - epoch_skipped,
+                        "skipped_episodes_total": skipped,
+                        "wall_seconds": time.perf_counter() - epoch_started,
+                    },
+                    allow_nan=False,
+                ),
+                flush=True,
             )
         # No new task contribution was present in persistent G/C during any epoch.
         self.statistics.add(current_base, torch.tensor(labels_new))

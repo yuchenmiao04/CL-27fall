@@ -1,0 +1,365 @@
+{
+  "status": "validation_partial",
+  "method": "er",
+  "phase": "development",
+  "performance_claim": false,
+  "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63",
+  "config_fingerprint": "3c32c8e8df5d2e1e388c33c52efb6ed5a7e03f0d7145d2cfb19ad9b6674ddfe1",
+  "data_fingerprint": "2edbb274c28b847fe36adbeb8211a48e11f649a402c9614f19d7fbf684fdfb6f",
+  "metrics": {
+    "final_accuracy": 0.18333333333333332,
+    "aia": 0.24166666666666664,
+    "forgetting_previous": 0.16666666666666666,
+    "forgetting_including_final": 0.16666666666666666,
+    "accuracy_matrix": [
+      [
+        0.3,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        0.13333333333333333,
+        0.23333333333333334,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    ],
+    "completed_tasks": 2,
+    "definition": "Fractions; AIA is mean stage sample-weighted all-seen accuracy; forgetting averages old tasks only."
+  },
+  "stages": [
+    {
+      "task": 0,
+      "seen_classes": 10,
+      "accuracy": 0.3,
+      "task_accuracy": [
+        0.3,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "task_counts": [
+        30,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "evaluation_images": 30,
+      "prediction_space": "all_seen_classes_without_task_id",
+      "cnn_report": {
+        "grouped": {
+          "total": 30.0,
+          "00-09": 30.0,
+          "old": 0,
+          "new": 30.0
+        },
+        "top1": 30.0,
+        "top5": 70.0
+      },
+      "nme_report": null,
+      "evaluation_head": "cnn",
+      "heads": {
+        "cnn": {
+          "accuracy": 0.3,
+          "task_accuracy": [
+            0.3,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "task_counts": [
+            30,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "evaluation_images": 30
+        }
+      },
+      "extra_evaluation_pass_for_raw_matrix": false,
+      "extra_nme_evaluation_pass_for_raw_matrix": false,
+      "wall_seconds": 1.3936491534113884
+    },
+    {
+      "task": 1,
+      "seen_classes": 20,
+      "accuracy": 0.18333333333333332,
+      "task_accuracy": [
+        0.13333333333333333,
+        0.23333333333333334,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "task_counts": [
+        30,
+        30,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "evaluation_images": 60,
+      "prediction_space": "all_seen_classes_without_task_id",
+      "cnn_report": {
+        "grouped": {
+          "total": 18.33,
+          "00-09": 13.33,
+          "10-19": 23.33,
+          "old": 13.33,
+          "new": 23.33
+        },
+        "top1": 18.33,
+        "top5": 46.67
+      },
+      "nme_report": null,
+      "evaluation_head": "cnn",
+      "heads": {
+        "cnn": {
+          "accuracy": 0.18333333333333332,
+          "task_accuracy": [
+            0.13333333333333333,
+            0.23333333333333334,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "task_counts": [
+            30,
+            30,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "evaluation_images": 60
+        }
+      },
+      "extra_evaluation_pass_for_raw_matrix": false,
+      "extra_nme_evaluation_pass_for_raw_matrix": false,
+      "wall_seconds": 1.1357427053153515
+    }
+  ],
+  "evaluation_head": "cnn",
+  "metrics_by_head": {
+    "cnn": {
+      "final_accuracy": 0.18333333333333332,
+      "aia": 0.24166666666666664,
+      "forgetting_previous": 0.16666666666666666,
+      "forgetting_including_final": 0.16666666666666666,
+      "accuracy_matrix": [
+        [
+          0.3,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          0.13333333333333333,
+          0.23333333333333334,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "completed_tasks": 2,
+      "definition": "Fractions; AIA is mean stage sample-weighted all-seen accuracy; forgetting averages old tasks only."
+    }
+  },
+  "task_diagnostics": [
+    {
+      "task": 0,
+      "method": "er",
+      "training": {
+        "optimizer": "AdamW",
+        "schedule": "cosine_per_task",
+        "epochs": 1,
+        "optimizer_state_reset_per_task": true,
+        "optimizer_updates": 4,
+        "current_training_visits": 30,
+        "replay_training_visits": 0,
+        "loss_first": 3.401648998260498,
+        "loss_last": 3.74807071685791,
+        "loss_mean": 3.2224404215812683,
+        "backbone_gradient_l2_rms": 86.78413353204147,
+        "backbone_gradient_l2_max": 105.34503936767578,
+        "backbone_lr": 1e-05,
+        "head_lr": 0.001,
+        "batch_size": 8,
+        "replay_batch_size": 8
+      },
+      "unique_current_arrivals": 30,
+      "unique_fitting_images_seen": 30,
+      "completed_tasks": 1,
+      "seen_classes": 10,
+      "backbone_changed": true,
+      "backbone_sha256_before": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+      "backbone_sha256_after": "c34277d15c7c0b00f737ccb642e1f94bc30caae98c84b9908ff634edab965d8d",
+      "initial_backbone_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+      "backbone_provenance": {
+        "kind": "pretrained",
+        "timm_version": "0.6.12",
+        "checkpoint_family": "augreg_in21k_ft_in1k",
+        "public_weight_url": "https://storage.googleapis.com/vit_models/augreg/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+        "weight_file_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+        "initial_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+        "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63"
+      },
+      "ce_head_sha256": "e67a5ca1a83bf239d6f9726718d597c03168cfaf13e2780b0688208fd95f7d65",
+      "replay_images": 30,
+      "replay_selection": "herding",
+      "prediction_head": "trained CE linear head on raw CLS",
+      "prediction_space": "all seen classes without task ID or class-block mask",
+      "historical_statistics": "none",
+      "anchor_backbones": 0,
+      "resources": {
+        "deployment_backbone_parameter_bytes": 343194624,
+        "deployment_ce_head_bytes": 30760,
+        "training_frozen_anchor_parameter_bytes": 0,
+        "historical_statistics_bytes": 0,
+        "replay_raw_payload_bytes": 92640,
+        "inference_backbones": 1,
+        "training_backbones": 1
+      }
+    },
+    {
+      "task": 1,
+      "method": "er",
+      "training": {
+        "optimizer": "AdamW",
+        "schedule": "cosine_per_task",
+        "epochs": 1,
+        "optimizer_state_reset_per_task": true,
+        "optimizer_updates": 4,
+        "current_training_visits": 30,
+        "replay_training_visits": 32,
+        "loss_first": 3.6288750171661377,
+        "loss_last": 3.1977574825286865,
+        "loss_mean": 3.198696255683899,
+        "backbone_gradient_l2_rms": 59.33927930708146,
+        "backbone_gradient_l2_max": 63.694541931152344,
+        "backbone_lr": 1e-05,
+        "head_lr": 0.001,
+        "batch_size": 8,
+        "replay_batch_size": 8
+      },
+      "unique_current_arrivals": 30,
+      "unique_fitting_images_seen": 60,
+      "completed_tasks": 2,
+      "seen_classes": 20,
+      "backbone_changed": true,
+      "backbone_sha256_before": "c34277d15c7c0b00f737ccb642e1f94bc30caae98c84b9908ff634edab965d8d",
+      "backbone_sha256_after": "580ef6cea871528dae74f4ae01061452ca03e19ec2c6bf2f37780033d450908f",
+      "initial_backbone_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+      "backbone_provenance": {
+        "kind": "pretrained",
+        "timm_version": "0.6.12",
+        "checkpoint_family": "augreg_in21k_ft_in1k",
+        "public_weight_url": "https://storage.googleapis.com/vit_models/augreg/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+        "weight_file_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+        "initial_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+        "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63"
+      },
+      "ce_head_sha256": "df3192f5d90c5747eb18190ac030251a8b3ffbabc8b93e0dc94c6373d2f0e47d",
+      "replay_images": 60,
+      "replay_selection": "herding",
+      "prediction_head": "trained CE linear head on raw CLS",
+      "prediction_space": "all seen classes without task ID or class-block mask",
+      "historical_statistics": "none",
+      "anchor_backbones": 0,
+      "resources": {
+        "deployment_backbone_parameter_bytes": 343194624,
+        "deployment_ce_head_bytes": 61520,
+        "training_frozen_anchor_parameter_bytes": 0,
+        "historical_statistics_bytes": 0,
+        "replay_raw_payload_bytes": 185280,
+        "inference_backbones": 1,
+        "training_backbones": 1
+      }
+    }
+  ],
+  "backbone_provenance": {
+    "kind": "pretrained",
+    "timm_version": "0.6.12",
+    "checkpoint_family": "augreg_in21k_ft_in1k",
+    "public_weight_url": "https://storage.googleapis.com/vit_models/augreg/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+    "weight_file_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+    "initial_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+    "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63"
+  },
+  "execution": {
+    "torch": "2.7.1+cu128",
+    "numpy": "1.26.4",
+    "device_type": "cuda",
+    "random_stream_policy": "canonical_loader_isolated_v1",
+    "wall_seconds": 2.750445391982794,
+    "numeric_checkpoint_payload_bytes": 343256144,
+    "gpu_peak_allocated_bytes": 3765877248
+  }
+}

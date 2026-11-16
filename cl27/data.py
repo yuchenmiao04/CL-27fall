@@ -13,6 +13,7 @@ from torchvision.datasets import ImageFolder
 from utils.data import iCIFAR224, iImageNetR
 from utils.data_manager import DataManager
 from .common import file_hash
+from .pilot_imagenetr import validate_prepared_split
 
 
 def split_training(labels, fraction=0.1, seed=0):
@@ -89,6 +90,7 @@ class ProtocolDataManager(DataManager):
         phase = args.get("phase", "final")
         smoke = bool(args.get("smoke", False))
         folder_inventory = {}
+        prepared_split_report = None
         if phase not in {"final", "development", "smoke"}:
             raise ValueError("Unknown data phase")
         if smoke != (phase == "smoke") or smoke != (dataset_name == "synthetic"):
@@ -164,13 +166,17 @@ class ProtocolDataManager(DataManager):
             eval_images, eval_y, eval_hash, _, eval_mapping = loader("test")
             if eval_mapping != mapping:
                 raise ValueError("Train/test class-to-index mappings differ")
-            if folder_inventory and set(folder_inventory["train"]) & set(
-                folder_inventory["test"]
-            ):
-                raise ValueError(
-                    "Prepared ImageNet-R train/test splits contain identical image files"
-                )
             eval_ids = np.arange(len(eval_y)) + 10**9
+        if dataset_name == "imagenetr":
+            split_digests = {"train": source_hash}
+            if not development:
+                split_digests["test"] = eval_hash
+            prepared_split_report = validate_prepared_split(
+                args.get("prepared_split_overlap_policy", "reject"),
+                split_digests,
+                folder_inventory,
+                development,
+            )
         # Only explicitly marked validation jobs may restrict data per class.
         limit = args.get("validation_max_per_class")
         if limit is not None:
@@ -235,6 +241,8 @@ class ProtocolDataManager(DataManager):
             "normalization": "no additional pixel mean/std normalization",
             "class_mapping": mapping,
         }
+        if prepared_split_report is not None:
+            self.manifest["prepared_split_provenance"] = prepared_split_report
         self.manifest["fingerprint"] = hashlib.sha256(
             json.dumps(self.manifest, sort_keys=True).encode()
         ).hexdigest()

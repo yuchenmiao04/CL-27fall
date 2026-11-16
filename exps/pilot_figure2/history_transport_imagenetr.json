@@ -41,5 +41,6 @@
   "covariance_shrinkage": 0.1,
   "mean_shrinkage": 20.0,
   "crossfit_folds": 5,
-  "evaluation_head": "cnn"
+  "evaluation_head": "cnn",
+  "prepared_split_overlap_policy": "preserve_verified_pilot"
 }

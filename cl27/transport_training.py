@@ -7,6 +7,9 @@ Optimizer state resets for each call, i.e. each continual task or one Joint fit.
 
 from __future__ import annotations
 
+import json
+import time
+
 import numpy as np
 import torch
 from torch import nn
@@ -56,7 +59,10 @@ def adapt_backbone(backbone, head, current, replay, args, device, rng):
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=epochs)
     losses, updates, current_visits, replay_visits = [], 0, 0, 0
     gradient_squared, maximum_gradient = 0.0, 0.0
-    for _ in range(epochs):
+    for epoch in range(epochs):
+        epoch_started = time.perf_counter()
+        epoch_updates = updates
+        epoch_loss_start = len(losses)
         backbone.train()
         head.train()
         for _, images, labels in loader:
@@ -88,6 +94,23 @@ def adapt_backbone(backbone, head, current, replay, args, device, rng):
             updates += 1
             losses.append(float(loss.detach()))
         scheduler.step()
+        print(
+            json.dumps(
+                {
+                    "epoch_progress": True,
+                    "method": args.get("model_name", "history_transport"),
+                    "training": "supervised_backbone",
+                    "epoch": epoch + 1,
+                    "epochs": epochs,
+                    "loss_mean": float(np.mean(losses[epoch_loss_start:])),
+                    "optimizer_updates": updates - epoch_updates,
+                    "optimizer_updates_total": updates,
+                    "wall_seconds": time.perf_counter() - epoch_started,
+                },
+                allow_nan=False,
+            ),
+            flush=True,
+        )
     backbone.eval()
     head.eval()
     return {

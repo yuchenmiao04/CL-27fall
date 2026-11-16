@@ -1,0 +1,108 @@
+{
+  "accuracy_evaluation": false,
+  "autocast": false,
+  "backbone_lr": 1e-05,
+  "batches": [
+    {
+      "backbone_gradient_l2": [
+        31.444290161132812,
+        37.826908111572266,
+        48.89006042480469
+      ],
+      "backbone_provenance": {
+        "checkpoint_family": "augreg_in21k_ft_in1k",
+        "initial_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+        "kind": "pretrained",
+        "public_weight_url": "https://storage.googleapis.com/vit_models/augreg/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+        "timm_version": "0.6.12",
+        "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63",
+        "weight_file_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124"
+      },
+      "gpu_peak_allocated_bytes": 10452607488,
+      "gpu_peak_reserved_bytes": 10890510336,
+      "head_classes": 200,
+      "logical_batch_size": 64,
+      "parameter_count": 85952456,
+      "seconds_per_step": 0.2261344368259112,
+      "status": "complete",
+      "step_seconds": [
+        0.22478996962308884,
+        0.22604670375585556,
+        0.22756663709878922
+      ],
+      "synthetic_images_per_second": 283.0174868468626,
+      "synthetic_loss": [
+        4.596766471862793,
+        4.0649189949035645,
+        3.999398708343506
+      ],
+      "timed_steps": 3,
+      "trainable_parameter_count": 85952456,
+      "warmup_steps": 1
+    },
+    {
+      "backbone_gradient_l2": [
+        59.80509948730469,
+        38.52117156982422,
+        17.742542266845703
+      ],
+      "backbone_provenance": {
+        "checkpoint_family": "augreg_in21k_ft_in1k",
+        "initial_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+        "kind": "pretrained",
+        "public_weight_url": "https://storage.googleapis.com/vit_models/augreg/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+        "timm_version": "0.6.12",
+        "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63",
+        "weight_file_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124"
+      },
+      "gpu_peak_allocated_bytes": 19473771008,
+      "gpu_peak_reserved_bytes": 20233322496,
+      "head_classes": 200,
+      "logical_batch_size": 128,
+      "parameter_count": 85952456,
+      "seconds_per_step": 0.4547704681754112,
+      "status": "complete",
+      "step_seconds": [
+        0.4540212005376816,
+        0.4547776132822037,
+        0.4555125907063484
+      ],
+      "synthetic_images_per_second": 281.46066852922525,
+      "synthetic_loss": [
+        5.171250820159912,
+        4.802371501922607,
+        4.610377311706543
+      ],
+      "timed_steps": 3,
+      "trainable_parameter_count": 85952456,
+      "warmup_steps": 1
+    }
+  ],
+  "capacity_scope": "one plastic ViT plus CE head; no anchor or module library",
+  "compute_capability": [
+    12,
+    0
+  ],
+  "cuda": "12.8",
+  "dataset_access": false,
+  "device": 1,
+  "device_name": "NVIDIA GeForce RTX 5090",
+  "device_total_memory_bytes": 33670758400,
+  "head_lr": 0.001,
+  "hyperparameter_tuning": false,
+  "optimizer": "AdamW",
+  "planned_logical_batches": [
+    64,
+    128
+  ],
+  "precision": "float32",
+  "purpose": "synthetic GPU capacity and throughput only",
+  "seed": 1993,
+  "status": "complete",
+  "tf32": false,
+  "timed_steps": 3,
+  "timing_scope": "GPU-resident synthetic supervised steps; not end-to-end ETA",
+  "torch": "2.7.1+cu128",
+  "warmup_steps": 1,
+  "weight_decay": 0.0001
+}

@@ -1,0 +1,42 @@
+{
+  "status": "awaiting_tuning_data_decision",
+  "formal_completed": 0,
+  "formal_required": 12,
+  "seed": 1993,
+  "datasets": {
+    "cifar224": {
+      "stages": 10,
+      "new_classes_per_stage": 10,
+      "replay": "2000_total"
+    },
+    "imagenetr": {
+      "stages": 10,
+      "new_classes_per_stage": 20,
+      "replay": "20_per_class"
+    }
+  },
+  "methods": [
+    "shared_basis",
+    "history_transport",
+    "current_adapted",
+    "plastic_shared_basis",
+    "er",
+    "joint"
+  ],
+  "prepared": {
+    "server_gpu": "2x RTX 5090 32GB",
+    "environment": "environment.freeze.txt",
+    "server_campaign_root": "/root/autodl-tmp/cl27/campaign_20261117",
+    "server_source_root": "/root/autodl-tmp/cl27/source",
+    "server_python": "/root/cl27-env/bin/python",
+    "server_torch_home": "/root/autodl-tmp/cl27/torch",
+    "datasets_ready": true,
+    "unit_tests_passed": 204,
+    "cifar_genuine_vit_checks": 6,
+    "imagenetr_genuine_vit_checks": 6,
+    "both_gpu_capacity_probes_passed": true
+  },
+  "tuning_data_policy": null,
+  "official_test_used_for_hyperparameter_selection": false,
+  "agent_b_contacted": false
+}

@@ -1,0 +1,69 @@
+{
+  "completed": [
+    {
+      "accuracy_is_not_a_performance_claim": true,
+      "checks": [
+        {
+          "body_changed": true,
+          "fitting_images_committed": 30,
+          "heldout_images": 30,
+          "modules_changed": true,
+          "replay_images": 30,
+          "seen_classes": 10,
+          "task": 0
+        },
+        {
+          "body_changed": true,
+          "fitting_images_committed": 60,
+          "heldout_images": 60,
+          "modules_changed": true,
+          "replay_images": 60,
+          "seen_classes": 20,
+          "task": 1
+        }
+      ],
+      "limitation": "Protocol buffer2000 retains every old image in this small subset; missing-history transport is covered by separate core unit tests.",
+      "method": "current_adapted",
+      "pretrained": {
+        "checkpoint_family": "augreg_in21k_ft_in1k",
+        "initial_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+        "kind": "pretrained",
+        "public_weight_url": "https://storage.googleapis.com/vit_models/augreg/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+        "timm_version": "0.6.12",
+        "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63",
+        "weight_file_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124"
+      },
+      "status": "verified",
+      "transport_nonresident_branch_exercised": null,
+      "wall_seconds": 6.539094775915146
+    }
+  ],
+  "status": "verified",
+  "workload": {
+    "dataset_download": false,
+    "epochs": 1,
+    "fit_images_per_class": {
+      "current_adapted": 3
+    },
+    "fits_or_stages_by_method": {
+      "current_adapted": 2
+    },
+    "full_experiment": false,
+    "kind": "genuine_pretrained_pipeline_correctness_only",
+    "methods": [
+      "current_adapted"
+    ],
+    "new_classes_per_task": 10,
+    "note": "All retained replay is resident in this tiny subset; no missing-history transport test is claimed.",
+    "official_test_access": false,
+    "prepared_only": false,
+    "protocol_prefix_tasks": 2,
+    "train_holdout_images_per_class": {
+      "current_adapted": 3
+    },
+    "training_mode_by_method": {
+      "current_adapted": "class_incremental"
+    },
+    "weight_download_if_uncached": true
+  }
+}

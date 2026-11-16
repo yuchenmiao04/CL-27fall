@@ -1,0 +1,456 @@
+{
+  "status": "validation_partial",
+  "method": "history_transport",
+  "phase": "development",
+  "performance_claim": false,
+  "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63",
+  "config_fingerprint": "0eb0cecf566e2c57a266af3dc52953bb4969cc8f991343f55e61fa1c17d0e5f6",
+  "data_fingerprint": "2edbb274c28b847fe36adbeb8211a48e11f649a402c9614f19d7fbf684fdfb6f",
+  "metrics": {
+    "final_accuracy": 0.8,
+    "aia": 0.8666666666666667,
+    "forgetting_previous": 0.09999999999999998,
+    "forgetting_including_final": 0.09999999999999998,
+    "accuracy_matrix": [
+      [
+        0.9333333333333333,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        0.8333333333333334,
+        0.7666666666666667,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    ],
+    "completed_tasks": 2,
+    "definition": "Fractions; AIA is mean stage sample-weighted all-seen accuracy; forgetting averages old tasks only."
+  },
+  "stages": [
+    {
+      "task": 0,
+      "seen_classes": 10,
+      "accuracy": 0.9333333333333333,
+      "task_accuracy": [
+        0.9333333333333333,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "task_counts": [
+        30,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "evaluation_images": 30,
+      "prediction_space": "all_seen_classes_without_task_id",
+      "cnn_report": {
+        "grouped": {
+          "total": 93.33,
+          "00-09": 93.33,
+          "old": 0,
+          "new": 93.33
+        },
+        "top1": 93.33,
+        "top5": 96.67
+      },
+      "nme_report": null,
+      "evaluation_head": "cnn",
+      "heads": {
+        "cnn": {
+          "accuracy": 0.9333333333333333,
+          "task_accuracy": [
+            0.9333333333333333,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "task_counts": [
+            30,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "evaluation_images": 30
+        }
+      },
+      "extra_evaluation_pass_for_raw_matrix": false,
+      "extra_nme_evaluation_pass_for_raw_matrix": false,
+      "wall_seconds": 2.4300424195826054
+    },
+    {
+      "task": 1,
+      "seen_classes": 20,
+      "accuracy": 0.8,
+      "task_accuracy": [
+        0.8333333333333334,
+        0.7666666666666667,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "task_counts": [
+        30,
+        30,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "evaluation_images": 60,
+      "prediction_space": "all_seen_classes_without_task_id",
+      "cnn_report": {
+        "grouped": {
+          "total": 80.0,
+          "00-09": 83.33,
+          "10-19": 76.67,
+          "old": 83.33,
+          "new": 76.67
+        },
+        "top1": 80.0,
+        "top5": 95.0
+      },
+      "nme_report": null,
+      "evaluation_head": "cnn",
+      "heads": {
+        "cnn": {
+          "accuracy": 0.8,
+          "task_accuracy": [
+            0.8333333333333334,
+            0.7666666666666667,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "task_counts": [
+            30,
+            30,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "evaluation_images": 60
+        }
+      },
+      "extra_evaluation_pass_for_raw_matrix": false,
+      "extra_nme_evaluation_pass_for_raw_matrix": false,
+      "wall_seconds": 2.1412862055003643
+    }
+  ],
+  "evaluation_head": "cnn",
+  "metrics_by_head": {
+    "cnn": {
+      "final_accuracy": 0.8,
+      "aia": 0.8666666666666667,
+      "forgetting_previous": 0.09999999999999998,
+      "forgetting_including_final": 0.09999999999999998,
+      "accuracy_matrix": [
+        [
+          0.9333333333333333,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          0.8333333333333334,
+          0.7666666666666667,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "completed_tasks": 2,
+      "definition": "Fractions; AIA is mean stage sample-weighted all-seen accuracy; forgetting averages old tasks only."
+    }
+  },
+  "task_diagnostics": [
+    {
+      "task": 0,
+      "method": "history_transport",
+      "training": {
+        "optimizer": "AdamW",
+        "schedule": "cosine_per_task",
+        "epochs": 1,
+        "optimizer_state_reset_per_task": true,
+        "optimizer_updates": 4,
+        "current_training_visits": 30,
+        "replay_training_visits": 0,
+        "loss_first": 3.401648998260498,
+        "loss_last": 3.74807071685791,
+        "loss_mean": 3.2224404215812683,
+        "backbone_gradient_l2_rms": 86.78413353204147,
+        "backbone_gradient_l2_max": 105.34503936767578,
+        "backbone_lr": 1e-05,
+        "head_lr": 0.001,
+        "batch_size": 8,
+        "replay_batch_size": 8
+      },
+      "statistics": {
+        "task": 0,
+        "mode": "direct",
+        "residual": "class_conditional_psd",
+        "reference_moments": "exact initial encoder",
+        "current_arrivals": 30,
+        "historical_count_before": 0.0,
+        "replay_items": 0,
+        "nonresident_historical_count": 0.0,
+        "statistics_count": 30.0,
+        "classes": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "map_ridge": 0.01,
+        "weighted_reference_design_rank": 0,
+        "map_bias_column_error": 0.0,
+        "map_replay_r_squared": null,
+        "psd_checks": {
+          "current_gram": {
+            "min_eigenvalue_before_clip": -8.088531094942647e-15,
+            "absolute_roundoff_budget": 0.0,
+            "roundoff_clip_frobenius": 9.63358553811342e-15,
+            "negative_eigenvalues_clipped": 402
+          },
+          "classifier_centered_gram": {
+            "min_eigenvalue_before_clip": -6.560671617204078e-16,
+            "absolute_roundoff_budget": 0.0,
+            "roundoff_clip_frobenius": 1.5524558777977908e-15,
+            "negative_eigenvalues_clipped": 398
+          }
+        },
+        "residual_estimation": "not required",
+        "assumptions": [
+          "Missing within-class feature/residual cross covariance is modelled as zero, not proved by cross-fitting.",
+          "A pooled residual covariance approximates class-conditional uncertainty.",
+          "Replay can be model-dependent and is not asserted to be gradient-independent."
+        ]
+      },
+      "unique_current_arrivals": 30,
+      "arrival_id_min": 6,
+      "arrival_id_max": 431,
+      "backbone_changed": true,
+      "backbone_sha256_before": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+      "backbone_sha256_after": "c34277d15c7c0b00f737ccb642e1f94bc30caae98c84b9908ff634edab965d8d",
+      "anchor_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+      "anchor_frozen": true,
+      "replay_images": 30,
+      "replay_selection": "herding",
+      "transport_unbiasedness_claimed": false,
+      "residual_cross_covariance_zero_is_assumption": true,
+      "resources": {
+        "deployment_backbone_parameter_bytes": 343194624,
+        "deployment_analytic_head_bytes": 61520,
+        "training_frozen_anchor_parameter_bytes": 343194624,
+        "training_ce_head_bytes": 30760,
+        "historical_statistics_bytes": 14377304,
+        "replay_raw_payload_bytes": 92640,
+        "inference_backbones": 1,
+        "training_backbones": 2
+      }
+    },
+    {
+      "task": 1,
+      "method": "history_transport",
+      "training": {
+        "optimizer": "AdamW",
+        "schedule": "cosine_per_task",
+        "epochs": 1,
+        "optimizer_state_reset_per_task": true,
+        "optimizer_updates": 4,
+        "current_training_visits": 30,
+        "replay_training_visits": 32,
+        "loss_first": 3.6288750171661377,
+        "loss_last": 3.1977574825286865,
+        "loss_mean": 3.198696255683899,
+        "backbone_gradient_l2_rms": 59.33927930708146,
+        "backbone_gradient_l2_max": 63.694541931152344,
+        "backbone_lr": 1e-05,
+        "head_lr": 0.001,
+        "batch_size": 8,
+        "replay_batch_size": 8
+      },
+      "statistics": {
+        "task": 1,
+        "mode": "direct",
+        "residual": "class_conditional_psd",
+        "reference_moments": "exact initial encoder",
+        "current_arrivals": 30,
+        "historical_count_before": 30.0,
+        "replay_items": 30,
+        "nonresident_historical_count": 0.0,
+        "statistics_count": 60.0,
+        "classes": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ],
+        "map_ridge": 0.01,
+        "weighted_reference_design_rank": 0,
+        "map_bias_column_error": 0.0,
+        "map_replay_r_squared": 0.7736930930067237,
+        "psd_checks": {
+          "missing_reference": {
+            "reference_feature_rtol": 7.62939453125e-06,
+            "feature_error_frobenius_budget": 4.178791501856222e-05,
+            "gram_reencoding_absolute_budget": 0.0006473773433039093,
+            "class_sum_reencoding_absolute_budget": 0.0002288818368677544,
+            "subtraction_gram_frobenius": 2.3543346557619687e-07,
+            "zero_count_class_sum_correction_frobenius": 9.73277625338106e-08,
+            "zero_population": true
+          },
+          "current_gram": {
+            "min_eigenvalue_before_clip": -1.054242137021748e-14,
+            "absolute_roundoff_budget": 0.0,
+            "roundoff_clip_frobenius": 1.2475641404221488e-14,
+            "negative_eigenvalues_clipped": 384
+          },
+          "classifier_centered_gram": {
+            "min_eigenvalue_before_clip": -1.0370596260803736e-15,
+            "absolute_roundoff_budget": 0.0,
+            "roundoff_clip_frobenius": 2.538724424825934e-15,
+            "negative_eigenvalues_clipped": 386
+          }
+        },
+        "residual_estimation": "not required",
+        "assumptions": [
+          "Missing within-class feature/residual cross covariance is modelled as zero, not proved by cross-fitting.",
+          "A pooled residual covariance approximates class-conditional uncertainty.",
+          "Replay can be model-dependent and is not asserted to be gradient-independent."
+        ]
+      },
+      "unique_current_arrivals": 30,
+      "arrival_id_min": 18,
+      "arrival_id_max": 725,
+      "backbone_changed": true,
+      "backbone_sha256_before": "c34277d15c7c0b00f737ccb642e1f94bc30caae98c84b9908ff634edab965d8d",
+      "backbone_sha256_after": "580ef6cea871528dae74f4ae01061452ca03e19ec2c6bf2f37780033d450908f",
+      "anchor_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+      "anchor_frozen": true,
+      "replay_images": 60,
+      "replay_selection": "herding",
+      "transport_unbiasedness_claimed": false,
+      "residual_cross_covariance_zero_is_assumption": true,
+      "resources": {
+        "deployment_backbone_parameter_bytes": 343194624,
+        "deployment_analytic_head_bytes": 123040,
+        "training_frozen_anchor_parameter_bytes": 343194624,
+        "training_ce_head_bytes": 61520,
+        "historical_statistics_bytes": 14561944,
+        "replay_raw_payload_bytes": 185280,
+        "inference_backbones": 1,
+        "training_backbones": 2
+      }
+    }
+  ],
+  "backbone_provenance": {
+    "kind": "pretrained",
+    "timm_version": "0.6.12",
+    "checkpoint_family": "augreg_in21k_ft_in1k",
+    "public_weight_url": "https://storage.googleapis.com/vit_models/augreg/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+    "weight_file_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+    "initial_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+    "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63"
+  },
+  "execution": {
+    "torch": "2.7.1+cu128",
+    "numpy": "1.26.4",
+    "device_type": "cuda",
+    "random_stream_policy": "canonical_loader_isolated_v1",
+    "wall_seconds": 4.941781662404537,
+    "numeric_checkpoint_payload_bytes": 701012712,
+    "gpu_peak_allocated_bytes": 4109104640
+  }
+}

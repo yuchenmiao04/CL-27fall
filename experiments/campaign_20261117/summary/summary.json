@@ -1,0 +1,212 @@
+{
+  "schema_version": 1,
+  "runs_root": "/Users/miaoyuchen/持续学习/CL-27fall/experiments/campaign_20261117/correctness",
+  "selection_file": null,
+  "selection_policy": "explicit path for duplicates; never optimize selection against reported scores",
+  "seed": 1993,
+  "expected_results": 12,
+  "available_results": 0,
+  "metric_units": "fractions; Markdown multiplies accuracy by 100 and forgetting by 100 percentage points",
+  "rows": [
+    {
+      "dataset": "cifar224",
+      "method": "shared_basis",
+      "status": "missing",
+      "metrics": {
+        "final_accuracy": null,
+        "aia": null,
+        "forgetting_previous": null,
+        "forgetting_including_final": null
+      }
+    },
+    {
+      "dataset": "cifar224",
+      "method": "history_transport",
+      "status": "missing",
+      "metrics": {
+        "final_accuracy": null,
+        "aia": null,
+        "forgetting_previous": null,
+        "forgetting_including_final": null
+      }
+    },
+    {
+      "dataset": "cifar224",
+      "method": "current_adapted",
+      "status": "missing",
+      "metrics": {
+        "final_accuracy": null,
+        "aia": null,
+        "forgetting_previous": null,
+        "forgetting_including_final": null
+      }
+    },
+    {
+      "dataset": "cifar224",
+      "method": "plastic_shared_basis",
+      "status": "missing",
+      "metrics": {
+        "final_accuracy": null,
+        "aia": null,
+        "forgetting_previous": null,
+        "forgetting_including_final": null
+      }
+    },
+    {
+      "dataset": "cifar224",
+      "method": "er",
+      "status": "missing",
+      "metrics": {
+        "final_accuracy": null,
+        "aia": null,
+        "forgetting_previous": null,
+        "forgetting_including_final": null
+      }
+    },
+    {
+      "dataset": "cifar224",
+      "method": "joint",
+      "status": "missing",
+      "metrics": {
+        "final_accuracy": null,
+        "aia": null,
+        "forgetting_previous": null,
+        "forgetting_including_final": null
+      }
+    },
+    {
+      "dataset": "imagenetr",
+      "method": "shared_basis",
+      "status": "missing",
+      "metrics": {
+        "final_accuracy": null,
+        "aia": null,
+        "forgetting_previous": null,
+        "forgetting_including_final": null
+      }
+    },
+    {
+      "dataset": "imagenetr",
+      "method": "history_transport",
+      "status": "missing",
+      "metrics": {
+        "final_accuracy": null,
+        "aia": null,
+        "forgetting_previous": null,
+        "forgetting_including_final": null
+      }
+    },
+    {
+      "dataset": "imagenetr",
+      "method": "current_adapted",
+      "status": "missing",
+      "metrics": {
+        "final_accuracy": null,
+        "aia": null,
+        "forgetting_previous": null,
+        "forgetting_including_final": null
+      }
+    },
+    {
+      "dataset": "imagenetr",
+      "method": "plastic_shared_basis",
+      "status": "missing",
+      "metrics": {
+        "final_accuracy": null,
+        "aia": null,
+        "forgetting_previous": null,
+        "forgetting_including_final": null
+      }
+    },
+    {
+      "dataset": "imagenetr",
+      "method": "er",
+      "status": "missing",
+      "metrics": {
+        "final_accuracy": null,
+        "aia": null,
+        "forgetting_previous": null,
+        "forgetting_including_final": null
+      }
+    },
+    {
+      "dataset": "imagenetr",
+      "method": "joint",
+      "status": "missing",
+      "metrics": {
+        "final_accuracy": null,
+        "aia": null,
+        "forgetting_previous": null,
+        "forgetting_including_final": null
+      }
+    }
+  ],
+  "eligible_candidates": {
+    "cifar224/shared_basis": [],
+    "cifar224/history_transport": [],
+    "cifar224/current_adapted": [],
+    "cifar224/plastic_shared_basis": [],
+    "cifar224/er": [],
+    "cifar224/joint": [],
+    "imagenetr/shared_basis": [],
+    "imagenetr/history_transport": [],
+    "imagenetr/current_adapted": [],
+    "imagenetr/plastic_shared_basis": [],
+    "imagenetr/er": [],
+    "imagenetr/joint": []
+  },
+  "skipped_results": [
+    {
+      "path": "/Users/miaoyuchen/持续学习/CL-27fall/experiments/campaign_20261117/correctness/gpu_check_0/history_transport/results.json",
+      "reason": "not complete final-phase output"
+    },
+    {
+      "path": "/Users/miaoyuchen/持续学习/CL-27fall/experiments/campaign_20261117/correctness/gpu_check_0/plastic_shared_basis/results.json",
+      "reason": "not complete final-phase output"
+    },
+    {
+      "path": "/Users/miaoyuchen/持续学习/CL-27fall/experiments/campaign_20261117/correctness/gpu_check_0/shared_basis/results.json",
+      "reason": "not complete final-phase output"
+    },
+    {
+      "path": "/Users/miaoyuchen/持续学习/CL-27fall/experiments/campaign_20261117/correctness/gpu_check_1/current_adapted/results.json",
+      "reason": "not complete final-phase output"
+    },
+    {
+      "path": "/Users/miaoyuchen/持续学习/CL-27fall/experiments/campaign_20261117/correctness/gpu_check_1/er/results.json",
+      "reason": "not complete final-phase output"
+    },
+    {
+      "path": "/Users/miaoyuchen/持续学习/CL-27fall/experiments/campaign_20261117/correctness/gpu_check_1/joint/results.json",
+      "reason": "not complete final-phase output"
+    },
+    {
+      "path": "/Users/miaoyuchen/持续学习/CL-27fall/experiments/campaign_20261117/correctness/gpu_check_optimized_current/current_adapted/results.json",
+      "reason": "not complete final-phase output"
+    },
+    {
+      "path": "/Users/miaoyuchen/持续学习/CL-27fall/experiments/campaign_20261117/correctness/imagenetr_mechanics/current_adapted/results.json",
+      "reason": "not complete final-phase output"
+    },
+    {
+      "path": "/Users/miaoyuchen/持续学习/CL-27fall/experiments/campaign_20261117/correctness/imagenetr_mechanics/er/results.json",
+      "reason": "not complete final-phase output"
+    },
+    {
+      "path": "/Users/miaoyuchen/持续学习/CL-27fall/experiments/campaign_20261117/correctness/imagenetr_mechanics/history_transport/results.json",
+      "reason": "not complete final-phase output"
+    },
+    {
+      "path": "/Users/miaoyuchen/持续学习/CL-27fall/experiments/campaign_20261117/correctness/imagenetr_mechanics/joint/results.json",
+      "reason": "not complete final-phase output"
+    },
+    {
+      "path": "/Users/miaoyuchen/持续学习/CL-27fall/experiments/campaign_20261117/correctness/imagenetr_mechanics/plastic_shared_basis/results.json",
+      "reason": "not complete final-phase output"
+    },
+    {
+      "path": "/Users/miaoyuchen/持续学习/CL-27fall/experiments/campaign_20261117/correctness/imagenetr_mechanics/shared_basis/results.json",
+      "reason": "not complete final-phase output"
+    }
+  ]
+}

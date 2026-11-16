@@ -22,7 +22,9 @@
 
 原始旧图像预算与 batch 内回放量、epoch 数、全历史矩存储是不同维度。`shared_basis` 实际图像回放为 0；其余三条路线使用表中规则。当前阶段新类训练集不受历史图像配额限制。选样采用 PILOT 的归一化特征 herding，旧类按原选样顺序保留配额前缀。
 
-ImageNet-R 需采用 PILOT 链接的准备后划分，不能对原始数据任意重新划分。实现记录逐文件摘要与类名映射，检查 train/test 是否有内容完全相同的文件。这些可绑定本次输入，不能单独证明它与历史作者输入相同。尚未取得、运行或认证该准备版本时，须保留此限制。
+ImageNet-R 需采用 PILOT 链接的准备后划分，不能对原始数据任意重新划分。2026-11-17 从固定 README 的 OneDrive 分享链接取得 `imagenet-r.zip`，SHA256 为 `c2720edb18da7173b6cb6d9e9a65e18fb6f949f65d8cd10ac99df9003d8b055a`；train 24,000 张、test 6,000 张，各 200 类。压缩包保留原始 train/test 目录，逐图核验结果见 `experiments/campaign_20261117/imagenetr_source.json`。
+
+这个官方准备包本身包含 23 对跨 train/test 的字节相同图像，其中 3 对同类别、20 对不同类别。为保留选定 PILOT 协议，不去重或重新划分；正式结果需披露此源数据缺陷。默认策略仍拒绝重叠；六个主实验的 ImageNet-R 配置显式使用 `prepared_split_overlap_policy=preserve_verified_pilot`，只有实际读取的数据树中完整相对路径与文件 SHA 清单摘要、样本数量及已知重叠全部匹配 `cl27/pilot_imagenetr.py` 的核验值，才允许该例外。用户填写参考压缩包 SHA 不能绕过树身份检查。manifest 记录实际树摘要、策略、重复量与未去重事实；开发模式只读取并核验 train，跨划分观测量为 null。这证明使用了本次取得的官方链接准备包，不保证重建了每篇历史论文作者当时的输入。
 
 ## 3. 骨干、权重与预处理
 

@@ -47,5 +47,6 @@
   "basis_noise_variance": 1.0,
   "basis_max_iter": 20,
   "basis_tolerance": 1e-06,
-  "basis_reset_each_task": true
+  "basis_reset_each_task": true,
+  "prepared_split_overlap_policy": "preserve_verified_pilot"
 }

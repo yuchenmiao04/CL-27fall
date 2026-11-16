@@ -33,5 +33,6 @@
   "cpu_threads": 4,
   "save_checkpoints": true,
   "output_dir": "runs/joint_imagenetr_1993",
-  "evaluation_head": "cnn"
+  "evaluation_head": "cnn",
+  "prepared_split_overlap_policy": "preserve_verified_pilot"
 }

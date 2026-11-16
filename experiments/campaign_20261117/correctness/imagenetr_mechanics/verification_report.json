@@ -1,0 +1,75 @@
+{
+  "scope": "ImageNet-R 20-class stages; predefined mechanics settings, not hyperparameter selection",
+  "checks": [
+    {
+      "method": "shared_basis",
+      "status": "verified",
+      "phase": "development",
+      "classes": 40,
+      "fit_per_class": 3,
+      "holdout_per_class": 3,
+      "official_test_read": false,
+      "accuracy_is_not_performance_claim": true,
+      "wall_seconds": 3.966361179947853
+    },
+    {
+      "method": "history_transport",
+      "status": "verified",
+      "phase": "development",
+      "classes": 40,
+      "fit_per_class": 3,
+      "holdout_per_class": 3,
+      "official_test_read": false,
+      "accuracy_is_not_performance_claim": true,
+      "wall_seconds": 7.706995971500874
+    },
+    {
+      "method": "current_adapted",
+      "status": "verified",
+      "phase": "development",
+      "classes": 40,
+      "fit_per_class": 3,
+      "holdout_per_class": 3,
+      "official_test_read": false,
+      "accuracy_is_not_performance_claim": true,
+      "wall_seconds": 12.686383895576
+    },
+    {
+      "method": "plastic_shared_basis",
+      "status": "verified",
+      "phase": "development",
+      "classes": 40,
+      "fit_per_class": 3,
+      "holdout_per_class": 3,
+      "official_test_read": false,
+      "accuracy_is_not_performance_claim": true,
+      "wall_seconds": 9.2082614377141
+    },
+    {
+      "method": "er",
+      "status": "verified",
+      "phase": "development",
+      "classes": 40,
+      "fit_per_class": 3,
+      "holdout_per_class": 3,
+      "official_test_read": false,
+      "accuracy_is_not_performance_claim": true,
+      "wall_seconds": 5.237469259649515
+    },
+    {
+      "method": "joint",
+      "status": "verified",
+      "phase": "development",
+      "classes": 40,
+      "fit_per_class": 3,
+      "holdout_per_class": 3,
+      "official_test_read": false,
+      "accuracy_is_not_performance_claim": true,
+      "wall_seconds": 3.2050288282334805
+    }
+  ],
+  "limitations": [
+    "Two stages only; three fit images per class; no main-experiment performance evidence",
+    "All fitting images fit inside the prescribed buffer, so nonresident-history transport is covered separately by unit tests"
+  ]
+}

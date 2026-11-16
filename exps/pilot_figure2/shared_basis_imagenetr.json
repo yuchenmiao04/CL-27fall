@@ -33,5 +33,6 @@
   "basis_noise_variance": 1.0,
   "basis_max_iter": 20,
   "basis_tolerance": 1e-06,
-  "evaluation_head": "cnn"
+  "evaluation_head": "cnn",
+  "prepared_split_overlap_policy": "preserve_verified_pilot"
 }

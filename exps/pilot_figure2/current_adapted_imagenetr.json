@@ -52,5 +52,6 @@
   "background_shots": 5,
   "target_classes": 5,
   "query_per_class": 2,
-  "evaluation_head": "cnn"
+  "evaluation_head": "cnn",
+  "prepared_split_overlap_policy": "preserve_verified_pilot"
 }
