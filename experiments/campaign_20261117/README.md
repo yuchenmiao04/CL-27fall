@@ -56,7 +56,7 @@ python scripts/summarize_campaign.py --runs-root runs/campaign_20261117 --output
 - `correctness/imagenetr_mechanics/verification_report.json`：六方法 ImageNet-R 小规模检查通过，两个 20 类阶段、每类三张拟合和三张训练内留出图像；Joint 对相同 40 类并集拟合一次。
 - 上述检查使用预先声明的机械验证配置，未据准确率选参数；训练计数、支路更新及输出空间均已检查，正式测试集没有用于这些小规模检查。极小数据可全部装入回放池，非驻留历史分支仍由单元测试覆盖。
 - `correctness/imagenetr_full_data_manifest.json`：服务器实际完整官方数据树通过摘要核验，原始 train/test 仍为 24,000/6,000 张，观测到预期 23 对相同内容。
-- `correctness/pytest_postfix.log`：服务器新环境上的 204 项测试通过。
+- `correctness/pytest_postfix.txt`：服务器新环境上的 204 项测试通过。
 - `correctness/capacity_gpu_{0,1}.json`：两张卡的 FP32/TF32 关闭容量检查通过；单个可塑 ViT＋CE 头，逻辑 batch 64 约 0.226–0.228 秒/步、峰值分配 9.74 GiB；batch 128 约 0.455–0.462 秒/步、峰值分配 18.14 GiB。纯 GPU 合成数据测量不含加载、双支路、模块或统计求解，不能直接视为端到端速度或完整实验 ETA。
 
 这些记录均不替代正式十阶段实验；正式完成数仍为 0/12。HPO 来源确认后，按诊断动态安排候选，不能把这些机械检查当作已选定参数的证据。
