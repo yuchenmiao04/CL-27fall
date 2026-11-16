@@ -1,0 +1,40 @@
+{
+  "prefix": "reproduce",
+  "dataset": "imagenetr",
+  "memory_size": 4000,
+  "memory_per_class": 20,
+  "fixed_memory": true,
+  "shuffle": true,
+  "epochs": 20,
+  "init_cls": 20,
+  "increment": 20,
+  "sinkhorn": 0.464,
+  "calibration_term": 1.5,
+  "norm_term": 3.0,
+  "reg_term": 0.001,
+  "model_name": "coil",
+  "backbone_type": "vit_base_patch16_224",
+  "device": [
+    "0"
+  ],
+  "seed": [
+    1993
+  ],
+  "lrate": 0.001,
+  "milestones": [
+    80,
+    120
+  ],
+  "lrate_decay": 0.1,
+  "batch_size": 64,
+  "T": 2,
+  "cl27_protocol": "pilot_figure2",
+  "phase": "final",
+  "data_root": "data/imagenet-r",
+  "download": false,
+  "output_dir": "runs/pilot_coil_imagenetr_1993",
+  "num_workers": 0,
+  "cpu_threads": 4,
+  "cl27_source_config": "exps/coil_inr.json",
+  "evaluation_head": "cnn"
+}

@@ -1,0 +1,9 @@
+# Historical PILOT execution environment. Use Python 3.10.
+torch==2.0.1
+torchvision==0.15.2
+timm==0.6.12
+numpy==1.26.4
+scipy==1.13.1
+easydict==1.13
+tqdm==4.67.1
+Pillow==12.3.0

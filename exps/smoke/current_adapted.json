@@ -1,0 +1,57 @@
+{
+  "model_name": "current_adapted",
+  "cl27_protocol": "pilot_figure2",
+  "dataset": "synthetic",
+  "phase": "smoke",
+  "smoke": true,
+  "pretrained": false,
+  "seed": [
+    0
+  ],
+  "device": [
+    -1
+  ],
+  "init_cls": 2,
+  "increment": 2,
+  "shuffle": true,
+  "synthetic_classes": 6,
+  "synthetic_per_class": 12,
+  "image_size": 32,
+  "smoke_feature_dim": 24,
+  "smoke_depth": 3,
+  "validation_only": true,
+  "validation_fraction": 0.25,
+  "split_seed": 0,
+  "memory_size": 12,
+  "memory_per_class": 0,
+  "fixed_memory": false,
+  "replay_selection": "herding",
+  "epochs": 2,
+  "batch_size": 8,
+  "replay_batch_size": 8,
+  "eval_batch_size": 12,
+  "feature_batch_size": 8,
+  "num_workers": 0,
+  "cpu_threads": 2,
+  "backbone_type": "tiny",
+  "backbone_lr": 0.001,
+  "head_lr": 0.01,
+  "module_lr": 0.001,
+  "weight_decay": 0.0001,
+  "module_layers": [
+    0,
+    1
+  ],
+  "modules_per_layer": 2,
+  "module_rank": 2,
+  "outer_updates": 2,
+  "support_shots": [
+    1
+  ],
+  "background_shots": 1,
+  "target_classes": 1,
+  "query_per_class": 1,
+  "output_dir": "validation/runtime/current_adapted",
+  "save_checkpoints": true,
+  "evaluation_head": "cnn"
+}

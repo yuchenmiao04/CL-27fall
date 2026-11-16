@@ -1,0 +1,43 @@
+{
+  "prefix": "cil",
+  "dataset": "imagenetr",
+  "memory_size": 4000,
+  "memory_per_class": 20,
+  "fixed_memory": true,
+  "shuffle": true,
+  "init_cls": 20,
+  "increment": 20,
+  "model_name": "foster",
+  "backbone_type": "vit_base_patch16_224",
+  "device": [
+    "0"
+  ],
+  "seed": [
+    1993
+  ],
+  "beta1": 0.96,
+  "beta2": 0.97,
+  "oofc": "ft",
+  "is_teacher_wa": false,
+  "is_student_wa": false,
+  "lambda_okd": 1,
+  "wa_value": 1,
+  "init_epochs": 20,
+  "init_lr": 0.001,
+  "init_weight_decay": 0.0005,
+  "boosting_epochs": 20,
+  "compression_epochs": 20,
+  "lr": 0.001,
+  "batch_size": 32,
+  "weight_decay": 0.0005,
+  "num_workers": 0,
+  "T": 2,
+  "cl27_protocol": "pilot_figure2",
+  "phase": "final",
+  "data_root": "data/imagenet-r",
+  "download": false,
+  "output_dir": "runs/pilot_foster_imagenetr_1993",
+  "cpu_threads": 4,
+  "cl27_source_config": "exps/foster_inr.json",
+  "evaluation_head": "cnn"
+}

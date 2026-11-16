@@ -1,0 +1,39 @@
+{
+  "model_name": "shared_basis",
+  "cl27_protocol": "pilot_figure2",
+  "dataset": "synthetic",
+  "phase": "smoke",
+  "smoke": true,
+  "pretrained": false,
+  "seed": [
+    0
+  ],
+  "device": [
+    -1
+  ],
+  "init_cls": 2,
+  "increment": 2,
+  "shuffle": true,
+  "synthetic_classes": 6,
+  "synthetic_per_class": 12,
+  "image_size": 32,
+  "smoke_feature_dim": 24,
+  "smoke_depth": 3,
+  "validation_only": true,
+  "validation_fraction": 0.25,
+  "split_seed": 0,
+  "memory_size": 0,
+  "memory_per_class": 0,
+  "fixed_memory": false,
+  "replay_selection": "herding",
+  "eval_batch_size": 12,
+  "feature_batch_size": 8,
+  "num_workers": 0,
+  "cpu_threads": 2,
+  "backbone_type": "tiny",
+  "basis_rank": 2,
+  "basis_max_iter": 5,
+  "output_dir": "validation/runtime/shared_basis",
+  "save_checkpoints": true,
+  "evaluation_head": "cnn"
+}

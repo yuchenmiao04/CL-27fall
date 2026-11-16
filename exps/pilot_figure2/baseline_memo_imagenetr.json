@@ -1,0 +1,53 @@
+{
+  "prefix": "benchmark",
+  "dataset": "imagenetr",
+  "memory_size": 4000,
+  "memory_per_class": 20,
+  "fixed_memory": true,
+  "shuffle": true,
+  "init_cls": 20,
+  "increment": 20,
+  "model_name": "memo",
+  "backbone_type": "vit_base_patch16_224_memo",
+  "train_base": false,
+  "train_adaptive": false,
+  "debug": false,
+  "skip": false,
+  "device": [
+    "0"
+  ],
+  "seed": [
+    1993
+  ],
+  "scheduler": "steplr",
+  "init_epoch": 10,
+  "t_max": null,
+  "init_lr": 0.001,
+  "init_weight_decay": 0.0005,
+  "init_lr_decay": 0.1,
+  "init_milestones": [
+    60,
+    120,
+    170
+  ],
+  "milestones": [
+    80,
+    120,
+    150
+  ],
+  "epochs": 10,
+  "lrate": 0.001,
+  "batch_size": 32,
+  "weight_decay": 0.0002,
+  "lrate_decay": 0.1,
+  "alpha_aux": 1.0,
+  "cl27_protocol": "pilot_figure2",
+  "phase": "final",
+  "data_root": "data/imagenet-r",
+  "download": false,
+  "output_dir": "runs/pilot_memo_imagenetr_1993",
+  "num_workers": 0,
+  "cpu_threads": 4,
+  "cl27_source_config": "exps/memo_inr.json",
+  "evaluation_head": "cnn"
+}

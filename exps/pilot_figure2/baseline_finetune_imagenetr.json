@@ -1,0 +1,45 @@
+{
+  "prefix": "reproduce",
+  "dataset": "imagenetr",
+  "memory_size": 0,
+  "memory_per_class": 0,
+  "fixed_memory": false,
+  "shuffle": true,
+  "init_cls": 20,
+  "increment": 20,
+  "model_name": "finetune",
+  "backbone_type": "vit_base_patch16_224",
+  "device": [
+    "0"
+  ],
+  "seed": [
+    1993
+  ],
+  "init_epoch": 20,
+  "init_lr": 0.001,
+  "init_milestones": [
+    60,
+    120,
+    170
+  ],
+  "init_lr_decay": 0.1,
+  "init_weight_decay": 0.0005,
+  "epochs": 20,
+  "lrate": 0.001,
+  "milestones": [
+    40,
+    70
+  ],
+  "lrate_decay": 0.1,
+  "batch_size": 128,
+  "weight_decay": 0.0002,
+  "cl27_protocol": "pilot_figure2",
+  "phase": "final",
+  "data_root": "data/imagenet-r",
+  "download": false,
+  "output_dir": "runs/pilot_finetune_imagenetr_1993",
+  "num_workers": 0,
+  "cpu_threads": 4,
+  "cl27_source_config": "exps/finetune_inr.json",
+  "evaluation_head": "cnn"
+}

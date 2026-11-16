@@ -1,0 +1,37 @@
+{
+  "model_name": "shared_basis",
+  "cl27_protocol": "pilot_figure2",
+  "dataset": "cifar224",
+  "phase": "final",
+  "prefix": "cl27_initial_untuned",
+  "seed": [
+    1993
+  ],
+  "device": [
+    0
+  ],
+  "shuffle": true,
+  "init_cls": 10,
+  "increment": 10,
+  "backbone_type": "vit_base_patch16_224",
+  "pretrained": true,
+  "memory_size": 0,
+  "memory_per_class": 0,
+  "fixed_memory": false,
+  "replay_selection": "herding",
+  "data_root": "data",
+  "download": false,
+  "feature_normalization": "l2",
+  "feature_batch_size": 16,
+  "eval_batch_size": 64,
+  "num_workers": 0,
+  "cpu_threads": 4,
+  "save_checkpoints": true,
+  "output_dir": "runs/shared_basis_cifar224_1993",
+  "basis_rank": 32,
+  "basis_epsilon": 0.001,
+  "basis_noise_variance": 1.0,
+  "basis_max_iter": 20,
+  "basis_tolerance": 1e-06,
+  "evaluation_head": "cnn"
+}
