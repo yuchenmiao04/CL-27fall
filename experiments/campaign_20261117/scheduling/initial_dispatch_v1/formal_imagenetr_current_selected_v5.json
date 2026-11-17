@@ -1,0 +1,37 @@
+{
+  "jobs": [
+    {
+      "name": "formal_imagenetr_current_selected_v5",
+      "area": "formal",
+      "cwd": "remote_runtime/runtime_bounded_v4",
+      "command": [
+        "remote_python",
+        "main.py",
+        "--config",
+        "remote_runtime/campaign_20261117/formal/configs/formal_imagenetr_current_selected_v5.json"
+      ],
+      "environment": {
+        "CL27_CURRENT_FROZEN_PREFIX_REUSE": "1"
+      },
+      "metadata": {
+        "selection_decision": "D0054",
+        "gpu": 1,
+        "fresh_full_training_refit": true,
+        "expected_full_training_rows": 24000,
+        "selected_development_trial": "imagenetr_current_bounded64_full_v5",
+        "method_source_commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+        "prepared_only": false,
+        "launch_constraints": {
+          "required_predecessor": {
+            "job": "formal_cifar_er_fixed_v1",
+            "condition": "Natural successful completion and terminal original process identity; validate completion using status/stage count without consulting its accuracy for selection."
+          },
+          "placement": "Preferred physical/logical GPU1; this module method does not use a CE execution cache.",
+          "resources": "Run the current resource preflight before dispatch and reserve the measured module budget plus safety margin; prepared files do not authorize ignoring live jobs or VRAM.",
+          "enforcement": "Generic launch_jobs.py does not enforce these metadata guards; the scheduler must verify them immediately before launch."
+        },
+        "dispatch_authorized_utc": "2026-11-17T10:18:42.136847+00:00"
+      }
+    }
+  ]
+}

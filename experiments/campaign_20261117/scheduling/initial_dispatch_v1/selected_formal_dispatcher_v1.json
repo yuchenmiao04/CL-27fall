@@ -1,0 +1,25 @@
+{
+  "jobs": [
+    {
+      "name": "selected_formal_dispatcher_v1",
+      "area": "verification",
+      "cwd": "remote_runtime",
+      "command": [
+        "remote_python",
+        "remote_runtime/dispatch_selected_formal.py",
+        "--queue",
+        "remote_runtime/campaign_20261117/scheduling/selected_formal_queue_v1.json",
+        "--execute"
+      ],
+      "metadata": {
+        "execution_role": "operational_admission_control",
+        "formal_result_cell": false,
+        "read_only_observer_dependency": "nvidia-ml-py==13.615.71",
+        "approved_queue_sha256": "494b68fc6916b4c2149e3e678042b643a29b24d09d9acc27985b68b3786d0d18",
+        "dispatcher_sha256": "e091e0cabb2d01a10ec0414cba961d5ba3a3a811c2df674e8ffc0d35cdaa95f1",
+        "plan_all_five_waiting_dependency_verified": true,
+        "never_kill_or_restart_training": true
+      }
+    }
+  ]
+}

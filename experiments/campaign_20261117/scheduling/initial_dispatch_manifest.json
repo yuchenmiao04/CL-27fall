@@ -1,0 +1,65 @@
+{
+  "source_archive_sha256": "d71213bbbbdfa19d34bed3e2b76a2dabfd65032a799f75a5a94cb13d8cf9e12b",
+  "members": [
+    {
+      "source_name": "selected_formal_dispatcher_v1.json",
+      "source_sha256": "18f47ccf8340db188e26d1bccc761a0776e93e1efbf9ebc710ed60d7a3a710d7",
+      "published_sha256": "6db0c4bb230c5fdc28e2348cfc3115ed6987f300e8e108fa4fcb0fd8cb349078",
+      "scope": "Operational paths replaced; scientific parameters unchanged."
+    },
+    {
+      "source_name": "campaign_20261117/scheduling/selected_formal_queue_v1.json",
+      "source_sha256": "494b68fc6916b4c2149e3e678042b643a29b24d09d9acc27985b68b3786d0d18",
+      "published_sha256": "58cd186a1e833d09a860fa5f13cb041982d9b6c1dc411b1ac5a50ef27e195d3d",
+      "scope": "Operational paths replaced; scientific parameters unchanged."
+    },
+    {
+      "source_name": "campaign_20261117/scheduling/selected_formal_state_v1/events.jsonl",
+      "source_sha256": "c74fbcfc99f60b72f956d03feeada1ea608d50e2f5eac16d22eb29d2cb983230",
+      "published_sha256": "c74fbcfc99f60b72f956d03feeada1ea608d50e2f5eac16d22eb29d2cb983230",
+      "scope": "Operational paths replaced; scientific parameters unchanged."
+    },
+    {
+      "source_name": "campaign_20261117/verification/receipts/selected_formal_dispatcher_v1.json",
+      "source_sha256": "5017ff9a6cc88832d7bc9af5159be465babe7f4fae70c97640d2dc50304cc232",
+      "published_sha256": "93a4b660ba690d665c4e4922c9ebf0bb3abbd6ee7805a6a8bc03378c793019dc",
+      "scope": "Operational paths replaced; scientific parameters unchanged."
+    },
+    {
+      "source_name": "campaign_20261117/observer_environment_addition.json",
+      "source_sha256": "400b805fe8d38289d08cb31ac980c25162dc36d5758356567c8cd3816f59fe21",
+      "published_sha256": "400b805fe8d38289d08cb31ac980c25162dc36d5758356567c8cd3816f59fe21",
+      "scope": "Operational paths replaced; scientific parameters unchanged."
+    },
+    {
+      "source_name": "formal_cifar_transport_selected_v2.json",
+      "source_sha256": "274b9dd99213c122a27fcdce34bacdd55ffe2c973e58e4b6669ffc00faac5de7",
+      "published_sha256": "9f929565a1533950532d2230102e6ae0e323ed2f8cfb48b4335e574473073a63",
+      "scope": "Operational paths replaced; scientific parameters unchanged."
+    },
+    {
+      "source_name": "formal_cifar_plastic_shared_selected_v5.json",
+      "source_sha256": "d0cc69c456cac38e267fcc1ee34ff50f3a52de9e8976411fbbe54b6959cb476b",
+      "published_sha256": "ad2daa7ecc5637d791026e7d5ca43f467d12839a693e294b5e229a5be1508f96",
+      "scope": "Operational paths replaced; scientific parameters unchanged."
+    },
+    {
+      "source_name": "formal_imagenetr_transport_selected_v3.json",
+      "source_sha256": "10c06893ac71c505f40759dc4ebac525383c128bb8f335846aef615c51de1e0d",
+      "published_sha256": "1b438dbec3005809f8b0cfa888b3fa1d375ba84e445ad744be6b7a44cabbc09d",
+      "scope": "Operational paths replaced; scientific parameters unchanged."
+    },
+    {
+      "source_name": "formal_imagenetr_plastic_shared_selected_v5.json",
+      "source_sha256": "70a8fa924268f92500c5049446dd44b1c1b5bf4dcf83aa9837fe28b568f6a76c",
+      "published_sha256": "0cf88fd70faa44c860d3269a732216ff51d44fbb15435aba30ee70dfa92a5665",
+      "scope": "Operational paths replaced; scientific parameters unchanged."
+    },
+    {
+      "source_name": "formal_imagenetr_current_selected_v5.json",
+      "source_sha256": "fd416c97915b6edc133748ae61463b5b5688ab424f4ec1afd5fe1ecd379db6c2",
+      "published_sha256": "bb32befe32a5d5b74a1d41eb872f1d250076a80906fec135db09e0a82e059244",
+      "scope": "Operational paths replaced; scientific parameters unchanged."
+    }
+  ]
+}

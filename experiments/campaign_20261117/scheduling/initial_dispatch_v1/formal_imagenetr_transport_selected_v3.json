@@ -1,0 +1,31 @@
+{
+  "jobs": [
+    {
+      "name": "formal_imagenetr_transport_selected_v3",
+      "area": "formal",
+      "cwd": "remote_runtime/runtime_tuning_v1",
+      "command": [
+        "remote_python",
+        "scripts/run_ce_cohort.py",
+        "--replay-only",
+        "--configs",
+        "remote_runtime/campaign_20261117/formal/configs/formal_imagenetr_transport_selected_v3.json",
+        "--trajectory-dir",
+        "remote_runtime/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1",
+        "--report",
+        "remote_runtime/campaign_20261117/formal/cohorts/formal_imagenetr_transport_selected_v3.json"
+      ],
+      "metadata": {
+        "selection_decision": "D0048",
+        "gpu": 0,
+        "original_physical_and_logical_placement": true,
+        "requires_full_trajectory": true,
+        "fresh_full_training_refit": true,
+        "selected_development_trial": "imagenetr_transport_chained_map01_full_v3",
+        "fixed_er_configuration_reuse_identity": "d109f9c6aee82a9517cf884b27c81c44b7d0908b561092638c844383528cf3bb",
+        "prepared_only": false,
+        "dispatch_authorized_utc": "2026-11-17T10:18:42.136298+00:00"
+      }
+    }
+  ]
+}

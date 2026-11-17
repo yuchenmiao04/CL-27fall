@@ -1,0 +1,29 @@
+{
+  "jobs": [
+    {
+      "name": "formal_cifar_transport_selected_v2",
+      "area": "formal",
+      "cwd": "remote_runtime/runtime_tuning_v1",
+      "command": [
+        "remote_python",
+        "scripts/run_ce_cohort.py",
+        "--replay-only",
+        "--configs",
+        "remote_runtime/campaign_20261117/formal/configs/formal_cifar_transport_selected_v2.json",
+        "--trajectory-dir",
+        "remote_runtime/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1",
+        "--report",
+        "remote_runtime/campaign_20261117/formal/cohorts/formal_cifar_transport_selected_v2.json"
+      ],
+      "metadata": {
+        "decision": "D0043",
+        "gpu": 1,
+        "execution_role": "candidate_method",
+        "requires_complete_formal_ER_trajectory": true,
+        "development_result_sha256": "337eb45cd5292a76c76bf97c6ca53f15b3e6f1c4328a37c81592440fd1583557",
+        "prepared_only": false,
+        "dispatch_authorized_utc": "2026-11-17T10:18:42.135552+00:00"
+      }
+    }
+  ]
+}

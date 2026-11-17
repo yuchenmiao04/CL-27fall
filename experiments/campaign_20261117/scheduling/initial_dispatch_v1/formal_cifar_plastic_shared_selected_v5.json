@@ -1,0 +1,31 @@
+{
+  "jobs": [
+    {
+      "name": "formal_cifar_plastic_shared_selected_v5",
+      "area": "formal",
+      "cwd": "remote_runtime/runtime_tuning_v1",
+      "command": [
+        "remote_python",
+        "scripts/run_ce_cohort.py",
+        "--replay-only",
+        "--configs",
+        "remote_runtime/campaign_20261117/formal/configs/formal_cifar_plastic_shared_selected_v5.json",
+        "--trajectory-dir",
+        "remote_runtime/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1",
+        "--report",
+        "remote_runtime/campaign_20261117/formal/cohorts/formal_cifar_plastic_shared_selected_v5.json"
+      ],
+      "metadata": {
+        "selection_decision": "D0052",
+        "gpu": 1,
+        "original_physical_and_logical_placement": true,
+        "requires_full_trajectory": true,
+        "fresh_full_training_refit": true,
+        "selected_development_trial": "cifar_psb_chained_full_v4",
+        "fixed_er_configuration_reuse_identity": "3d1a8c23eacf562727c2c24c802000fb27910323b38f7373ecb2c4fc72238648",
+        "prepared_only": false,
+        "dispatch_authorized_utc": "2026-11-17T10:18:42.135997+00:00"
+      }
+    }
+  ]
+}

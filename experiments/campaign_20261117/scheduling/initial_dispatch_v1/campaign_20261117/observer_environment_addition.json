@@ -1,0 +1,31 @@
+{
+  "scope": "Read-only observer dependency; --no-deps. Training packages unchanged.",
+  "installed_utc": "2026-11-17T10:09:16.894846+00:00",
+  "nvidia-ml-py": "13.615.71",
+  "torch": "2.7.1+cu128",
+  "numpy": "1.26.4",
+  "timm": "0.6.12",
+  "unavailable_constant_exists": false,
+  "probe": [
+    {
+      "index": 0,
+      "name": "NVIDIA GeForce RTX 5090",
+      "used_mib": 31222,
+      "free_mib": 1384,
+      "pids": [
+        32112,
+        33284
+      ]
+    },
+    {
+      "index": 1,
+      "name": "NVIDIA GeForce RTX 5090",
+      "used_mib": 31000,
+      "free_mib": 1606,
+      "pids": [
+        25650,
+        25654
+      ]
+    }
+  ]
+}
