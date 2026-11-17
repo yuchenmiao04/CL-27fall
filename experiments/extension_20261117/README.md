@@ -39,6 +39,16 @@ earlier 15-/10-epoch partial runs are preserved and excluded from final results.
 Training uses immutable source directories. Checkpoints and their backup copies
 remain on their respective servers.
 
+Both servers were subsequently shut down accidentally and restarted. The four
+workers resumed in separate `recovery_20261118_v1` output directories from their
+last completed-stage checkpoints: stage counts 2/2 for the fixed-library runs
+and 4/6 for CIFAR-100/ImageNet-R TUNA. Only `resume` and `output_dir` change in
+the recovered configurations. The native loader restores model state, any
+persisted optimizers, stage histories, and Python/NumPy/CPU/CUDA RNG states.
+The interrupted stage is repeated from its preceding checkpoint; its unfinished
+updates are not added to the recovered model. The original output directories
+and retained checkpoint copies remain intact.
+
 ## Correctness evidence
 
 - `correctness/local_checks.json` records local native-fidelity, lifecycle,
@@ -77,3 +87,15 @@ The optional `--base-summary` imports the original twelve results unchanged,
 retaining separate 5-epoch and 20-epoch fixed-library rows.
 
 Formal results will be published only after those checks pass.
+
+Recovered runs additionally require `--recovery-manifest` in the backup and
+partition audit commands. Their retained checkpoint, exact saved stage prefix,
+RNG identity, permitted configuration differences and recovery completion seals
+are checked independently. The original manifest remains the scientific recipe
+authority.
+
+The recovered process's raw wall time and GPU peak describe only the resumed
+segment. The sum of all ten recorded stage durations includes retained and
+resumed stage loops, but excludes checkpoint I/O and discarded interrupted
+work. Complete uninterrupted-run wall time and peak memory cannot be inferred
+from the resumed process and are left unreported.

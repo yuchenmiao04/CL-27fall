@@ -5,6 +5,7 @@ import copy
 import hashlib
 import json
 from pathlib import Path
+import random
 from types import SimpleNamespace
 
 import numpy as np
@@ -332,3 +333,137 @@ def test_numeric_payload_count_deduplicates_objects_and_ignores_python_metadata(
     array = np.zeros(2, dtype=np.int16)
     assert backup.numeric_payload_bytes(dict(one=value, alias=value, array=array,
                                              metadata=[123456, 'not tensor bytes', 2.5])) == 28
+
+
+@pytest.fixture
+def recovered_fixture(tmp_path, monkeypatch):
+    """Use the real recovery preparer/validator with existing tiny queue fixtures."""
+    from test_resume_followup_after_reboot import fixture as prepare_fixture
+    from scripts import resume_followup_after_reboot as recovery
+    from scripts import run_followup_queue as queue
+    from cl27 import runner
+    f, base = prepare_fixture(tmp_path, monkeypatch)
+    data_by_name = {}
+    for job in recovery.GROUPS['current20']:
+        row = base.entries[job]
+        run = Path(row['output_dir'])
+        n, evaluation = (50000, 10000) if row['dataset'] == 'cifar224' else (24000, 6000)
+        data = dict(fingerprint=recovery.DATA_SHA[row['dataset']], phase='final',
+                    evaluation_source='designated_test', official_test_read=True,
+                    train_count=n, evaluation_count=evaluation)
+        data_by_name[row['dataset']] = data
+        save(run / 'data_manifest.json', data)
+        state = torch.load(run / 'checkpoint.pt', map_location='cpu', weights_only=False)
+        for stage in state['stages']:
+            stage.update(prediction_space='all_seen_classes_without_task_id', evaluation_images=evaluation)
+        state['rng'] = dict(python=random.Random(7).getstate(), numpy=np.random.RandomState(7).get_state(),
+                            torch=torch.Generator().manual_seed(7).get_state(),
+                            cuda=[torch.zeros(4, dtype=torch.uint8), torch.ones(4, dtype=torch.uint8)])
+        state['learner']['core'] = {'latent': torch.arange(3, dtype=torch.float64)}
+        torch.save(state, run / 'checkpoint.pt')
+        save(run / 'progress.json', dict(status='running', stages=state['stages']))
+    class DataManager:
+        def __init__(self, dataset, *args):
+            self.manifest = copy.deepcopy(data_by_name[dataset])
+    monkeypatch.setattr(recovery, '_context', lambda *args: (base, queue, runner, DataManager))
+    monkeypatch.setattr(backup, 'WEIGHT_SHA', backup.sha(f.cache))
+    recovery_path = recovery.prepare(f.path, 'current20', tmp_path / 'recovery')
+    manifest = recovery.read(recovery_path)
+    entry = next(row for row in manifest['jobs'] if row['job'] == JOB)
+    cfg = recovery.read(entry['config']['path'])
+    run = Path(entry['output_dir'])
+    save(run / 'config.json', dict(cfg, seed=1993, config=entry['config']['path']))
+    save(run / 'data_manifest.json', data_by_name['cifar224'])
+    parent = torch.load(cfg['resume'], map_location='cpu', weights_only=False)
+    state = copy.deepcopy(parent)
+    state['stages'] += [dict(task=i, seen_classes=10 * (i + 1), wall_seconds=3.25,
+                             prediction_space='all_seen_classes_without_task_id', evaluation_images=10000)
+                        for i in range(2, 10)]
+    state['learner'].update(cur_task=9, known_classes=100, total_classes=100, task_diagnostics=[{}] * 10)
+    torch.save(state, run / 'checkpoint.pt')
+    result = dict(status='complete', method='current_adapted', phase='final',
+                  stages=copy.deepcopy(state['stages']), metrics={'completed_tasks': 10},
+                  config_fingerprint=state['config_fingerprint'], data_fingerprint=state['data_fingerprint'],
+                  task_diagnostics=[{}] * 10, execution={'wall_seconds': 30.})
+    save(run / 'results.json', result)
+    receipt = dict(job=JOB, pid=12345, proc_start_ticks=67890, command=entry['command'],
+                    cwd=str(f.repo), gpu=0, source_commit=manifest['source_commit'],
+                    manifest_sha256=backup.sha(recovery_path), config_sha256=entry['config']['sha256'],
+                    source_inventory_sha256=hashlib.sha256(json.dumps(manifest['source_files_sha256'], sort_keys=True).encode()).hexdigest())
+    save(recovery_path.parent / 'receipts' / (JOB + '.json'), receipt)
+    seal = dict(job=JOB, original_process_state='absent', observed_exit_code=None,
+                 config_sha256=backup.sha(run / 'config.json'), result_sha256=backup.sha(run / 'results.json'),
+                 data_manifest_sha256=backup.sha(run / 'data_manifest.json'),
+                 recovery_manifest_sha256=backup.sha(recovery_path),
+                 lineage_sha256=recovery.canonical_sha(entry['lineage']),
+                 prefix_stages_sha256=entry['lineage']['prefix_stages_sha256'], saved_stage_count=2)
+    seal_path = recovery_path.parent / 'queue' / (JOB + '.complete.json')
+    save(seal_path, seal)
+    admitted = backup.admit(f.path, JOB, recovery_manifest_path=recovery_path, probe=lambda _pid: None)
+    return dict(root=tmp_path, base=f, path=recovery_path, run=run, state=state,
+                admission=admitted, lineage=entry['lineage'], seal_path=seal_path)
+
+
+def test_recovery_admission_requires_exact_lineage_and_binds_new_terminal_seal(recovered_fixture):
+    f = recovered_fixture
+    admitted = f['admission']
+    assert admitted['manifest_sha256'] == backup.sha(f['base'].path)
+    assert admitted['recovery_manifest_sha256'] == backup.sha(f['path'])
+    assert admitted['run_dir'] == f['run']
+    assert admitted['metadata']['config']['resume'] == f['lineage']['resume_checkpoint']['path']
+    with pytest.raises(ValueError, match='fresh complete stream'):
+        backup.metadata_guard(admitted['metadata'], validation_only=False)
+    seal = backup.read(f['seal_path'])
+    seal['lineage_sha256'] = 'wrong'
+    save(f['seal_path'], seal)
+    with pytest.raises(ValueError, match='bound to the original checkpoint lineage'):
+        backup.admit(f['base'].path, JOB, recovery_manifest_path=f['path'], probe=lambda _pid: None)
+
+
+def test_recovery_prefix_proof_reopens_pickle_and_compares_typed_stage_bits(recovered_fixture):
+    f = recovered_fixture
+    report = backup.recovery_prefix_proof(f['admission'], f['state'], comparator)
+    assert report['recovery_prefix_verified'] is True
+    assert report['saved_stage_count'] == 2 and report['recovery_prefix_ignored_paths'] == []
+    assert report['source_checkpoint_stages_sha256'] == report['restored_final_prefix_sha256'] == f['lineage']['prefix_stages_sha256']
+    assert report['original_checkpoint_sha256'] == report['resume_checkpoint_sha256'] == f['lineage']['source_checkpoint']['sha256']
+    assert report['recovery_execution_scope']['complete_lineage_training_cost_claimed'] is False
+    changed = copy.deepcopy(f['state'])
+    changed['stages'][0]['wall_seconds'] += 1e-12
+    with pytest.raises(ValueError, match='exact typed source prefix'):
+        backup.recovery_prefix_proof(f['admission'], changed, comparator)
+    changed = copy.deepcopy(f['state'])
+    changed['config_fingerprint'] = 'different science'
+    with pytest.raises(ValueError, match='config/data/RNG identity differs'):
+        backup.recovery_prefix_proof(f['admission'], changed, comparator)
+
+
+def test_recovery_backup_requires_pickle_prefix_proof_before_publication(recovered_fixture):
+    f = recovered_fixture
+    backup_root, evidence_root = f['root'] / 'backups', f['root'] / 'evidence'
+    with pytest.raises(ValueError, match='independent native pickle-prefix proof'):
+        backup.backup(f['admission'], backup_root, evidence_root, restore=lambda *args: {}, probe=lambda _pid: None)
+    assert not (backup_root / JOB).exists() and not (evidence_root / (JOB + '.json')).exists()
+    def restore(admission, checkpoint, loader):
+        state, _ = comparator.load_trusted_checkpoint(checkpoint)
+        return backup.recovery_prefix_proof(admission, state, comparator)
+    proof = backup.backup(f['admission'], backup_root, evidence_root, restore=restore, probe=lambda _pid: None)
+    assert proof['source_manifest_sha256'] == backup.sha(f['base'].path)
+    assert proof['recovery_manifest_sha256'] == backup.sha(f['path'])
+    assert proof['recovery_lineage'] == dict(
+        original_checkpoint_sha256=f['lineage']['source_checkpoint']['sha256'],
+        resume_checkpoint_sha256=f['lineage']['resume_checkpoint']['sha256'], saved_stage_count=2,
+        prefix_stages_sha256=f['lineage']['prefix_stages_sha256'], config_fingerprint=f['lineage']['config_fingerprint'],
+        data_fingerprint=f['lineage']['data_fingerprint'], random_stream_policy=f['lineage']['random_stream_policy'],
+        prefix_verified=True)
+    assert (backup_root / JOB / 'source_recovery_manifest.json').is_file()
+    assert proof['recovery_execution_scope']['wall_seconds'] == 30.
+
+
+def test_recovery_source_checkpoint_mutation_never_produces_native_prefix_proof(recovered_fixture):
+    f = recovered_fixture
+    snapshot = Path(f['lineage']['resume_checkpoint']['path'])
+    snapshot.chmod(0o644)
+    snapshot.write_bytes(b'changed retained checkpoint')
+    with pytest.raises(ValueError, match='checkpoint bytes changed'):
+        backup.recovery_prefix_proof(f['admission'], f['state'], comparator)

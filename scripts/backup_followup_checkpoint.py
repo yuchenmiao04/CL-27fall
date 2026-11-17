@@ -146,7 +146,7 @@ def terminal_process(receipt, *, probe=probe_process, seal=None, validation_only
                 observed_utc=utc())
 
 
-def metadata_guard(values, *, validation_only):
+def metadata_guard(values, *, validation_only, recovery=False):
     cfg, result, data = (values[name] for name in METADATA)
     need(cfg['model_name'] in {'current_adapted', 'tuna'} and cfg['dataset'] in {'cifar224', 'imagenetr'},
          'Only the two follow-up methods and two specified datasets are supported')
@@ -172,7 +172,12 @@ def metadata_guard(values, *, validation_only):
              and cfg.get('validation_only') is False
              and data['evaluation_source'] == 'designated_test' and data['official_test_read'] is True,
              'Only a complete final run can produce formal checkpoint evidence')
-        need(all(cfg.get(key) is None for key in ('resume', 'max_tasks', 'validation_max_per_class', 'joint_max_classes')),
+        forbidden = ('max_tasks', 'validation_max_per_class', 'joint_max_classes')
+        if recovery:
+            need(isinstance(cfg.get('resume'), str) and bool(cfg['resume']), 'Recovery must name its bound source checkpoint')
+        else:
+            forbidden += ('resume',)
+        need(all(cfg.get(key) is None for key in forbidden),
              'Formal follow-up must be a fresh complete stream')
         need(len(result['stages']) == result['metrics']['completed_tasks'] == 10, 'Formal stream is incomplete')
         n, evaluation = (50000, 10000) if cfg['dataset'] == 'cifar224' else (24000, 6000)
@@ -199,23 +204,47 @@ def source_guard(repo, inventory):
 
 
 def admit(manifest_path, job, *, validation_only=False, run_dir=None,
-          receipt_path=None, repo=None, pretrained_npz=None, probe=probe_process):
+          receipt_path=None, repo=None, pretrained_npz=None, probe=probe_process,
+          recovery_manifest_path=None):
     """Bind metadata to launch identity before copying any model payload."""
     need(isinstance(job, str) and job and Path(job).name == job and job not in {'.', '..'}, 'Invalid job name')
-    manifest = read(manifest_path) if manifest_path else None
-    manifest_digest = sha(manifest_path) if manifest_path else None
+    recovery_manifest, recovery_digest, recovery_entry = None, None, None
+    canonical_sha = None
+    if recovery_manifest_path is not None:
+        need(not validation_only, 'Recovery and validation-only modes are separate')
+        if __package__:
+            from .resume_followup_after_reboot import validate_recovery_manifest, canonical_sha
+        else:
+            from resume_followup_after_reboot import validate_recovery_manifest, canonical_sha
+        checked = validate_recovery_manifest(recovery_manifest_path)
+        recovery_manifest = checked['manifest']
+        recovery_manifest_path = Path(recovery_manifest_path).resolve(strict=True)
+        recovery_digest = sha(recovery_manifest_path)
+        original = recovery_manifest['source_manifest']
+        if manifest_path is not None:
+            need(Path(manifest_path).resolve(strict=True) == Path(original['path']).resolve(strict=True)
+                 and sha(manifest_path) == original['sha256'], 'Recovery selected manifest differs from explicit original')
+        manifest_path = Path(original['path'])
+        manifest = checked['source_manifest']
+        manifest_digest = original['sha256']
+        rows = [entry for entry in recovery_manifest['jobs'] if entry['job'] == job]
+        need(len(rows) == 1, 'Recovery does not declare this exact job')
+        recovery_entry = rows[0]
+    else:
+        manifest = read(manifest_path) if manifest_path else None
+        manifest_digest = sha(manifest_path) if manifest_path else None
     row, seal, inventory = None, None, None
     if not validation_only:
         need(manifest is not None and job in FORMAL_JOBS, 'Formal backup requires a prepared manifest and requested job')
         rows = [r for r in manifest['jobs'] if r['job'] == job]
         need(len(rows) == 1, 'Missing or ambiguous manifest job')
-        row = rows[0]
+        row = recovery_entry or rows[0]
         need((row['dataset'], row['method'], row['comparison_variant']) == FORMAL_JOBS[job], 'Manifest job identity differs')
-        root = Path(manifest['campaign_root']).resolve(strict=True)
+        root = (recovery_manifest_path.parent if recovery_entry else Path(manifest['campaign_root'])).resolve(strict=True)
         repo = Path(manifest['repo']).resolve(strict=True)
         run_dir = Path(row['output_dir']).resolve(strict=True)
-        need(run_dir == root / 'formal/runs' / job, 'Manifest output escaped its campaign')
-        receipt_path = root / 'formal/receipts' / (job + '.json')
+        need(run_dir == root / ('runs' if recovery_entry else 'formal/runs') / job, 'Manifest output escaped its campaign')
+        receipt_path = root / ('receipts' if recovery_entry else 'formal/receipts') / (job + '.json')
         seal = read(root / 'queue' / (job + '.complete.json'))
         pretrained_npz = Path(manifest['pretrained_npz']['path'])
         need(manifest['pretrained_npz']['sha256'] == WEIGHT_SHA, 'Manifest weight identity differs')
@@ -233,9 +262,9 @@ def admit(manifest_path, job, *, validation_only=False, run_dir=None,
     need(launch_repo is not None and Path(launch_repo).resolve(strict=True) == repo, 'Launch source root differs')
     values = {name: read(run_dir / (name + '.json')) for name in METADATA}
     digests = {name: sha(run_dir / (name + '.json')) for name in METADATA}
-    metadata_guard(values, validation_only=validation_only)
+    metadata_guard(values, validation_only=validation_only, recovery=recovery_entry is not None)
     if row is not None:
-        need(receipt['manifest_sha256'] == manifest_digest
+        need(receipt['manifest_sha256'] == (recovery_digest or manifest_digest)
              and receipt['config_sha256'] == row['config']['sha256']
              and receipt['command'] == row['command']
              and receipt['gpu'] == row['gpu']
@@ -248,6 +277,15 @@ def admit(manifest_path, job, *, validation_only=False, run_dir=None,
         need(saved == declared, 'Saved configuration differs from prepared recipe')
         need(seal['config_sha256'] == digests['config'] and seal['result_sha256'] == digests['results']
              and seal['data_manifest_sha256'] == digests['data_manifest'], 'Queue completion metadata changed')
+        if recovery_entry is not None:
+            lineage = recovery_entry['lineage']
+            need(seal.get('recovery_manifest_sha256') == recovery_digest
+                 and seal.get('lineage_sha256') == canonical_sha(lineage)
+                 and seal.get('prefix_stages_sha256') == lineage['prefix_stages_sha256']
+                 and seal.get('saved_stage_count') == lineage['saved_stage_count'],
+                 'Recovery completion seal is not bound to the original checkpoint lineage')
+            need(values['results']['stages'][:lineage['saved_stage_count']] == lineage['prefix_stages'],
+                 'Final results did not preserve the exact declared source-checkpoint prefix')
     else:
         if receipt.get('output_dir') is not None:
             need(Path(receipt['output_dir']).resolve(strict=True) == run_dir, 'Validation output path differs')
@@ -270,6 +308,9 @@ def admit(manifest_path, job, *, validation_only=False, run_dir=None,
                 receipt_sha256=receipt_digest,
                 seal=seal, manifest_path=Path(manifest_path) if manifest_path else None,
                 manifest_sha256=manifest_digest, source_inventory=inventory,
+                recovery_manifest_path=recovery_manifest_path if recovery_entry else None,
+                recovery_manifest_sha256=recovery_digest,
+                recovery_lineage=copy.deepcopy(recovery_entry['lineage']) if recovery_entry else None,
                 metadata=values, metadata_sha256=digests, pretrained_npz=pretrained_npz,
                 checkpoint=checkpoint, checkpoint_sha256=sha(checkpoint),
                 checkpoint_bytes=checkpoint.stat().st_size, source_terminal=terminal)
@@ -487,6 +528,89 @@ def restored_resources(model, method):
                 measurement_scope='Measured from actual CPU-restored completed-task objects; logical tensor payloads and source-image sizes, not matched compute, training FLOPs, wall time, or peak resident memory')
 
 
+def recovery_input_guard(admission):
+    lineage = admission.get('recovery_lineage')
+    if lineage is None:
+        return
+    need(sha(admission['recovery_manifest_path']) == admission['recovery_manifest_sha256'],
+         'Recovery manifest changed during native audit')
+    need(sha(admission['manifest_path']) == admission['manifest_sha256'],
+         'Original selected manifest changed during recovery audit')
+    for name in ('source_checkpoint', 'resume_checkpoint'):
+        record = lineage[name]
+        path = Path(record['path'])
+        need(path.is_file() and path.stat().st_size == record['bytes']
+             and sha(path) == record['sha256'], 'Recovery checkpoint bytes changed: ' + name)
+    need(lineage['source_checkpoint']['sha256'] == lineage['resume_checkpoint']['sha256'],
+         'Recovery source and immutable resume copy differ')
+
+
+def recovery_prefix_proof(admission, state, comparator):
+    """Independently reopen the retained source checkpoint, not only its JSON."""
+    lineage = admission.get('recovery_lineage')
+    if lineage is None:
+        return {}
+    import numpy as np
+    import torch
+    from cl27.common import jsonable
+    recovery_input_guard(admission)
+    source, digest = comparator.load_trusted_checkpoint(Path(lineage['resume_checkpoint']['path']))
+    need(digest == lineage['source_checkpoint']['sha256'] == lineage['resume_checkpoint']['sha256'],
+         'Loaded recovery source checkpoint SHA differs')
+    count = lineage['saved_stage_count']
+    need(type(count) is int and 0 < count < 10 and len(source['stages']) == count,
+         'Recovery source is not the declared partial completed-task boundary')
+    cfg, result = admission['metadata']['config'], admission['metadata']['results']
+    need(source['config_fingerprint'] == state['config_fingerprint'] == lineage['config_fingerprint']
+         and source['data_fingerprint'] == state['data_fingerprint'] == lineage['data_fingerprint']
+         and source['random_stream_policy'] == state['random_stream_policy'] == lineage['random_stream_policy'],
+         'Recovery checkpoint/config/data/RNG identity differs')
+    parent = source['learner']
+    need(parent['method'] == cfg['model_name'] and parent['cur_task'] == count - 1
+         and parent['known_classes'] == parent['total_classes'] == cfg['init_cls'] + (count - 1) * cfg['increment']
+         and len(parent['task_diagnostics']) == count, 'Recovery source learner boundary differs')
+    canonical_sha = lambda value: hashlib.sha256(json.dumps(
+        value, sort_keys=True, separators=(',', ':'), allow_nan=False).encode()).hexdigest()
+    source_json = jsonable(source['stages'])
+    need(source_json == lineage['prefix_stages']
+         and canonical_sha(source_json) == lineage['prefix_stages_sha256'],
+         'Recovery source pickle stages disagree with the declared JSON prefix')
+    final_prefix = state['stages'][:count]
+    comparison = comparator.Comparison()
+    comparison.walk(source['stages'], final_prefix, ('recovery_prefix',))
+    need(not comparison.differences and not comparison.ignored_paths,
+         'Final checkpoint changed the exact typed source prefix: ' + json.dumps(comparison.differences[:3]))
+    need(jsonable(final_prefix) == result['stages'][:count] == source_json,
+         'Recovery checkpoint and final JSON prefix differ')
+    # Validate the retained RNG bytes on independent CPU generators only. The
+    # launch/runner restores these for training; this audit never applies CUDA.
+    rng = source['rng']
+    random.Random().setstate(rng['python'])
+    np.random.RandomState().set_state(rng['numpy'])
+    torch.Generator(device='cpu').set_state(rng['torch'])
+    need(isinstance(rng['cuda'], list) and len(rng['cuda']) == 2
+         and all(isinstance(value, torch.Tensor) and value.device.type == 'cpu'
+                 and value.dtype == torch.uint8 and value.numel() > 0 for value in rng['cuda']),
+         'Recovery source must retain both logical CUDA RNG payloads')
+    final_sha = canonical_sha(jsonable(final_prefix))
+    need(final_sha == lineage['prefix_stages_sha256'], 'Restored final prefix hash differs')
+    return dict(recovery_prefix_verified=True,
+                source_checkpoint_stages_sha256=lineage['prefix_stages_sha256'],
+                restored_final_prefix_sha256=final_sha, saved_stage_count=count,
+                recovery_prefix_compared_nodes=comparison.compared_nodes,
+                recovery_prefix_ignored_paths=[],
+                source_checkpoint_prefix_semantic_sha256=comparator.hash_state(source['stages'], ('recovery_prefix',)).hex(),
+                source_checkpoint_rng_semantic_sha256=comparator.hash_state(rng, ('rng',)).hex(),
+                original_checkpoint_sha256=lineage['source_checkpoint']['sha256'],
+                resume_checkpoint_sha256=lineage['resume_checkpoint']['sha256'],
+                recovery_execution_scope={
+                    'wall_seconds': result['execution']['wall_seconds'],
+                    'wall_seconds_scope': 'Resumed segment only, timed by the unchanged runner after restoration; earlier prefix stages retain their original stage timers',
+                    'gpu_peak_scope': 'Resumed process only, after its CUDA peak reset; not a whole-lineage peak',
+                    'interrupted_uncheckpointed_work_cost_reconstructed': False,
+                    'complete_lineage_training_cost_claimed': False})
+
+
 def native_restore(admission, checkpoint, comparator_path):
     """Instantiate the exact method on CPU and compare every persisted leaf."""
     os.environ['CUDA_VISIBLE_DEVICES'] = ''
@@ -511,6 +635,7 @@ def native_restore(admission, checkpoint, comparator_path):
     need(state['config_fingerprint'] == result['config_fingerprint'] == configuration_fingerprint(cfg),
          'Saved configuration fingerprint differs')
     need(state['data_fingerprint'] == result['data_fingerprint'] == saved_manifest['fingerprint'], 'Data fingerprint differs')
+    recovery_proof = recovery_prefix_proof(admission, state, comparator)
     # Parse global RNG snapshots on independent CPU generators only. Do not call
     # runner.restore_rng: it would apply CUDA states and this is a CPU audit.
     rng = state['rng']
@@ -622,6 +747,7 @@ def native_restore(admission, checkpoint, comparator_path):
              'Imported native source was absent from the prebound inventory')
     resources = restored_resources(model, cfg['model_name'])
     return dict(native_cpu_restore_executed=True, **comparison,
+                **recovery_proof,
                 actual_training_rows=int(expected_counts.sum()), actual_seen_classes=seen,
                 source_data_manifest_rebuilt=True, source_training_arrivals_verified=True,
                 native_optimizer_parameter_bindings=optimizer_bindings,
@@ -657,12 +783,24 @@ def backup(admission, backup_root, evidence_root, *, validation_only=False,
             atomic_copy(admission['receipt_path'], temporary / 'source_receipt.json', admission['receipt_sha256'])
             if admission['manifest_path']:
                 atomic_copy(admission['manifest_path'], temporary / 'source_manifest.json', admission['manifest_sha256'])
+            if admission.get('recovery_manifest_path') is not None:
+                recovery_input_guard(admission)
+                atomic_copy(admission['recovery_manifest_path'], temporary / 'source_recovery_manifest.json', admission['recovery_manifest_sha256'])
+                write_new_json(temporary / 'source_recovery_lineage.json', admission['recovery_lineage'])
             if admission['seal'] is not None:
                 write_new_json(temporary / 'source_completion_seal.json', admission['seal'])
             atomic_copy(admission['checkpoint'], temporary / 'checkpoint.pt', admission['checkpoint_sha256'])
             comparator_path = Path(comparator_path or Path(__file__).with_name('compare_checkpoint_state.py')).resolve(strict=True)
             report = restore(admission, temporary / 'checkpoint.pt', comparator_path)
+            if admission.get('recovery_lineage') is not None:
+                lineage = admission['recovery_lineage']
+                need(report.get('recovery_prefix_verified') is True
+                     and report.get('saved_stage_count') == lineage['saved_stage_count']
+                     and report.get('source_checkpoint_stages_sha256') == report.get('restored_final_prefix_sha256') == lineage['prefix_stages_sha256']
+                     and isinstance(report.get('recovery_execution_scope'), dict),
+                     'Recovery evidence requires the independent native pickle-prefix proof')
             after = terminal_process(admission['receipt'], probe=probe, seal=admission['seal'], validation_only=validation_only)
+            recovery_input_guard(admission)
             need(all(sha(admission['run_dir'] / (name + '.json')) == value for name, value in admission['metadata_sha256'].items())
                  and sha(admission['checkpoint']) == admission['checkpoint_sha256']
                  and sha(admission['receipt_path']) == admission['receipt_sha256'], 'Terminal source files changed during audit')
@@ -688,6 +826,18 @@ def backup(admission, backup_root, evidence_root, *, validation_only=False,
                            restore_report_sha256=sha(destination / 'native_restore.json'),
                            auditor_sha256=sha(Path(__file__)), audit_wall_seconds=time.perf_counter() - began,
                            created_utc=utc())
+            if admission.get('recovery_lineage') is not None:
+                lineage = admission['recovery_lineage']
+                payload['recovery_manifest_sha256'] = admission['recovery_manifest_sha256']
+                payload['recovery_lineage'] = dict(
+                    original_checkpoint_sha256=lineage['source_checkpoint']['sha256'],
+                    resume_checkpoint_sha256=lineage['resume_checkpoint']['sha256'],
+                    saved_stage_count=lineage['saved_stage_count'],
+                    prefix_stages_sha256=lineage['prefix_stages_sha256'],
+                    config_fingerprint=lineage['config_fingerprint'],
+                    data_fingerprint=lineage['data_fingerprint'],
+                    random_stream_policy=lineage['random_stream_policy'], prefix_verified=True)
+                payload['recovery_execution_scope'] = report['recovery_execution_scope']
             need(payload['checkpoint_sha256'] == payload['backup_sha256'], 'Final backup identity differs')
             write_new_json(evidence, payload)
             return payload
@@ -699,6 +849,8 @@ def backup(admission, backup_root, evidence_root, *, validation_only=False,
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--manifest', type=Path)
+    parser.add_argument('--recovery-manifest', type=Path,
+                        help='Explicit validated reboot recovery; original manifest remains authoritative')
     parser.add_argument('--job', required=True)
     parser.add_argument('--backup-root', required=True, type=Path)
     parser.add_argument('--evidence-root', required=True, type=Path)
@@ -711,7 +863,7 @@ def main():
     args = parser.parse_args()
     admission = admit(args.manifest, args.job, validation_only=args.validation_only,
                       run_dir=args.run_dir, receipt_path=args.receipt, repo=args.repo,
-                      pretrained_npz=args.pretrained_npz)
+                      pretrained_npz=args.pretrained_npz, recovery_manifest_path=args.recovery_manifest)
     result = backup(admission, args.backup_root, args.evidence_root,
                     validation_only=args.validation_only, comparator_path=args.state_loader)
     print(json.dumps(dict(job=result['job'], native_restore_verified=True,

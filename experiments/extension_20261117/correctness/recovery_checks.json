@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "observed_utc": "2026-11-17T19:24:19.091647+00:00",
+  "scope": "Task-boundary recovery controller, native backup, recovery-aware metric auditing; no scientific training changes.",
+  "training_source_commit": "a006566923b1c9e5c981c58c615cdcd7c9dac3fa",
+  "local_checks": {
+    "command": "../.venv-pilot/bin/python -m pytest -q tests/test_followup_checkpoint_backup.py tests/test_resume_followup_after_reboot.py tests/test_followup_partition.py tests/test_prepare_tuna_epochs20.py tests/test_tuna_protocol.py tests/test_followup_queue.py tests/test_followup_audit.py",
+    "passed": 197,
+    "warnings": 5,
+    "warning_scope": "Pinned native TUNA tensor construction and an empty-group metric in the reduced correctness fixture."
+  },
+  "source_sha256": {
+    "scripts/resume_followup_after_reboot.py": "55cc2a6c9ae9620327912050daa630b35ba2f3658ca001e505219fa01f35ca85",
+    "scripts/backup_followup_checkpoint.py": "c28ef14c2deb7fc98bdcee738842e14c84a269881d6b0d13c421b17e9d45d34d",
+    "scripts/audit_followup_campaign.py": "ae30b86235b9417f2fbacf65066bc2949bb6d5e4915dd1f6bd173246e5006c03"
+  },
+  "remote_preflight": {
+    "current20": "Passed recovery admission with --allow-incomplete; 0 completed endpoints while both workers run.",
+    "tuna": "Passed recovery admission with --allow-incomplete; 0 completed endpoints while both workers run."
+  },
+  "formal_performance_claim": false
+}

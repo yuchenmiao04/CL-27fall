@@ -391,6 +391,7 @@ def completed_campaign_fixture(tmp_path, monkeypatch):
             gpu = 0 if dataset == "cifar224" else 1
             entries.append({"job": job, "dataset": dataset, "method": method,
                             "gpu": gpu,
+                            "environment": {},
                             "comparison_variant": prepared["comparison_variant"], "output_dir": str(run),
                             "config": {"path": str(prepared_path), "sha256": audit.sha(prepared_path)}})
             configs[job] = prepared
@@ -398,6 +399,7 @@ def completed_campaign_fixture(tmp_path, monkeypatch):
             evidence_rows.append((job, evidence))
     manifest = {"version": 1, "jobs": entries, "source_files_sha256": sources,
                 "campaign_root": str(tmp_path), "python": "/env/python", "repo": str(REPO),
+                "environment": {},
                 "source_commit": "b" * 40, "pretrained_npz": {"sha256": audit.NPZ_SHA}}
     path = tmp_path / "manifest.json"
     write(path, manifest)
@@ -459,6 +461,101 @@ def tuna20_campaign_fixture(base_path, base_evidence_root):
         evidence = audit.read(evidence_path)
         evidence["source_manifest_sha256"] = audit.sha(path)
         write(evidence_path, evidence)
+    return path, evidence_root
+
+
+def recovery_fixture(source_path, source_evidence_root, partition, monkeypatch):
+    original = audit.read(source_path)
+    root = source_path.parent / ("recovery-" + partition)
+    rows, configs, final_data = [], {}, {}
+    for old in original["jobs"]:
+        if old["job"] not in audit.PARTITIONS[partition]:
+            continue
+        job, dataset = old["job"], old["dataset"]
+        count = 2 if partition == "current20" else (4 if dataset == "cifar224" else 6)
+        old_run = Path(old["output_dir"])
+        result, data = audit.read(old_run / "results.json"), audit.read(old_run / "data_manifest.json")
+        prefix = copy.deepcopy(result["stages"][:count])
+        progress_path = old_run / "progress.json"
+        write(progress_path, {"status": "running", "stages": prefix})
+        old_log = Path(original["campaign_root"]) / "formal/logs" / (job + ".log")
+        old_log.parent.mkdir(parents=True, exist_ok=True)
+        old_log.write_text(json.dumps({"epoch_progress": True, "task": count, "epoch": 1, "wall_seconds": 7.5}) + "\n")
+        snapshot = root / "resume_sources" / job / "checkpoint.pt"
+        snapshot.parent.mkdir(parents=True)
+        snapshot.write_bytes((old_run / "checkpoint.pt").read_bytes())
+        cp_sha = audit.sha(snapshot)
+        bound = lambda path: {"path": str(path), "sha256": audit.sha(path)}
+        prepared = audit.read(old["config"]["path"])
+        run, cfg_path = root / "runs" / job, root / "configs" / (job + ".json")
+        cfg = {**prepared, "resume": str(snapshot), "output_dir": str(run)}
+        write(cfg_path, cfg)
+        lineage = {"original_manifest": bound(source_path), "original_prepared_config": old["config"],
+                   "original_saved_config": bound(old_run / "config.json"), "original_output_dir": str(old_run),
+                   "original_progress": bound(progress_path), "original_data_manifest": bound(old_run / "data_manifest.json"),
+                   "source_checkpoint": {**bound(old_run / "checkpoint.pt"), "bytes": snapshot.stat().st_size},
+                   "resume_checkpoint": {**bound(snapshot), "bytes": snapshot.stat().st_size},
+                   "config_fingerprint": audit.config_fingerprint(audit.normalized_prepared(prepared)),
+                   "data_fingerprint": data["fingerprint"], "random_stream_policy": audit.RNG_POLICY,
+                   "saved_stage_count": count, "prefix_stages": prefix, "prefix_stages_sha256": audit.canonical_sha(prefix),
+                   "original_receipt": {"observation": "original_pid_absent"}, "original_log": bound(old_log)}
+        row = {key: old[key] for key in ("job", "gpu", "dataset", "method", "comparison_variant", "environment")}
+        row.update(config=bound(cfg_path), output_dir=str(run), lineage=lineage,
+                   command=[original["python"], str(Path(original["repo"]) / "main.py"), "--config", str(cfg_path)])
+        rows.append(row)
+        configs[job] = cfg
+        saved = {**audit.normalized_prepared(cfg), "config": str(cfg_path)}
+        result["execution"]["wall_seconds"] = 100.0 * (10 - count) + 50.0
+        for key, value in (("config", saved), ("results", result), ("data_manifest", data)):
+            write(run / (key + ".json"), value)
+        (run / "checkpoint.pt").write_bytes(snapshot.read_bytes() + b"-resumed")
+        final_data[job] = (old, row, run, result, cp_sha)
+        (old_run / "results.json").unlink()  # Interrupted originals remain incomplete.
+    manifest = {key: copy.deepcopy(original[key]) for key in
+                ("repo", "python", "environment", "pretrained_npz", "source_files_sha256", "source_commit")}
+    manifest.update(schema_version=1, kind="followup_task_boundary_recovery", partition=partition,
+                    source_manifest={"path": str(source_path), "sha256": audit.sha(source_path)}, recovery_root=str(root), jobs=rows)
+    path = root / "manifest.json"
+    write(path, manifest)
+    recovery_sha = audit.sha(path)
+    evidence_root = root / "checkpoint_evidence"
+    for job, (_, row, run, result, cp_sha) in final_data.items():
+        lineage = row["lineage"]
+        receipt = {"job": job, "pid": 100, "proc_start_ticks": 1000, "manifest_sha256": recovery_sha,
+                   "config_sha256": row["config"]["sha256"], "command": row["command"], "gpu": row["gpu"],
+                   "environment": {**manifest["environment"], **row["environment"]},
+                   "cwd": manifest["repo"], "source_commit": manifest["source_commit"],
+                   "source_inventory_sha256": hashlib.sha256(json.dumps(manifest["source_files_sha256"], sort_keys=True).encode()).hexdigest()}
+        receipt_path = root / "receipts" / (job + ".json")
+        write(receipt_path, receipt)
+        metadata_shas = {key: audit.sha(run / (key + ".json")) for key in ("config", "results", "data_manifest")}
+        seal = {"job": job, "recovery_manifest_sha256": recovery_sha, "lineage_sha256": audit.canonical_sha(lineage),
+                "prefix_stages_sha256": lineage["prefix_stages_sha256"], "saved_stage_count": lineage["saved_stage_count"],
+                "config_sha256": metadata_shas["config"], "result_sha256": metadata_shas["results"],
+                "data_manifest_sha256": metadata_shas["data_manifest"], "original_process_state": "absent", "observed_exit_code": None}
+        write(root / "queue" / (job + ".complete.json"), seal)
+        evidence = audit.read(source_evidence_root / (job + ".json"))
+        backup = root / "backups" / job / "checkpoint.pt"
+        backup.parent.mkdir(parents=True)
+        backup.write_bytes((run / "checkpoint.pt").read_bytes())
+        report = copy.deepcopy(evidence["restore_report"])
+        report.update(recovery_prefix_verified=True, saved_stage_count=lineage["saved_stage_count"],
+                      source_checkpoint_stages_sha256=lineage["prefix_stages_sha256"], restored_final_prefix_sha256=lineage["prefix_stages_sha256"],
+                      original_checkpoint_sha256=cp_sha, resume_checkpoint_sha256=cp_sha,
+                      recovery_prefix_compared_nodes=10, recovery_prefix_ignored_paths=[],
+                      source_checkpoint_prefix_semantic_sha256="c" * 64, source_checkpoint_rng_semantic_sha256="d" * 64)
+        report_path = backup.parent / "native_restore.json"
+        write(report_path, report)
+        expected_lineage = {key: lineage[key] for key in ("saved_stage_count", "prefix_stages_sha256", "config_fingerprint", "data_fingerprint", "random_stream_policy")}
+        expected_lineage.update(original_checkpoint_sha256=cp_sha, resume_checkpoint_sha256=cp_sha, prefix_verified=True)
+        evidence.update(checkpoint_sha256=audit.sha(run / "checkpoint.pt"), checkpoint_bytes=(run / "checkpoint.pt").stat().st_size,
+                        backup_sha256=audit.sha(backup), backup_checkpoint_path=str(backup), restore_report=report,
+                        restore_report_path=str(report_path), restore_report_sha256=audit.sha(report_path),
+                        source_metadata_sha256=metadata_shas, source_receipt_sha256=audit.sha(receipt_path),
+                        recovery_manifest_sha256=recovery_sha, recovery_lineage=expected_lineage)
+        write(evidence_root / (job + ".json"), evidence)
+    checked = {"manifest": manifest, "configs": configs, "source_manifest": original}
+    monkeypatch.setattr(audit, "read_guarded_recovery", lambda p: checked)
     return path, evidence_root
 
 
@@ -627,7 +724,113 @@ def test_unused_current_overlay_jobs_are_not_an_authorized_local_partition(tmp_p
                              host_alias="tuna-host", host_key_fingerprint=HOST_KEY)
 
 
-def partition_reports_fixture(tmp_path, monkeypatch):
+@pytest.mark.parametrize("partition", ["current20", "tuna"])
+def test_guarded_recovery_preserves_prefix_and_scopes_wall_and_peak(tmp_path, monkeypatch, partition):
+    original, evidence_root, _ = completed_campaign_fixture(tmp_path, monkeypatch)
+    if partition == "tuna":
+        original, evidence_root = tuna20_campaign_fixture(original, evidence_root)
+    recovery, recovered_evidence = recovery_fixture(original, evidence_root, partition, monkeypatch)
+    monkeypatch.setattr(audit, "runtime_identity", lambda: fake_runtime("1"))
+    summary = audit.audit_campaign(original, recovered_evidence, partition=partition,
+                                   host_alias="restarted-host", host_key_fingerprint=HOST_KEY,
+                                   recovery_manifest_path=recovery)
+    assert summary["verified_results"] == 2
+    assert summary["manifest_sha256"] == audit.sha(original)
+    assert summary["recovery_manifest_sha256"] == audit.sha(recovery)
+    for row in summary["rows"]:
+        resources = row["resources"]
+        assert resources["full_run_wall_seconds"] is None
+        assert resources["completed_stage_wall_seconds_total"] == 1000
+        assert resources["execution"]["wall_seconds"] < 1000
+        assert "Resumed segment only" in resources["execution_scope"]
+        assert "Resumed process only" in resources["gpu_peak_scope"]
+        assert resources["interrupted_work"]["known_seconds_lower_bound"] == 7.5
+        assert resources["interrupted_work"]["total_interrupted_work_seconds"] is None
+        assert row["checkpoint_audit"]["recovery_lineage"]["prefix_verified"] is True
+
+
+def recovery_audit_fixture(tmp_path, monkeypatch):
+    original, evidence_root, _ = completed_campaign_fixture(tmp_path, monkeypatch)
+    recovery, recovered_evidence = recovery_fixture(original, evidence_root, "current20", monkeypatch)
+    monkeypatch.setattr(audit, "runtime_identity", lambda: fake_runtime("1"))
+    def check():
+        return audit.audit_campaign(original, recovered_evidence, partition="current20",
+                                     host_alias="restarted-host", host_key_fingerprint=HOST_KEY,
+                                     recovery_manifest_path=recovery)
+    return original, recovery, recovered_evidence, check
+
+
+def test_recovery_does_not_allow_unbound_resume_config(tmp_path, monkeypatch):
+    original, recovery, _, _ = recovery_audit_fixture(tmp_path, monkeypatch)
+    old = audit.read(original)["jobs"][0]
+    recovered = audit.read(recovery)["jobs"][0]
+    run = Path(recovered["output_dir"])
+    with pytest.raises(audit.AuditError, match="prebound recipe"):
+        audit.validate_records(audit.read(old["config"]["path"]), audit.read(run / "config.json"),
+                               audit.read(run / "results.json"), audit.read(run / "data_manifest.json"),
+                               audit.read(original)["source_files_sha256"])
+
+
+def test_recovery_never_changes_original_prefix_stage_timers(tmp_path, monkeypatch):
+    _, recovery, _, check = recovery_audit_fixture(tmp_path, monkeypatch)
+    entry = audit.read(recovery)["jobs"][0]
+    result_path = Path(entry["output_dir"]) / "results.json"
+    result = audit.read(result_path)
+    result["stages"][0]["wall_seconds"] += 0.001
+    write(result_path, result)
+    with pytest.raises(audit.AuditError, match="exact source-checkpoint prefix"):
+        check()
+
+
+@pytest.mark.parametrize("field,value", [("backbone_lr", 0.1), ("epochs", 5), ("seed", [1994])])
+def test_recovery_scientific_changes_are_rejected_even_with_updated_config_sha(tmp_path, monkeypatch, field, value):
+    _, recovery, _, check = recovery_audit_fixture(tmp_path, monkeypatch)
+    checked = audit.read_guarded_recovery(recovery)
+    entry = checked["manifest"]["jobs"][0]
+    checked["configs"][entry["job"]][field] = value
+    with pytest.raises(audit.AuditError, match="only resume and output_dir"):
+        check()
+
+
+@pytest.mark.parametrize("field,value,match", [
+    ("recovery_prefix_verified", False, "prefix proof differs"),
+    ("source_checkpoint_rng_semantic_sha256", None, "prefix/RNG verification"),
+    ("restored_final_prefix_sha256", "0" * 64, "prefix proof differs"),
+])
+def test_recovery_requires_independent_native_source_prefix_proof(tmp_path, monkeypatch, field, value, match):
+    _, _, evidence_root, check = recovery_audit_fixture(tmp_path, monkeypatch)
+    path = next(evidence_root.glob("*.json"))
+    evidence = audit.read(path)
+    report = copy.deepcopy(evidence["restore_report"])
+    report[field] = value
+    rebind_restore_report(path, evidence, report)
+    with pytest.raises(audit.AuditError, match=match):
+        check()
+
+
+def test_recovery_rejects_a_new_completion_seal_without_lineage_binding(tmp_path, monkeypatch):
+    _, recovery, _, check = recovery_audit_fixture(tmp_path, monkeypatch)
+    entry = audit.read(recovery)["jobs"][0]
+    path = recovery.parent / "queue" / (entry["job"] + ".complete.json")
+    seal = audit.read(path)
+    seal["lineage_sha256"] = "0" * 64
+    write(path, seal)
+    with pytest.raises(audit.AuditError, match="terminal lineage"):
+        check()
+
+
+def test_recovery_still_requires_wall_time_covering_the_resumed_stage_regions(tmp_path, monkeypatch):
+    _, recovery, _, check = recovery_audit_fixture(tmp_path, monkeypatch)
+    entry = audit.read(recovery)["jobs"][0]
+    path = Path(entry["output_dir"]) / "results.json"
+    result = audit.read(path)
+    result["execution"]["wall_seconds"] = 100
+    write(path, result)
+    with pytest.raises(audit.AuditError, match="shorter than"):
+        check()
+
+
+def partition_reports_fixture(tmp_path, monkeypatch, *, recovered=False):
     manifest_path, evidence_root, _ = completed_campaign_fixture(tmp_path, monkeypatch)
     overlay_path, overlay_evidence = tuna20_campaign_fixture(manifest_path, evidence_root)
     paths = []
@@ -635,8 +838,12 @@ def partition_reports_fixture(tmp_path, monkeypatch):
         monkeypatch.setattr(audit, "runtime_identity", lambda m=marker: fake_runtime(m))
         active_path, active_evidence = ((overlay_path, overlay_evidence) if group == "tuna"
                                         else (manifest_path, evidence_root))
+        recovery_path = None
+        if recovered:
+            recovery_path, active_evidence = recovery_fixture(active_path, active_evidence, group, monkeypatch)
         summary = audit.audit_campaign(active_path, active_evidence, partition=group,
-                                       host_alias=group + "-host", host_key_fingerprint=HOST_KEY)
+                                       host_alias=group + "-host", host_key_fingerprint=HOST_KEY,
+                                       recovery_manifest_path=recovery_path)
         path = tmp_path / (group + "_partition.json")
         write(path, summary)
         paths.append(path)
@@ -674,6 +881,67 @@ def test_global_merge_recomputes_four_rows_without_opening_remote_models(tmp_pat
     assert overlay["manifest_export"]["sha256"] == overlay["manifest_sha256"]
     assert all(row["training_budget_variant"] == "epochs20" for row in merged["rows"] if row["method"] == "tuna")
     assert merged["common_identity"]["pretrained_npz_sha256"] == audit.NPZ_SHA
+
+
+def test_global_merge_verifies_four_recovered_endpoints_without_parent_or_final_models(tmp_path, monkeypatch):
+    manifest, paths = partition_reports_fixture(tmp_path, monkeypatch, recovered=True)
+    actual_sha = audit.sha
+    def metadata_only(path):
+        assert Path(path).suffix != ".pt", "Global merge cannot reopen source/resume/final checkpoints"
+        return actual_sha(path)
+    monkeypatch.setattr(audit, "sha", metadata_only)
+    merged = merge_reports(manifest, paths)
+    assert merged["verified_results"] == 4 and len(merged["recovery_manifests"]) == 2
+    assert {row["checkpoint_audit"]["recovery_lineage"]["saved_stage_count"] for row in merged["rows"]} == {2, 4, 6}
+    for row in merged["rows"]:
+        assert row["resources"]["full_run_wall_seconds"] is None
+        assert row["resources"]["completed_stage_wall_seconds_total"] == 1000
+        assert row["checkpoint_audit"]["recovery_prefix_verification"]["recovery_prefix_verified"] is True
+    assert "only the resumed process" in audit.markdown(merged)
+
+
+@pytest.mark.parametrize("mutation,match", [
+    (lambda s: s["rows"][0]["resources"].__setitem__("full_run_wall_seconds", 850.0), "resource export differs"),
+    (lambda s: s["rows"][0]["checkpoint_audit"]["recovery_lineage"].__setitem__("prefix_verified", False), "parent checkpoint lineage"),
+    (lambda s: s["rows"][0]["checkpoint_audit"]["recovery_prefix_verification"].__setitem__("source_checkpoint_rng_semantic_sha256", None), "prefix/RNG verification"),
+    (lambda s: s["rows"][0]["recovery_exports"]["interrupted_work"].__setitem__("known_seconds_lower_bound", 9999.0), "lower bound differs"),
+])
+def test_global_merge_rejects_unbound_recovery_or_full_cost_claims(tmp_path, monkeypatch, mutation, match):
+    manifest, paths = partition_reports_fixture(tmp_path, monkeypatch, recovered=True)
+    summary = audit.read(paths[0])
+    mutation(summary)
+    write(paths[0], summary)
+    with pytest.raises(audit.AuditError, match=match):
+        merge_reports(manifest, paths)
+
+
+def test_global_recovered_rows_need_the_explicit_recovery_manifest(tmp_path, monkeypatch):
+    manifest, paths = partition_reports_fixture(tmp_path, monkeypatch, recovered=True)
+    summary = audit.read(paths[0])
+    del summary["recovery_manifest_export"]
+    del summary["recovery_manifest_sha256"]
+    write(paths[0], summary)
+    with pytest.raises(audit.AuditError, match="explicit recovery manifest proof"):
+        merge_reports(manifest, paths)
+
+
+def test_global_recovery_config_has_no_scientific_override_even_if_hashes_rebound(tmp_path, monkeypatch):
+    manifest, paths = partition_reports_fixture(tmp_path, monkeypatch, recovered=True)
+    summary = audit.read(paths[0])
+    recovery = json.loads(summary["recovery_manifest_export"]["text"])
+    row = summary["rows"][0]
+    recovered = next(entry for entry in recovery["jobs"] if entry["job"] == row["job"])
+    export = row["recovery_exports"]["prepared_config"]
+    cfg = json.loads(export["text"])
+    cfg["backbone_lr"] *= 2
+    export["text"] = json.dumps(cfg)
+    export["sha256"] = recovered["config"]["sha256"] = hashlib.sha256(export["text"].encode()).hexdigest()
+    summary["recovery_manifest_export"]["text"] = json.dumps(recovery)
+    summary["recovery_manifest_export"]["sha256"] = summary["recovery_manifest_sha256"] = hashlib.sha256(
+        summary["recovery_manifest_export"]["text"].encode()).hexdigest()
+    write(paths[0], summary)
+    with pytest.raises(audit.AuditError, match="only resume and output_dir"):
+        merge_reports(manifest, paths)
 
 
 def rebind_overlay_manifest(summary, manifest):

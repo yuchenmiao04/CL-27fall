@@ -196,6 +196,56 @@ large model download to the local Mac.
   both remote audit hashes and revalidates their exported metadata and metrics;
   it does not claim that model files were reopened on the local Mac.
 
+### Task-boundary recovery after the server restart
+
+The user reported an accidental shutdown of both hosts. After verifying that
+the original workers were terminal, the retained native checkpoints were
+admitted for recovery: two completed stages in each fixed-library run, four
+in CIFAR-100 TUNA, and six in ImageNet-R TUNA. Each source checkpoint was copied
+to a separate server-local `resume_sources` directory and its SHA-256 retained.
+New outputs use `recovery_20261118_v1/runs/JOB`; original outputs are preserved.
+
+`scripts/resume_followup_after_reboot.py` prepares and controls this explicit
+recovery. The recovered config may change only `resume` and `output_dir`.
+Preparation validates source/config/data identities, complete saved stage
+histories, checkpoint fingerprints and RNG policy. Execution retains the
+existing launch-ownership and terminal-process rules. Recovered completion
+requires the saved prefix, including its recorded durations, to match exactly.
+No active training source or scientific hyperparameter changes are permitted.
+
+For a recovered job, pass the original recipe manifest and the additional
+recovery manifest to both postprocessing tools:
+
+```bash
+/absolute/env/bin/python /absolute/control/backup_followup_checkpoint.py \
+  --manifest /absolute/original_recipe/manifest.json \
+  --recovery-manifest /absolute/recovery/manifest.json --job JOB \
+  --backup-root /absolute/server_backups \
+  --evidence-root /absolute/recovery/checkpoint_evidence \
+  --state-loader /absolute/runtime/scripts/compare_checkpoint_state.py
+
+/absolute/env/bin/python /absolute/control/audit_followup_campaign.py \
+  --manifest /absolute/original_recipe/manifest.json \
+  --recovery-manifest /absolute/recovery/manifest.json \
+  --partition current20 --host-alias current20_server \
+  --host-key-fingerprint PINNED_FINGERPRINT \
+  --checkpoint-evidence-root /absolute/recovery/checkpoint_evidence \
+  --output-dir /absolute/recovery/summary_current20
+```
+
+Use the TUNA20 overlay as the original recipe manifest on the TUNA host and
+substitute partition `tuna` and its own host alias. Restoration is CPU-only;
+models and backup payloads remain on their owning server. Do not clear
+`CUDA_VISIBLE_DEVICES` before admission; the backup utility disables CUDA
+internally after validating the original launch environment.
+
+After recovery, `execution.wall_seconds` and the CUDA memory peak describe the
+resumed process only. Summing all ten `stage.wall_seconds` values gives the
+retained-plus-resumed stage-loop duration, excluding checkpoint I/O and lost
+partial-stage work. Report those scopes explicitly. Neither that sum nor a
+resumed peak is an uninterrupted full-run measurement. Retained logs can
+support lower bounds on discarded work; unmeasured work remains unknown.
+
 ## Runtime estimate and local checks
 
 Using the original measured 5-epoch epoch-loop time plus measured non-epoch
