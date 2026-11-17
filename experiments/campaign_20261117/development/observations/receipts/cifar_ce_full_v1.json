@@ -1,0 +1,25 @@
+{
+  "job": "cifar_ce_full_v1",
+  "pid": 18490,
+  "proc_start_ticks": "1788451497",
+  "launch_utc": "2026-11-17T03:55:44Z",
+  "cwd": "runtime/runtime_tuning_v1",
+  "command": [
+    "environment/bin/python",
+    "scripts/run_ce_cohort.py",
+    "--configs",
+    "runtime/campaign_20261117/development/configs/cifar_ce_full_v1/er.json",
+    "runtime/campaign_20261117/development/configs/cifar_ce_full_v1/history_transport.json",
+    "runtime/campaign_20261117/development/configs/cifar_ce_full_v1/plastic_shared_basis.json",
+    "--trajectory-dir",
+    "runtime/campaign_20261117/development/ce_trajectories/cifar_body_default_v1",
+    "--report",
+    "runtime/campaign_20261117/development/cohorts/cifar_ce_full_v1.json"
+  ],
+  "metadata": {
+    "decision": "D0019",
+    "continuation_of": "cifar_ce_screen_v1",
+    "gpu": 1,
+    "development_only": true
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "job": "cifar_current_bg1_diagnostic_v2",
+  "pid": 19050,
+  "proc_start_ticks": "1788508096",
+  "launch_utc": "2026-11-17T04:05:10Z",
+  "cwd": "runtime/runtime_tuning_v1",
+  "command": [
+    "environment/bin/python",
+    "scripts/diagnose_current_checkpoint.py",
+    "--config",
+    "runtime/campaign_20261117/development/runs/cifar_current_bg1_screen_v2/config.json",
+    "--checkpoint",
+    "runtime/campaign_20261117/development/runs/cifar_current_bg1_screen_v2/checkpoint.pt",
+    "--previous-checkpoint",
+    "runtime/campaign_20261117/development/runs/cifar_current_bg1_screen_v2/checkpoint_task0.pt",
+    "--device",
+    "1",
+    "--output-json",
+    "runtime/campaign_20261117/development/runs/cifar_current_bg1_diagnostic_v2.json"
+  ],
+  "metadata": {
+    "decision": "D0024",
+    "read_only_development_diagnostic": true
+  }
+}

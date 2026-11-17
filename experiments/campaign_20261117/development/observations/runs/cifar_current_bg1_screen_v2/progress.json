@@ -76,13 +76,90 @@
       "extra_evaluation_pass_for_raw_matrix": false,
       "extra_nme_evaluation_pass_for_raw_matrix": false,
       "wall_seconds": 829.7476440928876
+    },
+    {
+      "task": 1,
+      "seen_classes": 20,
+      "accuracy": 0.973,
+      "task_accuracy": [
+        0.976,
+        0.97,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "task_counts": [
+        500,
+        500,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "evaluation_images": 1000,
+      "prediction_space": "all_seen_classes_without_task_id",
+      "cnn_report": {
+        "grouped": {
+          "total": 97.3,
+          "00-09": 97.6,
+          "10-19": 97.0,
+          "old": 97.6,
+          "new": 97.0
+        },
+        "top1": 97.3,
+        "top5": 99.8
+      },
+      "nme_report": null,
+      "evaluation_head": "cnn",
+      "heads": {
+        "cnn": {
+          "accuracy": 0.973,
+          "task_accuracy": [
+            0.976,
+            0.97,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "task_counts": [
+            500,
+            500,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "evaluation_images": 1000
+        }
+      },
+      "extra_evaluation_pass_for_raw_matrix": false,
+      "extra_nme_evaluation_pass_for_raw_matrix": false,
+      "wall_seconds": 1376.3584371171892
     }
   ],
   "metrics": {
-    "final_accuracy": 0.992,
-    "aia": 0.992,
-    "forgetting_previous": null,
-    "forgetting_including_final": null,
+    "final_accuracy": 0.973,
+    "aia": 0.9824999999999999,
+    "forgetting_previous": 0.016000000000000014,
+    "forgetting_including_final": 0.016000000000000014,
     "accuracy_matrix": [
       [
         0.992,
@@ -95,9 +172,21 @@
         null,
         null,
         null
+      ],
+      [
+        0.976,
+        0.97,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
       ]
     ],
-    "completed_tasks": 1,
+    "completed_tasks": 2,
     "definition": "Fractions; AIA is mean stage sample-weighted all-seen accuracy; forgetting averages old tasks only."
   }
 }

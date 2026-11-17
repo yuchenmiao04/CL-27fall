@@ -1,0 +1,25 @@
+{
+  "job": "cifar_current_full_v1",
+  "pid": 19392,
+  "proc_start_ticks": "1788532193",
+  "launch_utc": "2026-11-17T04:09:11Z",
+  "cwd": "runtime/runtime_prefix_v3",
+  "command": [
+    "environment/bin/python",
+    "main.py",
+    "--config",
+    "runtime/campaign_20261117/development/configs/cifar_current_full_v1.json"
+  ],
+  "metadata": {
+    "decision": "D0024",
+    "gpu": 1,
+    "development_only": true,
+    "execution_source": "runtime_prefix_v3",
+    "requires_isolated_gate": false,
+    "execution_gate": "current_prefix_cuda_prod_isolated_v4",
+    "execution_patch_sha256": "3aa11f91e551a8fbad52097fab9dd0b5276ae2e7e63c7a0470503328b9f09077"
+  },
+  "environment": {
+    "CL27_CURRENT_FROZEN_PREFIX_REUSE": "1"
+  }
+}

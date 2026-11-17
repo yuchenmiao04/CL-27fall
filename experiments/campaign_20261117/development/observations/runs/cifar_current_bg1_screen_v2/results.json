@@ -1,0 +1,405 @@
+{
+  "status": "validation_partial",
+  "method": "current_adapted",
+  "phase": "development",
+  "performance_claim": false,
+  "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63",
+  "config_fingerprint": "687fc279f457e08793a4357c7fca4d751c4083cf4fc3863433c1bde8e2393636",
+  "data_fingerprint": "de3c0d03d365cb20722f5739314d3de7e4b1d002b98101e5409d4931f0e47227",
+  "metrics": {
+    "final_accuracy": 0.973,
+    "aia": 0.9824999999999999,
+    "forgetting_previous": 0.016000000000000014,
+    "forgetting_including_final": 0.016000000000000014,
+    "accuracy_matrix": [
+      [
+        0.992,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        0.976,
+        0.97,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    ],
+    "completed_tasks": 2,
+    "definition": "Fractions; AIA is mean stage sample-weighted all-seen accuracy; forgetting averages old tasks only."
+  },
+  "stages": [
+    {
+      "task": 0,
+      "seen_classes": 10,
+      "accuracy": 0.992,
+      "task_accuracy": [
+        0.992,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "task_counts": [
+        500,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "evaluation_images": 500,
+      "prediction_space": "all_seen_classes_without_task_id",
+      "cnn_report": {
+        "grouped": {
+          "total": 99.2,
+          "00-09": 99.2,
+          "old": 0,
+          "new": 99.2
+        },
+        "top1": 99.2,
+        "top5": 100.0
+      },
+      "nme_report": null,
+      "evaluation_head": "cnn",
+      "heads": {
+        "cnn": {
+          "accuracy": 0.992,
+          "task_accuracy": [
+            0.992,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "task_counts": [
+            500,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "evaluation_images": 500
+        }
+      },
+      "extra_evaluation_pass_for_raw_matrix": false,
+      "extra_nme_evaluation_pass_for_raw_matrix": false,
+      "wall_seconds": 829.7476440928876
+    },
+    {
+      "task": 1,
+      "seen_classes": 20,
+      "accuracy": 0.973,
+      "task_accuracy": [
+        0.976,
+        0.97,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "task_counts": [
+        500,
+        500,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "evaluation_images": 1000,
+      "prediction_space": "all_seen_classes_without_task_id",
+      "cnn_report": {
+        "grouped": {
+          "total": 97.3,
+          "00-09": 97.6,
+          "10-19": 97.0,
+          "old": 97.6,
+          "new": 97.0
+        },
+        "top1": 97.3,
+        "top5": 99.8
+      },
+      "nme_report": null,
+      "evaluation_head": "cnn",
+      "heads": {
+        "cnn": {
+          "accuracy": 0.973,
+          "task_accuracy": [
+            0.976,
+            0.97,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "task_counts": [
+            500,
+            500,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "evaluation_images": 1000
+        }
+      },
+      "extra_evaluation_pass_for_raw_matrix": false,
+      "extra_nme_evaluation_pass_for_raw_matrix": false,
+      "wall_seconds": 1376.3584371171892
+    }
+  ],
+  "evaluation_head": "cnn",
+  "metrics_by_head": {
+    "cnn": {
+      "final_accuracy": 0.973,
+      "aia": 0.9824999999999999,
+      "forgetting_previous": 0.016000000000000014,
+      "forgetting_including_final": 0.016000000000000014,
+      "accuracy_matrix": [
+        [
+          0.992,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          0.976,
+          0.97,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      ],
+      "completed_tasks": 2,
+      "definition": "Fractions; AIA is mean stage sample-weighted all-seen accuracy; forgetting averages old tasks only."
+    }
+  },
+  "task_diagnostics": [
+    {
+      "task": 0,
+      "new_images": 4500,
+      "history_count": 4500,
+      "previous_history_count": 0,
+      "epochs": 5,
+      "updates": 1420,
+      "module_updates_total": 1065,
+      "backbone_updates_total": 355,
+      "skipped_episodes": 0,
+      "resident_anchor_rows": 2000,
+      "epoch_summaries": [
+        {
+          "epoch": 0,
+          "mean_query_ce": 2.4285996075929344,
+          "lr_factor": 1.0
+        },
+        {
+          "epoch": 1,
+          "mean_query_ce": 1.641438123434746,
+          "lr_factor": 0.9045084971874737
+        },
+        {
+          "epoch": 2,
+          "mean_query_ce": 1.4325994198299765,
+          "lr_factor": 0.6545084971874737
+        },
+        {
+          "epoch": 3,
+          "mean_query_ce": 1.150213278957476,
+          "lr_factor": 0.34549150281252633
+        },
+        {
+          "epoch": 4,
+          "mean_query_ce": 0.9933656059543859,
+          "lr_factor": 0.09549150281252633
+        }
+      ],
+      "counters": {
+        "canonical_anchor_images": 4500,
+        "canonical_main_images": 4500,
+        "episode_anchor_images": 51425,
+        "episode_full_prepass_images": 51425,
+        "episode_common_prepass_images": 12818,
+        "vjp_full_images": 38607,
+        "vjp_common_images": 12818,
+        "readout_solves": 3197,
+        "logical_current_presentations": 22500
+      },
+      "solver_history": "current task added once after all learning epochs",
+      "compute_note": "4 episode attempts per current minibatch; not matched FLOPs to supervised methods",
+      "replay_images": 2000,
+      "replay_payload_bytes": 6176000,
+      "backbone_changed": true,
+      "backbone_sha256_before": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+      "backbone_sha256_after": "ad0253332ba65b93111d539e82ab7ba23d11a882ec73dd683b6f630b2bea116d",
+      "modules_changed": true,
+      "anchor_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+      "numeric_payload_bytes": {
+        "encoder_weights": 686807080,
+        "statistics": 4792408,
+        "readouts": 123040,
+        "resident_anchor_cache": 12304000,
+        "optimizer_state": 687225528
+      },
+      "backbone_provenance": {
+        "kind": "pretrained",
+        "timm_version": "0.6.12",
+        "checkpoint_family": "augreg_in21k_ft_in1k",
+        "public_weight_url": "https://storage.googleapis.com/vit_models/augreg/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+        "weight_file_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+        "initial_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+        "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63"
+      }
+    },
+    {
+      "task": 1,
+      "new_images": 4500,
+      "history_count": 9000,
+      "previous_history_count": 4500,
+      "epochs": 5,
+      "updates": 1420,
+      "module_updates_total": 2130,
+      "backbone_updates_total": 710,
+      "skipped_episodes": 0,
+      "resident_anchor_rows": 2000,
+      "epoch_summaries": [
+        {
+          "epoch": 0,
+          "mean_query_ce": 2.6115894398884043,
+          "lr_factor": 1.0
+        },
+        {
+          "epoch": 1,
+          "mean_query_ce": 2.0265106943931976,
+          "lr_factor": 0.9045084971874737
+        },
+        {
+          "epoch": 2,
+          "mean_query_ce": 1.7647293768657848,
+          "lr_factor": 0.6545084971874737
+        },
+        {
+          "epoch": 3,
+          "mean_query_ce": 1.663741299448153,
+          "lr_factor": 0.34549150281252633
+        },
+        {
+          "epoch": 4,
+          "mean_query_ce": 1.560651822967167,
+          "lr_factor": 0.09549150281252633
+        }
+      ],
+      "counters": {
+        "canonical_anchor_images": 9000,
+        "canonical_main_images": 11000,
+        "episode_anchor_images": 146565,
+        "episode_full_prepass_images": 146565,
+        "episode_common_prepass_images": 36584,
+        "vjp_full_images": 133747,
+        "vjp_common_images": 36584,
+        "readout_solves": 6394,
+        "logical_current_presentations": 45000
+      },
+      "solver_history": "current task added once after all learning epochs",
+      "compute_note": "4 episode attempts per current minibatch; not matched FLOPs to supervised methods",
+      "replay_images": 2000,
+      "replay_payload_bytes": 6176000,
+      "backbone_changed": true,
+      "backbone_sha256_before": "ad0253332ba65b93111d539e82ab7ba23d11a882ec73dd683b6f630b2bea116d",
+      "backbone_sha256_after": "397916f8f00f163ec1f318c4d9351b719611081c5a58354818976f7cc6b2d225",
+      "modules_changed": true,
+      "anchor_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+      "numeric_payload_bytes": {
+        "encoder_weights": 686807080,
+        "statistics": 4853928,
+        "readouts": 246080,
+        "resident_anchor_cache": 12304000,
+        "optimizer_state": 687225528
+      },
+      "backbone_provenance": {
+        "kind": "pretrained",
+        "timm_version": "0.6.12",
+        "checkpoint_family": "augreg_in21k_ft_in1k",
+        "public_weight_url": "https://storage.googleapis.com/vit_models/augreg/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+        "weight_file_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+        "initial_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+        "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63"
+      }
+    }
+  ],
+  "backbone_provenance": {
+    "kind": "pretrained",
+    "timm_version": "0.6.12",
+    "checkpoint_family": "augreg_in21k_ft_in1k",
+    "public_weight_url": "https://storage.googleapis.com/vit_models/augreg/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+    "weight_file_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+    "initial_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+    "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63"
+  },
+  "execution": {
+    "torch": "2.7.1+cu128",
+    "numpy": "1.26.4",
+    "device_type": "cuda",
+    "random_stream_policy": "canonical_loader_isolated_v1",
+    "wall_seconds": 2211.3038128577173,
+    "numeric_checkpoint_payload_bytes": 1391446728,
+    "gpu_peak_allocated_bytes": 4208519680
+  }
+}

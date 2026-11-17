@@ -1,0 +1,33 @@
+{
+  "source_mapping": {
+    "runtime_tuning_v1": {
+      "base_commit": "d5c998a"
+    },
+    "runtime_prefix_v3": {
+      "base_commit": "d5c998a",
+      "overrides_commit": "c5a8587",
+      "override_files": [
+        "cl27/current/engine.py",
+        "scripts/probe_current_prefix.py",
+        "scripts/diagnose_shared_snapshot.py"
+      ]
+    }
+  },
+  "inspected_files": {
+    "runtime_tuning_v1": {
+      "cl27/current/engine.py": "431bcdfb38de9337143dc55ccd71b2115bd09ae1741b336d58e8dff601f4a52a",
+      "cl27/common.py": "33b63ca2b6baef4585e677d54d9e72e6e5247efb24d997e6eeec968911e0c3bf",
+      "cl27/cores/shared_basis.py": "78bf3c39430dff022d61a22c90380ce57c0c3623e5c2271c653d6243c2d454a0",
+      "cl27/runner.py": "931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e"
+    },
+    "runtime_prefix_v3": {
+      "cl27/current/engine.py": "3aa11f91e551a8fbad52097fab9dd0b5276ae2e7e63c7a0470503328b9f09077",
+      "cl27/common.py": "33b63ca2b6baef4585e677d54d9e72e6e5247efb24d997e6eeec968911e0c3bf",
+      "cl27/cores/shared_basis.py": "78bf3c39430dff022d61a22c90380ce57c0c3623e5c2271c653d6243c2d454a0",
+      "cl27/runner.py": "931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e",
+      "scripts/probe_current_prefix.py": "436aa8b62d3fdfbc7bced07c9d54f2a19ad2b5527ef24cac219af03795474a0e"
+    }
+  },
+  "inspected_files_match_git": true,
+  "resume_note": "The original implementation_commit configuration value is preserved for legacy checkpoint fingerprint compatibility; the actual immutable execution snapshot and patch hashes are recorded separately in job receipts and this file."
+}
