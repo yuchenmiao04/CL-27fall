@@ -1,0 +1,15 @@
+{
+  "id": "D0028",
+  "kind": "full_development_continuation",
+  "dataset": "imagenetr",
+  "prior_cohort": "imagenetr_ce_screen_v1",
+  "evidence": {
+    "prefix_stages": 3,
+    "matched_ce_accuracy": 0.8270777479892761,
+    "history_transport_accuracy": 0.8619302949061662,
+    "plastic_shared_basis_accuracy": 0.8471849865951743
+  },
+  "reason": "Both statistical candidates outperform their matched shared CE trajectory on the60-class training holdout. Preserve all parameters and extend each own checkpoint to the complete10-stage development flow; existing CE files0\u20132 are immutable and stages3\u20139 append.",
+  "baseline_scope": "ER here is an internal CE execution driver, not baseline tuning.",
+  "official_test_used": false
+}

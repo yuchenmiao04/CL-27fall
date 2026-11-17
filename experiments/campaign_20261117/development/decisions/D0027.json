@@ -1,0 +1,37 @@
+{
+  "id": "D0027",
+  "kind": "stop_unselected_costly_branch_and_screen_new_sampling",
+  "method": "current_adapted",
+  "stopped_trial": "cifar_current_full_v1",
+  "retained_complete_predecessor": "cifar_current_initial_v1/checkpoint.pt",
+  "evidence": {
+    "partial_third_stage_epoch_seconds": [
+      781.4341111183167,
+      786.6084665171802
+    ],
+    "third_stage_fullbuffer_old_images": 2000,
+    "same_pool_2stage_module_gain_observed": false,
+    "bounded_genuine_gate": "correctness/bounded64_genuine_v4_report.json",
+    "local_tests_passed": 286
+  },
+  "reason": "Legacy work grows with every old class and exceeds13min per epoch already at30classes. Stop this unselected exploratory continuation, preserve the complete2-stage checkpoint/logs, and spend the next budget on the explicitly bounded sampling candidate. No accuracy inferiority of the unfinished third stage is asserted. If the new candidate fails, the retained legacy checkpoint permits reconsideration.",
+  "new_trial": "cifar_current_bounded64_screen_v4",
+  "new_scope": {
+    "stages": 3,
+    "epochs": 5,
+    "full_development_fitting_data_per_arrived_class": true,
+    "episode_old_budget": 64,
+    "seed": 1993,
+    "fresh_pretrained": true
+  },
+  "unchanged": [
+    "raw image storage quota2000",
+    "fixed train holdout",
+    "all seen class outputs",
+    "full historical statistics",
+    "learning rates/epochs/libraries",
+    "final full legal buffer readout"
+  ],
+  "later_requirement": "Any retained final candidate must complete10 development stages before fresh complete-training formal refit.",
+  "official_test_used": false
+}

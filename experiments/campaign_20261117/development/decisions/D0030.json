@@ -1,0 +1,20 @@
+{
+  "id": "D0030",
+  "kind": "launch_configuration_correction",
+  "method": "current_adapted",
+  "dataset": "imagenetr",
+  "replaces_trial": "imagenetr_current_bounded64_screen_v4",
+  "new_trial": "imagenetr_current_bounded64_screen_v5",
+  "error": "The initial dataset template supplied20epochs while D0029 declared a5-epoch candidate. No task completed and no validation accuracy was used to decide this correction.",
+  "change": {
+    "epochs": {
+      "from": 20,
+      "to": 5
+    }
+  },
+  "reason": "Match the predeclared initial screening budget and the CIFAR module candidate, avoiding an unintended4x run. This is a configuration correction, not test-driven tuning.",
+  "fresh_pretrained": true,
+  "unchanged": "All other parameters, seed1993, training holdout, image storage quota and episode budget64.",
+  "formal_results_affected": false,
+  "official_test_used_for_parameter_decision": false
+}

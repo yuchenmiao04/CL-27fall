@@ -1,0 +1,14 @@
+{
+  "id": "D0029",
+  "kind": "initial_bounded_module_dataset_screen",
+  "dataset": "imagenetr",
+  "method": "current_adapted",
+  "episode_replay_batch_size": 64,
+  "screen_stages": 3,
+  "epochs": 5,
+  "seed": 1993,
+  "reason": "Start the explicitly bounded episode candidate on the second selected dataset after local and genuine-ViT correctness checks. Keep the initial library/learning settings and the20-per-class storage rule. This is one candidate, not a budget grid. Domain and class-count differences require its own holdout evidence.",
+  "fresh_pretrained": true,
+  "full_fitting_data_of_arrived_classes": true,
+  "official_test_used": false
+}

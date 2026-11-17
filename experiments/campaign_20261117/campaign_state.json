@@ -102,20 +102,19 @@
     }
   },
   "formal_running": [],
-  "last_progress_check_utc": "2026-11-17T04:40:27Z",
+  "last_progress_check_utc": "2026-11-17T04:53:39Z",
   "progress_snapshot": {
-    "utc": "2026-11-17T04:09:11Z",
-    "official_test_metrics_read": false,
+    "utc": "2026-11-17T04:53:39Z",
+    "official_test_metrics_read": true,
     "formal_completed": 3,
     "formal_running": [],
     "development_running": [
       "cifar_ce_full_v1",
-      "cifar_current_full_v1",
-      "imagenetr_ce_screen_v1"
+      "cifar_current_bounded64_screen_v4",
+      "imagenetr_ce_full_v1",
+      "imagenetr_current_bounded64_screen_v5"
     ],
-    "prepared_next": [
-      "cifar_current_bounded64_screen_v4"
-    ],
+    "prepared_next": [],
     "completed_full_development": {
       "cifar224/shared_basis": {
         "trial": "cifar_shared_rank64_full_v7",
@@ -129,13 +128,13 @@
       }
     },
     "current_adapted_prefix_choice": "D0024 retains background5 after background1 lost0.7point",
-    "formal_metric_policy": "Do not open formal test scores until all method selections are frozen."
+    "formal_metric_policy": "Completed preselected formal scores were reported at user request; do not use them to select remaining methods/parameters.",
+    "stopped_development": [
+      "cifar_current_full_v1",
+      "imagenetr_current_bounded64_screen_v4"
+    ]
   },
-  "formal_completed_metrics_deferred": [
-    "formal_cifar_joint_fixed_v1",
-    "formal_cifar_shared_selected_v7",
-    "formal_imagenetr_shared_selected_v7"
-  ],
+  "formal_completed_metrics_deferred": [],
   "selected_methods": {
     "shared_basis": {
       "decision": "D0023",
@@ -143,5 +142,12 @@
       "both_dataset_full_development_complete": true,
       "formal_refit_status": "both datasets complete; main protocol/metric closure and checkpoint training rows verified; test values withheld"
     }
+  },
+  "formal_reporting": {
+    "user_requested_available_results": true,
+    "reported_utc": "2026-11-17T04:55:07.420598+00:00",
+    "artifact": "formal/PARTIAL_RESULTS.json",
+    "completed_methods_only": true,
+    "not_used_for_remaining_hyperparameter_selection": true
   }
 }
