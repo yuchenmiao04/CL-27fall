@@ -1,0 +1,24 @@
+{
+  "status": "verified_server_local_backup",
+  "job": "formal_cifar_er_fixed_v1",
+  "payload_left_server": false,
+  "source_checkpoint": "remote_runtime/campaign_20261117/formal/runs/formal_cifar_er_fixed_v1/checkpoint.pt",
+  "backup_checkpoint": "remote_formal_backups/formal_cifar_er_fixed_v1/checkpoint.pt",
+  "checkpoint_bytes": 352738924,
+  "checkpoint_sha256": "71bd38161d5b4db6ff0767e38d2548f86c67bf5b77e1456836c3131e08e3fee8",
+  "source_process_terminal": {
+    "pid": 25654,
+    "expected_ticks": "1789467579",
+    "state": "absent"
+  },
+  "source_metadata_sha256": {
+    "config": "5642ea285a4d05354b89e89b0618f36e1f96090beba00248c71a9cfa60dbd275",
+    "results": "ae1721480c7b9b13796e8b1fa80bc402793d65179076a3392f5f1088befec7a8",
+    "data_manifest": "1471599966cbc1427d69bcff8a186e0c648b22fb2be88b6de103cb469bdcb823"
+  },
+  "source_receipt_sha256": "0057a70c0e6d7e2808b6273ec0294715037bcdb5667d4977d6c8787f3cd92439",
+  "backup_volume": "/root",
+  "completed_utc": "2026-11-17T10:59:18.559187+00:00",
+  "backup_actual_sha256": "71bd38161d5b4db6ff0767e38d2548f86c67bf5b77e1456836c3131e08e3fee8",
+  "free_backup_volume_bytes": 2022535168
+}

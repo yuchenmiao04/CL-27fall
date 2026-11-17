@@ -1,12 +1,12 @@
 {
   "status": "partial_main_results",
   "required_cells": 12,
-  "completed_cells": 4,
-  "reported_utc": "2026-11-17T09:08:19.650572+00:00",
+  "completed_cells": 5,
+  "reported_utc": "2026-11-17T11:08:24.474959+00:00",
   "reported_at_user_request": true,
   "purpose": "Reporting completed preselected formal runs; these scores are not used to select remaining method parameters.",
   "seed": 1993,
-  "units": "Fractions; present accuracy aspercent and forgetting aspercentage points.",
+  "units": "Fractions; present accuracy as percent and forgetting as percentage points.",
   "rows": [
     {
       "dataset": "cifar224",
@@ -55,6 +55,23 @@
       "checkpoint_sha256": "531e84fb056b1f02ec999b87a1d907ff8e27a0931474545763f57dbc2849e57a",
       "final_correct": 5032,
       "final_evaluation_samples": 6000
+    },
+    {
+      "dataset": "cifar224",
+      "method": "er",
+      "job": "formal_cifar_er_fixed_v1",
+      "final_accuracy": 0.8142,
+      "aia": 0.913201111111111,
+      "forgetting_previous": 0.18866666666666665,
+      "forgetting_including_final": 0.18866666666666665,
+      "results_sha256": "ae1721480c7b9b13796e8b1fa80bc402793d65179076a3392f5f1088befec7a8",
+      "complete_protocol_validation": true,
+      "completion_receipt": "completion_receipts/formal_cifar_er_fixed_v1.json",
+      "checkpoint_sha256": "71bd38161d5b4db6ff0767e38d2548f86c67bf5b77e1456836c3131e08e3fee8",
+      "final_correct": 8142,
+      "final_evaluation_samples": 10000,
+      "verified_server_local_backup": true,
+      "native_cpu_restore_passed": true
     }
   ]
 }

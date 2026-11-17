@@ -1,0 +1,836 @@
+{
+  "status": "native_cpu_checkpoint_audit_checks_passed_not_campaign_certificate",
+  "final_audit_complete": false,
+  "auditor_sha256": "ca025b07d92cc0eeed295d1c4f6a8db9655aa45487435fecaa5c839e426f9b3b",
+  "checkpoint_backup": "remote_formal_backups/formal_cifar_er_fixed_v1/checkpoint.pt",
+  "checkpoint_sha256": "71bd38161d5b4db6ff0767e38d2548f86c67bf5b77e1456836c3131e08e3fee8",
+  "state_loader": "remote_runtime/compare_checkpoint_state.py",
+  "state_loader_sha256": "696416de70cdfb5e7033cc26c93ad005eb5e20918379f4ef01fc3d76142b2d02",
+  "executed_model_source_root": "remote_runtime/runtime_fixed_er_v5",
+  "runtime_source_files_sha256": {
+    "cl27/__init__.py": "77f44223a067ed9123ca03c50fe5b4c423c6dc75afe3b47c2a291af4491e5211",
+    "utils/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "utils/toolkit.py": "1f64bb032beacb6510bf9eff1e009ad217a42c9a7fa40cd867a56e71cb4123f6",
+    "utils/data.py": "a5f1b056a244439a45c7359c4328ae378c1557078ab81cf332ebaf0a8118f87c",
+    "utils/data_manager.py": "74601c9c46d1e51ee95ee20c8a261b28325b997586bd3bf6e78a361d41289857",
+    "cl27/replay.py": "c334c443a977aa656e07c381ea1a3232dedc56159d70a0717131c50e754a17a9",
+    "models/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "models/base.py": "55e59eb4698004ae33862332731f172476be28dffafc07e85ad72013d722bcbf",
+    "cl27/common.py": "33b63ca2b6baef4585e677d54d9e72e6e5247efb24d997e6eeec968911e0c3bf",
+    "cl27/pilot_imagenetr.py": "037325bb474f1a59a6c1f4d1c0a7960423cb50b0924e903c5b86836c017bb4f5",
+    "cl27/data.py": "18fae0aaa165451c0c7b8f5c06eab2fed34c99be4a31623f3d26b930a7a19230",
+    "utils/factory.py": "8b036ee9f3fd4b471e4a91e1abeea29267f3c7949298228ead87d42901233272",
+    "cl27/supervised.py": "895b0962cbf7e3b77ad53675490290d211ac9983c3dc65ba61bd9e8a594dda7a",
+    "cl27/transport_training.py": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9",
+    "models/er.py": "5b43cdaf7ecf288dd9b0b64af16ea22b1681fce5ce212e886f00e2c13fbf356c",
+    "backbone/linears.py": "d8cf24ab4cbea4c2b84afe6061cdf4276bb5b4e34c0cb2a56712b63f0b6e4505",
+    "backbone/prompt.py": "ce57c5a4aa5c9c5ab9d7eb70ae27cb5a966ac2a1d9a540b45b55dfcd46ff2b04",
+    "utils/inc_net.py": "62b178b90f2ab5262be5a35082e7d92d8faca74dae01135785bbb0454e9e52ed"
+  },
+  "runtime_source_inventory_exclusions": [
+    {
+      "module": "sys",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": "built-in"
+    },
+    {
+      "module": "builtins",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": "built-in"
+    },
+    {
+      "module": "_imp",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": "built-in"
+    },
+    {
+      "module": "_thread",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": "built-in"
+    },
+    {
+      "module": "_warnings",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": "built-in"
+    },
+    {
+      "module": "_weakref",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": "built-in"
+    },
+    {
+      "module": "_io",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": "built-in"
+    },
+    {
+      "module": "marshal",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": "built-in"
+    },
+    {
+      "module": "posix",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": "built-in"
+    },
+    {
+      "module": "time",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": "built-in"
+    },
+    {
+      "module": "zipimport",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": "frozen"
+    },
+    {
+      "module": "_codecs",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": "built-in"
+    },
+    {
+      "module": "_signal",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": "built-in"
+    },
+    {
+      "module": "_abc",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": "built-in"
+    },
+    {
+      "module": "_stat",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": "built-in"
+    },
+    {
+      "module": "_sre",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": "built-in"
+    },
+    {
+      "module": "itertools",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": "built-in"
+    },
+    {
+      "module": "_operator",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": "built-in"
+    },
+    {
+      "module": "_collections",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": "built-in"
+    },
+    {
+      "module": "_functools",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": "built-in"
+    },
+    {
+      "module": "_locale",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": "built-in"
+    },
+    {
+      "module": "_ast",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": "built-in"
+    },
+    {
+      "module": "errno",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": "built-in"
+    },
+    {
+      "module": "typing.io",
+      "reason": "non_module_or_virtual_entry"
+    },
+    {
+      "module": "typing.re",
+      "reason": "non_module_or_virtual_entry"
+    },
+    {
+      "module": "cython_runtime",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "_cython_3_0_8",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "_string",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": "built-in"
+    },
+    {
+      "module": "atexit",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": "built-in"
+    },
+    {
+      "module": "gc",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": "built-in"
+    },
+    {
+      "module": "torch._C._onnx",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._jit",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._jit_tree_views",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._te",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._monitor",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._functorch",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._profiler",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C.cpp",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C.cpp.nn",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._lazy",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._lazy_ts_backend",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._export",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._aoti",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._itt",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._cudart",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._nvtx",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._cudnn",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._cusparselt",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._cpu",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._instruction_counter",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._verbose",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._dynamo",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._dynamo.autograd_compiler",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._dynamo.eval_frame",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._dynamo.guards",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._dynamo.utils",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._fft",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._linalg",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._nested",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._nn",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._return_types",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._sparse",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._special",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "pwd",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": "built-in"
+    },
+    {
+      "module": "torch._VF",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._distributed_c10d",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._distributed_rpc",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._distributed_autograd",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch._C._autograd",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch.backends.cudnn",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch.backends.mkldnn",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch.backends.quantized",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch.ops",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "torch.classes",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "pyexpat.errors",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "pyexpat.model",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "triton._C",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "triton._C.libtriton.ir",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "triton._C.libtriton.passes",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "triton._C.libtriton.passes.analysis",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "triton._C.libtriton.passes.common",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "triton._C.libtriton.passes.convert",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "triton._C.libtriton.passes.ttir",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "triton._C.libtriton.passes.ttgpuir",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "triton._C.libtriton.passes.llvmir",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "triton._C.libtriton.interpreter",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "triton._C.libtriton.llvm",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "triton._C.libtriton.nvidia",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "triton._C.libtriton.nvidia.passes",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "triton._C.libtriton.nvidia.passes.ttgpuir",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "triton._C.libtriton.nvidia.passes.ttnvgpuir",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "triton._C.libtriton.nvidia.cublas",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "triton._C.libtriton.amd",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "triton._C.libtriton.amd.passes",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "triton._C.libtriton.amd.passes.ttgpuir",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "triton._C.libtriton.proton",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "triton._C.libtriton.proton.passes",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "_cython_3_0_10",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "scipy.sparse.linalg._propack",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "_cython_3_1_4",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    },
+    {
+      "module": "backbone",
+      "reason": "relative_virtual_or_no_file_origin",
+      "file": null,
+      "origin": null
+    }
+  ],
+  "metadata_sha256": {
+    "config": "5642ea285a4d05354b89e89b0618f36e1f96090beba00248c71a9cfa60dbd275",
+    "results": "ae1721480c7b9b13796e8b1fa80bc402793d65179076a3392f5f1088befec7a8",
+    "data_manifest": "1471599966cbc1427d69bcff8a186e0c648b22fb2be88b6de103cb469bdcb823"
+  },
+  "pretrained_npz_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+  "facts": {
+    "method": "er",
+    "dataset": "cifar224",
+    "history_rows": 50000,
+    "classes": 100,
+    "final_replay_rows": 2000,
+    "stage_replay_rows": [
+      2000,
+      2000,
+      1980,
+      2000,
+      2000,
+      1980,
+      1960,
+      2000,
+      1980,
+      2000
+    ],
+    "cuda_rng_payload_lengths": [
+      16,
+      16
+    ],
+    "finite_scan": {
+      "floating_tensors": 152,
+      "floating_arrays": 0
+    },
+    "task_arrivals": [
+      5000,
+      5000,
+      5000,
+      5000,
+      5000,
+      5000,
+      5000,
+      5000,
+      5000,
+      5000
+    ],
+    "ce_cost_sources": {
+      "trajectory_directory": "remote_runtime/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1",
+      "shared_native_ce_seconds": 14653.037003599107,
+      "executor_wall_seconds": 14664.363286729902,
+      "actual_run_wall_seconds": 15147.143342468888,
+      "meaning": "Shared CE is driver work, not additional reader-executed gradient training; audit performs zero training."
+    }
+  },
+  "data_proof": {
+    "manifest_rebuilt_from_actual_source_bytes": true,
+    "natural_training_ids_sha256": "33236cc6bd19fa6b89e06d441d3fcd8eb37dc8540f6a4f2b627b20af10894a41",
+    "training_rows": 50000,
+    "per_class_counts": [
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500,
+      500
+    ],
+    "per_task_rows": [
+      5000,
+      5000,
+      5000,
+      5000,
+      5000,
+      5000,
+      5000,
+      5000,
+      5000,
+      5000
+    ],
+    "replay_training_members_and_labels_verified": 2000,
+    "mapped_replay_paths": 0,
+    "evaluation_performed": false,
+    "note": "DataManager hashes designated test source for identity only; no test prediction/selection is run."
+  },
+  "native_restore": {
+    "native_cpu_restore_executed": true,
+    "compared_state_nodes": 26830,
+    "execution_device_metadata_normalized": [],
+    "raw_checkpoint_numerically_restored": true,
+    "initial_backbone_sha256_from_verified_npz": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+    "actual_anchor_sha256": null,
+    "native_optimizer_parameter_bindings": {},
+    "actual_final_body_sha256": "6046e18688ea708164756383676154803d96b9226963c46cd52ced5bc27403a3",
+    "body_hash_chain_verified": true,
+    "output_shape": [
+      1,
+      100
+    ],
+    "output_is_finite": true,
+    "audit_forward_images": 1,
+    "extra_training_steps": 0,
+    "accuracy_evaluation_performed": false,
+    "cuda_rng_applied": false
+  },
+  "cpu_audit_wall_seconds": 8.867893658578396,
+  "limits": [
+    "Original process termination/selection/runtime source binding and backup receipt remain caller prerequisites.",
+    "CE trajectory bytes and full live request preconditions need the separate existing evidence checks.",
+    "No GPU continuation or accuracy evaluation; zero-input shape/finiteness only; no extra training.",
+    "Count/moment agreement is not an independent full-history membership proof for methods without a historical-ID ledger."
+  ]
+}

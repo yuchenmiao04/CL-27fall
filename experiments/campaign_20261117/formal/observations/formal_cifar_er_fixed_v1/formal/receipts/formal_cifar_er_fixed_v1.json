@@ -1,0 +1,24 @@
+{
+  "job": "formal_cifar_er_fixed_v1",
+  "pid": 25654,
+  "proc_start_ticks": "1789467579",
+  "launch_utc": "2026-11-17T06:45:05Z",
+  "cwd": "remote_runtime/runtime_fixed_er_v5",
+  "command": [
+    "remote_python",
+    "scripts/run_fixed_er_record.py",
+    "--config",
+    "remote_runtime/campaign_20261117/formal/configs/formal_cifar_er_fixed_v1.json",
+    "--trajectory-dir",
+    "remote_runtime/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1"
+  ],
+  "metadata": {
+    "execution_role": "fixed_baseline",
+    "hyperparameter_search": false,
+    "gpu": 1,
+    "source_base_commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+    "recording_wrapper_commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+    "prepared_only": false
+  },
+  "environment": {}
+}

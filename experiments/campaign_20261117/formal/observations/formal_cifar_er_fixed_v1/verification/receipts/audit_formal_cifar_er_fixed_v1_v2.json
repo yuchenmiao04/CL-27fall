@@ -1,0 +1,36 @@
+{
+  "job": "audit_formal_cifar_er_fixed_v1_v2",
+  "pid": 36537,
+  "proc_start_ticks": "1791027291",
+  "launch_utc": "2026-11-17T11:05:02Z",
+  "cwd": "remote_runtime/runtime_fixed_er_v5",
+  "command": [
+    "remote_python",
+    "remote_runtime/inspect_completed_backup_cpu.py",
+    "--repo",
+    "remote_runtime/runtime_fixed_er_v5",
+    "--state-loader",
+    "remote_runtime/compare_checkpoint_state.py",
+    "--checkpoint-backup",
+    "remote_formal_backups/formal_cifar_er_fixed_v1/checkpoint.pt",
+    "--expected-sha256",
+    "71bd38161d5b4db6ff0767e38d2548f86c67bf5b77e1456836c3131e08e3fee8",
+    "--metadata-dir",
+    "remote_formal_backups/formal_cifar_er_fixed_v1",
+    "--pretrained-npz",
+    "remote_runtime/torch/hub/checkpoints/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+    "--confirmed-final-backup"
+  ],
+  "metadata": {
+    "execution_role": "native_cpu_final_checkpoint_audit",
+    "formal_result_cell": false,
+    "original_formal_job": "formal_cifar_er_fixed_v1",
+    "checkpoint_sha256": "71bd38161d5b4db6ff0767e38d2548f86c67bf5b77e1456836c3131e08e3fee8",
+    "auditor_sha256": "ca025b07d92cc0eeed295d1c4f6a8db9655aa45487435fecaa5c839e426f9b3b",
+    "payload_left_server": false,
+    "no_extra_training": true,
+    "prior_audit": "audit_formal_cifar_er_fixed_v1_v1",
+    "reason": "Audit-only virtual Python module source inventory fix; rerun all CPU checks against the same immutable backup. No training restarted."
+  },
+  "environment": {}
+}
