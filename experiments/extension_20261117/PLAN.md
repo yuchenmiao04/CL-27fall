@@ -61,15 +61,17 @@ Preparation compares all scientific configuration fields with the original
 formal recipes and guards the exact original current-method source bytes.
 Twenty epochs is a user-selected budget comparison, not a newly tuned optimum.
 
-### TUNA, native PILOT recipe
+### TUNA, native algorithm with the user-selected 20-epoch image budget
 
 Use `vit_base_patch16_224_tuna` with the admitted shared checkpoint and the
-native pinned PILOT algorithm. Only common data, class split, checkpoint, and
-structured evaluation are adapted.
+native pinned PILOT algorithm. Common data, class split, checkpoint and
+structured evaluation are adapted; the user additionally selected 20
+image-training epochs per stage for both datasets.
 
 | Setting | CIFAR-100 | ImageNet-R |
 | --- | --- | --- |
-| Image-training epochs per stage | 15 | 10 |
+| Selected image-training epochs per stage | 20 | 20 |
+| Original PILOT image-training epochs, archival reference | 15 | 10 |
 | Optimizer | SGD | SGD |
 | Initial learning rate | 0.01 | 0.02 |
 | Batch size | 16 | 32 |
@@ -80,10 +82,17 @@ structured evaluation are adapted.
 | Orthogonality regularization enabled | false | true |
 | Stored historical images | 0 | 0 |
 
-The complete templates, including every other native hyperparameter, are in
-`configs/formal_cifar_tuna_native_v1.json` and
-`configs/formal_imagenetr_tuna_native_v1.json`. Preparation compares the native
-recipe with the pinned `exps/tuna_cifar.json` / `exps/tuna_inr.json` files.
+The original templates remain in `configs/formal_cifar_tuna_native_v1.json`
+and `configs/formal_imagenetr_tuna_native_v1.json`. Selected 20-epoch
+configurations are in `execution/tuna_epochs20_configs/`.
+`prepare_tuna_epochs20.py` first admits the exact original manifest and native
+recipes, then permits only the requested image-epoch change, budget marker,
+prefix and new output paths. Classifier alignment remains 30 epochs with the
+native cosine period of 5. The 20 image epochs do not imply matched FLOPs.
+
+The 15-/10-epoch runs were stopped at the user's explicit request. Their partial
+records remain in the original campaign and do not count as final results.
+Both selected 20-epoch runs start afresh from the original cached checkpoint.
 
 Do not repair or reinterpret native behavior for this reproduction: historical
 adapters retain the original gradient eligibility; classifier alignment runs
@@ -116,10 +125,23 @@ and a new campaign directory.
 ```
 
 The `current20` partition requires both original launch receipts and never
-launches a replacement. On the added host, use the identical complete prepared
-manifest, configurations, source paths, Python path, data paths and weight
-cache, then run the same controller with `--partition tuna`. It independently
-admits only the two TUNA jobs. Deploy the standalone controller outside the
+launches a replacement. On the added host, preserve the original complete
+manifest, source paths, Python path, data paths and weight cache. Prepare the
+selected TUNA20 overlay and use its manifest with `--partition tuna`:
+
+```bash
+/absolute/env/bin/python /absolute/control/prepare_tuna_epochs20.py \
+  --base-manifest /absolute/runtime/campaign/manifest.json \
+  --campaign-root /absolute/runtime/campaign_tuna20
+
+/absolute/env/bin/python /absolute/control/run_followup_partition.py \
+  --manifest /absolute/runtime/campaign_tuna20/manifest.json \
+  --partition tuna --execute
+```
+
+The controller independently admits only the two TUNA jobs. The overlay retains
+unused current20 configuration copies for the original controller API; they are
+never launched on the added host. Deploy the standalone controller outside the
 immutable training source. It imports and hash-checks the original
 manifest-bound queue and preparation modules.
 

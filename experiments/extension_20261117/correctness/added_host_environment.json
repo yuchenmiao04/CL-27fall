@@ -1,0 +1,362 @@
+{
+  "scope": "Added-server environment reproduction and actual CUDA operation checks; no formal training result.",
+  "source_ready_sha256": "ba853180f2134e498e2353a8bbff71be7a648c1ffa75e327f7d05b2925478012",
+  "source_distribution_manifest_sha256": "92ab62d6ad84b31234cda96655064dff75de90622eb399ced9ef8cc3b51b9b56",
+  "all_59_distribution_versions_match": true,
+  "expected_distributions": [
+    {
+      "name": "anyio",
+      "version": "4.16.0"
+    },
+    {
+      "name": "beautifulsoup4",
+      "version": "4.15.0"
+    },
+    {
+      "name": "certifi",
+      "version": "2026.10.23"
+    },
+    {
+      "name": "charset-normalizer",
+      "version": "3.5.2"
+    },
+    {
+      "name": "click",
+      "version": "8.5.1"
+    },
+    {
+      "name": "easydict",
+      "version": "1.13"
+    },
+    {
+      "name": "exceptiongroup",
+      "version": "1.3.1"
+    },
+    {
+      "name": "filelock",
+      "version": "4.1.0"
+    },
+    {
+      "name": "fsspec",
+      "version": "2026.9.0"
+    },
+    {
+      "name": "gdown",
+      "version": "6.5.1"
+    },
+    {
+      "name": "h11",
+      "version": "0.16.0"
+    },
+    {
+      "name": "hf-xet",
+      "version": "1.8.0"
+    },
+    {
+      "name": "httpcore2",
+      "version": "2.14.0"
+    },
+    {
+      "name": "httpx2",
+      "version": "2.14.0"
+    },
+    {
+      "name": "huggingface_hub",
+      "version": "2.4.0"
+    },
+    {
+      "name": "idna",
+      "version": "3.20"
+    },
+    {
+      "name": "iniconfig",
+      "version": "2.3.1"
+    },
+    {
+      "name": "Jinja2",
+      "version": "3.1.6"
+    },
+    {
+      "name": "MarkupSafe",
+      "version": "3.0.3"
+    },
+    {
+      "name": "mpmath",
+      "version": "1.3.0"
+    },
+    {
+      "name": "networkx",
+      "version": "3.4.2"
+    },
+    {
+      "name": "numpy",
+      "version": "1.26.4"
+    },
+    {
+      "name": "nvidia-cublas-cu12",
+      "version": "12.8.3.14"
+    },
+    {
+      "name": "nvidia-cuda-cupti-cu12",
+      "version": "12.8.57"
+    },
+    {
+      "name": "nvidia-cuda-nvrtc-cu12",
+      "version": "12.8.61"
+    },
+    {
+      "name": "nvidia-cuda-runtime-cu12",
+      "version": "12.8.57"
+    },
+    {
+      "name": "nvidia-cudnn-cu12",
+      "version": "9.7.1.26"
+    },
+    {
+      "name": "nvidia-cufft-cu12",
+      "version": "11.3.3.41"
+    },
+    {
+      "name": "nvidia-cufile-cu12",
+      "version": "1.13.0.11"
+    },
+    {
+      "name": "nvidia-curand-cu12",
+      "version": "10.3.9.55"
+    },
+    {
+      "name": "nvidia-cusolver-cu12",
+      "version": "11.7.2.55"
+    },
+    {
+      "name": "nvidia-cusparse-cu12",
+      "version": "12.5.7.53"
+    },
+    {
+      "name": "nvidia-cusparselt-cu12",
+      "version": "0.6.3"
+    },
+    {
+      "name": "nvidia-ml-py",
+      "version": "13.615.71"
+    },
+    {
+      "name": "nvidia-nccl-cu12",
+      "version": "2.26.2"
+    },
+    {
+      "name": "nvidia-nvjitlink-cu12",
+      "version": "12.8.61"
+    },
+    {
+      "name": "nvidia-nvtx-cu12",
+      "version": "12.8.55"
+    },
+    {
+      "name": "packaging",
+      "version": "26.3"
+    },
+    {
+      "name": "pillow",
+      "version": "12.3.0"
+    },
+    {
+      "name": "pip",
+      "version": "22.2.2"
+    },
+    {
+      "name": "pluggy",
+      "version": "1.7.0"
+    },
+    {
+      "name": "Pygments",
+      "version": "2.21.0"
+    },
+    {
+      "name": "PySocks",
+      "version": "1.7.1"
+    },
+    {
+      "name": "pytest",
+      "version": "9.2.0"
+    },
+    {
+      "name": "PyYAML",
+      "version": "6.0.3"
+    },
+    {
+      "name": "requests",
+      "version": "2.34.2"
+    },
+    {
+      "name": "scipy",
+      "version": "1.13.1"
+    },
+    {
+      "name": "setuptools",
+      "version": "63.2.0"
+    },
+    {
+      "name": "soupsieve",
+      "version": "2.10"
+    },
+    {
+      "name": "sympy",
+      "version": "1.14.0"
+    },
+    {
+      "name": "timm",
+      "version": "0.6.12"
+    },
+    {
+      "name": "tomli",
+      "version": "2.5.0"
+    },
+    {
+      "name": "torch",
+      "version": "2.7.1+cu128"
+    },
+    {
+      "name": "torchvision",
+      "version": "0.22.1+cu128"
+    },
+    {
+      "name": "tqdm",
+      "version": "4.67.1"
+    },
+    {
+      "name": "triton",
+      "version": "3.3.1"
+    },
+    {
+      "name": "truststore",
+      "version": "0.10.5"
+    },
+    {
+      "name": "typing_extensions",
+      "version": "4.16.0"
+    },
+    {
+      "name": "urllib3",
+      "version": "2.8.0"
+    }
+  ],
+  "actual_distributions": {
+    "setuptools": "63.2.0",
+    "pip": "22.2.2",
+    "triton": "3.3.1",
+    "nvidia-cusparselt-cu12": "0.6.3",
+    "torchvision": "0.22.1+cu128",
+    "torch": "2.7.1+cu128",
+    "nvidia-nvtx-cu12": "12.8.55",
+    "nvidia-nvjitlink-cu12": "12.8.61",
+    "nvidia-nccl-cu12": "2.26.2",
+    "nvidia-cusparse-cu12": "12.5.7.53",
+    "nvidia-cusolver-cu12": "11.7.2.55",
+    "nvidia-curand-cu12": "10.3.9.55",
+    "nvidia-cufile-cu12": "1.13.0.11",
+    "nvidia-cufft-cu12": "11.3.3.41",
+    "nvidia-cudnn-cu12": "9.7.1.26",
+    "nvidia-cuda-runtime-cu12": "12.8.57",
+    "nvidia-cuda-nvrtc-cu12": "12.8.61",
+    "nvidia-cuda-cupti-cu12": "12.8.57",
+    "nvidia-cublas-cu12": "12.8.3.14",
+    "nvidia-ml-py": "13.615.71",
+    "mpmath": "1.3.0",
+    "easydict": "1.13",
+    "urllib3": "2.8.0",
+    "typing_extensions": "4.16.0",
+    "truststore": "0.10.5",
+    "tqdm": "4.67.1",
+    "tomli": "2.5.0",
+    "timm": "0.6.12",
+    "sympy": "1.14.0",
+    "soupsieve": "2.10",
+    "scipy": "1.13.1",
+    "requests": "2.34.2",
+    "PyYAML": "6.0.3",
+    "pytest": "9.2.0",
+    "PySocks": "1.7.1",
+    "Pygments": "2.21.0",
+    "pluggy": "1.7.0",
+    "pillow": "12.3.0",
+    "packaging": "26.3",
+    "numpy": "1.26.4",
+    "networkx": "3.4.2",
+    "MarkupSafe": "3.0.3",
+    "Jinja2": "3.1.6",
+    "iniconfig": "2.3.1",
+    "idna": "3.20",
+    "huggingface_hub": "2.4.0",
+    "httpx2": "2.14.0",
+    "httpcore2": "2.14.0",
+    "hf-xet": "1.8.0",
+    "h11": "0.16.0",
+    "gdown": "6.5.1",
+    "fsspec": "2026.9.0",
+    "filelock": "4.1.0",
+    "exceptiongroup": "1.3.1",
+    "click": "8.5.1",
+    "charset-normalizer": "3.5.2",
+    "certifi": "2026.10.23",
+    "beautifulsoup4": "4.15.0",
+    "anyio": "4.16.0"
+  },
+  "core_cuda_probe": {
+    "python": "3.10.8",
+    "torch": "2.7.1+cu128",
+    "torchvision": "0.22.1+cu128",
+    "timm": "0.6.12",
+    "numpy": "1.26.4",
+    "pillow": "12.3.0",
+    "scipy": "1.13.1",
+    "cuda_runtime": "12.8",
+    "tf32": false,
+    "amp": false,
+    "devices": [
+      {
+        "index": 0,
+        "name": "NVIDIA GeForce RTX 4090 D",
+        "capability": [
+          8,
+          9
+        ],
+        "matmul_backward_finite": true,
+        "cholesky_finite": true,
+        "cholesky_max_abs_error": 1.1920928955078125e-06,
+        "svd_finite": true,
+        "peak_allocated_bytes": 27394560
+      },
+      {
+        "index": 1,
+        "name": "NVIDIA GeForce RTX 4090 D",
+        "capability": [
+          8,
+          9
+        ],
+        "matmul_backward_finite": true,
+        "cholesky_finite": true,
+        "cholesky_max_abs_error": 1.1920928955078125e-06,
+        "svd_finite": true,
+        "peak_allocated_bytes": 27394560
+      }
+    ],
+    "core_cuda_probe_passed": true
+  },
+  "phase_seconds": [
+    {
+      "phase": "fixed_torch_cuda",
+      "seconds": 85.18420447409153
+    },
+    {
+      "phase": "fixed_other_distributions",
+      "seconds": 88.88462471961975
+    }
+  ],
+  "installation_elapsed_seconds": 179.25421877205372,
+  "pip_check_returncode": 0,
+  "pip_check_output": "No broken requirements found.",
+  "installer_terminal_verified": true,
+  "installer_exit_code_observed": null,
+  "no_training_started": true
+}

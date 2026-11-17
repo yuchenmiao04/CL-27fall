@@ -10,6 +10,13 @@ The training source snapshot is commit
 SHA-256 `8a70c7e5a6011bb293c833387d71046173503d4ba94efca3c3ee2587b82e4c43`.
 The plan and complete method recipes are in [PLAN.md](PLAN.md).
 
+The user subsequently selected **20 image-training epochs for both TUNA
+datasets**, retaining classifier alignment at 30 epochs and all other native
+settings. The selected TUNA overlay manifest has SHA-256
+`04fda502b11e670bb3f13b35b31fef7545d2d47728b4947220210c6b3bd0c2c6`.
+It embeds and binds the original manifest. Selected configurations are in
+[execution/tuna_epochs20_configs](execution/tuna_epochs20_configs/).
+
 ## Execution
 
 The fixed-library runs started on two RTX 5090 GPUs at approximately
@@ -23,11 +30,14 @@ only the two TUNA jobs on the added server. The previous sequential dispatcher
 was stopped without stopping either original training process. A timeout never
 triggers a replacement worker.
 
-The complete four-job manifest and its expanded configurations are identical
-on both servers. It binds source hashes, exact cached weights, runtime
-environment, commands, and output locations. Training uses immutable source
-directories. Checkpoints and their backup copies remain on their respective
-servers.
+The original manifest remains authoritative for the fixed-library runs. TUNA
+uses the linked 20-epoch overlay in a fresh `campaign_tuna20` directory. The
+source, data, pretrained weights and package versions are unchanged. Both TUNA
+runs restarted from the same pretrained initialization because changing the
+image-training horizon also changes the cosine learning-rate schedule. The
+earlier 15-/10-epoch partial runs are preserved and excluded from final results.
+Training uses immutable source directories. Checkpoints and their backup copies
+remain on their respective servers.
 
 ## Correctness evidence
 
@@ -59,8 +69,9 @@ Final, AIA and both forgetting definitions from complete stage matrices and
 sample counts. Passing metrics alone are insufficient for a completed audit.
 
 Merge the two partition summaries using their SHA-256 values captured on the
-servers. The merge verifies complementary job sets, common manifest/source
-identity, distinct server runtime identities, and exact metadata exports. It
+servers and the original manifest. The merge verifies complementary job sets,
+the exact permitted TUNA20 overlay, common source identity, distinct server
+runtime identities, and exact metadata exports. It
 recomputes the metrics without downloading or reopening remote model files.
 The optional `--base-summary` imports the original twelve results unchanged,
 retaining separate 5-epoch and 20-epoch fixed-library rows.

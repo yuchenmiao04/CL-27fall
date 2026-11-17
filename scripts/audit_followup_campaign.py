@@ -39,6 +39,9 @@ PARTITIONS = {
     "tuna": tuple(job for job, _, _, method in JOBS if method == "tuna"),
 }
 RUNTIME_ID_RULE = "sha256(canonical JSON of boot_id and sorted GPU UUIDs)"
+BASE_MANIFEST_SHA256 = "8a70c7e5a6011bb293c833387d71046173503d4ba94efca3c3ee2587b82e4c43"
+TUNA20_OVERLAY_KEYS = {"user_requested_image_epochs", "base_manifest_sha256",
+                       "base_manifest_path", "base_manifest_text"}
 # Counts are from the already verified full selected PILOT data, seed1993.
 # Checking these, in addition to the complete manifest fingerprint, prevents a
 # self-consistent but truncated or differently weighted accuracy matrix passing.
@@ -156,6 +159,10 @@ def metadata_export(path):
     return {"sha256": hashlib.sha256(data).hexdigest(), "text": data.decode("utf-8")}
 
 
+def same_json_value(left, right):
+    return json.dumps(left, sort_keys=True, allow_nan=False) == json.dumps(right, sort_keys=True, allow_nan=False)
+
+
 def load_metadata_export(exports, name, expected_sha):
     need(isinstance(exports, dict), "Missing exact metadata exports")
     record = exports.get(name, {})
@@ -173,7 +180,75 @@ def load_metadata_export(exports, name, expected_sha):
     return value
 
 
-def validate_prepared_manifest(path):
+def validate_overlay_structure(manifest, base):
+    """Allow only the user-authorized image-epoch overlay on the pinned base."""
+    need(manifest.get("base_manifest_sha256") == BASE_MANIFEST_SHA256
+         and type(manifest.get("user_requested_image_epochs")) is int
+         and manifest["user_requested_image_epochs"] == 20,
+         "TUNA20 overlay is not bound to the authoritative user budget and base")
+    embedded = load_metadata_export(
+        {"base": {"sha256": manifest["base_manifest_sha256"], "text": manifest.get("base_manifest_text")}},
+        "base", BASE_MANIFEST_SHA256)
+    need(same_json_value(embedded, base) and not any(key in base for key in TUNA20_OVERLAY_KEYS),
+         "TUNA20 overlay changed or recursively replaced its original base")
+    need(manifest.get("base_manifest_path") == str(Path(base["campaign_root"]) / "manifest.json"),
+         "TUNA20 overlay original manifest path differs")
+    mutable = TUNA20_OVERLAY_KEYS | {"campaign_root", "jobs"}
+    need(same_json_value({k: v for k, v in manifest.items() if k not in mutable},
+                         {k: v for k, v in base.items() if k not in {"campaign_root", "jobs"}}),
+         "TUNA20 overlay changed common source/data/environment/weight identity")
+    root = Path(manifest["campaign_root"])
+    need(root.is_absolute() and str(root) != base["campaign_root"],
+         "TUNA20 overlay must use a fresh absolute campaign root")
+    original, rows = base["jobs"], manifest.get("jobs")
+    need(isinstance(rows, list) and len(rows) == len(original) == 4
+         and all(isinstance(row, dict) for row in rows)
+         and [row.get("job") for row in rows] == [row["job"] for row in original],
+         "TUNA20 overlay job identities differ from the four original jobs")
+    for old, row in zip(original, rows):
+        job = old["job"]
+        config_path = root / "formal/configs" / (job + ".json")
+        need(isinstance(row.get("config"), dict), "TUNA20 overlay config binding is missing")
+        expected = {**old, "output_dir": str(root / "formal/runs" / job),
+                    "config": {"path": str(config_path), "sha256": row.get("config", {}).get("sha256")},
+                    "command": [base["python"], str(Path(base["repo"]) / "main.py"), "--config", str(config_path)]}
+        need(same_json_value(row, expected) and isinstance(row["config"]["sha256"], str)
+             and re.fullmatch(r"[0-9a-f]{64}", row["config"]["sha256"]),
+             "TUNA20 overlay changed a nonadministrative job field: " + job)
+
+
+def validate_overlay_configs(manifest, base, configs, base_configs):
+    expected_jobs = set(PARTITIONS["all"])
+    need(set(configs) == set(base_configs) == expected_jobs, "TUNA20 overlay needs all four exact config exports")
+    for row in manifest["jobs"]:
+        job = row["job"]
+        expected = {**base_configs[job], "output_dir": row["output_dir"]}
+        if row["method"] == "tuna":
+            need(base_configs[job].get("tuned_epoch") == (15 if row["dataset"] == "cifar224" else 10)
+                 and "training_budget_variant" not in base_configs[job], "TUNA20 original native budget differs")
+            expected.update(tuned_epoch=20, prefix="followup_tuna_epochs20", training_budget_variant="epochs20")
+        need(same_json_value(configs[job], expected),
+             "TUNA20 overlay changed more than the authorized config delta: " + job)
+
+
+def overlay_from_summary(summary, base, base_digest):
+    proof = summary.get("training_budget_overlay", {})
+    need(isinstance(proof, dict) and proof.get("user_requested_image_epochs") == 20
+         and proof.get("base_manifest_sha256") == base_digest == BASE_MANIFEST_SHA256
+         and proof.get("exact_config_delta_verified") is True,
+         "Final TUNA report requires the authoritative user-requested epochs20 overlay")
+    manifest = load_metadata_export(
+        {"manifest": proof.get("manifest_export")}, "manifest", summary.get("manifest_sha256"))
+    validate_overlay_structure(manifest, base)
+    base_configs = {row["job"]: load_metadata_export(
+        proof.get("base_config_exports"), row["job"], row["config"]["sha256"]) for row in base["jobs"]}
+    configs = {row["job"]: load_metadata_export(
+        proof.get("config_exports"), row["job"], row["config"]["sha256"]) for row in manifest["jobs"]}
+    validate_overlay_configs(manifest, base, configs, base_configs)
+    return manifest, proof
+
+
+def _validate_base_manifest(path):
     manifest = read(path)
     need(manifest.get("version") == 1, "Unknown prepared campaign manifest version")
     rows = manifest.get("jobs")
@@ -207,6 +282,27 @@ def validate_prepared_manifest(path):
         need(config.get("output_dir") == row.get("output_dir"), "Prepared output directory differs")
         need(config.get("device") == [gpu], "Prepared GPU identity differs")
         configs[job] = config
+    return manifest, configs
+
+
+def validate_prepared_manifest(path):
+    manifest = read(path)
+    if not any(key in manifest for key in TUNA20_OVERLAY_KEYS):
+        return _validate_base_manifest(path)
+    base_path = Path(manifest.get("base_manifest_path", ""))
+    need(base_path.is_absolute() and base_path.is_file() and sha(base_path) == BASE_MANIFEST_SHA256,
+         "TUNA20 authoritative original manifest is missing or changed")
+    base, base_configs = _validate_base_manifest(base_path)
+    validate_overlay_structure(manifest, base)
+    need(Path(path).resolve() == (Path(manifest["campaign_root"]) / "manifest.json").resolve(),
+         "TUNA20 manifest is outside its declared new campaign")
+    configs = {}
+    for row in manifest["jobs"]:
+        config_path = Path(row["config"]["path"])
+        need(config_path.is_file() and sha(config_path) == row["config"]["sha256"],
+             "TUNA20 prepared config SHA changed: " + row["job"])
+        configs[row["job"]] = read(config_path)
+    validate_overlay_configs(manifest, base, configs, base_configs)
     return manifest, configs
 
 
@@ -311,7 +407,10 @@ def validate_records(prepared, saved, result, data, sources):
              and saved.get("backbone_type") == "vit_base_patch16_224_tuna"
              and saved.get("memory_size") == saved.get("memory_per_class") == 0, "Wrong native TUNA branch or image memory")
         need(provenance.get("algorithm_rng_policy") == TUNA_RNG_POLICY, "TUNA algorithm RNG policy changed")
-        need(saved.get("tuned_epoch") == (15 if dataset == "cifar224" else 10)
+        budget = saved.get("training_budget_variant")
+        need(budget in (None, "epochs20"), "Unknown TUNA image-training budget variant")
+        image_epochs = 20 if budget == "epochs20" else (15 if dataset == "cifar224" else 10)
+        need(saved.get("tuned_epoch") == image_epochs
              and saved.get("crct_epochs") == 30, "Native TUNA training lengths changed")
     metrics, stage_seconds = validate_metrics(result, dataset)
     diagnostics = result.get("task_diagnostics")
@@ -461,6 +560,13 @@ def audit_campaign(manifest_path, evidence_root=None, *, allow_incomplete=False,
     manifest_path = Path(manifest_path).resolve()
     manifest, configs = validate_prepared_manifest(manifest_path)
     manifest_digest = sha(manifest_path)
+    overlay = any(key in manifest for key in TUNA20_OVERLAY_KEYS)
+    need(not overlay or partition == "tuna", "TUNA20 overlay is authorized only for the tuna partition")
+    if partition == "tuna":
+        need(overlay, "Final tuna partition requires the user-authorized epochs20 overlay")
+    if partition == "current20":
+        need(not overlay and manifest_digest == BASE_MANIFEST_SHA256,
+             "Current20 partition must retain the authoritative original manifest")
     evidence_root = Path(evidence_root or (manifest_path.parent / "checkpoint_evidence"))
     rows = []
     for entry in manifest["jobs"]:
@@ -470,6 +576,9 @@ def audit_campaign(manifest_path, evidence_root=None, *, allow_incomplete=False,
         row = {"job": job, "dataset": entry["dataset"], "method": entry["method"],
                "comparison_variant": entry["comparison_variant"], "seed": 1993,
                "status": "pending", "metrics": dict.fromkeys(METRICS)}
+        if configs[job].get("training_budget_variant") == "epochs20":
+            row["training_budget_variant"] = "epochs20"
+            row["method_setting"] = "Native TUNA mechanism with user-requested 20 image epochs; not native image-budget reproduction."
         result_path = run / "results.json"
         if result_path.exists():
             saved, result, data = (read(run / name) for name in ("config.json", "results.json", "data_manifest.json"))
@@ -503,7 +612,7 @@ def audit_campaign(manifest_path, evidence_root=None, *, allow_incomplete=False,
     need(allow_incomplete or complete == expected,
          "Follow-up audit incomplete: " + str(complete) + "/" + str(expected)
          + " verified endpoints; use --allow-incomplete for progress only")
-    return {
+    summary = {
         "schema_version": 1, "status": "verified_complete" if complete == expected else "incomplete",
         "partition": partition, "partition_jobs": list(selected), "host": host,
         "external_jobs": [job for job in PARTITIONS["all"] if job not in selected],
@@ -517,6 +626,15 @@ def audit_campaign(manifest_path, evidence_root=None, *, allow_incomplete=False,
         "audit_scope": "Prepared scientific recipe/source/weights, full data identity, unrounded ten-stage records, measured resources and SHA-bound server-local backup/native-restore evidence.",
         "auditor_sha256": sha(Path(__file__)), "rows": rows,
     }
+    if overlay:
+        base = read(manifest["base_manifest_path"])
+        summary["training_budget_overlay"] = {
+            "user_requested_image_epochs": 20, "base_manifest_sha256": BASE_MANIFEST_SHA256,
+            "manifest_export": metadata_export(manifest_path),
+            "base_config_exports": {row["job"]: metadata_export(row["config"]["path"]) for row in base["jobs"]},
+            "config_exports": {row["job"]: metadata_export(row["config"]["path"]) for row in manifest["jobs"]},
+            "exact_config_delta_verified": True}
+    return summary
 
 
 def merge_partition_summaries(manifest_path, summary_paths, *, expected_summary_sha256):
@@ -528,6 +646,9 @@ def merge_partition_summaries(manifest_path, summary_paths, *, expected_summary_
          "Global merge requires the two server-captured partition report SHAs")
     manifest_path = Path(manifest_path).resolve()
     manifest, manifest_digest = read(manifest_path), sha(manifest_path)
+    need(manifest_digest == BASE_MANIFEST_SHA256
+         and not any(key in manifest for key in TUNA20_OVERLAY_KEYS),
+         "Global merge requires the authoritative original base manifest")
     entries = manifest.get("jobs", [])
     expected = {job: (gpu, dataset, method) for job, gpu, dataset, method in JOBS}
     need(manifest.get("version") == 1 and isinstance(entries, list) and len(entries) == 4
@@ -544,7 +665,7 @@ def merge_partition_summaries(manifest_path, summary_paths, *, expected_summary_
         need((entry.get("gpu"), entry.get("dataset"), entry.get("method")) == expected[job],
              "Global manifest job assignment differs: " + job)
     auditor_digest = sha(Path(__file__))
-    combined, proofs, groups, aliases, runtimes = {}, [], set(), set(), set()
+    combined, proofs, groups, aliases, runtimes, overlays = {}, [], set(), set(), set(), []
     for path, expected_report_digest in zip(summary_paths, expected_summary_sha256):
         path = Path(path).resolve()
         report_digest = sha(path)
@@ -557,6 +678,16 @@ def merge_partition_summaries(manifest_path, summary_paths, *, expected_summary_
              "Global merge requires one current20 and one tuna partition")
         groups.add(group)
         jobs = PARTITIONS[group]
+        active_manifest, active_digest, budget_proof = manifest, manifest_digest, None
+        if group == "tuna":
+            active_manifest, budget_proof = overlay_from_summary(summary, manifest, manifest_digest)
+            active_digest = summary["manifest_sha256"]
+            overlays.append({"partition": "tuna", "manifest_sha256": active_digest,
+                             "base_manifest_sha256": manifest_digest, "user_requested_image_epochs": 20,
+                             "manifest_export": budget_proof["manifest_export"], "exact_config_delta_verified": True})
+        else:
+            need(not summary.get("training_budget_overlay"), "Current20 report must retain its original budget manifest")
+        active_jobs = {entry["job"]: entry for entry in active_manifest["jobs"]}
         need(summary.get("status") == "verified_complete"
              and summary.get("expected_results") == summary.get("verified_results")
              == summary.get("metrics_verified_results") == 2
@@ -576,7 +707,7 @@ def merge_partition_summaries(manifest_path, summary_paths, *, expected_summary_
         need(runtime["fingerprint_sha256"] not in runtimes,
              "Partitions must have distinct physical runtime fingerprints")
         runtimes.add(runtime["fingerprint_sha256"])
-        need(summary.get("manifest_sha256") == manifest_digest
+        need(summary.get("manifest_sha256") == active_digest
              and summary.get("source_commit") == source_commit
              and summary.get("source_files_sha256") == sources
              and summary.get("upstream_commit") == UPSTREAM
@@ -591,11 +722,14 @@ def merge_partition_summaries(manifest_path, summary_paths, *, expected_summary_
         proof = {"partition": group, "host": host, "jobs": list(jobs),
                  "summary_path": str(path), "summary_sha256": report_digest,
                  "server_captured_summary_sha256": expected_report_digest,
-                 "auditor_sha256": auditor_digest, "manifest_sha256": manifest_digest}
+                 "auditor_sha256": auditor_digest, "manifest_sha256": active_digest,
+                 "base_manifest_sha256": manifest_digest}
+        if budget_proof is not None:
+            proof["training_budget_overlay"] = overlays[-1]
         proofs.append(proof)
         for row in rows:
             job = row["job"]
-            entry = by_job[job]
+            entry = active_jobs[job]
             need(job not in combined and row.get("status") == "verified_complete"
                  and (row.get("dataset"), row.get("method"), row.get("comparison_variant"), row.get("seed"))
                  == (entry["dataset"], entry["method"], entry["comparison_variant"], 1993),
@@ -613,6 +747,9 @@ def merge_partition_summaries(manifest_path, summary_paths, *, expected_summary_
                  and source.get("config_fingerprint") == result.get("config_fingerprint"),
                  "Partition metadata binding differs from the global manifest")
             metrics, resources = validate_records(prepared, saved, result, data, sources)
+            if group == "tuna":
+                need(prepared.get("training_budget_variant") == row.get("training_budget_variant") == "epochs20"
+                     and prepared.get("tuned_epoch") == 20, "Final TUNA row is not the requested epochs20 setting")
             for metric in METRICS:
                 same(scalar(row.get("metrics", {}).get(metric), "Partition " + metric), metrics[metric], metric)
             need(row.get("resources") == resources, "Partition resource export differs from its raw records")
@@ -621,7 +758,7 @@ def merge_partition_summaries(manifest_path, summary_paths, *, expected_summary_
             need(all(checkpoint.get(name) is True for name in
                      ("native_restore_verified", "source_process_terminal_verified",
                       "actual_backup_rehashed", "formal_checkpoint_evidence"))
-                 and checkpoint.get("source_manifest_sha256") == manifest_digest,
+                 and checkpoint.get("source_manifest_sha256") == active_digest,
                  "Partition lacks its strict local checkpoint proof")
             for name in ("checkpoint_sha256", "backup_sha256", "evidence_sha256",
                          "restore_report_sha256", "reference_semantic_sha256", "restored_semantic_sha256"):
@@ -648,7 +785,11 @@ def merge_partition_summaries(manifest_path, summary_paths, *, expected_summary_
         "source_commit": source_commit, "source_files_sha256": sources, "upstream_commit": UPSTREAM,
         "selection_policy": "The four prepared job identities only; never highest test score.",
         "metric_units": "Fractions; Markdown uses percent accuracy and percentage-point forgetting.",
-        "audit_scope": "Two strict host-local checkpoint audits plus SHA-bound exact metadata; metrics/resources recomputed from exports. Remote model files are not reopened or copied by this merge.",
+        "audit_scope": "Original-manifest current20 and user-authorized TUNA20 overlay, both strictly audited on their hosts; metrics/resources recomputed from exact metadata. Remote model files are not reopened or copied by this merge.",
+        "training_budget_overlays": overlays,
+        "common_identity": {"base_manifest_sha256": manifest_digest, "source_commit": source_commit,
+                            "source_files_sha256": sources, "pretrained_npz_sha256": NPZ_SHA,
+                            "data_fingerprints": {dataset: spec["fingerprint"] for dataset, spec in DATA.items()}},
         "remote_checkpoints_reopened_by_merge": False, "partition_reports": proofs,
         "auditor_sha256": auditor_digest, "rows": [combined[job] for job in PARTITIONS["all"]],
     }
@@ -688,6 +829,9 @@ def markdown(summary):
         lines += ["Jobs assigned to the other host partition: " + ", ".join(summary["external_jobs"]) + ".", ""]
     if summary.get("partition") == "merged":
         lines += ["Checkpoint files were verified on their recorded hosts. This merge rechecks exported metadata and does not reopen remote model files.", ""]
+    if any(row.get("training_budget_variant") == "epochs20" and row["method"] == "tuna"
+           for row in summary["rows"]):
+        lines += ["TUNA retains the native mechanism and 30-epoch classifier alignment, with the user-requested 20 image epochs per stage. This is not reproduction of the original native image-training budget.", ""]
     for dataset, spec in DATA.items():
         lines += ["## " + spec["title"], "", "| Method | Variant | Final | AIA | F_previous | F_including_final | Audit status |",
                   "| --- | --- | ---: | ---: | ---: | ---: | --- |"]
@@ -696,7 +840,9 @@ def markdown(summary):
                 continue
             values = ["—" if row["metrics"].get(key) is None else f"{100 * row['metrics'][key]:.2f}" for key in METRICS]
             status = "prior campaign reference" if row.get("imported_previous_campaign") else row["status"]
-            lines.append("| " + " | ".join([row["method"], row["comparison_variant"], *values, status]) + " |")
+            variant = ("epochs20; native mechanism" if row.get("training_budget_variant") == "epochs20"
+                       and row["method"] == "tuna" else row["comparison_variant"])
+            lines.append("| " + " | ".join([row["method"], variant, *values, status]) + " |")
         lines.append("")
     lines += ["F_previous excludes the final evaluation from each historical maximum; F_including_final includes it.",
               "Resource values are the measured runner/method records in the JSON; training costs are not inferred from epoch counts.", ""]

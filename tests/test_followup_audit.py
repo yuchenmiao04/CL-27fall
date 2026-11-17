@@ -397,6 +397,7 @@ def completed_campaign_fixture(tmp_path, monkeypatch):
             sources.update(native_sources)
             evidence_rows.append((job, evidence))
     manifest = {"version": 1, "jobs": entries, "source_files_sha256": sources,
+                "campaign_root": str(tmp_path), "python": "/env/python", "repo": str(REPO),
                 "source_commit": "b" * 40, "pretrained_npz": {"sha256": audit.NPZ_SHA}}
     path = tmp_path / "manifest.json"
     write(path, manifest)
@@ -404,8 +405,61 @@ def completed_campaign_fixture(tmp_path, monkeypatch):
     for job, evidence in evidence_rows:
         evidence["source_manifest_sha256"] = audit.sha(path)
         write(evidence_root / (job + ".json"), evidence)
-    monkeypatch.setattr(audit, "validate_prepared_manifest", lambda p: (manifest, configs))
+    monkeypatch.setattr(audit, "_validate_base_manifest", lambda p: (manifest, configs))
+    monkeypatch.setattr(audit, "BASE_MANIFEST_SHA256", audit.sha(path))
     return path, evidence_root, evidence_rows
+
+
+def tuna20_campaign_fixture(base_path, base_evidence_root):
+    base = audit.read(base_path)
+    root = base_path.parent / "campaign_tuna20"
+    manifest = copy.deepcopy(base)
+    manifest.update(campaign_root=str(root), user_requested_image_epochs=20,
+                    base_manifest_sha256=audit.sha(base_path), base_manifest_path=str(base_path),
+                    base_manifest_text=base_path.read_bytes().decode("utf-8"))
+    evidence_root = root / "checkpoint_evidence"
+    for old, row in zip(base["jobs"], manifest["jobs"]):
+        job = old["job"]
+        cfg = audit.read(old["config"]["path"])
+        run = root / "formal/runs" / job
+        cfg["output_dir"] = row["output_dir"] = str(run)
+        if row["method"] == "tuna":
+            cfg.update(tuned_epoch=20, prefix="followup_tuna_epochs20", training_budget_variant="epochs20")
+        cfg_path = root / "formal/configs" / (job + ".json")
+        write(cfg_path, cfg)
+        row["config"] = {"path": str(cfg_path), "sha256": audit.sha(cfg_path)}
+        row["command"] = [base["python"], str(Path(base["repo"]) / "main.py"), "--config", str(cfg_path)]
+        if row["method"] != "tuna":
+            continue
+        original = Path(old["output_dir"])
+        saved = {**audit.normalized_prepared(cfg), "config": str(cfg_path)}
+        result, data = audit.read(original / "results.json"), audit.read(original / "data_manifest.json")
+        result["config_fingerprint"] = audit.config_fingerprint(saved)
+        for diagnostic in result["task_diagnostics"]:
+            diagnostic["training"]["image_epochs"] = 20
+            diagnostic["training"]["main_optimizer_steps_observed"] = (
+                (diagnostic["arrivals"] + saved["batch_size"] - 1) // saved["batch_size"]) * 20
+        for name, value in (("config", saved), ("results", result), ("data_manifest", data)):
+            write(run / (name + ".json"), value)
+        (run / "checkpoint.pt").write_bytes((original / "checkpoint.pt").read_bytes())
+        evidence = audit.read(base_evidence_root / (job + ".json"))
+        backup = root / "backups" / job / "checkpoint.pt"
+        backup.parent.mkdir(parents=True)
+        backup.write_bytes((run / "checkpoint.pt").read_bytes())
+        report_path = backup.parent / "native_restore.json"
+        write(report_path, evidence["restore_report"])
+        evidence.update(backup_checkpoint_path=str(backup), restore_report_path=str(report_path),
+                        restore_report_sha256=audit.sha(report_path),
+                        source_metadata_sha256={name: audit.sha(run / (name + ".json"))
+                                                for name in ("config", "results", "data_manifest")})
+        write(evidence_root / (job + ".json"), evidence)
+    path = root / "manifest.json"
+    write(path, manifest)
+    for evidence_path in evidence_root.glob("*.json"):
+        evidence = audit.read(evidence_path)
+        evidence["source_manifest_sha256"] = audit.sha(path)
+        write(evidence_path, evidence)
+    return path, evidence_root
 
 
 def test_all_four_final_rows_require_and_accept_actual_backup_closure(tmp_path, monkeypatch):
@@ -436,6 +490,8 @@ def test_allow_incomplete_never_turns_malformed_present_closure_green(
 @pytest.mark.parametrize("partition", ["current20", "tuna"])
 def test_partition_audits_exactly_its_two_local_jobs(tmp_path, monkeypatch, partition):
     path, evidence_root, _ = completed_campaign_fixture(tmp_path, monkeypatch)
+    if partition == "tuna":
+        path, evidence_root = tuna20_campaign_fixture(path, evidence_root)
     monkeypatch.setattr(audit, "runtime_identity", lambda: fake_runtime("1"))
     summary = audit.audit_campaign(path, evidence_root, partition=partition,
                                    host_alias=partition + "-host", host_key_fingerprint=HOST_KEY)
@@ -482,12 +538,104 @@ def test_partition_progress_counts_only_its_pending_local_proof(tmp_path, monkey
     assert len(summary["external_jobs"]) == 2
 
 
+def test_tuna20_manifest_is_an_exact_overlay_and_preserves_original(tmp_path, monkeypatch):
+    base_path, evidence_root, _ = completed_campaign_fixture(tmp_path, monkeypatch)
+    original_bytes = base_path.read_bytes()
+    path, _ = tuna20_campaign_fixture(base_path, evidence_root)
+    manifest, configs = audit.validate_prepared_manifest(path)
+    assert base_path.read_bytes() == original_bytes
+    assert manifest["base_manifest_sha256"] == audit.sha(base_path)
+    for row in manifest["jobs"]:
+        cfg = configs[row["job"]]
+        if row["method"] == "tuna":
+            assert cfg["tuned_epoch"] == 20 and cfg["crct_epochs"] == 30
+            assert cfg["training_budget_variant"] == "epochs20"
+        else:
+            assert cfg["epochs"] == 20 and "training_budget_variant" not in cfg
+            assert not Path(cfg["output_dir"]).exists()  # Unused copies are never trained here.
+
+
+@pytest.mark.parametrize("field,value", [
+    ("tuned_epoch", 15), ("tuned_epoch", 20.0), ("crct_epochs", 31),
+    ("init_lr", 0.02), ("batch_size", 32), ("training_budget_variant", "native"),
+    ("comparison_variant", "tuna20"), ("prefix", "followup_tuna_native"),
+])
+def test_overlay_rejects_rebound_tuna_config_with_any_other_delta(tmp_path, monkeypatch, field, value):
+    base_path, evidence_root, _ = completed_campaign_fixture(tmp_path, monkeypatch)
+    path, _ = tuna20_campaign_fixture(base_path, evidence_root)
+    manifest = audit.read(path)
+    row = next(row for row in manifest["jobs"] if row["method"] == "tuna" and row["dataset"] == "cifar224")
+    cfg_path = Path(row["config"]["path"])
+    cfg = audit.read(cfg_path)
+    cfg[field] = value
+    write(cfg_path, cfg)
+    row["config"]["sha256"] = audit.sha(cfg_path)
+    write(path, manifest)
+    with pytest.raises(audit.AuditError, match="authorized config delta"):
+        audit.validate_prepared_manifest(path)
+
+
+def test_overlay_also_guards_unused_current_config_copies(tmp_path, monkeypatch):
+    base_path, evidence_root, _ = completed_campaign_fixture(tmp_path, monkeypatch)
+    path, _ = tuna20_campaign_fixture(base_path, evidence_root)
+    manifest = audit.read(path)
+    row = next(row for row in manifest["jobs"] if row["method"] == "current_adapted")
+    cfg_path = Path(row["config"]["path"])
+    cfg = audit.read(cfg_path)
+    cfg["module_rank"] *= 2
+    write(cfg_path, cfg)
+    row["config"]["sha256"] = audit.sha(cfg_path)
+    write(path, manifest)
+    with pytest.raises(audit.AuditError, match="authorized config delta"):
+        audit.validate_prepared_manifest(path)
+
+
+@pytest.mark.parametrize("mutation,match", [
+    (lambda m: m.__setitem__("base_manifest_sha256", "0" * 64), "authoritative user budget"),
+    (lambda m: m.__setitem__("base_manifest_text", "{}"), "Metadata export SHA"),
+    (lambda m: m.__setitem__("user_requested_image_epochs", True), "authoritative user budget"),
+    (lambda m: m.__setitem__("source_commit", "0" * 40), "common source/data"),
+    (lambda m: m["pretrained_npz"].__setitem__("sha256", "0" * 64), "common source/data"),
+    (lambda m: m.__setitem__("extra_scientific_override", True), "common source/data"),
+    (lambda m: m["jobs"][0].__setitem__("gpu", 1), "nonadministrative job field"),
+])
+def test_overlay_rejects_unbound_or_scientifically_changed_manifest(tmp_path, monkeypatch, mutation, match):
+    base_path, evidence_root, _ = completed_campaign_fixture(tmp_path, monkeypatch)
+    path, _ = tuna20_campaign_fixture(base_path, evidence_root)
+    manifest = audit.read(path)
+    mutation(manifest)
+    write(path, manifest)
+    with pytest.raises(audit.AuditError, match=match):
+        audit.validate_prepared_manifest(path)
+
+
+def test_original_native_tuna_reports_cannot_enter_final_partition(tmp_path, monkeypatch):
+    path, evidence_root, _ = completed_campaign_fixture(tmp_path, monkeypatch)
+    monkeypatch.setattr(audit, "runtime_identity", lambda: fake_runtime("2"))
+    with pytest.raises(audit.AuditError, match="user-authorized epochs20 overlay"):
+        audit.audit_campaign(path, evidence_root, partition="tuna",
+                             host_alias="tuna-host", host_key_fingerprint=HOST_KEY)
+
+
+@pytest.mark.parametrize("partition", ["all", "current20"])
+def test_unused_current_overlay_jobs_are_not_an_authorized_local_partition(tmp_path, monkeypatch, partition):
+    path, evidence_root, _ = completed_campaign_fixture(tmp_path, monkeypatch)
+    overlay, _ = tuna20_campaign_fixture(path, evidence_root)
+    monkeypatch.setattr(audit, "runtime_identity", lambda: fake_runtime("2"))
+    with pytest.raises(audit.AuditError, match="authorized only for the tuna partition"):
+        audit.audit_campaign(overlay, partition=partition,
+                             host_alias="tuna-host", host_key_fingerprint=HOST_KEY)
+
+
 def partition_reports_fixture(tmp_path, monkeypatch):
     manifest_path, evidence_root, _ = completed_campaign_fixture(tmp_path, monkeypatch)
+    overlay_path, overlay_evidence = tuna20_campaign_fixture(manifest_path, evidence_root)
     paths = []
     for group, marker in (("current20", "1"), ("tuna", "2")):
         monkeypatch.setattr(audit, "runtime_identity", lambda m=marker: fake_runtime(m))
-        summary = audit.audit_campaign(manifest_path, evidence_root, partition=group,
+        active_path, active_evidence = ((overlay_path, overlay_evidence) if group == "tuna"
+                                        else (manifest_path, evidence_root))
+        summary = audit.audit_campaign(active_path, active_evidence, partition=group,
                                        host_alias=group + "-host", host_key_fingerprint=HOST_KEY)
         path = tmp_path / (group + "_partition.json")
         write(path, summary)
@@ -519,6 +667,79 @@ def test_global_merge_recomputes_four_rows_without_opening_remote_models(tmp_pat
                 for proof in merged["partition_reports"]}) == 2
     assert all(proof["summary_sha256"] == proof["server_captured_summary_sha256"]
                for proof in merged["partition_reports"])
+    assert len({proof["manifest_sha256"] for proof in merged["partition_reports"]}) == 2
+    overlay = merged["training_budget_overlays"][0]
+    assert overlay["base_manifest_sha256"] == audit.sha(manifest)
+    assert overlay["manifest_sha256"] != overlay["base_manifest_sha256"]
+    assert overlay["manifest_export"]["sha256"] == overlay["manifest_sha256"]
+    assert all(row["training_budget_variant"] == "epochs20" for row in merged["rows"] if row["method"] == "tuna")
+    assert merged["common_identity"]["pretrained_npz_sha256"] == audit.NPZ_SHA
+
+
+def rebind_overlay_manifest(summary, manifest):
+    record = summary["training_budget_overlay"]["manifest_export"]
+    record["text"] = json.dumps(manifest, indent=2) + "\n"
+    record["sha256"] = summary["manifest_sha256"] = hashlib.sha256(record["text"].encode()).hexdigest()
+    for row in summary["rows"]:
+        row["checkpoint_audit"]["source_manifest_sha256"] = summary["manifest_sha256"]
+
+
+def test_global_merge_rejects_an_original_native_budget_report_even_if_claimed_complete(tmp_path, monkeypatch):
+    manifest, paths = partition_reports_fixture(tmp_path, monkeypatch)
+    summary = audit.read(paths[1])
+    del summary["training_budget_overlay"]
+    summary["manifest_sha256"] = audit.sha(manifest)
+    write(paths[1], summary)
+    with pytest.raises(audit.AuditError, match="authoritative user-requested epochs20 overlay"):
+        merge_reports(manifest, paths)
+
+
+def test_global_merge_rechecks_common_overlay_source_identity(tmp_path, monkeypatch):
+    manifest, paths = partition_reports_fixture(tmp_path, monkeypatch)
+    summary = audit.read(paths[1])
+    overlay_manifest = json.loads(summary["training_budget_overlay"]["manifest_export"]["text"])
+    overlay_manifest["source_files_sha256"]["models/tuna.py"] = "0" * 64
+    rebind_overlay_manifest(summary, overlay_manifest)
+    write(paths[1], summary)
+    with pytest.raises(audit.AuditError, match="common source/data"):
+        merge_reports(manifest, paths)
+
+
+@pytest.mark.parametrize("method,field,value", [
+    ("current_adapted", "module_lr", 0.123), ("tuna", "crct_epochs", 31),
+])
+def test_global_merge_rechecks_all_overlay_config_deltas_after_hash_rebinding(
+    tmp_path, monkeypatch, method, field, value,
+):
+    manifest, paths = partition_reports_fixture(tmp_path, monkeypatch)
+    summary = audit.read(paths[1])
+    proof = summary["training_budget_overlay"]
+    overlay_manifest = json.loads(proof["manifest_export"]["text"])
+    entry = next(row for row in overlay_manifest["jobs"] if row["method"] == method)
+    record = proof["config_exports"][entry["job"]]
+    cfg = json.loads(record["text"])
+    cfg[field] = value
+    record["text"] = json.dumps(cfg)
+    record["sha256"] = entry["config"]["sha256"] = hashlib.sha256(record["text"].encode()).hexdigest()
+    rebind_overlay_manifest(summary, overlay_manifest)
+    write(paths[1], summary)
+    with pytest.raises(audit.AuditError, match="authorized config delta"):
+        merge_reports(manifest, paths)
+
+
+def test_global_merge_cannot_count_native_fifteen_epoch_execution_as_twenty(tmp_path, monkeypatch):
+    manifest, paths = partition_reports_fixture(tmp_path, monkeypatch)
+    summary = audit.read(paths[1])
+    row = next(row for row in summary["rows"] if row["dataset"] == "cifar224")
+    export = row["metadata_exports"]["results"]
+    result = json.loads(export["text"])
+    for diagnostic in result["task_diagnostics"]:
+        diagnostic["training"]["image_epochs"] = 15
+    export["text"] = json.dumps(result)
+    export["sha256"] = row["source"]["results_sha256"] = hashlib.sha256(export["text"].encode()).hexdigest()
+    write(paths[1], summary)
+    with pytest.raises(audit.AuditError, match="observed image steps"):
+        merge_reports(manifest, paths)
 
 
 def test_global_merge_requires_server_captured_report_digest(tmp_path, monkeypatch):
@@ -635,7 +856,9 @@ def test_merge_cli_writes_two_eight_row_tables_and_preserves_original_twelve(tmp
     for dataset in audit.DATA:
         assert {row["comparison_variant"] for row in result["combined_rows"]
                 if row["dataset"] == dataset and row["method"] == "current_adapted"} == {"epochs5", "epochs20"}
-    assert "does not reopen remote model files" in (output / "summary.md").read_text()
+    text = (output / "summary.md").read_text()
+    assert "does not reopen remote model files" in text
+    assert "epochs20; native mechanism" in text and "not reproduction of the original native image-training budget" in text
 
 
 def test_optional_original_summary_keeps_all_twelve_rows_and_current5(tmp_path):

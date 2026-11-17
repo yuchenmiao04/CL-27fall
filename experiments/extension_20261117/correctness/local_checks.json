@@ -22,7 +22,7 @@
       "files": [
         "tests/test_followup_audit.py"
       ],
-      "passed": 99
+      "passed": 124
     },
     {
       "files": [
@@ -35,6 +35,12 @@
         "tests/test_followup_partition.py"
       ],
       "passed": 9
+    },
+    {
+      "files": [
+        "tests/test_prepare_tuna_epochs20.py"
+      ],
+      "passed": 6
     }
   ],
   "current_epochs20_fixture": {
@@ -50,12 +56,14 @@
     "models/tuna_protocol.py": "e9098f2626eeda0f54d8310f1e9b8aebbf60732733473ccc702faa1a380bced3",
     "tests/test_tuna_protocol.py": "b28d66a113ef16ac874ca22e7c44c56e8f11714a4fe75ebaa2e3a9d530e3a71a",
     "scripts/run_followup_queue.py": "e912c04ee2acec1304f7a87c29fe0f97c59b18d745cfc071766bf74328027b36",
-    "scripts/audit_followup_campaign.py": "c1aa9e354efc12b0e5fe5fba8fa78d2c3ee05580a013d9bb6d40fcdb62c7d219",
-    "tests/test_followup_audit.py": "b6d3ce00a5f4a9c16a004b2a0074329b787a6389e9ac8dafc0f3e92e676c4a69",
+    "scripts/audit_followup_campaign.py": "1c52ee076bb545ddcd67d621e9560acfabb2ee96f95a32dbbd429f8a56dfa1d2",
+    "tests/test_followup_audit.py": "d469b7f7210817a194d63efebd0e93ad28f498038d96edc73cbfd1543599b853",
     "scripts/backup_followup_checkpoint.py": "1c9c2ae6b3133023bc6dea7640b9fabc19ec6194ec61f88e7599f3b37a9c441f",
     "tests/test_followup_checkpoint_backup.py": "28ba6aeeeba378a5b7cf301402dc4a12489cbfd2f1260aca43bf3b5ef59a7d29",
     "scripts/run_followup_partition.py": "db4ad0684f375443c200f087c84a8ca04b4e41731e3e3481acfd9b1645b00782",
-    "tests/test_followup_partition.py": "89335a4890c35b7091351e8a726d9577b7b69a8914ba0c843ee31f2f4b0e695c"
+    "tests/test_followup_partition.py": "89335a4890c35b7091351e8a726d9577b7b69a8914ba0c843ee31f2f4b0e695c",
+    "scripts/prepare_tuna_epochs20.py": "086989118aaf56213c72978c26a902141c4d4511f18ea0fe03c8253d8eec0633",
+    "tests/test_prepare_tuna_epochs20.py": "b7775b03360dddff114f722dc6bfd0538dfde1439f3797a8b3370c7f578f2a3c"
   },
   "genuine_pretrained_native_restore": {
     "cifar224": {
@@ -70,5 +78,6 @@
     "extra_training_steps": 0,
     "formal_performance_claim": false
   },
-  "postprocessing_scope": "Strict physical backup/report verification, restored resource accounting, and two-host partition merge; immutable training source and recipes unchanged."
+  "postprocessing_scope": "Strict physical backup/report verification, restored resource accounting, and two-host partition merge; immutable training source and recipes unchanged.",
+  "selected_tuna_budget": "User-selected20imageepochs perstage; CA30 retained; freshpretrainruns. Original15/10partialrecords preserved andnotfinal."
 }

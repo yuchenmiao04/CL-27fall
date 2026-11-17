@@ -1,0 +1,202 @@
+{
+  "version": 1,
+  "runtime_root": "/root/autodl-tmp/cl27",
+  "repo": "/root/autodl-tmp/cl27/runtime_extension_a006566",
+  "python": "/root/cl27-env/bin/python",
+  "campaign_root": "/root/autodl-tmp/cl27/extension_20261117/campaign_tuna20",
+  "source_commit": "a006566923b1c9e5c981c58c615cdcd7c9dac3fa",
+  "scientific_source_guards": "Native TUNA upstream bytes; current five-epoch core bytes unchanged.",
+  "source_files_sha256": {
+    "UPSTREAM_PIN.json": "367a1db2b5ad0e1bd305096caac88609da92f6ac52d95e496db7cf71de630e45",
+    "backbone/linears.py": "d8cf24ab4cbea4c2b84afe6061cdf4276bb5b4e34c0cb2a56712b63f0b6e4505",
+    "backbone/prompt.py": "ce57c5a4aa5c9c5ab9d7eb70ae27cb5a966ac2a1d9a540b45b55dfcd46ff2b04",
+    "backbone/resnet.py": "a12c0669e3066b14144778150cb623c99a016c5d29efd0eff16efc5ca69110fc",
+    "backbone/vit_adapter.py": "5152da2450ff30e4d14015366e78157e0d5ee1fcc52a6cd7527c2a7d025230fb",
+    "backbone/vit_coda_promtpt.py": "6d3874680b2224952c97222dd54a6991e411d3dbb18bd86936db51bdbc83bc3a",
+    "backbone/vit_dualprompt.py": "6dbb0103bdc9b26910ab5d40687aa8c36f45b1d9cc43881d920b51d402b9e340",
+    "backbone/vit_ease.py": "6192da266ed89b0278de79d88cdb877b8fbd68a49ef4c4b195fe639abe3da9ca",
+    "backbone/vit_l2p.py": "339997d54728f24e72744df959adf852ff6fea2158fb77b0dfecaac53c155811",
+    "backbone/vit_lae.py": "8318819c82faa8ce782a8bd031d1cd61f0d2043f07b75cdd7520bd45d50dcd5a",
+    "backbone/vit_memo.py": "037a6c7d44c028e8d3a3b0793cdd0f1d56da8e08b56254890f1a4105327b048f",
+    "backbone/vit_mos.py": "d493c3fcb97b075a749769e3c8cce7038ac20f9d38fc6c30abc3e9718cbbf2e0",
+    "backbone/vit_ssf.py": "d0fb9c6eb8e26ef71a5154ee6bb28bcde39966ebe3e6edae321de4e2098a8c0c",
+    "backbone/vit_tuna.py": "be59fd0ef53b116c99f16eb68d0275f82cf2fe0386ce252cea9ec3a0f9248f1d",
+    "backbone/vpt.py": "6a4809a3fc06de1164e5b52f04425abfcd39bde8a4d328d9c2fa9d925f682be5",
+    "cl27/__init__.py": "77f44223a067ed9123ca03c50fe5b4c423c6dc75afe3b47c2a291af4491e5211",
+    "cl27/ce_trajectory.py": "371c8f4876059c1ca740d6efed80c00b525a2265a55a45e926dc958d9d6be14a",
+    "cl27/common.py": "61089c9c071761e338c4e15eb93618879648a13a4f4708b7b73ad70d4ea1c443",
+    "cl27/cores/__init__.py": "8e080541adf8a76f2aca0b6e8ba95858f46edf4848ae8da80fc93a3abbe13912",
+    "cl27/cores/plastic_shared_basis.py": "57f9969ebb7f797afdbb9e23c05640462ee19e034d894a4f6815c1b405634691",
+    "cl27/cores/shared_basis.py": "78bf3c39430dff022d61a22c90380ce57c0c3623e5c2271c653d6243c2d454a0",
+    "cl27/cores/transport.py": "632d13b5dad439d7a4eeed0849668fc7dc103d2a838cebea861e42d85865ccd9",
+    "cl27/current/__init__.py": "6583bfdc6053466a527279590da98319bf33fa2575b5f49f65c5142488a5d93e",
+    "cl27/current/engine.py": "43fc2597aeaaa64f23517d598cbb62a0a18e0af1f82520bdfd58de265aa1e372",
+    "cl27/current/episodes.py": "114dbb71f97a954f6bca786dd83599ca82caf2fcb273c93ab21e1500512a062f",
+    "cl27/current/readout.py": "a08cd3c7f036f589081dbb0422bd22114e8e002c2f96b122b9aab234a9c39547",
+    "cl27/data.py": "18fae0aaa165451c0c7b8f5c06eab2fed34c99be4a31623f3d26b930a7a19230",
+    "cl27/pilot_imagenetr.py": "037325bb474f1a59a6c1f4d1c0a7960423cb50b0924e903c5b86836c017bb4f5",
+    "cl27/protocol.py": "ebc3048e53dddf95176cf3ce8f01ec0591c343193b5ba3a527eb01ac84d455ae",
+    "cl27/replay.py": "c334c443a977aa656e07c381ea1a3232dedc56159d70a0717131c50e754a17a9",
+    "cl27/runner.py": "931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e",
+    "cl27/supervised.py": "895b0962cbf7e3b77ad53675490290d211ac9983c3dc65ba61bd9e8a594dda7a",
+    "cl27/transport_training.py": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9",
+    "exps/tuna_cifar.json": "59aed487fdfdbdb07c4f186158511ba110383238237231ac43fd5d0e6715c4f2",
+    "exps/tuna_inr.json": "e8e6edef3017bc149b5396a8ccbfa60dc8aa97b6eb9da39e8dc08c6c785bcbfc",
+    "main.py": "23d494c98deaf6a408664865f7d7dc1259a417531ab2d0c975dcbb02d14117ca",
+    "models/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "models/aper_adapter.py": "903056bad610dbbc45a07b4491d49ec92f3af2531d087ed234cfc95cdc37de3b",
+    "models/aper_finetune.py": "272496f180e448fe3a827429b3644f85887ce5e0ae6f21efea6c931358a9b5dc",
+    "models/aper_ssf.py": "8a87b3c76c50bbe0239ffec8560587ee36667011dec909520267d6564cf998d6",
+    "models/aper_vpt.py": "f2b56ab86888c59e8419774def13f3b216ec7990c45df81f041a83f78e039328",
+    "models/base.py": "55e59eb4698004ae33862332731f172476be28dffafc07e85ad72013d722bcbf",
+    "models/coda_prompt.py": "d983bc70d572efba5e76dd392988fb2d4e972f30945c89e81900021c7a2f6fe3",
+    "models/cofima.py": "f100735246bf2aaa0fe1688912de1d2794475424e7c0875db9d158c2f54847a2",
+    "models/coil.py": "d7c98abd81fcba8600dfed64ca288dec0257c841deae7005776365e9051cb1d9",
+    "models/current_adapted.py": "8cfbe15d35f4d956a665e6c553670bad296289c0ba457df07af7ab5585c0f1c1",
+    "models/der.py": "f647b422deab704909e4409f8e364e5bb24c44ae0324e9c104411d5291f82e98",
+    "models/dgr.py": "333d85759752bda533e7e16c23e8fcc3ffe55011c8620ea9d1285264b3d8d8fc",
+    "models/dualprompt.py": "95ea4ffba79d123f80c063300c6e01dfc1fa0780d9fecef1b9733977b3bbbb65",
+    "models/duct.py": "5e5c313a4a8e1198dd8800a1b81704505eceb84d9daf5724a57d107fb466ec85",
+    "models/ease.py": "3639658799bb1dc02a3052cf7d1cc7e47212d4a81c69a1a1e46d123e4574b4b2",
+    "models/er.py": "5b43cdaf7ecf288dd9b0b64af16ea22b1681fce5ce212e886f00e2c13fbf356c",
+    "models/fecam.py": "17e84bd40ef9b92713968e5a51112a78ae10e79e8201e40b7ce57be7b4029c7e",
+    "models/finetune.py": "53f914aae252148c43cded2f35267e9cd39db821058a1350fd4e8e1b7c28fd5f",
+    "models/foster.py": "96f7a91d32f7a1badf2507945b4bd3aee4e4605f9c36d20d31a2f3987586d9d1",
+    "models/history_transport.py": "a9b32229256cca60cca90ae969df480c20f1f4455629ede69e600d14971f2824",
+    "models/icarl.py": "cb072ffb5750b353185e2ff781fb7df67d1ef08e8ed4ed75c9a445af1fb27bc5",
+    "models/joint.py": "21b6d53d33b131297abcb47ae28b7a61fdc45344d11e523531553663f64cee80",
+    "models/l2p.py": "63e0443656ae0d85ada7f9fbbfb356bca8467dd7802f074d1a83e5dfd62091ad",
+    "models/lae.py": "7c35844828bee1ef5891ebf55342242261083edb8bccc727a5c60af8b8646bfe",
+    "models/memo.py": "2cfc5488eb1d8f83fcbbb5375e271812fd7f871ec684cdf27679e74f9a323635",
+    "models/mos.py": "82b7c95951d5dee98e4c423247decf8b3b3062b1c6b7d3a0696364d83c6002fa",
+    "models/plastic_shared_basis.py": "3e3be162f368d9baf6ee07c2cb60a10947d5186c0dc5e570d61b2894f1d54dc4",
+    "models/ranpac.py": "b3164750c422bdfa59061dad542b6f89b28c12a8b50c257feeef1ce93c53926a",
+    "models/shared_basis.py": "b5ba185c4c8f3a02a0e4c7ceefc4af659a90bd37427e2d2971ed963bd19bc38e",
+    "models/simplecil.py": "63b5c971ee3419abc40a1f2862be270f1b034037fee133627183b21ef102b285",
+    "models/slca.py": "9acabf156b728616cba7c262d9b5b8713c20138560e870cae93463d548ff8c90",
+    "models/tuna.py": "87afb7e1be70c7ee6d7943d5d40eaa1e1fa80057f46bbe3bc898c14c94b56827",
+    "models/tuna_protocol.py": "e9098f2626eeda0f54d8310f1e9b8aebbf60732733473ccc702faa1a380bced3",
+    "scripts/prepare_followup_campaign.py": "a6bb4e51780884190720080ecbd55387499bb9f7d53534a2557d487db7fcf97f",
+    "scripts/run_followup_queue.py": "e912c04ee2acec1304f7a87c29fe0f97c59b18d745cfc071766bf74328027b36",
+    "trainer.py": "cffff7ce8249442a4540559f350dabf78dcdbe774f4d3d910090b1e61859de81",
+    "utils/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "utils/data.py": "a5f1b056a244439a45c7359c4328ae378c1557078ab81cf332ebaf0a8118f87c",
+    "utils/data_manager.py": "74601c9c46d1e51ee95ee20c8a261b28325b997586bd3bf6e78a361d41289857",
+    "utils/factory.py": "0721744a20b251cb6ca6f1eb6e415032e9a5bd354160882919c76f0b11a76971",
+    "utils/inc_net.py": "62b178b90f2ab5262be5a35082e7d92d8faca74dae01135785bbb0454e9e52ed",
+    "utils/toolkit.py": "1f64bb032beacb6510bf9eff1e009ad217a42c9a7fa40cd867a56e71cb4123f6"
+  },
+  "pretrained_npz": {
+    "path": "/root/autodl-tmp/cl27/torch/hub/checkpoints/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+    "sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124"
+  },
+  "environment": {
+    "TORCH_HOME": "/root/autodl-tmp/cl27/torch",
+    "OMP_NUM_THREADS": "4",
+    "OPENBLAS_NUM_THREADS": "4",
+    "MKL_NUM_THREADS": "4",
+    "PYTHONUNBUFFERED": "1",
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8"
+  },
+  "minimum_initial_free_bytes": 13958643712,
+  "jobs": [
+    {
+      "job": "formal_cifar_current_epochs20_v1",
+      "gpu": 0,
+      "dataset": "cifar224",
+      "method": "current_adapted",
+      "comparison_variant": "epochs20",
+      "config": {
+        "path": "/root/autodl-tmp/cl27/extension_20261117/campaign_tuna20/formal/configs/formal_cifar_current_epochs20_v1.json",
+        "sha256": "08aed2ba0bdf311ef28ca4c3740c7f000511edd19b3529c104d3e742d3629d41"
+      },
+      "template_sha256": "a3969036e86e035f0ed275be3dced9ef4f7b8539db9635b7164c3d3570091d84",
+      "output_dir": "/root/autodl-tmp/cl27/extension_20261117/campaign_tuna20/formal/runs/formal_cifar_current_epochs20_v1",
+      "command": [
+        "/root/cl27-env/bin/python",
+        "/root/autodl-tmp/cl27/runtime_extension_a006566/main.py",
+        "--config",
+        "/root/autodl-tmp/cl27/extension_20261117/campaign_tuna20/formal/configs/formal_cifar_current_epochs20_v1.json"
+      ],
+      "environment": {
+        "CL27_CURRENT_FROZEN_PREFIX_REUSE": "1"
+      }
+    },
+    {
+      "job": "formal_imagenetr_current_epochs20_v1",
+      "gpu": 1,
+      "dataset": "imagenetr",
+      "method": "current_adapted",
+      "comparison_variant": "epochs20",
+      "config": {
+        "path": "/root/autodl-tmp/cl27/extension_20261117/campaign_tuna20/formal/configs/formal_imagenetr_current_epochs20_v1.json",
+        "sha256": "52a64bf4add20fa6ba2a5071dc2e51d03c6b13428b47ff802c58380e8c04bee4"
+      },
+      "template_sha256": "18e4b1af7c61b3af32fbedbab2c1cf6a4ee64da64f6e05280eeba13f4863e0d9",
+      "output_dir": "/root/autodl-tmp/cl27/extension_20261117/campaign_tuna20/formal/runs/formal_imagenetr_current_epochs20_v1",
+      "command": [
+        "/root/cl27-env/bin/python",
+        "/root/autodl-tmp/cl27/runtime_extension_a006566/main.py",
+        "--config",
+        "/root/autodl-tmp/cl27/extension_20261117/campaign_tuna20/formal/configs/formal_imagenetr_current_epochs20_v1.json"
+      ],
+      "environment": {
+        "CL27_CURRENT_FROZEN_PREFIX_REUSE": "1"
+      }
+    },
+    {
+      "job": "formal_cifar_tuna_native_v1",
+      "gpu": 0,
+      "dataset": "cifar224",
+      "method": "tuna",
+      "comparison_variant": "pilot_native_same_protocol",
+      "config": {
+        "path": "/root/autodl-tmp/cl27/extension_20261117/campaign_tuna20/formal/configs/formal_cifar_tuna_native_v1.json",
+        "sha256": "267f85c0afffebc814fe99f2b5c6120c684fc86cc4a5f10f532aaaf2749d5397"
+      },
+      "template_sha256": "d09c9a1a754a9054a5e28c17e0d37f0b62bc77183ea319250f34a1d6ce2ff440",
+      "output_dir": "/root/autodl-tmp/cl27/extension_20261117/campaign_tuna20/formal/runs/formal_cifar_tuna_native_v1",
+      "command": [
+        "/root/cl27-env/bin/python",
+        "/root/autodl-tmp/cl27/runtime_extension_a006566/main.py",
+        "--config",
+        "/root/autodl-tmp/cl27/extension_20261117/campaign_tuna20/formal/configs/formal_cifar_tuna_native_v1.json"
+      ],
+      "environment": {}
+    },
+    {
+      "job": "formal_imagenetr_tuna_native_v1",
+      "gpu": 1,
+      "dataset": "imagenetr",
+      "method": "tuna",
+      "comparison_variant": "pilot_native_same_protocol",
+      "config": {
+        "path": "/root/autodl-tmp/cl27/extension_20261117/campaign_tuna20/formal/configs/formal_imagenetr_tuna_native_v1.json",
+        "sha256": "daf26c1f9bdbb53c34d4c008c44ff8819ad48a6fee51b07a154df74dab14c63b"
+      },
+      "template_sha256": "614f37805d33859da84760e370f62217fb79e884506e1dfb07e8b608c1d22567",
+      "output_dir": "/root/autodl-tmp/cl27/extension_20261117/campaign_tuna20/formal/runs/formal_imagenetr_tuna_native_v1",
+      "command": [
+        "/root/cl27-env/bin/python",
+        "/root/autodl-tmp/cl27/runtime_extension_a006566/main.py",
+        "--config",
+        "/root/autodl-tmp/cl27/extension_20261117/campaign_tuna20/formal/configs/formal_imagenetr_tuna_native_v1.json"
+      ],
+      "environment": {}
+    }
+  ],
+  "queue": {
+    "0": [
+      "formal_cifar_current_epochs20_v1",
+      "formal_cifar_tuna_native_v1"
+    ],
+    "1": [
+      "formal_imagenetr_current_epochs20_v1",
+      "formal_imagenetr_tuna_native_v1"
+    ]
+  },
+  "user_requested_image_epochs": 20,
+  "base_manifest_sha256": "8a70c7e5a6011bb293c833387d71046173503d4ba94efca3c3ee2587b82e4c43",
+  "base_manifest_path": "/root/autodl-tmp/cl27/extension_20261117/campaign/manifest.json",
+  "base_manifest_text": "{\n  \"version\": 1,\n  \"runtime_root\": \"/root/autodl-tmp/cl27\",\n  \"repo\": \"/root/autodl-tmp/cl27/runtime_extension_a006566\",\n  \"python\": \"/root/cl27-env/bin/python\",\n  \"campaign_root\": \"/root/autodl-tmp/cl27/extension_20261117/campaign\",\n  \"source_commit\": \"a006566923b1c9e5c981c58c615cdcd7c9dac3fa\",\n  \"scientific_source_guards\": \"Native TUNA upstream bytes; current five-epoch core bytes unchanged.\",\n  \"source_files_sha256\": {\n    \"UPSTREAM_PIN.json\": \"367a1db2b5ad0e1bd305096caac88609da92f6ac52d95e496db7cf71de630e45\",\n    \"backbone/linears.py\": \"d8cf24ab4cbea4c2b84afe6061cdf4276bb5b4e34c0cb2a56712b63f0b6e4505\",\n    \"backbone/prompt.py\": \"ce57c5a4aa5c9c5ab9d7eb70ae27cb5a966ac2a1d9a540b45b55dfcd46ff2b04\",\n    \"backbone/resnet.py\": \"a12c0669e3066b14144778150cb623c99a016c5d29efd0eff16efc5ca69110fc\",\n    \"backbone/vit_adapter.py\": \"5152da2450ff30e4d14015366e78157e0d5ee1fcc52a6cd7527c2a7d025230fb\",\n    \"backbone/vit_coda_promtpt.py\": \"6d3874680b2224952c97222dd54a6991e411d3dbb18bd86936db51bdbc83bc3a\",\n    \"backbone/vit_dualprompt.py\": \"6dbb0103bdc9b26910ab5d40687aa8c36f45b1d9cc43881d920b51d402b9e340\",\n    \"backbone/vit_ease.py\": \"6192da266ed89b0278de79d88cdb877b8fbd68a49ef4c4b195fe639abe3da9ca\",\n    \"backbone/vit_l2p.py\": \"339997d54728f24e72744df959adf852ff6fea2158fb77b0dfecaac53c155811\",\n    \"backbone/vit_lae.py\": \"8318819c82faa8ce782a8bd031d1cd61f0d2043f07b75cdd7520bd45d50dcd5a\",\n    \"backbone/vit_memo.py\": \"037a6c7d44c028e8d3a3b0793cdd0f1d56da8e08b56254890f1a4105327b048f\",\n    \"backbone/vit_mos.py\": \"d493c3fcb97b075a749769e3c8cce7038ac20f9d38fc6c30abc3e9718cbbf2e0\",\n    \"backbone/vit_ssf.py\": \"d0fb9c6eb8e26ef71a5154ee6bb28bcde39966ebe3e6edae321de4e2098a8c0c\",\n    \"backbone/vit_tuna.py\": \"be59fd0ef53b116c99f16eb68d0275f82cf2fe0386ce252cea9ec3a0f9248f1d\",\n    \"backbone/vpt.py\": \"6a4809a3fc06de1164e5b52f04425abfcd39bde8a4d328d9c2fa9d925f682be5\",\n    \"cl27/__init__.py\": \"77f44223a067ed9123ca03c50fe5b4c423c6dc75afe3b47c2a291af4491e5211\",\n    \"cl27/ce_trajectory.py\": \"371c8f4876059c1ca740d6efed80c00b525a2265a55a45e926dc958d9d6be14a\",\n    \"cl27/common.py\": \"61089c9c071761e338c4e15eb93618879648a13a4f4708b7b73ad70d4ea1c443\",\n    \"cl27/cores/__init__.py\": \"8e080541adf8a76f2aca0b6e8ba95858f46edf4848ae8da80fc93a3abbe13912\",\n    \"cl27/cores/plastic_shared_basis.py\": \"57f9969ebb7f797afdbb9e23c05640462ee19e034d894a4f6815c1b405634691\",\n    \"cl27/cores/shared_basis.py\": \"78bf3c39430dff022d61a22c90380ce57c0c3623e5c2271c653d6243c2d454a0\",\n    \"cl27/cores/transport.py\": \"632d13b5dad439d7a4eeed0849668fc7dc103d2a838cebea861e42d85865ccd9\",\n    \"cl27/current/__init__.py\": \"6583bfdc6053466a527279590da98319bf33fa2575b5f49f65c5142488a5d93e\",\n    \"cl27/current/engine.py\": \"43fc2597aeaaa64f23517d598cbb62a0a18e0af1f82520bdfd58de265aa1e372\",\n    \"cl27/current/episodes.py\": \"114dbb71f97a954f6bca786dd83599ca82caf2fcb273c93ab21e1500512a062f\",\n    \"cl27/current/readout.py\": \"a08cd3c7f036f589081dbb0422bd22114e8e002c2f96b122b9aab234a9c39547\",\n    \"cl27/data.py\": \"18fae0aaa165451c0c7b8f5c06eab2fed34c99be4a31623f3d26b930a7a19230\",\n    \"cl27/pilot_imagenetr.py\": \"037325bb474f1a59a6c1f4d1c0a7960423cb50b0924e903c5b86836c017bb4f5\",\n    \"cl27/protocol.py\": \"ebc3048e53dddf95176cf3ce8f01ec0591c343193b5ba3a527eb01ac84d455ae\",\n    \"cl27/replay.py\": \"c334c443a977aa656e07c381ea1a3232dedc56159d70a0717131c50e754a17a9\",\n    \"cl27/runner.py\": \"931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e\",\n    \"cl27/supervised.py\": \"895b0962cbf7e3b77ad53675490290d211ac9983c3dc65ba61bd9e8a594dda7a\",\n    \"cl27/transport_training.py\": \"3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9\",\n    \"exps/tuna_cifar.json\": \"59aed487fdfdbdb07c4f186158511ba110383238237231ac43fd5d0e6715c4f2\",\n    \"exps/tuna_inr.json\": \"e8e6edef3017bc149b5396a8ccbfa60dc8aa97b6eb9da39e8dc08c6c785bcbfc\",\n    \"main.py\": \"23d494c98deaf6a408664865f7d7dc1259a417531ab2d0c975dcbb02d14117ca\",\n    \"models/__init__.py\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\n    \"models/aper_adapter.py\": \"903056bad610dbbc45a07b4491d49ec92f3af2531d087ed234cfc95cdc37de3b\",\n    \"models/aper_finetune.py\": \"272496f180e448fe3a827429b3644f85887ce5e0ae6f21efea6c931358a9b5dc\",\n    \"models/aper_ssf.py\": \"8a87b3c76c50bbe0239ffec8560587ee36667011dec909520267d6564cf998d6\",\n    \"models/aper_vpt.py\": \"f2b56ab86888c59e8419774def13f3b216ec7990c45df81f041a83f78e039328\",\n    \"models/base.py\": \"55e59eb4698004ae33862332731f172476be28dffafc07e85ad72013d722bcbf\",\n    \"models/coda_prompt.py\": \"d983bc70d572efba5e76dd392988fb2d4e972f30945c89e81900021c7a2f6fe3\",\n    \"models/cofima.py\": \"f100735246bf2aaa0fe1688912de1d2794475424e7c0875db9d158c2f54847a2\",\n    \"models/coil.py\": \"d7c98abd81fcba8600dfed64ca288dec0257c841deae7005776365e9051cb1d9\",\n    \"models/current_adapted.py\": \"8cfbe15d35f4d956a665e6c553670bad296289c0ba457df07af7ab5585c0f1c1\",\n    \"models/der.py\": \"f647b422deab704909e4409f8e364e5bb24c44ae0324e9c104411d5291f82e98\",\n    \"models/dgr.py\": \"333d85759752bda533e7e16c23e8fcc3ffe55011c8620ea9d1285264b3d8d8fc\",\n    \"models/dualprompt.py\": \"95ea4ffba79d123f80c063300c6e01dfc1fa0780d9fecef1b9733977b3bbbb65\",\n    \"models/duct.py\": \"5e5c313a4a8e1198dd8800a1b81704505eceb84d9daf5724a57d107fb466ec85\",\n    \"models/ease.py\": \"3639658799bb1dc02a3052cf7d1cc7e47212d4a81c69a1a1e46d123e4574b4b2\",\n    \"models/er.py\": \"5b43cdaf7ecf288dd9b0b64af16ea22b1681fce5ce212e886f00e2c13fbf356c\",\n    \"models/fecam.py\": \"17e84bd40ef9b92713968e5a51112a78ae10e79e8201e40b7ce57be7b4029c7e\",\n    \"models/finetune.py\": \"53f914aae252148c43cded2f35267e9cd39db821058a1350fd4e8e1b7c28fd5f\",\n    \"models/foster.py\": \"96f7a91d32f7a1badf2507945b4bd3aee4e4605f9c36d20d31a2f3987586d9d1\",\n    \"models/history_transport.py\": \"a9b32229256cca60cca90ae969df480c20f1f4455629ede69e600d14971f2824\",\n    \"models/icarl.py\": \"cb072ffb5750b353185e2ff781fb7df67d1ef08e8ed4ed75c9a445af1fb27bc5\",\n    \"models/joint.py\": \"21b6d53d33b131297abcb47ae28b7a61fdc45344d11e523531553663f64cee80\",\n    \"models/l2p.py\": \"63e0443656ae0d85ada7f9fbbfb356bca8467dd7802f074d1a83e5dfd62091ad\",\n    \"models/lae.py\": \"7c35844828bee1ef5891ebf55342242261083edb8bccc727a5c60af8b8646bfe\",\n    \"models/memo.py\": \"2cfc5488eb1d8f83fcbbb5375e271812fd7f871ec684cdf27679e74f9a323635\",\n    \"models/mos.py\": \"82b7c95951d5dee98e4c423247decf8b3b3062b1c6b7d3a0696364d83c6002fa\",\n    \"models/plastic_shared_basis.py\": \"3e3be162f368d9baf6ee07c2cb60a10947d5186c0dc5e570d61b2894f1d54dc4\",\n    \"models/ranpac.py\": \"b3164750c422bdfa59061dad542b6f89b28c12a8b50c257feeef1ce93c53926a\",\n    \"models/shared_basis.py\": \"b5ba185c4c8f3a02a0e4c7ceefc4af659a90bd37427e2d2971ed963bd19bc38e\",\n    \"models/simplecil.py\": \"63b5c971ee3419abc40a1f2862be270f1b034037fee133627183b21ef102b285\",\n    \"models/slca.py\": \"9acabf156b728616cba7c262d9b5b8713c20138560e870cae93463d548ff8c90\",\n    \"models/tuna.py\": \"87afb7e1be70c7ee6d7943d5d40eaa1e1fa80057f46bbe3bc898c14c94b56827\",\n    \"models/tuna_protocol.py\": \"e9098f2626eeda0f54d8310f1e9b8aebbf60732733473ccc702faa1a380bced3\",\n    \"scripts/prepare_followup_campaign.py\": \"a6bb4e51780884190720080ecbd55387499bb9f7d53534a2557d487db7fcf97f\",\n    \"scripts/run_followup_queue.py\": \"e912c04ee2acec1304f7a87c29fe0f97c59b18d745cfc071766bf74328027b36\",\n    \"trainer.py\": \"cffff7ce8249442a4540559f350dabf78dcdbe774f4d3d910090b1e61859de81\",\n    \"utils/__init__.py\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\",\n    \"utils/data.py\": \"a5f1b056a244439a45c7359c4328ae378c1557078ab81cf332ebaf0a8118f87c\",\n    \"utils/data_manager.py\": \"74601c9c46d1e51ee95ee20c8a261b28325b997586bd3bf6e78a361d41289857\",\n    \"utils/factory.py\": \"0721744a20b251cb6ca6f1eb6e415032e9a5bd354160882919c76f0b11a76971\",\n    \"utils/inc_net.py\": \"62b178b90f2ab5262be5a35082e7d92d8faca74dae01135785bbb0454e9e52ed\",\n    \"utils/toolkit.py\": \"1f64bb032beacb6510bf9eff1e009ad217a42c9a7fa40cd867a56e71cb4123f6\"\n  },\n  \"pretrained_npz\": {\n    \"path\": \"/root/autodl-tmp/cl27/torch/hub/checkpoints/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz\",\n    \"sha256\": \"ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124\"\n  },\n  \"environment\": {\n    \"TORCH_HOME\": \"/root/autodl-tmp/cl27/torch\",\n    \"OMP_NUM_THREADS\": \"4\",\n    \"OPENBLAS_NUM_THREADS\": \"4\",\n    \"MKL_NUM_THREADS\": \"4\",\n    \"PYTHONUNBUFFERED\": \"1\",\n    \"CUBLAS_WORKSPACE_CONFIG\": \":4096:8\"\n  },\n  \"minimum_initial_free_bytes\": 13958643712,\n  \"jobs\": [\n    {\n      \"job\": \"formal_cifar_current_epochs20_v1\",\n      \"gpu\": 0,\n      \"dataset\": \"cifar224\",\n      \"method\": \"current_adapted\",\n      \"comparison_variant\": \"epochs20\",\n      \"config\": {\n        \"path\": \"/root/autodl-tmp/cl27/extension_20261117/campaign/formal/configs/formal_cifar_current_epochs20_v1.json\",\n        \"sha256\": \"ad918bbe031d81fd4b70732c21130b523f52aab3aad9030ed92707ef48a8fcd2\"\n      },\n      \"template_sha256\": \"a3969036e86e035f0ed275be3dced9ef4f7b8539db9635b7164c3d3570091d84\",\n      \"output_dir\": \"/root/autodl-tmp/cl27/extension_20261117/campaign/formal/runs/formal_cifar_current_epochs20_v1\",\n      \"command\": [\n        \"/root/cl27-env/bin/python\",\n        \"/root/autodl-tmp/cl27/runtime_extension_a006566/main.py\",\n        \"--config\",\n        \"/root/autodl-tmp/cl27/extension_20261117/campaign/formal/configs/formal_cifar_current_epochs20_v1.json\"\n      ],\n      \"environment\": {\n        \"CL27_CURRENT_FROZEN_PREFIX_REUSE\": \"1\"\n      }\n    },\n    {\n      \"job\": \"formal_imagenetr_current_epochs20_v1\",\n      \"gpu\": 1,\n      \"dataset\": \"imagenetr\",\n      \"method\": \"current_adapted\",\n      \"comparison_variant\": \"epochs20\",\n      \"config\": {\n        \"path\": \"/root/autodl-tmp/cl27/extension_20261117/campaign/formal/configs/formal_imagenetr_current_epochs20_v1.json\",\n        \"sha256\": \"1ba2a5395c6efc486f02e31ac6c45d0d9fa2e4834b72f0efc286f42052ff6c02\"\n      },\n      \"template_sha256\": \"18e4b1af7c61b3af32fbedbab2c1cf6a4ee64da64f6e05280eeba13f4863e0d9\",\n      \"output_dir\": \"/root/autodl-tmp/cl27/extension_20261117/campaign/formal/runs/formal_imagenetr_current_epochs20_v1\",\n      \"command\": [\n        \"/root/cl27-env/bin/python\",\n        \"/root/autodl-tmp/cl27/runtime_extension_a006566/main.py\",\n        \"--config\",\n        \"/root/autodl-tmp/cl27/extension_20261117/campaign/formal/configs/formal_imagenetr_current_epochs20_v1.json\"\n      ],\n      \"environment\": {\n        \"CL27_CURRENT_FROZEN_PREFIX_REUSE\": \"1\"\n      }\n    },\n    {\n      \"job\": \"formal_cifar_tuna_native_v1\",\n      \"gpu\": 0,\n      \"dataset\": \"cifar224\",\n      \"method\": \"tuna\",\n      \"comparison_variant\": \"pilot_native_same_protocol\",\n      \"config\": {\n        \"path\": \"/root/autodl-tmp/cl27/extension_20261117/campaign/formal/configs/formal_cifar_tuna_native_v1.json\",\n        \"sha256\": \"720842317280986bf1cb1f594b9356dfdc4e8eeba64beebdba4a672e157ecadb\"\n      },\n      \"template_sha256\": \"d09c9a1a754a9054a5e28c17e0d37f0b62bc77183ea319250f34a1d6ce2ff440\",\n      \"output_dir\": \"/root/autodl-tmp/cl27/extension_20261117/campaign/formal/runs/formal_cifar_tuna_native_v1\",\n      \"command\": [\n        \"/root/cl27-env/bin/python\",\n        \"/root/autodl-tmp/cl27/runtime_extension_a006566/main.py\",\n        \"--config\",\n        \"/root/autodl-tmp/cl27/extension_20261117/campaign/formal/configs/formal_cifar_tuna_native_v1.json\"\n      ],\n      \"environment\": {}\n    },\n    {\n      \"job\": \"formal_imagenetr_tuna_native_v1\",\n      \"gpu\": 1,\n      \"dataset\": \"imagenetr\",\n      \"method\": \"tuna\",\n      \"comparison_variant\": \"pilot_native_same_protocol\",\n      \"config\": {\n        \"path\": \"/root/autodl-tmp/cl27/extension_20261117/campaign/formal/configs/formal_imagenetr_tuna_native_v1.json\",\n        \"sha256\": \"7772638f8fbcaaf0e0d1b452192b5c1a2ea5f42b5c61242c250e9c2178648008\"\n      },\n      \"template_sha256\": \"614f37805d33859da84760e370f62217fb79e884506e1dfb07e8b608c1d22567\",\n      \"output_dir\": \"/root/autodl-tmp/cl27/extension_20261117/campaign/formal/runs/formal_imagenetr_tuna_native_v1\",\n      \"command\": [\n        \"/root/cl27-env/bin/python\",\n        \"/root/autodl-tmp/cl27/runtime_extension_a006566/main.py\",\n        \"--config\",\n        \"/root/autodl-tmp/cl27/extension_20261117/campaign/formal/configs/formal_imagenetr_tuna_native_v1.json\"\n      ],\n      \"environment\": {}\n    }\n  ],\n  \"queue\": {\n    \"0\": [\n      \"formal_cifar_current_epochs20_v1\",\n      \"formal_cifar_tuna_native_v1\"\n    ],\n    \"1\": [\n      \"formal_imagenetr_current_epochs20_v1\",\n      \"formal_imagenetr_tuna_native_v1\"\n    ]\n  }\n}\n"
+}
