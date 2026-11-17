@@ -1,0 +1,27 @@
+{
+  "job": "imagenetr_bounded_stage1_value_v5",
+  "pid": 23435,
+  "proc_start_ticks": "1789098471",
+  "launch_utc": "2026-11-17T05:43:34Z",
+  "cwd": "runtime/runtime_bounded_v4",
+  "command": [
+    "environment/bin/python",
+    "scripts/diagnose_current_checkpoint.py",
+    "--config",
+    "runtime/campaign_20261117/development/runs/imagenetr_current_bounded64_screen_v5/config.json",
+    "--checkpoint",
+    "runtime/campaign_20261117/development/runs/imagenetr_current_bounded64_screen_v5/checkpoint_task1.pt",
+    "--previous-checkpoint",
+    "runtime/campaign_20261117/development/runs/imagenetr_current_bounded64_screen_v5/checkpoint_task0.pt",
+    "--device",
+    "0",
+    "--output-json",
+    "runtime/campaign_20261117/development/runs/imagenetr_bounded_stage1_value_v5.json"
+  ],
+  "metadata": {
+    "development_only": true,
+    "read_only": true,
+    "scope": "Same original pre-herding fit pool; isolate anchor/common/full representation at40classes."
+  },
+  "environment": {}
+}

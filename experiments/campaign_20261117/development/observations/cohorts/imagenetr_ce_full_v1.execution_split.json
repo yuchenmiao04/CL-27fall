@@ -1,0 +1,23 @@
+{
+  "status": "gradient_driver_complete_heads_split",
+  "decision": "D0040",
+  "parent": "imagenetr_ce_full_v1",
+  "checked_utc": "2026-11-17T06:38:56.101017+00:00",
+  "driver_completed_tasks": 10,
+  "all_transition_files_verified": true,
+  "original_process_stopped": false,
+  "reason": "Release the completed gradient driver CUDA allocator reservation; resume unfinished analytic heads in separate processes with unchanged algorithms, options, data and cache guards.",
+  "recoveries": [
+    {
+      "method": "history_transport",
+      "already_complete": true,
+      "result": "development/runs/imagenetr_ce_full_v1_history_transport/results.json"
+    },
+    {
+      "method": "plastic_shared_basis",
+      "already_complete": true,
+      "result": "development/runs/imagenetr_ce_full_v1_plastic_shared_basis/results.json"
+    }
+  ],
+  "prepared_jobs": []
+}

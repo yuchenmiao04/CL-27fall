@@ -1,0 +1,20 @@
+{
+  "id": "D0038",
+  "kind": "combine_surviving_prior_with_reference_strategy",
+  "method": "plastic_shared_basis",
+  "prior_evidence": "Chained transport improved both matched3-stage ridge heads, while lower prior noise survived direct-coordinate prefix screening.",
+  "change": {
+    "transport_mode": {
+      "from": "direct",
+      "to": "chained"
+    }
+  },
+  "prior_scales": {
+    "cifar224": 0.001,
+    "imagenetr": 0.0001
+  },
+  "reason": "Test the current leading prior scale once on the improved reference-coordinate strategy, rather than a mode-by-parameter grid. Fresh moments are required because direct checkpoints cannot be reinterpreted as chained.",
+  "screen_stages": 3,
+  "full_candidate_requirement": "Any surviving final candidate still needs all10 development stages.",
+  "official_test_used_for_parameter_decision": false
+}

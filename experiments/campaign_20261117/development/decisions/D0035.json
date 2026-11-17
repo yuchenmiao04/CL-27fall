@@ -1,0 +1,26 @@
+{
+  "id": "D0035",
+  "kind": "adaptive_reference_coordinate_test",
+  "method": "history_transport",
+  "datasets": [
+    "cifar224",
+    "imagenetr"
+  ],
+  "change": {
+    "transport_mode": {
+      "from": "direct",
+      "to": "chained"
+    }
+  },
+  "prior_validation_evidence": {
+    "cifar_direct_prefix3": 0.966,
+    "imagenetr_direct_prefix3": 0.8619302949061662
+  },
+  "reason": "The user earlier asked whether the historical reference should advance each stage. Existing chained mode estimates each change from the previous body representation, potentially making individual maps easier while propagating approximate moment errors. Test this single modeling choice on the same CE body trajectory; do not assume it is better than direct fixed-reference transport.",
+  "fresh_required": true,
+  "extra_reference_encoding": "Deterministic canonical extract_features uses an independent generator(seed0), no training/global random-stream consumption. Existing cache guards remain unchanged.",
+  "risk": "Chained uses prior surrogate moments, so errors may accumulate or trigger PSD consistency checks. Do not relax guards if that happens.",
+  "screen_stages": 3,
+  "full_candidate_requirement": "Surviving mode requires all10 development stages before selection.",
+  "official_test_used_for_parameter_decision": false
+}

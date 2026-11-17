@@ -1,0 +1,11 @@
+{
+  "id": "D0040",
+  "kind": "execution_memory_release_after_gradient_completion",
+  "reason": "A native cohort retains the completed gradient driver CUDA allocator reservation during its later analytic readers. After verifying10 completed driver stages and all10 immutable transition files, stop only that cohort process and resume pending analytic heads from their latest complete own checkpoints in separate processes. This releases unused reservation for the fixed baselines.",
+  "algorithm_or_parameter_change": false,
+  "body_gradients_repeated": false,
+  "partial_head_stage_may_be_recomputed": true,
+  "guards": "PID+start ticks+command identity; complete driver result; transitions0\u20139; original task checkpoints retained.",
+  "source": "Unmodified runtime_tuning_v1/native replay-only entry point.",
+  "official_test_used_for_parameter_decision": false
+}

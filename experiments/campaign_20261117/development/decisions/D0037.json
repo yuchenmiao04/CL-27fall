@@ -1,0 +1,17 @@
+{
+  "id": "D0037",
+  "kind": "promote_reference_strategy_to_full_development",
+  "prefix_evidence": {
+    "cifar_direct": 0.966,
+    "cifar_chained": 0.9753333333333334,
+    "imagenetr_direct": 0.8619302949061662,
+    "imagenetr_chained": 0.8847184986595175
+  },
+  "reason": "Chained improves both3-stage holdouts on identical body trajectories. Its accumulated moment error can behave differently later, so compare full10-stage direct and chained candidates before selecting.",
+  "prepared_full_candidates": [
+    "imagenetr_transport_chained_full_v2",
+    "cifar_transport_chained_full_v2"
+  ],
+  "launch_condition": "Native stage_009.pt must exist; do not silently train missing transitions.",
+  "official_test_used_for_parameter_decision": false
+}

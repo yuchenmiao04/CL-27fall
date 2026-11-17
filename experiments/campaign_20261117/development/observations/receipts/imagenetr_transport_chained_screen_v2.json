@@ -1,0 +1,26 @@
+{
+  "job": "imagenetr_transport_chained_screen_v2",
+  "pid": 23989,
+  "proc_start_ticks": "1789180016",
+  "launch_utc": "2026-11-17T05:57:10Z",
+  "cwd": "runtime/runtime_tuning_v1",
+  "command": [
+    "environment/bin/python",
+    "scripts/run_ce_cohort.py",
+    "--replay-only",
+    "--configs",
+    "runtime/campaign_20261117/development/configs/imagenetr_transport_chained_screen_v2.json",
+    "--trajectory-dir",
+    "runtime/campaign_20261117/development/ce_trajectories/imagenetr_body_default_v1",
+    "--report",
+    "runtime/campaign_20261117/development/cohorts/imagenetr_transport_chained_screen_v2.json"
+  ],
+  "metadata": {
+    "decision": "D0035",
+    "gpu": 0,
+    "development_only": true,
+    "CE_training_repeated": false,
+    "fresh_statistics": true
+  },
+  "environment": {}
+}

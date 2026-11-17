@@ -1,0 +1,20 @@
+{
+  "id": "D0036",
+  "kind": "full_development_module_continuation",
+  "dataset": "imagenetr",
+  "method": "current_adapted",
+  "prior_trial": "imagenetr_current_bounded64_screen_v5",
+  "evidence": {
+    "prefix_stages": 3,
+    "classes": 60,
+    "final_accuracy": 0.8739946380697051,
+    "aia": 0.9047693427943652,
+    "original_matched_ce_prefix3": 0.8270777479892761,
+    "direct_transport_prefix3": 0.8619302949061662,
+    "wall_seconds_with_other_jobs": 3407.113841574639
+  },
+  "reason": "The bounded module candidate survives the3-stage screen and merits a full10-stage development flow. Keep all learning and architecture settings unchanged; its body differs from the shared CE driver, so the cross-method prefix difference is not an isolated module contribution. The separate40-class same-body diagnostic showed common89.42% versus full88.85%, so no isolated module benefit is established.",
+  "change": "Only scope/output/resume; preserve exact options and restore its own checkpoint.",
+  "later": "Select on complete development metrics, then refit from original pretrained weights on the complete training split.",
+  "official_test_used_for_parameter_decision": false
+}

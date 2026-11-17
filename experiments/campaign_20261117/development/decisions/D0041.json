@@ -1,0 +1,60 @@
+{
+  "id": "D0041",
+  "kind": "full_development_shared_prior_continuation",
+  "method": "plastic_shared_basis",
+  "reason": "Both chained candidates survived the three-stage fixed training-holdout screen. Extend each own checkpoint through all ten development stages with unchanged prior scale, body training and transport settings; no formal selection is made from the prefix.",
+  "change": {
+    "max_tasks": {
+      "from": 3,
+      "to": 10
+    },
+    "output_dir": "new full-development run directory",
+    "resume": "own completed three-stage checkpoint"
+  },
+  "candidates": [
+    {
+      "dataset": "cifar224",
+      "prior": "cifar_psb_chained_screen_v4",
+      "full_candidate": "cifar_psb_chained_full_v4",
+      "evidence": {
+        "evaluation_source": "fixed internal training holdout",
+        "validation_fraction": 0.1,
+        "split_seed": 0,
+        "stages": 3,
+        "final_accuracy": 0.976,
+        "aia": 0.984,
+        "remote_result": "runtime/campaign_20261117/development/runs/cifar_psb_chained_screen_v4/results.json"
+      },
+      "basis_noise_variance": 0.001,
+      "changed_configuration_keys": [
+        "max_tasks",
+        "output_dir",
+        "resume"
+      ]
+    },
+    {
+      "dataset": "imagenetr",
+      "prior": "imagenetr_psb_chained_screen_v4",
+      "full_candidate": "imagenetr_psb_chained_full_v4",
+      "evidence": {
+        "evaluation_source": "fixed internal training holdout",
+        "validation_fraction": 0.1,
+        "split_seed": 0,
+        "stages": 3,
+        "final_accuracy": 0.8847184986595175,
+        "aia": 0.9115965745769142,
+        "remote_result": "runtime/campaign_20261117/development/runs/imagenetr_psb_chained_screen_v4/results.json"
+      },
+      "basis_noise_variance": 0.0001,
+      "changed_configuration_keys": [
+        "max_tasks",
+        "output_dir",
+        "resume"
+      ]
+    }
+  ],
+  "hyperparameters_changed": false,
+  "official_test_used_for_parameter_decision": false,
+  "formal_selection_requirement": "Compare full ten-stage development Final primarily, with AIA, forgetting and diagnostics; selected candidates require fresh full-training formal refit.",
+  "execution_status": "prepared_only; not launched by this decision preparation"
+}
