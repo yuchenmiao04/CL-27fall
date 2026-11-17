@@ -1,0 +1,38 @@
+{
+  "host_alias": "tuna_server",
+  "observed_utc": "2026-11-17T20:24:45.127632+00:00",
+  "source_summary_sha256_captured_on_server": "aee0a3ff3629b40e2ae98b6d2446722d72257757c30591231a11c8174eac0373",
+  "files": {
+    "checkpoint_evidence/tuna/cifar_native_restore.json": {
+      "remote_sha256": "37fe0dece0d355d720fff5cbb78b15c617de265fb313391c8d759609594cffa1",
+      "bytes": 7790,
+      "remote_path": "/root/autodl-tmp/cl27/formal_backups/recovery_20261118/formal_cifar_tuna_native_v1/native_restore.json"
+    },
+    "checkpoint_evidence/tuna/cifar_checkpoint_evidence.json": {
+      "remote_sha256": "b231831d5e4e28b03ebf30aa42a15fca2e035728a9120b6cf8da59940efc7f01",
+      "bytes": 12041,
+      "remote_path": "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v1/checkpoint_evidence/formal_cifar_tuna_native_v1.json"
+    },
+    "checkpoint_evidence/tuna/cifar_cpu_audit_execution.json": {
+      "remote_sha256": "a3dd74f3612cb617f3db7c4786014028365ac07929eaf803d1aabff4f2025d08",
+      "bytes": 1019,
+      "remote_path": "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v1/backup_audits/formal_cifar_tuna_native_v1_v3/execution.json"
+    },
+    "checkpoint_evidence/tuna/imagenetr_native_restore.json": {
+      "remote_sha256": "4b174bdfa6f2c4770edc0dd8d8a86ccbedf00be2bec2e1bfa701c6bb47a84acb",
+      "bytes": 7797,
+      "remote_path": "/root/autodl-tmp/cl27/formal_backups/recovery_20261118/formal_imagenetr_tuna_native_v1/native_restore.json"
+    },
+    "checkpoint_evidence/tuna/imagenetr_checkpoint_evidence.json": {
+      "remote_sha256": "5ef4d3278c0e0747e1945cc189a49b3de22e7384dbb066fa51ade31beab8f18f",
+      "bytes": 12074,
+      "remote_path": "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v1/checkpoint_evidence/formal_imagenetr_tuna_native_v1.json"
+    },
+    "checkpoint_evidence/tuna/imagenetr_cpu_audit_execution.json": {
+      "remote_sha256": "653739bb6a8c26a4c9982b7387a4d77b189494f7c1d1cf56e2d4e17bbc89b703",
+      "bytes": 1022,
+      "remote_path": "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v1/backup_audits/formal_imagenetr_tuna_native_v1_v3/execution.json"
+    }
+  },
+  "scope": "Hashes read from owning server over the pinned SSH session; CPU audit execution is separate from training and checkpoint equality proof."
+}
