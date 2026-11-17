@@ -1,0 +1,39 @@
+{
+  "id": "D0034",
+  "kind": "promote_analytic_candidates_to_full_development",
+  "prefix_evidence": {
+    "imagenetr_noise0.01": 0.8471849865951743,
+    "imagenetr_noise0.001": 0.8592493297587132,
+    "imagenetr_noise0.0001": 0.8619302949061662,
+    "imagenetr_transport": 0.8619302949061662,
+    "cifar_noise0.01": 0.966,
+    "cifar_noise0.001": 0.966
+  },
+  "candidates": [
+    {
+      "new_trial": "imagenetr_psb_noise1e3_full_v2",
+      "prior": "imagenetr_psb_noise0001_screen_v2",
+      "noise": 0.001,
+      "dataset": "imagenetr",
+      "status": "prepared_not_running"
+    },
+    {
+      "new_trial": "imagenetr_psb_noise1e4_full_v3",
+      "prior": "imagenetr_psb_noise1e4_screen_v3",
+      "noise": 0.0001,
+      "dataset": "imagenetr",
+      "status": "prepared_not_running"
+    },
+    {
+      "new_trial": "cifar_psb_noise1e3_full_v2",
+      "prior": "cifar_psb_noise1e3_screen_v2",
+      "noise": 0.001,
+      "dataset": "cifar224",
+      "status": "prepared_not_running"
+    }
+  ],
+  "reason": "ImageNet-R lower-noise candidates survive screening and improve against the original prior scale; the last two differ by only2/746 holdout examples, so do not select solely by that short prefix. CIFAR prefix scores tie, so later classes must decide. Compare their completed10-stage development Final before formal selection. Existing original-parameter full cohorts remain reference candidates.",
+  "launch_condition": "Wait until all required native CE transitions exist; reader does not silently retrain missing stages.",
+  "fresh_formal_after_selection": true,
+  "official_test_used_for_parameter_decision": false
+}

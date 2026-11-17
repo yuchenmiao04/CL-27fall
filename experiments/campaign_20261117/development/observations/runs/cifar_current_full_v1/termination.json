@@ -1,0 +1,12 @@
+{
+  "trial": "cifar_current_full_v1",
+  "decision": "D0027",
+  "reason": "Stop unselected all-buffer development continuation after measured per-epoch cost; fresh bounded candidate follows.",
+  "retained_complete_predecessor": "runs/cifar_current_initial_v1/checkpoint.pt",
+  "retained_complete_predecessor_sha256": "9a7990f18fb4f15fd1082c64bdf16eab175ac212f14ccf355610bbb1291d70c7",
+  "terminated_utc": "2026-11-17T04:43:33.169645+00:00",
+  "formal_run": false,
+  "status": "stopped_development",
+  "signal": "SIGTERM",
+  "process_identity_verified": true
+}

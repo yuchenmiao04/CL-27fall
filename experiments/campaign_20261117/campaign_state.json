@@ -82,7 +82,7 @@
   },
   "development_tool_validation": {
     "cpu_tests_passed": 286,
-    "cuda_trajectory_gate": "pending",
+    "cuda_trajectory_gate": "Native real-ViT prefix replay guards passed for both analytic heads and changed-prior readers; independent duplicate CUDA gradient training was not separately rerun.",
     "frozen_prefix_optimization": {
       "enabled_in_campaign": true,
       "cpu_suite_passed": 260,
@@ -99,12 +99,17 @@
       "second_stage_old_rows_per_batch": 64,
       "second_stage_old_classes_per_batch": 9,
       "full_history_rows": 240
+    },
+    "legacy_first_task_real_cifar": {
+      "status": "exact_match",
+      "checked_nodes": 3212,
+      "artifact": "correctness/current_task0_legacy_vs_bounded_v4.json"
     }
   },
   "formal_running": [],
-  "last_progress_check_utc": "2026-11-17T04:53:39Z",
+  "last_progress_check_utc": "2026-11-17T05:28:41Z",
   "progress_snapshot": {
-    "utc": "2026-11-17T04:53:39Z",
+    "utc": "2026-11-17T05:28:41Z",
     "official_test_metrics_read": true,
     "formal_completed": 3,
     "formal_running": [],
@@ -114,7 +119,14 @@
       "imagenetr_ce_full_v1",
       "imagenetr_current_bounded64_screen_v5"
     ],
-    "prepared_next": [],
+    "prepared_next": [
+      "cifar_psb_noise1e3_full_v2",
+      "imagenetr_psb_noise1e3_full_v2",
+      "imagenetr_psb_noise1e4_full_v3",
+      "formal_cifar_er_fixed_v1",
+      "formal_imagenetr_er_fixed_v1",
+      "formal_imagenetr_joint_fixed_v1"
+    ],
     "completed_full_development": {
       "cifar224/shared_basis": {
         "trial": "cifar_shared_rank64_full_v7",
@@ -149,5 +161,14 @@
     "artifact": "formal/PARTIAL_RESULTS.json",
     "completed_methods_only": true,
     "not_used_for_remaining_hyperparameter_selection": true
+  },
+  "prepared_fixed_baselines": {
+    "hyperparameter_search": false,
+    "configs": [
+      "formal/configs/formal_cifar_er_fixed_v1.json",
+      "formal/configs/formal_imagenetr_er_fixed_v1.json",
+      "formal/configs/formal_imagenetr_joint_fixed_v1.json"
+    ],
+    "server_preflight": "fixed ER formal loader passed; no training launched"
   }
 }

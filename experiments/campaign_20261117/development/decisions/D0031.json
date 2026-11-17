@@ -1,0 +1,30 @@
+{
+  "id": "D0031",
+  "kind": "adaptive_analytic_head_screen",
+  "dataset": "imagenetr",
+  "method": "plastic_shared_basis",
+  "prior_trial": "imagenetr_ce_screen_v1_plastic_shared_basis",
+  "validation_evidence": {
+    "prefix3_psb": 0.8471849865951743,
+    "prefix3_transport": 0.8619302949061662,
+    "prefix3_matched_ce": 0.8270777479892761
+  },
+  "change": {
+    "basis_noise_variance": {
+      "from": 0.01,
+      "to": 0.001
+    }
+  },
+  "unchanged": {
+    "basis_rank": 32,
+    "basis_epsilon": 0.001,
+    "basis_max_iter": 20,
+    "basis_tolerance": 1e-06,
+    "CE_body_trajectory": "exact same recorded file transitions0\u20132",
+    "full_development_fitting_rows": true
+  },
+  "reason": "The shared-prior head trails the matched transported ridge head by1.47points on the training holdout. Test one lower observation-noise scale on the identical plastic-feature trajectory; normalized features and the earlier training-holdout prior-scale study motivate this direction, not formal test values. This isolates the analytic prior from representation learning.",
+  "execution": "Native replay-only reader, fresh start, own moments/herding/evaluation; existing immutable trajectory files are reused while later driver stages append.",
+  "selection_scope": "First3 stages only; a retained final candidate still requires full10-stage development.",
+  "official_test_used_for_parameter_decision": false
+}

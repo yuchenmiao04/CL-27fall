@@ -1,0 +1,18 @@
+{
+  "status": "exact_match",
+  "purpose": "Real-CIFAR first-task numerical lineage: old all-buffer versus fresh bounded64 while no old replay exists. Only the new policy option is excluded from the state comparison.",
+  "verified_utc": "2026-11-17T05:02:56.329989+00:00",
+  "seed": 1993,
+  "phase": "development",
+  "official_test_read": false,
+  "checked_nodes": 3212,
+  "differing_paths": [],
+  "source_checkpoints": [
+    "development/runs/cifar_current_initial_v1/checkpoint_task0.pt",
+    "development/runs/cifar_current_bounded64_screen_v4/checkpoint_task0.pt"
+  ],
+  "checkpoint_sha256": [
+    "55e067ccc5ea788576d109e850da9200b7a3b705ecb399fdda250a232b2eb4b1",
+    "d7df8a79cb2d674c50a66971933a242c3c2d67d5f3ed08f0af859388cd17d214"
+  ]
+}

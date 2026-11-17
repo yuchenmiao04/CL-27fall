@@ -1,0 +1,23 @@
+{
+  "job": "imagenetr_current_bounded64_screen_v4",
+  "pid": 21016,
+  "proc_start_ticks": "1788764816",
+  "launch_utc": "2026-11-17T04:47:58Z",
+  "cwd": "runtime/runtime_bounded_v4",
+  "command": [
+    "environment/bin/python",
+    "main.py",
+    "--config",
+    "runtime/campaign_20261117/development/configs/imagenetr_current_bounded64_screen_v4.json"
+  ],
+  "metadata": {
+    "decision": "D0029",
+    "gpu": 0,
+    "development_only": true,
+    "method_source_commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+    "fresh_pretrained": true
+  },
+  "environment": {
+    "CL27_CURRENT_FROZEN_PREFIX_REUSE": "1"
+  }
+}

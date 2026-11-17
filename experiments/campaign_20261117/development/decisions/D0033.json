@@ -1,0 +1,31 @@
+{
+  "id": "D0033",
+  "kind": "adaptive_analytic_head_screen",
+  "dataset": "cifar224",
+  "method": "plastic_shared_basis",
+  "validation_evidence": {
+    "imagenetr_psb_noise0.01_prefix3": 0.8471849865951743,
+    "imagenetr_psb_noise0.001_prefix3": 0.8592493297587132,
+    "imagenetr_transport_prefix3": 0.8619302949061662,
+    "cifar_psb_noise0_01_prefix3": 0.966,
+    "cifar_transport_prefix3": 0.966
+  },
+  "change": {
+    "basis_noise_variance": {
+      "from": 0.01,
+      "to": 0.001
+    }
+  },
+  "reason": "A lower noise scale improved the plastic head on the other dataset. Test this single normalized-feature prior-scale hypothesis on the CIFAR holdout without rerunning any CE training; dataset-specific selection remains required.",
+  "unchanged": [
+    "rank32",
+    "epsilon0.001",
+    "max_iter20",
+    "tol1e-6",
+    "recorded backbone states, data, memory and augmentation random streams"
+  ],
+  "screen_stages": 3,
+  "execution": "Fresh native replay-only reader; never restore a checkpoint fitted under another prior parameter.",
+  "full_candidate_requirement": "Retained candidate must run all10 development stages before formal refit.",
+  "official_test_used_for_parameter_decision": false
+}

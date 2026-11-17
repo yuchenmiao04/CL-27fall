@@ -1,6 +1,6 @@
 # Development observations
 
-Fixed internal training-holdout results only. Different stage/class counts are not directly comparable. Internal CE drivers are not the formal ER baseline; rank0 runs are mechanism diagnostics.
+Internal training-holdout scores only. Different stage/class counts are not directly comparable. Internal CE drivers and rank0 controls are not formal baselines. Partial/stopped branches are not counted as completed trials.
 
 | Trial | Dataset | Stages | Last-stage validation (%) | AIA (%) |
 | --- | --- | --- | --- | --- |
@@ -10,6 +10,7 @@ Fixed internal training-holdout results only. Different stage/class counts are n
 | cifar_current_bg1_screen_v2 | cifar224 | 2 | 97.30 | 98.25 |
 | cifar_current_initial_v1 | cifar224 | 2 | 98.00 | 98.70 |
 | cifar_er_initial_v1 | cifar224 | 2 | 97.80 | 98.80 |
+| cifar_psb_noise1e3_screen_v2 | cifar224 | 3 | 96.60 | 98.03 |
 | cifar_shared_em100_screen_v4 | cifar224 | 3 | 92.80 | 94.73 |
 | cifar_shared_initial_v1 | cifar224 | 10 | 64.28 | 76.59 |
 | cifar_shared_isotropic_diagnostic_v6 | cifar224 | 10 | 84.28 | 89.60 |
@@ -22,6 +23,11 @@ Fixed internal training-holdout results only. Different stage/class counts are n
 | cifar_shared_stronger_full_v8 | cifar224 | 10 | 83.98 | 89.69 |
 | cifar_shared_stronger_isotropic_diagnostic_v8 | cifar224 | 10 | 83.32 | 88.71 |
 | cifar_shared_stronger_screen_v8 | cifar224 | 3 | 92.80 | 94.73 |
+| imagenetr_ce_screen_v1_er | imagenetr | 3 | 82.71 | 88.73 |
+| imagenetr_ce_screen_v1_history_transport | imagenetr | 3 | 86.19 | 90.02 |
+| imagenetr_ce_screen_v1_plastic_shared_basis | imagenetr | 3 | 84.72 | 89.64 |
+| imagenetr_psb_noise0001_screen_v2 | imagenetr | 3 | 85.92 | 89.93 |
+| imagenetr_psb_noise1e4_screen_v3 | imagenetr | 3 | 86.19 | 90.02 |
 | imagenetr_shared_initial_v1 | imagenetr | 10 | 43.31 | 44.58 |
 | imagenetr_shared_isotropic_diagnostic_v6 | imagenetr | 10 | 67.59 | 74.61 |
 | imagenetr_shared_noise0001_screen_v3 | imagenetr | 3 | 78.82 | 81.98 |
@@ -35,7 +41,7 @@ Fixed internal training-holdout results only. Different stage/class counts are n
 | imagenetr_shared_stronger_isotropic_diagnostic_v8 | imagenetr | 10 | 65.43 | 72.13 |
 | imagenetr_shared_stronger_screen_v8 | imagenetr | 3 | 79.22 | 82.30 |
 
-D0023 selects the completed nonzero-rank K64/noise0.001/epsilon0.001/max100/tol1e-8 trial for fresh full-data formal refits. Shared-prior gains over a same-scale isotropic ridge are not established.
-D0024 retains background5 for the module full flow after background1 lost0.7point on the two-stage prefix. Both same-pool module diagnostics give common=full at this stage; no isolated module gain has been established.
+D0023 fixed the frozen-basis parameters before its formal runs. D0026/D0027 introduced a fresh bounded64 module candidate after auditing the legacy all-buffer sampling cost. D0030 corrected an inherited epoch setting before any ImageNet-R module task completed.
+D0031–D0034 use only development evidence to test lower plastic-basis prior noise. Surviving candidates must complete all10 development stages before formal selection. Native replay-only execution reuses exact CE transitions and still independently fits moments/herding/readouts.
 
-Raw exported records and their original/exported hashes are retained. Formal test outputs are excluded.
+Source records and original/export hashes are retained. Completed formal results are separate in ../formal/PARTIAL_RESULTS.md; they are not used in subsequent tuning decisions.

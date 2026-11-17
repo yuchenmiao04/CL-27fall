@@ -1,0 +1,282 @@
+{
+  "status": "running",
+  "stages": [
+    {
+      "task": 0,
+      "seen_classes": 20,
+      "accuracy": 0.9481481481481482,
+      "task_accuracy": [
+        0.9481481481481482,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "task_counts": [
+        270,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "evaluation_images": 270,
+      "prediction_space": "all_seen_classes_without_task_id",
+      "cnn_report": {
+        "grouped": {
+          "total": 94.81,
+          "00-19": 94.81,
+          "old": 0,
+          "new": 94.81
+        },
+        "top1": 94.81,
+        "top5": 99.26
+      },
+      "nme_report": null,
+      "evaluation_head": "cnn",
+      "heads": {
+        "cnn": {
+          "accuracy": 0.9481481481481482,
+          "task_accuracy": [
+            0.9481481481481482,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "task_counts": [
+            270,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "evaluation_images": 270
+        }
+      },
+      "extra_evaluation_pass_for_raw_matrix": false,
+      "extra_nme_evaluation_pass_for_raw_matrix": false,
+      "wall_seconds": 54.431087113916874
+    },
+    {
+      "task": 1,
+      "seen_classes": 40,
+      "accuracy": 0.8903846153846153,
+      "task_accuracy": [
+        0.8851851851851852,
+        0.896,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "task_counts": [
+        270,
+        250,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "evaluation_images": 520,
+      "prediction_space": "all_seen_classes_without_task_id",
+      "cnn_report": {
+        "grouped": {
+          "total": 89.04,
+          "00-19": 88.52,
+          "20-39": 89.6,
+          "old": 88.52,
+          "new": 89.6
+        },
+        "top1": 89.04,
+        "top5": 97.31
+      },
+      "nme_report": null,
+      "evaluation_head": "cnn",
+      "heads": {
+        "cnn": {
+          "accuracy": 0.8903846153846153,
+          "task_accuracy": [
+            0.8851851851851852,
+            0.896,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "task_counts": [
+            270,
+            250,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "evaluation_images": 520
+        }
+      },
+      "extra_evaluation_pass_for_raw_matrix": false,
+      "extra_nme_evaluation_pass_for_raw_matrix": false,
+      "wall_seconds": 57.50437497347593
+    },
+    {
+      "task": 2,
+      "seen_classes": 60,
+      "accuracy": 0.8619302949061662,
+      "task_accuracy": [
+        0.8629629629629629,
+        0.84,
+        0.8849557522123894,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "task_counts": [
+        270,
+        250,
+        226,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "evaluation_images": 746,
+      "prediction_space": "all_seen_classes_without_task_id",
+      "cnn_report": {
+        "grouped": {
+          "total": 86.19,
+          "00-19": 86.3,
+          "20-39": 84.0,
+          "40-59": 88.5,
+          "old": 85.19,
+          "new": 88.5
+        },
+        "top1": 86.19,
+        "top5": 94.77
+      },
+      "nme_report": null,
+      "evaluation_head": "cnn",
+      "heads": {
+        "cnn": {
+          "accuracy": 0.8619302949061662,
+          "task_accuracy": [
+            0.8629629629629629,
+            0.84,
+            0.8849557522123894,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "task_counts": [
+            270,
+            250,
+            226,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "evaluation_images": 746
+        }
+      },
+      "extra_evaluation_pass_for_raw_matrix": false,
+      "extra_nme_evaluation_pass_for_raw_matrix": false,
+      "wall_seconds": 61.866341944783926
+    }
+  ],
+  "metrics": {
+    "final_accuracy": 0.8619302949061662,
+    "aia": 0.9001543528129766,
+    "forgetting_previous": 0.07059259259259265,
+    "forgetting_including_final": 0.07059259259259265,
+    "accuracy_matrix": [
+      [
+        0.9481481481481482,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        0.8851851851851852,
+        0.896,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        0.8629629629629629,
+        0.84,
+        0.8849557522123894,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    ],
+    "completed_tasks": 3,
+    "definition": "Fractions; AIA is mean stage sample-weighted all-seen accuracy; forgetting averages old tasks only."
+  }
+}
