@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "job": "pretrained_tuna_cifar_two_stage_v2",
+  "validation_only": true,
+  "formal_checkpoint_evidence": false,
+  "checkpoint_sha256": "d1f4f7252ebbc5dd862ce11b7463004778c4e6581fce0fdf61a6af67ee6d6ee4",
+  "checkpoint_bytes": 395895429,
+  "backup_sha256": "d1f4f7252ebbc5dd862ce11b7463004778c4e6581fce0fdf61a6af67ee6d6ee4",
+  "native_restore_verified": true,
+  "source_process_terminal_verified": true,
+  "source_metadata_sha256": {
+    "config": "ab3f28d3be3fc12fdfec51b8b3dcdc9cb2c89040cd3f7f5092221b631c4a3d04",
+    "results": "74a68022745db0b637f7ccecaed0b4086a0bed887d411675d6f7bb122c6252de",
+    "data_manifest": "d10437e6877d39e3ce0ef6fe920610744eda03c6fd0d917c02d00182aa550e0e"
+  },
+  "backup_checkpoint_path": "/root/autodl-tmp/cl27/formal_backups/extension_validation_20261117/pretrained_tuna_cifar_two_stage_v2/checkpoint.pt",
+  "source_run_dir": "/root/autodl-tmp/cl27/extension_20261117/verification/pretrained_tuna_cifar_two_stage_v2/run",
+  "source_receipt_sha256": "c55bef249dd5e1b54f05c306987d8e11b260a5535acc8b3a887f8f9658986861",
+  "source_manifest_sha256": null,
+  "source_terminal_before": {
+    "pid": 3489,
+    "proc_start_ticks": 1516556366,
+    "command": [
+      "/root/cl27-env/bin/python",
+      "/root/autodl-tmp/cl27/runtime_extension_validation_v1/main.py",
+      "--config",
+      "/root/autodl-tmp/cl27/extension_20261117/verification/pretrained_tuna_cifar_two_stage_v2/config.json"
+    ],
+    "observed_state": "absent",
+    "observed_exit_code": null,
+    "exit_code_known": false,
+    "original_process_terminal_verified": true,
+    "queue_completion_seal_required": false,
+    "observed_utc": "2026-11-17T16:35:38.799548+00:00"
+  },
+  "source_terminal_after": {
+    "pid": 3489,
+    "proc_start_ticks": 1516556366,
+    "command": [
+      "/root/cl27-env/bin/python",
+      "/root/autodl-tmp/cl27/runtime_extension_validation_v1/main.py",
+      "--config",
+      "/root/autodl-tmp/cl27/extension_20261117/verification/pretrained_tuna_cifar_two_stage_v2/config.json"
+    ],
+    "observed_state": "absent",
+    "observed_exit_code": null,
+    "exit_code_known": false,
+    "original_process_terminal_verified": true,
+    "queue_completion_seal_required": false,
+    "observed_utc": "2026-11-17T16:35:50.977347+00:00"
+  },
+  "restore_report": {
+    "native_cpu_restore_executed": true,
+    "compared_nodes": 7583,
+    "reference_semantic_sha256": "c513b42ea384087f6d4b48e5a03bd2ca616a067d8bcc13f8a748c92715ab06ca",
+    "restored_semantic_sha256": "c513b42ea384087f6d4b48e5a03bd2ca616a067d8bcc13f8a748c92715ab06ca",
+    "ignored_paths": [],
+    "exact_typed_bitwise_comparison": true,
+    "actual_training_rows": 1280,
+    "actual_seen_classes": 20,
+    "source_data_manifest_rebuilt": true,
+    "source_training_arrivals_verified": true,
+    "native_optimizer_parameter_bindings": {},
+    "persisted_mode_map_compared": true,
+    "mode_scope": "All stored module_training/requires_grad leaves compared exactly",
+    "global_rng_payloads_validated_on_cpu": true,
+    "saved_cuda_rng_payload_lengths": [
+      16
+    ],
+    "cuda_rng_applied": false,
+    "extra_training_steps": 0,
+    "accuracy_evaluation_performed": false,
+    "finite_scan": {
+      "tensors": 436,
+      "arrays": 3,
+      "scalars": 34
+    },
+    "runtime_source_files_sha256": {
+      "cl27/__init__.py": "77f44223a067ed9123ca03c50fe5b4c423c6dc75afe3b47c2a291af4491e5211",
+      "utils/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "utils/toolkit.py": "1f64bb032beacb6510bf9eff1e009ad217a42c9a7fa40cd867a56e71cb4123f6",
+      "utils/data.py": "a5f1b056a244439a45c7359c4328ae378c1557078ab81cf332ebaf0a8118f87c",
+      "utils/data_manager.py": "74601c9c46d1e51ee95ee20c8a261b28325b997586bd3bf6e78a361d41289857",
+      "models/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "models/base.py": "55e59eb4698004ae33862332731f172476be28dffafc07e85ad72013d722bcbf",
+      "cl27/common.py": "61089c9c071761e338c4e15eb93618879648a13a4f4708b7b73ad70d4ea1c443",
+      "cl27/pilot_imagenetr.py": "037325bb474f1a59a6c1f4d1c0a7960423cb50b0924e903c5b86836c017bb4f5",
+      "cl27/data.py": "18fae0aaa165451c0c7b8f5c06eab2fed34c99be4a31623f3d26b930a7a19230",
+      "utils/factory.py": "0721744a20b251cb6ca6f1eb6e415032e9a5bd354160882919c76f0b11a76971",
+      "cl27/protocol.py": "ebc3048e53dddf95176cf3ce8f01ec0591c343193b5ba3a527eb01ac84d455ae",
+      "cl27/runner.py": "931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e",
+      "backbone/linears.py": "d8cf24ab4cbea4c2b84afe6061cdf4276bb5b4e34c0cb2a56712b63f0b6e4505",
+      "backbone/prompt.py": "ce57c5a4aa5c9c5ab9d7eb70ae27cb5a966ac2a1d9a540b45b55dfcd46ff2b04",
+      "utils/inc_net.py": "62b178b90f2ab5262be5a35082e7d92d8faca74dae01135785bbb0454e9e52ed",
+      "models/tuna.py": "87afb7e1be70c7ee6d7943d5d40eaa1e1fa80057f46bbe3bc898c14c94b56827",
+      "models/tuna_protocol.py": "e9098f2626eeda0f54d8310f1e9b8aebbf60732733473ccc702faa1a380bced3",
+      "backbone/vit_tuna.py": "be59fd0ef53b116c99f16eb68d0275f82cf2fe0386ce252cea9ec3a0f9248f1d"
+    },
+    "state_comparator_sha256": "696416de70cdfb5e7033cc26c93ad005eb5e20918379f4ef01fc3d76142b2d02",
+    "pretrained_npz_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124"
+  },
+  "restore_report_path": "/root/autodl-tmp/cl27/formal_backups/extension_validation_20261117/pretrained_tuna_cifar_two_stage_v2/native_restore.json",
+  "restore_report_sha256": "064f7272edad08827a9547866bfc1c55f780ada207b24f37a5c51c28f38006e3",
+  "auditor_sha256": "9c95e9abfa22ea057d002642a4719a757176f3a4393ac2fcbc8fe89e089f7cbc",
+  "audit_wall_seconds": 12.217533016577363,
+  "created_utc": "2026-11-17T16:35:51.633291+00:00"
+}

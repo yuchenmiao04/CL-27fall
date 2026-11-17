@@ -23,6 +23,12 @@
         "tests/test_followup_audit.py"
       ],
       "passed": 32
+    },
+    {
+      "files": [
+        "tests/test_followup_checkpoint_backup.py"
+      ],
+      "passed": 9
     }
   ],
   "current_epochs20_fixture": {
@@ -39,6 +45,21 @@
     "tests/test_tuna_protocol.py": "b28d66a113ef16ac874ca22e7c44c56e8f11714a4fe75ebaa2e3a9d530e3a71a",
     "scripts/run_followup_queue.py": "e912c04ee2acec1304f7a87c29fe0f97c59b18d745cfc071766bf74328027b36",
     "scripts/audit_followup_campaign.py": "b5acafd26bb1c31a924329309f8d7df651bb4fabab28eed5fc8264afd6de64a6",
-    "tests/test_followup_audit.py": "eb191e512a784bb740e4c1a0f6a101fd173169f7ed3ba47b1fdef934ca2fca84"
+    "tests/test_followup_audit.py": "eb191e512a784bb740e4c1a0f6a101fd173169f7ed3ba47b1fdef934ca2fca84",
+    "scripts/backup_followup_checkpoint.py": "9c95e9abfa22ea057d002642a4719a757176f3a4393ac2fcbc8fe89e089f7cbc",
+    "tests/test_followup_checkpoint_backup.py": "3a57e925584824f69517af831cd8653359e6240d4b0318ffcee9e9918a882968"
+  },
+  "genuine_pretrained_native_restore": {
+    "cifar224": {
+      "compared_nodes": 7583,
+      "ignored_paths": []
+    },
+    "imagenetr": {
+      "compared_nodes": 8233,
+      "ignored_paths": []
+    },
+    "server_local_backups": true,
+    "extra_training_steps": 0,
+    "formal_performance_claim": false
   }
 }
