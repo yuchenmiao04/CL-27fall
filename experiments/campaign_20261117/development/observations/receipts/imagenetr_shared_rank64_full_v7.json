@@ -1,0 +1,30 @@
+{
+  "job": "imagenetr_shared_rank64_full_v7",
+  "pid": 18098,
+  "proc_start_ticks": "1788413019",
+  "launch_utc": "2026-11-17T03:49:20Z",
+  "cwd": "runtime/runtime_tuning_v1",
+  "command": [
+    "environment/bin/python",
+    "scripts/tune_frozen_basis.py",
+    "evaluate",
+    "--cache-dir",
+    "runtime/campaign_20261117/development/frozen_cache/imagenetr",
+    "--dataset",
+    "imagenetr",
+    "--parameters-json",
+    "runtime/campaign_20261117/development/parameters/shared_rank64_v7.json",
+    "--output-dir",
+    "runtime/campaign_20261117/development/runs/imagenetr_shared_rank64_full_v7",
+    "--max-tasks",
+    "10",
+    "--cpu-threads",
+    "4",
+    "--reason",
+    "D0018: surviving rank64 development prefix; full10-stage candidate."
+  ],
+  "metadata": {
+    "decision": "D0018",
+    "development_only": true
+  }
+}

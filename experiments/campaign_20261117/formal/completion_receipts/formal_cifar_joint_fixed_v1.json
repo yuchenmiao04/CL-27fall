@@ -1,0 +1,14 @@
+{
+  "job": "formal_cifar_joint_fixed_v1",
+  "verified_utc": "2026-11-17T04:08:04.465991+00:00",
+  "status": "complete",
+  "method": "joint",
+  "phase": "final",
+  "full_training_refit": true,
+  "epochs_configured": 20,
+  "finite_final_accuracy_present": true,
+  "joint_nonapplicable_fields_null": true,
+  "checkpoint_exists": true,
+  "results_sha256": "6625bbcda3a8a352594b6e5b0d04d617dff318f8439d6514553e7a827ef8a523",
+  "test_metric_value_disclosed": false
+}

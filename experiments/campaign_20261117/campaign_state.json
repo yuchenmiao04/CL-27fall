@@ -1,6 +1,6 @@
 {
   "status": "adaptive_development_running",
-  "formal_completed": 0,
+  "formal_completed": 1,
   "formal_required": 12,
   "seed": 1993,
   "datasets": {
@@ -31,7 +31,7 @@
     "server_python": "/root/cl27-env/bin/python",
     "server_torch_home": "/root/autodl-tmp/cl27/torch",
     "datasets_ready": true,
-    "unit_tests_passed": 204,
+    "unit_tests_passed": 224,
     "cifar_genuine_vit_checks": 6,
     "imagenetr_genuine_vit_checks": 6,
     "both_gpu_capacity_probes_passed": true
@@ -81,10 +81,60 @@
     ]
   },
   "development_tool_validation": {
-    "cpu_tests_passed": 224,
-    "cuda_trajectory_gate": "pending"
+    "cpu_tests_passed": 260,
+    "cuda_trajectory_gate": "pending",
+    "frozen_prefix_optimization": {
+      "enabled_in_campaign": true,
+      "cpu_suite_passed": 260,
+      "cuda_production_microbatch16_correctness": "passed",
+      "isolated_fragment_speedup": 1.0989229835828975,
+      "whole_training_speedup_measured": false,
+      "gate": "correctness/current_prefix_cuda_prod_isolated_v4.json"
+    }
   },
   "formal_running": [
+    "formal_cifar_shared_selected_v7"
+  ],
+  "last_progress_check_utc": "2026-11-17T04:09:11Z",
+  "progress_snapshot": {
+    "utc": "2026-11-17T04:09:11Z",
+    "official_test_metrics_read": false,
+    "formal_completed": 1,
+    "formal_running": [
+      "formal_cifar_shared_selected_v7"
+    ],
+    "development_running": [
+      "cifar_ce_full_v1",
+      "cifar_current_full_v1",
+      "imagenetr_ce_screen_v1"
+    ],
+    "prepared_next": [
+      "formal_imagenetr_shared_selected_v7"
+    ],
+    "completed_full_development": {
+      "cifar224/shared_basis": {
+        "trial": "cifar_shared_rank64_full_v7",
+        "final_accuracy": 0.8444,
+        "aia": 0.8976922222222223
+      },
+      "imagenetr/shared_basis": {
+        "trial": "imagenetr_shared_rank64_full_v7",
+        "final_accuracy": 0.6754651665945478,
+        "aia": 0.743666178654505
+      }
+    },
+    "current_adapted_prefix_choice": "D0024 retains background5 after background1 lost0.7point",
+    "formal_metric_policy": "Do not open formal test scores until all method selections are frozen."
+  },
+  "formal_completed_metrics_deferred": [
     "formal_cifar_joint_fixed_v1"
-  ]
+  ],
+  "selected_methods": {
+    "shared_basis": {
+      "decision": "D0023",
+      "parameters": "development/parameters/shared_rank64_v7.json",
+      "both_dataset_full_development_complete": true,
+      "formal_refit_status": "cifar running; ImageNet-R prepared"
+    }
+  }
 }

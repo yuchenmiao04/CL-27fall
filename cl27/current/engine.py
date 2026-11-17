@@ -12,6 +12,7 @@ import copy
 import hashlib
 import json
 import math
+import os
 import time
 from contextlib import contextmanager
 
@@ -123,6 +124,9 @@ class NativeDualEncoder(nn.Module):
             ResidualLibrary(width, rank, count, scale) for _ in positions
         )
         self._modules_active = False
+        # Episode-local capture only. This is deliberately not a buffer,
+        # parameter, architectural setting, or checkpointed algorithm option.
+        self._prefix_capture = None
         self._handles = []
         for index, position in enumerate(positions):
             self._handles.append(
@@ -139,6 +143,10 @@ class NativeDualEncoder(nn.Module):
                 return output
             if not isinstance(output, torch.Tensor) or output.ndim != 3:
                 raise ValueError("Expected native [batch,tokens,width] block output")
+            if self._prefix_capture is not None and self.positions[index] == min(
+                self.positions
+            ):
+                self._prefix_capture.append(output.detach().to("cpu", copy=True))
             correction, _ = self.libraries[index](output)
             return output + correction
 
@@ -172,6 +180,100 @@ class NativeDualEncoder(nn.Module):
 
     def main_features(self, images, modules=True):
         return self.append_bias(self.raw_main(images, modules))
+
+    def frozen_prefix_kind(self):
+        """Return a verified native suffix recipe, otherwise retain full replay.
+
+        Unknown forward hooks can carry state or modify activations, so the
+        optional optimization falls back rather than silently skipping them.
+        No execution is changed merely because a model exposes ``blocks``.
+        """
+        from cl27.common import TinyBackbone
+
+        main = self.main
+        global_hooks = torch.nn.modules.module
+        if getattr(global_hooks, "_global_forward_hooks", {}) or getattr(
+            global_hooks, "_global_forward_pre_hooks", {}
+        ):
+            return None
+        if type(main.blocks) is not nn.Sequential or "forward" in main.blocks.__dict__:
+            return None
+        if any(
+            name in main.__dict__
+            for name in ("forward", "forward_features", "forward_head")
+        ):
+            return None
+        own_hooks = {handle.id for handle in self._handles}
+        if any(
+            module._forward_pre_hooks
+            or set(module._forward_hooks).difference(own_hooks)
+            for module in main.modules()
+        ):
+            return None
+        if type(main) is TinyBackbone:
+            return "tiny_cls"
+        try:
+            import timm
+            from timm.models.vision_transformer import VisionTransformer
+        except ImportError:
+            return None
+        if (
+            timm.__version__ == "0.6.12"
+            and type(main) is VisionTransformer
+            and main.global_pool == "token"
+            and main.num_prefix_tokens == 1
+            and isinstance(main.head, nn.Identity)
+            and not main.grad_checkpointing
+        ):
+            return "timm_token"
+        return None
+
+    def main_features_and_prefix(self, images):
+        """Capture the frozen output just before the first library is applied."""
+        if torch.is_grad_enabled() or any(
+            p.requires_grad for p in self.main.parameters()
+        ):
+            raise RuntimeError("Frozen prefix capture requires a no-grad frozen main")
+        if self._prefix_capture is not None:
+            raise RuntimeError("A prefix capture is already active")
+        capture = []
+        self._prefix_capture = capture
+        try:
+            features = self.main_features(images, True)
+        finally:
+            self._prefix_capture = None
+        if len(capture) != 1:
+            raise RuntimeError("Expected exactly one first-library prefix")
+        return features, capture[0]
+
+    def main_features_from_prefix(self, prefix, kind):
+        """Replay only trainable libraries and the frozen native suffix.
+
+        The main parameters are frozen in this phase; gradients are needed only
+        from the first library onward. Original suffix blocks and later library
+        hooks still run normally. The prefix is local to one sampled view and
+        may never be carried over to a subsequent update.
+        """
+        if kind not in {"tiny_cls", "timm_token"} or any(
+            p.requires_grad for p in self.main.parameters()
+        ):
+            raise RuntimeError("Frozen prefix replay requires a supported frozen main")
+        first = min(self.positions)
+        index = self.positions.index(first)
+        previous = self._modules_active
+        self._modules_active = True
+        try:
+            correction, _ = self.libraries[index](prefix)
+            tokens = prefix + correction
+            for block in self.main.blocks[first + 1 :]:
+                tokens = block(tokens)
+            tokens = self.main.norm(tokens)
+            raw = tokens[:, 0] if kind == "tiny_cls" else self.main.forward_head(tokens)
+        finally:
+            self._modules_active = previous
+        if raw.shape != (len(prefix), self.width):
+            raise ValueError("Invalid native suffix output")
+        return self.append_bias(raw)
 
     def anchor_features(self, images):
         self.anchor.eval()
@@ -285,6 +387,12 @@ class FixedLibraryEngine(nn.Module):
             "logical_current_presentations": 0,
         }
         self._task_dirty = False
+        requested = os.environ.get("CL27_CURRENT_FROZEN_PREFIX_REUSE", "0")
+        if requested not in {"0", "1"}:
+            raise ValueError("CL27_CURRENT_FROZEN_PREFIX_REUSE must be 0 or 1")
+        # Execution-only and opt-in until a real-device equivalence/speed gate.
+        # Keeping it outside options preserves old checkpoint compatibility.
+        self.frozen_prefix_reuse = requested == "1"
 
     @property
     def classes(self):
@@ -361,7 +469,7 @@ class FixedLibraryEngine(nn.Module):
             add_labels=labels[new_s],
         )
 
-    def _feature_views(self, views, phase, cached):
+    def _feature_views(self, views, phase, cached, prefix_cache=None):
         pieces = {"base": [], "full": []}
         if phase == "backbone":
             pieces["common"] = []
@@ -371,9 +479,12 @@ class FixedLibraryEngine(nn.Module):
             for start in range(0, len(views), size):
                 x = views[start : start + size].to(self.device)
                 pieces["base"].append(self.encoder.anchor_features(x).cpu().double())
-                pieces["full"].append(
-                    self.encoder.main_features(x, True).cpu().double()
-                )
+                if prefix_cache is None:
+                    full = self.encoder.main_features(x, True)
+                else:
+                    full, prefix = self.encoder.main_features_and_prefix(x)
+                    prefix_cache.append(prefix)
+                pieces["full"].append(full.cpu().double())
                 if phase == "backbone":
                     pieces["common"].append(
                         self.encoder.main_features(x, False).cpu().double()
@@ -453,7 +564,26 @@ class FixedLibraryEngine(nn.Module):
                 [self.training_transform(items[i][0]) for i in order.tolist()]
             ).cpu()
             cached = bool(self.options["memory_efficient"])
-            features = self._feature_views(views, phase, cached)
+            prefix_kind = (
+                self.encoder.frozen_prefix_kind()
+                if self.frozen_prefix_reuse and cached and phase == "modules"
+                else None
+            )
+            prefix_cache = [] if prefix_kind is not None else None
+            # Tensor versions are cheap host metadata. The local cache cannot
+            # be reused if any main parameter is changed before VJP replay.
+            main_versions = (
+                tuple(p._version for p in self.encoder.main.parameters())
+                if prefix_cache is not None
+                else None
+            )
+            view_count = len(views)
+            features = self._feature_views(views, phase, cached, prefix_cache)
+            if prefix_cache is not None:
+                # Prefix tokens now contain these exact sampled views' full
+                # input dependence. Keeping raw augmented images as well would
+                # unnecessarily double this episode's CPU cache footprint.
+                del views
             loss = self._episode_objective(
                 episode, canonical, labels, n_current, features
             )
@@ -467,19 +597,37 @@ class FixedLibraryEngine(nn.Module):
                     if k != "base" and v.grad is not None
                 }
                 size = self.options["feature_batch_size"]
-                for start in range(0, len(views), size):
-                    images = views[start : start + size].to(self.device)
+                if prefix_cache is not None and main_versions != tuple(
+                    p._version for p in self.encoder.main.parameters()
+                ):
+                    raise RuntimeError("The main changed before frozen-prefix replay")
+                for start in range(0, view_count, size):
+                    images = (
+                        None
+                        if prefix_cache is not None
+                        else views[start : start + size].to(self.device)
+                    )
                     for path in ("common", "full"):
                         if path not in gradients:
                             continue
-                        output = self.encoder.main_features(images, path == "full")
+                        if prefix_cache is not None:
+                            if path != "full":
+                                raise RuntimeError(
+                                    "Only the module full path may reuse a prefix"
+                                )
+                            prefix = prefix_cache[start // size].to(self.device)
+                            output = self.encoder.main_features_from_prefix(
+                                prefix, prefix_kind
+                            )
+                        else:
+                            output = self.encoder.main_features(images, path == "full")
                         torch.autograd.backward(
                             output,
                             grad_tensors=gradients[path][
-                                start : start + len(images)
+                                start : start + len(output)
                             ].to(output),
                         )
-                        self._inc("vjp_" + path + "_images", len(images))
+                        self._inc("vjp_" + path + "_images", len(output))
             trainable = [p for p in self.encoder.parameters() if p.requires_grad]
             gradients = [p.grad for p in trainable if p.grad is not None]
             if gradients:
@@ -487,17 +635,21 @@ class FixedLibraryEngine(nn.Module):
                 # scalar results together instead of synchronizing per tensor.
                 # Float64 preserves every FP32 partial sum exactly; the final
                 # Python sum retains the original parameter order and norm.
-                gradient_statistics = torch.stack(
-                    (
-                        torch.stack([torch.isfinite(g).all() for g in gradients]).to(
-                            torch.float64
+                gradient_statistics = (
+                    torch.stack(
+                        (
+                            torch.stack(
+                                [torch.isfinite(g).all() for g in gradients]
+                            ).to(torch.float64),
+                            torch.stack(
+                                [g.detach().square().sum() for g in gradients]
+                            ).to(torch.float64),
                         ),
-                        torch.stack(
-                            [g.detach().square().sum() for g in gradients]
-                        ).to(torch.float64),
-                    ),
-                    dim=1,
-                ).cpu().tolist()
+                        dim=1,
+                    )
+                    .cpu()
+                    .tolist()
+                )
                 if any(not finite for finite, _ in gradient_statistics):
                     raise FloatingPointError("Nonfinite parameter gradient")
                 gradient_norm = sum(value for _, value in gradient_statistics) ** 0.5

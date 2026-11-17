@@ -1,0 +1,30 @@
+{
+  "job": "cifar_shared_noise0001_full_v3",
+  "pid": 16305,
+  "proc_start_ticks": "1788145352",
+  "launch_utc": "2026-11-17T03:04:43Z",
+  "cwd": "runtime/runtime_tuning_v1",
+  "command": [
+    "environment/bin/python",
+    "scripts/tune_frozen_basis.py",
+    "evaluate",
+    "--cache-dir",
+    "runtime/campaign_20261117/development/frozen_cache/cifar224",
+    "--dataset",
+    "cifar224",
+    "--parameters-json",
+    "runtime/campaign_20261117/development/parameters/shared_noise0001_v3.json",
+    "--output-dir",
+    "runtime/campaign_20261117/development/runs/cifar_shared_noise0001_full_v3",
+    "--cpu-threads",
+    "4",
+    "--reason",
+    "D0009: prefix passed without obvious degradation; qualify complete10-stage development before selection"
+  ],
+  "metadata": {
+    "phase": "development",
+    "stages": 10,
+    "device": "cpu",
+    "official_test_read": false
+  }
+}

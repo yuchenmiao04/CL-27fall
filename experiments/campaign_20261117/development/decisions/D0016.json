@@ -1,0 +1,22 @@
+{
+  "id": "D0016",
+  "kind": "internal_mechanism_diagnostic",
+  "datasets": [
+    "cifar224",
+    "imagenetr"
+  ],
+  "evidence": "Changing noise1 to0.01 to0.001 also changes isotropic ridge scale s2/epsilon from1000 to10 to1. Existing accuracy gains cannot by themselves establish a benefit from the learned shared subspace.",
+  "change": {
+    "basis_rank": {
+      "from": 32,
+      "to": 0
+    }
+  },
+  "fixed_parameters": "parameters/shared_isotropic_diagnostic_v6.json",
+  "stages": 10,
+  "reason": "For D=0, posterior weights=(Gc+(noise/epsilon)I)^(-1)Cc. Run this inexpensive fixed-scale control using the same training-only frozen feature cache to distinguish statistical sharing from a regularization-scale correction before choosing the next capacity candidate.",
+  "formal_scope_change": false,
+  "not_an_additional_formal_baseline": true,
+  "not_selected_as_shared_basis_main_method": true,
+  "official_test_used": false
+}

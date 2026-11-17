@@ -1,0 +1,18 @@
+{
+  "id": "D0019",
+  "kind": "full_development_continuation",
+  "dataset": "cifar224",
+  "prior_cohort": "cifar_ce_screen_v1",
+  "prefix_evidence": {
+    "stages": 3,
+    "internal_ce_driver_final": 0.9686666666666667,
+    "history_transport_final": 0.966,
+    "plastic_shared_basis_final": 0.966,
+    "candidate_aia": 0.9803333333333333
+  },
+  "change": "Extend each own checkpoint from3 to10 stages; preserve all candidate parameters.",
+  "reason": "Both analytic candidates are within0.27 percentage point of their exact matched CE trajectory on the3-stage holdout and are not obviously ineffective. Run the full10-stage development flow before deciding whether readout/transport parameters need changes. Recording the shared trajectory once avoids duplicate backbone training.",
+  "ce_driver_role": "internal_shared_ce_driver; not the fixed ER benchmark",
+  "resume_invariant": "Each method resumes its own3-stage checkpoint; no candidate consumes another method learner state. Existing trajectory files are not overwritten.",
+  "official_test_used": false
+}

@@ -1,0 +1,24 @@
+{
+  "id": "D0021",
+  "kind": "full_development_followup",
+  "datasets": [
+    "cifar224",
+    "imagenetr"
+  ],
+  "prior_trials": [
+    "cifar_shared_stronger_screen_v8",
+    "imagenetr_shared_stronger_screen_v8"
+  ],
+  "prefix_evidence": {
+    "cifar_prefix3_accuracy": 0.928,
+    "imagenetr_prefix3_accuracy": 0.792225201072386,
+    "same_as_previous_capacity_prefix": true
+  },
+  "parameters": "parameters/shared_stronger_residual_v8.json",
+  "reason": "The stronger residual prior survives the3-stage screen without an accuracy loss. Run full10 stages to determine whether suppressing unshared directions helps later classes. This is the final local epsilon/noise candidate in this sequence; choose among completed nonzero-rank candidates afterwards.",
+  "rank0_control_full_results": {
+    "cifar_accuracy": 0.8332,
+    "imagenetr_accuracy": 0.6542622241453916
+  },
+  "official_test_used": false
+}

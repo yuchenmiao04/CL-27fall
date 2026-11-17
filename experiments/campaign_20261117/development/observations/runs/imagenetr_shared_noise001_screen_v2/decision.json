@@ -1,0 +1,5 @@
+{
+  "hyperparameter_source": "explicit_single_configuration",
+  "official_test_used": false,
+  "reason_recorded_before_evaluation": "D0008: initial prior over-shrinkage; first3-stage screen with lower noise only"
+}

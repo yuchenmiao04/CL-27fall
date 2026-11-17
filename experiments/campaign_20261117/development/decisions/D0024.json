@@ -1,0 +1,28 @@
+{
+  "id": "D0024",
+  "kind": "reject_episode_candidate_and_continue",
+  "dataset": "cifar224",
+  "method": "current_adapted",
+  "prefix_evidence": {
+    "original_background5": {
+      "stages": 2,
+      "final_accuracy": 0.98,
+      "aia": 0.987,
+      "old_accuracy": 0.984,
+      "current_accuracy": 0.976,
+      "wall_seconds": 2491.8107
+    },
+    "background1_candidate": {
+      "stages": 2,
+      "final_accuracy": 0.973,
+      "aia": 0.9825,
+      "old_accuracy": 0.976,
+      "current_accuracy": 0.97,
+      "wall_seconds": 2211.3038128577173
+    }
+  },
+  "choice": "Retain original background_shots5 and extend its own2-stage checkpoint to10 stages.",
+  "reason": "The lower-support candidate loses0.7point overall and degrades both old and new classes. Final accuracy is the primary objective. Runtime measurements occurred under different co-running jobs and do not prove an isolated efficiency tradeoff. Retain the better observed candidate rather than silently selecting the faster lower-score option.",
+  "execution_optimization": "Use opt-in frozen-prefix reuse only after an isolated genuine-ViT production-microbatch numerical/speed gate. It changes neither the chosen episode objective nor stored algorithm options.",
+  "official_test_used": false
+}

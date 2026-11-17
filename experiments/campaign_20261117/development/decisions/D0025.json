@@ -1,0 +1,19 @@
+{
+  "id": "D0025",
+  "kind": "enable_verified_execution_optimization",
+  "method": "current_adapted",
+  "algorithm_change": false,
+  "config_change": false,
+  "environment_flag": "CL27_CURRENT_FROZEN_PREFIX_REUSE=1",
+  "evidence": "correctness/current_prefix_cuda_prod_isolated_v4.json",
+  "actual_pretrained_vit": true,
+  "production_feature_microbatch": 16,
+  "module_positions": [
+    7,
+    9
+  ],
+  "isolated_observed_fragment_speedup": 1.0989229835828975,
+  "whole_training_speedup_measured": false,
+  "reason": "Actual augmented-input CUDA loss, gradients, successive parameters, counters and RNG passed fixed tolerances; the isolated production-microbatch module fragment also exceeded the3% median gain gate. Cache lifetime is one frozen-main episode. Enable for future module runs; do not mutate running source snapshots.",
+  "source_engine_sha256": "3aa11f91e551a8fbad52097fab9dd0b5276ae2e7e63c7a0470503328b9f09077"
+}

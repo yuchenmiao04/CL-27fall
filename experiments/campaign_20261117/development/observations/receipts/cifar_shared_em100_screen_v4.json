@@ -1,0 +1,31 @@
+{
+  "job": "cifar_shared_em100_screen_v4",
+  "pid": 16592,
+  "proc_start_ticks": "1788193225",
+  "launch_utc": "2026-11-17T03:12:42Z",
+  "cwd": "runtime/runtime_tuning_v1",
+  "command": [
+    "environment/bin/python",
+    "scripts/tune_frozen_basis.py",
+    "evaluate",
+    "--cache-dir",
+    "runtime/campaign_20261117/development/frozen_cache/cifar224",
+    "--dataset",
+    "cifar224",
+    "--parameters-json",
+    "runtime/campaign_20261117/development/parameters/shared_noise0001_em100_v4.json",
+    "--output-dir",
+    "runtime/campaign_20261117/development/runs/cifar_shared_em100_screen_v4",
+    "--max-tasks",
+    "3",
+    "--cpu-threads",
+    "4",
+    "--reason",
+    "D0011: seven tasks reached20 EM iterations; test100-step cap before changing rank or noise further"
+  ],
+  "metadata": {
+    "phase": "development",
+    "stages": 3,
+    "official_test_read": false
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id": "D0018",
+  "kind": "full_development_followup",
+  "dataset": "imagenetr",
+  "prior_trial": "imagenetr_shared_rank64_screen_v7",
+  "evidence": {
+    "prefix3_rank64": 0.792225201072386,
+    "prefix3_rank32_same_scale": 0.7868632707774799
+  },
+  "parameters": "parameters/shared_rank64_v7.json",
+  "change": "None; retain the screened parameters for all10 stages.",
+  "reason": "K64 improves the3-stage holdout by4/746 examples at the same noise/epsilon/EM policy, so it survives the short screen. Full10 stages are still required for selection.",
+  "official_test_used": false
+}

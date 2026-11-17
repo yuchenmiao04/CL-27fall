@@ -1,0 +1,12 @@
+{
+  "id": "D0010",
+  "kind": "final_candidate_full_development",
+  "job": "imagenetr_shared_noise001_full_v2",
+  "evidence": {
+    "prefix_stages": 3,
+    "prefix_accuracy": 0.7680965147453083,
+    "previous_default_prefix_failure": true
+  },
+  "reason": "The candidate passed prefix screening. Run the complete10-stage development stream before selection; early stages do not resolve effects beyond the rank32 contrast limit.",
+  "official_test_used": false
+}

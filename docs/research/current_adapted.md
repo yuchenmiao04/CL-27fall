@@ -92,6 +92,16 @@ Direct autograd retains every support/query backbone activation until the suppor
 
 This follows the chain rule `∇theta L=Σ_(i,path) J^T g`. It is exact up to arithmetic/gradient accumulation order when weights, sampled views and stochastic state are identical. Evaluation-mode dropout/drop-path and fixed running-state behavior are necessary; arbitrary stochastic training-mode layers would violate that equality. Support solves still have differentiable CPU graphs. This is activation-memory control, not a FLOP reduction: it adds recomputation. `feature_batch_size` controls network microbatching, not the logical episode or statistical objective. Tests compare it to direct autograd for both update phases.
 
+### 4.1 Optional frozen-prefix reuse in module phases
+
+`CL27_CURRENT_FROZEN_PREFIX_REUSE=1` enables an execution-only optimization; it is **off by default** pending real-device numerical and speed verification. It is not an algorithm option, parameter or serialized architecture field, so existing checkpoints remain loadable. The launch record must state whether the flag is enabled; checkpoint compatibility alone does not establish real-device numerical equivalence.
+
+In a module phase the complete main backbone is frozen. Write the full path as `z=H(P(x); phi)`, where P ends immediately before the earliest library and phi contains library parameters. P has no phi dependence. The original no-grad feature prepass can therefore retain the exact `P(x)` tokens on CPU; VJP recomputation applies the first library and the original suffix blocks/norm/head directly. This gives the same `J_phi H(P(x))^T g` without recomputing P. The initial library may appear at any index in the configured library list; the boundary uses the earliest executed block.
+
+Only the same episode's already sampled augmented views are reused. No tokens survive the update, the cached tokens retain the original dtype, and main parameter versions must stay unchanged before VJP. Raw augmented image tensors are released after a complete prefix capture. CPU token storage is proportional to episode rows times token count times width; GPU activations remain microbatched. Canonical anchor caches, support/query selection, targets, ridge systems, phase order, gradients and AdamW steps are unchanged.
+
+The optimization supports the exact synthetic TinyBackbone and legacy timm0.6.12 VisionTransformer token-head flow with checkpointing disabled and no unknown forward hooks or per-instance forward overrides. Unrecognized models fall back to the original path. Backbone phases and `memory_efficient=false` always use the original computation, because prefix backbone gradients would otherwise be lost. It introduces no AMP, attention backend or TF32 change. CPU tests cover Tiny/timm FP32/FP64 loss, gradients and repeated parameter updates, both phases and direct/cached modes, fallbacks, capture cleanup, changed-main rejection and old checkpoint loading. No CUDA equivalence or speed benefit is asserted from these CPU tests.
+
 ## 5. End-of-task order, deployment and replay
 
 After the prescribed current-data epochs:

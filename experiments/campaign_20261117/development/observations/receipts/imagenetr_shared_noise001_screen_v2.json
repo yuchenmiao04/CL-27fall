@@ -1,0 +1,10 @@
+{
+  "job": "imagenetr_shared_noise001_screen_v2",
+  "pid": 15774,
+  "proc_start_ticks": "1788074477",
+  "device": "cpu",
+  "phase": "development",
+  "screening_stages": 3,
+  "official_test_access": false,
+  "launch_utc": "2026-11-17T02:52:54Z"
+}

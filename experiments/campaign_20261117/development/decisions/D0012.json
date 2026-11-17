@@ -1,0 +1,20 @@
+{
+  "id": "D0012",
+  "kind": "adaptive_noise_screen",
+  "dataset": "imagenetr",
+  "prior_trial": "imagenetr_shared_noise001_full_v2",
+  "evidence": {
+    "development_final": 0.6408481176979662,
+    "previous_default_final": 0.43314582431847687,
+    "iteration_limit_tasks": 8
+  },
+  "change": {
+    "basis_noise_variance": {
+      "from": 0.01,
+      "to": 0.001
+    }
+  },
+  "screen_stages": 3,
+  "reason": "Reduced noise restored separation by20.77 points. Screen one additional reduction to test residual-shrinkage limits before a full candidate run; do not change rank simultaneously.",
+  "official_test_used": false
+}

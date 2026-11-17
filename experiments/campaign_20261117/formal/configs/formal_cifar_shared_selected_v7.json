@@ -1,0 +1,40 @@
+{
+  "model_name": "shared_basis",
+  "cl27_protocol": "pilot_figure2",
+  "dataset": "cifar224",
+  "phase": "final",
+  "prefix": "holdout_selected_D0023",
+  "seed": [
+    1993
+  ],
+  "device": [
+    0
+  ],
+  "shuffle": true,
+  "init_cls": 10,
+  "increment": 10,
+  "backbone_type": "vit_base_patch16_224",
+  "pretrained": true,
+  "memory_size": 0,
+  "memory_per_class": 0,
+  "fixed_memory": false,
+  "replay_selection": "herding",
+  "data_root": "runtime/data/cifar100",
+  "download": false,
+  "feature_normalization": "l2",
+  "feature_batch_size": 16,
+  "eval_batch_size": 64,
+  "num_workers": 0,
+  "cpu_threads": 4,
+  "save_checkpoints": true,
+  "output_dir": "runtime/campaign_20261117/formal/runs/formal_cifar_shared_selected_v7",
+  "basis_rank": 64,
+  "basis_epsilon": 0.001,
+  "basis_noise_variance": 0.001,
+  "basis_max_iter": 100,
+  "basis_tolerance": 1e-08,
+  "evaluation_head": "cnn",
+  "validation_only": false,
+  "implementation_commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+  "path_export_note": "Exact expanded execution config retained privately."
+}

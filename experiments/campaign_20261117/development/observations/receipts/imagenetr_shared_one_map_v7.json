@@ -1,0 +1,25 @@
+{
+  "job": "imagenetr_shared_one_map_v7",
+  "pid": 18260,
+  "proc_start_ticks": "1788428095",
+  "launch_utc": "2026-11-17T03:51:50Z",
+  "cwd": "runtime/runtime_prefix_v2",
+  "command": [
+    "environment/bin/python",
+    "scripts/diagnose_shared_snapshot.py",
+    "--cache-dir",
+    "runtime/campaign_20261117/development/frozen_cache/imagenetr",
+    "--dataset",
+    "imagenetr",
+    "--trial-dir",
+    "runtime/campaign_20261117/development/runs/imagenetr_shared_strict_full_v5",
+    "--output-json",
+    "runtime/campaign_20261117/development/runs/imagenetr_shared_one_map_v7.json",
+    "--cpu-threads",
+    "4"
+  ],
+  "metadata": {
+    "read_only_development_diagnostic": true,
+    "no_gpu": true
+  }
+}

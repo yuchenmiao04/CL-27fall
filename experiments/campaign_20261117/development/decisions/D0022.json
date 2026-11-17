@@ -1,0 +1,15 @@
+{
+  "id": "D0022",
+  "kind": "initial_dataset_development_prefix",
+  "dataset": "imagenetr",
+  "methods": [
+    "history_transport",
+    "plastic_shared_basis"
+  ],
+  "reason": "Start the same shared CE body recipe already validated on the CIFAR prefix, using the distinct PILOT ImageNet-R split,20 new classes per stage and20 retained images per class. PSB begins with noise0.01, the existing CIFAR plastic candidate; frozen-basis scores do not establish its optimum on plastic transported features.",
+  "screen_stages": 3,
+  "backbone_training": "20epochs,body_lr1e-5,head_lr1e-3,batch64+replay64; exactly shared by both candidates",
+  "internal_driver_not_formal_baseline": true,
+  "launch_policy": "After GPU0 Joint and the isolated execution probe finish; no launch implied by this prepared config.",
+  "official_test_used": false
+}

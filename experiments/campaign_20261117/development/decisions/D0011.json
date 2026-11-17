@@ -1,0 +1,19 @@
+{
+  "id": "D0011",
+  "kind": "adaptive_convergence_screen",
+  "dataset": "cifar224",
+  "prior_trial": "cifar_shared_noise0001_full_v3",
+  "evidence": {
+    "development_final": 0.8438,
+    "iteration_limit_tasks": 7
+  },
+  "change": {
+    "basis_max_iter": {
+      "from": 20,
+      "to": 100
+    }
+  },
+  "screen_stages": 3,
+  "reason": "The last noise reduction yielded only0.52 points while7/10 tasks hit the EM budget. Check convergence before attributing the limit to rank or further noise tuning. Other parameters stay fixed.",
+  "official_test_used": false
+}

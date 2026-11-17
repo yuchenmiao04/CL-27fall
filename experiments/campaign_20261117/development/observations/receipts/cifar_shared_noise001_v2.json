@@ -1,0 +1,9 @@
+{
+  "job": "cifar_shared_noise001_v2",
+  "pid": 15361,
+  "proc_start_ticks": "1788001304",
+  "device": "cpu",
+  "phase": "development",
+  "launch_utc": "2026-11-17T02:40:43Z",
+  "official_test_access": false
+}

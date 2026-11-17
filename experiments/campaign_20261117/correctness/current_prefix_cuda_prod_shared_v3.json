@@ -1,0 +1,204 @@
+{
+  "status": "complete",
+  "seed": 1993,
+  "purpose": "synthetic-input real-encoder numerical/resource gate; not accuracy or tuning",
+  "genuine_pretrained_encoder": true,
+  "precision": "float32",
+  "tf32": false,
+  "autocast": false,
+  "torch": "2.7.1+cu128",
+  "timm": "0.6.12",
+  "configuration": {
+    "device": 0,
+    "tiny": false,
+    "torch_home": null,
+    "classes": 6,
+    "samples_per_class": 8,
+    "support_shots": [
+      1,
+      5
+    ],
+    "background_shots": 1,
+    "target_classes": 5,
+    "query_per_class": 2,
+    "layers": [
+      7,
+      9
+    ],
+    "microbatch": 16,
+    "library_u_std": 0.03,
+    "episode_kind": "alternating",
+    "warmup": 1,
+    "steps": 2,
+    "timing_context": "shared",
+    "cpu_threads": 4,
+    "max_seconds": 110.0
+  },
+  "tolerances": {
+    "loss": {
+      "atol": 1e-07,
+      "rtol": 1e-06
+    },
+    "gradient": {
+      "atol": 2e-07,
+      "rtol": 2e-05
+    },
+    "parameter": {
+      "atol": 2e-07,
+      "rtol": 2e-06
+    }
+  },
+  "correctness_steps": [
+    {
+      "kind": "transfer",
+      "control_seconds": 0.6774869076907635,
+      "prefix_seconds": 0.41892121359705925,
+      "control_loss": 8.348114636266892,
+      "prefix_loss": 8.348114636266892,
+      "identical_augmented_views": true,
+      "view_count": 34,
+      "augmented_sequence_sha256": "ae6f94461759a3071da92ac79dec56e1f0cc1241074d2fa0f83f97929b484b5d",
+      "comparison": {
+        "passed": true,
+        "loss_passed": true,
+        "control_loss": 8.348114636266892,
+        "prefix_loss": 8.348114636266892,
+        "gradient": {
+          "passed": true,
+          "max_absolute_difference": 0.0,
+          "max_tolerance_ratio": 0.0,
+          "worst_tensor": "libraries.0.U",
+          "checked_tensors": 8,
+          "matching_none_gradients": 300
+        },
+        "parameter": {
+          "passed": true,
+          "max_absolute_difference": 0.0,
+          "max_tolerance_ratio": 0.0,
+          "worst_tensor": "anchor.cls_token",
+          "checked_tensors": 308,
+          "matching_none_gradients": 0
+        },
+        "logical_counters_equal": true
+      }
+    },
+    {
+      "kind": "anchored",
+      "control_seconds": 0.4772419147193432,
+      "prefix_seconds": 0.4229139983654022,
+      "control_loss": 15.637485052958905,
+      "prefix_loss": 15.637485052958905,
+      "identical_augmented_views": true,
+      "view_count": 34,
+      "augmented_sequence_sha256": "765a6cf69f7fe0610d6c8df3134ee67b85571ee5c7dc5fc269885e48c482a43a",
+      "comparison": {
+        "passed": true,
+        "loss_passed": true,
+        "control_loss": 15.637485052958905,
+        "prefix_loss": 15.637485052958905,
+        "gradient": {
+          "passed": true,
+          "max_absolute_difference": 0.0,
+          "max_tolerance_ratio": 0.0,
+          "worst_tensor": "libraries.0.U",
+          "checked_tensors": 8,
+          "matching_none_gradients": 300
+        },
+        "parameter": {
+          "passed": true,
+          "max_absolute_difference": 0.0,
+          "max_tolerance_ratio": 0.0,
+          "worst_tensor": "anchor.cls_token",
+          "checked_tensors": 308,
+          "matching_none_gradients": 0
+        },
+        "logical_counters_equal": true
+      }
+    }
+  ],
+  "timed_pairs": [
+    {
+      "kind": "anchored",
+      "control_seconds": 0.46446966752409935,
+      "prefix_seconds": 0.41434934362769127,
+      "control_loss": 18.187215267531464,
+      "prefix_loss": 18.187215267531464
+    },
+    {
+      "kind": "transfer",
+      "control_seconds": 0.5057924501597881,
+      "prefix_seconds": 0.4327147975564003,
+      "control_loss": 8.444034976508894,
+      "prefix_loss": 8.444034976508894
+    }
+  ],
+  "peak_allocated_bytes": 2116322304,
+  "peak_reserved_bytes": 2369781760,
+  "memory_scope": "this process with both comparison engines resident; excludes other GPU processes",
+  "correctness_passed": true,
+  "resource_limits_passed": true,
+  "speed_passed": null,
+  "enable_recommended": false,
+  "device_name": "NVIDIA GeForce RTX 5090",
+  "initial_free_bytes": 20816658432,
+  "device_total_memory_bytes": 33670758400,
+  "backbone_provenance": {
+    "kind": "pretrained",
+    "timm_version": "0.6.12",
+    "checkpoint_family": "augreg_in21k_ft_in1k",
+    "public_weight_url": "https://storage.googleapis.com/vit_models/augreg/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+    "weight_file_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+    "initial_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+    "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63"
+  },
+  "stress_library_u_std": 0.03,
+  "supported_prefix_recipe": "timm_token",
+  "episode_rows": {
+    "transfer": 34,
+    "anchored": 34
+  },
+  "final_comparison": {
+    "passed": true,
+    "loss_passed": true,
+    "control_loss": 8.444034976508894,
+    "prefix_loss": 8.444034976508894,
+    "gradient": {
+      "passed": true,
+      "max_absolute_difference": 0.0,
+      "max_tolerance_ratio": 0.0,
+      "worst_tensor": "libraries.0.U",
+      "checked_tensors": 8,
+      "matching_none_gradients": 300
+    },
+    "parameter": {
+      "passed": true,
+      "max_absolute_difference": 0.0,
+      "max_tolerance_ratio": 0.0,
+      "worst_tensor": "anchor.cls_token",
+      "checked_tensors": 308,
+      "matching_none_gradients": 0
+    },
+    "logical_counters_equal": true
+  },
+  "prefix_replay_calls": 15,
+  "frozen_main_versions_unchanged": true,
+  "logical_counters": {
+    "canonical_anchor_images": 48,
+    "canonical_main_images": 0,
+    "episode_anchor_images": 170,
+    "episode_full_prepass_images": 170,
+    "episode_common_prepass_images": 0,
+    "vjp_full_images": 170,
+    "vjp_common_images": 0,
+    "readout_solves": 10,
+    "logical_current_presentations": 0
+  },
+  "optimizer_updates": 5,
+  "median_control_seconds": 0.48513105884194374,
+  "median_prefix_seconds": 0.4235320705920458,
+  "observed_median_speedup": 1.1454411425415556,
+  "speed_interpretation": "Shared-GPU/CPU timing is descriptive; repeat in an isolated CUDA slot before claiming a speed gain.",
+  "wall_seconds": 9.563576065003872,
+  "source_artifact_sha256": "4ce3e37b7e2de6c1b733468d3d8e169a8ecc68dc81152645fd73626829447b20",
+  "path_export_note": "Operational absolute prefixes replaced; exact original retained privately."
+}

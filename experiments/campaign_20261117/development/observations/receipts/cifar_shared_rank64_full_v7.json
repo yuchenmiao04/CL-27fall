@@ -1,0 +1,30 @@
+{
+  "job": "cifar_shared_rank64_full_v7",
+  "pid": 17935,
+  "proc_start_ticks": "1788391818",
+  "launch_utc": "2026-11-17T03:45:48Z",
+  "cwd": "runtime/runtime_tuning_v1",
+  "command": [
+    "environment/bin/python",
+    "scripts/tune_frozen_basis.py",
+    "evaluate",
+    "--cache-dir",
+    "runtime/campaign_20261117/development/frozen_cache/cifar224",
+    "--dataset",
+    "cifar224",
+    "--parameters-json",
+    "runtime/campaign_20261117/development/parameters/shared_rank64_v7.json",
+    "--output-dir",
+    "runtime/campaign_20261117/development/runs/cifar_shared_rank64_full_v7",
+    "--max-tasks",
+    "10",
+    "--cpu-threads",
+    "4",
+    "--reason",
+    "D0017: single capacity increase after rank32 versus isotropic diagnostic; training holdout only."
+  ],
+  "metadata": {
+    "decision": "D0017",
+    "development_only": true
+  }
+}

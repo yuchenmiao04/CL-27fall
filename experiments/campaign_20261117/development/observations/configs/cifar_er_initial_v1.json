@@ -1,0 +1,42 @@
+{
+  "model_name": "er",
+  "cl27_protocol": "pilot_figure2",
+  "dataset": "cifar224",
+  "phase": "development",
+  "prefix": "adaptive_initial_development",
+  "seed": [
+    1993
+  ],
+  "device": [
+    0
+  ],
+  "shuffle": true,
+  "init_cls": 10,
+  "increment": 10,
+  "backbone_type": "vit_base_patch16_224",
+  "pretrained": true,
+  "memory_size": 2000,
+  "memory_per_class": 20,
+  "fixed_memory": false,
+  "replay_selection": "herding",
+  "data_root": "runtime/data/cifar100",
+  "download": false,
+  "epochs": 20,
+  "batch_size": 64,
+  "replay_batch_size": 64,
+  "backbone_lr": 1e-05,
+  "head_lr": 0.001,
+  "weight_decay": 0.0001,
+  "feature_batch_size": 16,
+  "eval_batch_size": 64,
+  "num_workers": 0,
+  "cpu_threads": 4,
+  "save_checkpoints": true,
+  "output_dir": "runtime/campaign_20261117/development/runs/cifar_er_initial_v1",
+  "evaluation_head": "cnn",
+  "validation_only": true,
+  "validation_fraction": 0.1,
+  "split_seed": 0,
+  "max_tasks": 2,
+  "implementation_commit": "b125dbd0361ba1dc5a7e532804c768459023ac96"
+}

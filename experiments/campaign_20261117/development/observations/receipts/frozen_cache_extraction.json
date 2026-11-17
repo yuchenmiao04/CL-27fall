@@ -1,0 +1,10 @@
+{
+  "job": "frozen_cache_extraction",
+  "pid": 14843,
+  "proc_start_ticks": "1787948877",
+  "purpose": "immutable training-only features for CPU development; not formal learner memory",
+  "device": 1,
+  "concurrent_with": "cifar_current_initial_v1",
+  "concurrency_note": "Independent processes/RNG; ample GPU memory. Per-job wall time includes shared GPU contention, not isolated throughput.",
+  "launch_utc": "2026-11-17T02:31:58Z"
+}

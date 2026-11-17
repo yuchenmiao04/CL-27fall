@@ -1,0 +1,31 @@
+{
+  "job": "imagenetr_shared_strict_screen_v5",
+  "pid": 17440,
+  "proc_start_ticks": "1788352794",
+  "launch_utc": "2026-11-17T03:39:17Z",
+  "cwd": "runtime/runtime_tuning_v1",
+  "command": [
+    "environment/bin/python",
+    "scripts/tune_frozen_basis.py",
+    "evaluate",
+    "--cache-dir",
+    "runtime/campaign_20261117/development/frozen_cache/imagenetr",
+    "--dataset",
+    "imagenetr",
+    "--parameters-json",
+    "runtime/campaign_20261117/development/parameters/shared_noise0001_em100_tol8_v5.json",
+    "--output-dir",
+    "runtime/campaign_20261117/development/runs/imagenetr_shared_strict_screen_v5",
+    "--max-tasks",
+    "3",
+    "--cpu-threads",
+    "4",
+    "--reason",
+    "D0014: test EM convergence at noise0.001 before further statistical changes; development holdout only."
+  ],
+  "metadata": {
+    "decision": "D0014",
+    "gpu": null,
+    "development_only": true
+  }
+}

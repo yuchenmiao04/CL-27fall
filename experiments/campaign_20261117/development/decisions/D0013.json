@@ -1,0 +1,31 @@
+{
+  "id": "D0013",
+  "kind": "adaptive_episode_parameter_screen",
+  "prior_trial": "cifar_current_initial_v1",
+  "evidence": {
+    "stage2_holdout": 0.98,
+    "coherent_common": 0.98,
+    "coherent_full": 0.98,
+    "anchor": 0.938,
+    "stage1_epoch_seconds_approx": 127,
+    "stage2_epoch_seconds_approx": 329
+  },
+  "change": {
+    "background_shots": {
+      "from": 5,
+      "to": 1
+    }
+  },
+  "unchanged": [
+    "all per-stage fitting images",
+    "holdout split",
+    "raw replay quota2000",
+    "epochs5",
+    "outer_updates4",
+    "module/backbone learning rates",
+    "library architecture"
+  ],
+  "screen_stages": 2,
+  "reason": "All seen background classes receive support, so episode cost grows with class count. A smaller background support count retains all current data and all-seen class outputs, reduces per-episode cost, and tests a stricter few-shot reuse objective. Keep query counts and all other settings fixed; validate old/new accuracy rather than assume a gain.",
+  "official_test_used": false
+}

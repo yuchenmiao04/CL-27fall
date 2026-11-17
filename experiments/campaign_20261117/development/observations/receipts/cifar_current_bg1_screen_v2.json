@@ -1,0 +1,23 @@
+{
+  "job": "cifar_current_bg1_screen_v2",
+  "pid": 17002,
+  "proc_start_ticks": "1788275103",
+  "launch_utc": "2026-11-17T03:26:21Z",
+  "cwd": "runtime/runtime_tuning_v1",
+  "command": [
+    "environment/bin/python",
+    "main.py",
+    "--config",
+    "runtime/campaign_20261117/development/configs/cifar_current_bg1_screen_v2.json"
+  ],
+  "metadata": {
+    "phase": "development",
+    "stages": 2,
+    "epochs": 5,
+    "device": 1,
+    "change": "background_shots5_to1",
+    "raw_replay_quota": 2000,
+    "concurrent_with": "cifar_ce_screen_v1; independent processes and RNG",
+    "official_test_read": false
+  }
+}

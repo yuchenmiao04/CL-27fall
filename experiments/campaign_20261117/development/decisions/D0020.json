@@ -1,0 +1,33 @@
+{
+  "id": "D0020",
+  "kind": "adaptive_prior_geometry_test",
+  "prior_trials": [
+    "cifar_shared_rank64_full_v7",
+    "imagenetr_shared_rank64_full_v7",
+    "imagenetr_shared_one_map_v7"
+  ],
+  "evidence": {
+    "cifar_rank64_final": 0.8444,
+    "imagenetr_rank64_final": 0.6754651665945478,
+    "imagenetr_rank0_same_scale_final": 0.6758978797057551,
+    "imagenetr_one_extra_em_prediction_flips": 0,
+    "imagenetr_q33_over_epsilon": 13.07185324110104
+  },
+  "change": {
+    "basis_epsilon": {
+      "from": 0.001,
+      "to": 0.0001
+    }
+  },
+  "unchanged": {
+    "basis_rank": 64,
+    "basis_noise_variance": 0.001,
+    "basis_max_iter": 100,
+    "basis_tolerance": 1e-08
+  },
+  "screen_stages": 3,
+  "reason": "Increasing capacity gave only a small effect; an extra EM map changed no holdout predictions, so more iterations are not the next priority. Test stronger regularization outside the learned span at fixed observation noise: isotropic residual lambda rises1 to10. This may preserve useful shared directions or may suppress uncovered class contrast. It is a single hypothesis test, not a claimed improvement.",
+  "control": "Also run the inexpensive rank0 lambda10 control to separate a generic ridge-scale effect. Control is not an additional formal baseline or selected shared-basis main method.",
+  "next_rule": "If the screened candidate survives and improves the full10-stage result, select it. Otherwise retain the best complete nonzero-rank candidate and stop local epsilon/noise cycling; document the lack of a proven sharing gain.",
+  "official_test_used": false
+}

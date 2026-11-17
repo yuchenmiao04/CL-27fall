@@ -1,0 +1,12 @@
+{
+  "id": "D0009",
+  "kind": "final_candidate_full_development",
+  "job": "cifar_shared_noise0001_full_v3",
+  "evidence": {
+    "prefix_stages": 3,
+    "prefix_accuracy": 0.928,
+    "same_as_previous_candidate_at30_classes": true
+  },
+  "reason": "The candidate passed prefix screening. Run the complete10-stage development stream before selection; early stages do not resolve effects beyond the rank32 contrast limit.",
+  "official_test_used": false
+}

@@ -1,0 +1,33 @@
+{
+  "id": "D0014",
+  "kind": "adaptive_convergence_screen",
+  "datasets": [
+    "cifar224",
+    "imagenetr"
+  ],
+  "prior_trials": [
+    "cifar_shared_noise0001_full_v3",
+    "cifar_shared_em100_screen_v4",
+    "imagenetr_shared_noise0001_screen_v3"
+  ],
+  "evidence": {
+    "cifar_full_final": 0.8438,
+    "cifar_iteration_limit_stages_at20": 7,
+    "cifar_prefix3_at100_same_accuracy": 0.928,
+    "imagenetr_prefix3_lower_noise_accuracy": 0.7882037533512064,
+    "imagenetr_prefix3_iteration_limit_stages_at20": 3
+  },
+  "change": {
+    "basis_max_iter": 100,
+    "basis_tolerance": 1e-08
+  },
+  "unchanged": {
+    "basis_rank": 32,
+    "basis_epsilon": 0.001,
+    "basis_noise_variance": 0.001,
+    "fitting_data": "all development fitting samples of arrived classes"
+  },
+  "screen_stages": 3,
+  "reason": "Check numerical convergence before changing statistical capacity or shrinking noise further. Most later stages reached the original iteration limit; a larger budget with tighter likelihood tolerance tests whether fitted predictors are stable. The previous100-iteration CIFAR prefix did not change accuracy. This is one convergence candidate, not a parameter grid. A surviving final candidate still requires all10 stages.",
+  "official_test_used": false
+}

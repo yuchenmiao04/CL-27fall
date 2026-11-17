@@ -1,0 +1,37 @@
+{
+  "id": "D0023",
+  "kind": "freeze_method_hyperparameters",
+  "method": "shared_basis",
+  "datasets": [
+    "cifar224",
+    "imagenetr"
+  ],
+  "selected_parameters": {
+    "basis_rank": 64,
+    "basis_epsilon": 0.001,
+    "basis_noise_variance": 0.001,
+    "basis_max_iter": 100,
+    "basis_tolerance": 1e-08
+  },
+  "selected_development_trials": {
+    "cifar224": "cifar_shared_rank64_full_v7",
+    "imagenetr": "imagenetr_shared_rank64_full_v7"
+  },
+  "criterion": "Highest final10-stage training-holdout accuracy among completed nonzero-rank candidates; AIA observed as secondary. No official test metrics accessed.",
+  "development_evidence": {
+    "cifar224": {
+      "rank32_max20_final": 0.8438,
+      "rank32_strict_final": 0.843,
+      "rank64_strict_final": 0.8444,
+      "stronger_residual_final": 0.8398
+    },
+    "imagenetr": {
+      "rank32_strict_final": 0.674167027260926,
+      "rank64_strict_final": 0.6754651665945478,
+      "stronger_residual_final": 0.6434443963652099
+    }
+  },
+  "mechanism_boundary": "No material isolated sharing advantage established relative to matched-scale rank0; rank0 diagnostics are not selected as the shared-basis main method.",
+  "formal_refit": "Fresh original pretrained weights, complete official training split, no tuning cache or internal holdout; retain zero historical images.",
+  "official_test_used": false
+}

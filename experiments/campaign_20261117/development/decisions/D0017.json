@@ -1,0 +1,34 @@
+{
+  "id": "D0017",
+  "kind": "adaptive_capacity_test",
+  "datasets": [
+    "cifar224",
+    "imagenetr"
+  ],
+  "prior_trials": [
+    "cifar_shared_strict_full_v5",
+    "imagenetr_shared_strict_full_v5",
+    "cifar_shared_isotropic_diagnostic_v6",
+    "imagenetr_shared_isotropic_diagnostic_v6"
+  ],
+  "evidence": {
+    "cifar_rank32_final": 0.843,
+    "cifar_rank0_final": 0.8428,
+    "imagenetr_rank32_final": 0.674167027260926,
+    "imagenetr_rank0_final": 0.6758978797057551,
+    "effective_rank_at_final": 32
+  },
+  "change": {
+    "basis_rank": {
+      "from": 32,
+      "to": 64
+    }
+  },
+  "unchanged": "noise, epsilon, EM stopping policy, training-only feature cache and full data per stage",
+  "reason": "Current shared-prior advantage over same-scale isotropic ridge is negligible; test whether the rank32 structural ceiling is restricting class contrast directions before changing the statistical prior. Saturated rank motivates a capacity test but is not proof of insufficient capacity.",
+  "screening": {
+    "cifar224": "K32 and K64 have identical effective caps9,19,29 in the first3 stages; go directly to full10 without repeating an uninformative screen.",
+    "imagenetr": "First3 stages distinguish K64 from K32; continue to full10 only if not obviously ineffective."
+  },
+  "official_test_used": false
+}

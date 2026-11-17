@@ -1,0 +1,5 @@
+{
+  "hyperparameter_source": "explicit_single_configuration",
+  "official_test_used": false,
+  "reason_recorded_before_evaluation": "D0016: rank0 is an internal ridge-scale diagnostic, not an additional formal baseline or selected main method."
+}

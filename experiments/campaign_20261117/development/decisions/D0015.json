@@ -1,0 +1,23 @@
+{
+  "id": "D0015",
+  "kind": "full_development_followup",
+  "datasets": [
+    "cifar224",
+    "imagenetr"
+  ],
+  "screen_trials": [
+    "cifar_shared_strict_screen_v5",
+    "imagenetr_shared_strict_screen_v5"
+  ],
+  "screen_evidence": {
+    "cifar_prefix3_accuracy": 0.928,
+    "cifar_previous_prefix3_accuracy": 0.928,
+    "imagenetr_prefix3_accuracy": 0.7868632707774799,
+    "imagenetr_previous_prefix3_accuracy": 0.7882037533512064,
+    "iteration_limit_stages_each": 3
+  },
+  "parameters": "parameters/shared_noise0001_em100_tol8_v5.json",
+  "change": "No further parameter changes; run the surviving convergence candidate over all10 stages.",
+  "reason": "The strict convergence candidate is unchanged on CIFAR and differs by1/746 holdout example on ImageNet-R, so it is not an obviously ineffective prefix. Later stages have more classes and previously reached the EM budget. Full10-stage development is required before selecting the formal candidate.",
+  "official_test_used": false
+}

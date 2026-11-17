@@ -1,0 +1,30 @@
+{
+  "job": "cifar_shared_strict_full_v5",
+  "pid": 17712,
+  "proc_start_ticks": "1788370326",
+  "launch_utc": "2026-11-17T03:42:13Z",
+  "cwd": "runtime/runtime_tuning_v1",
+  "command": [
+    "environment/bin/python",
+    "scripts/tune_frozen_basis.py",
+    "evaluate",
+    "--cache-dir",
+    "runtime/campaign_20261117/development/frozen_cache/cifar224",
+    "--dataset",
+    "cifar224",
+    "--parameters-json",
+    "runtime/campaign_20261117/development/parameters/shared_noise0001_em100_tol8_v5.json",
+    "--output-dir",
+    "runtime/campaign_20261117/development/runs/cifar_shared_strict_full_v5",
+    "--max-tasks",
+    "10",
+    "--cpu-threads",
+    "4",
+    "--reason",
+    "D0015: surviving strict-convergence prefix; full10-stage development, no official test."
+  ],
+  "metadata": {
+    "decision": "D0015",
+    "development_only": true
+  }
+}
