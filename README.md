@@ -1,6 +1,6 @@
 # CL-27fall
 
-在固定版本 LAMDA-PILOT 中接入四个类别增量学习候选方法，并提供 ER 与离线 Joint 两个基础对照。2026-11-17 的正式实验已完成并审核 11/12 组，仅 CIFAR-100 的固定模块库实验仍在运行。当前结果见[正式结果](experiments/campaign_20261117/formal/PARTIAL_RESULTS.md)，最终配置及选择依据见[开发记录](experiments/campaign_20261117/development/SELECTIONS.md)。小规模正确性验证与完整性能实验分开保存。
+在固定版本 LAMDA-PILOT 中接入四个类别增量学习候选方法，并提供 ER 与离线 Joint 两个基础对照。2026-11-17 原定的12组正式实验均已完成并核验。结果见[正式结果](experiments/campaign_20261117/summary/summary.md)，最终配置及选择依据见[开发记录](experiments/campaign_20261117/development/SELECTIONS.md)。小规模正确性验证与完整性能实验分开保存。固定模块库的5 epochs是初始成本预算，本轮未完成训练长度对照；新增20-epoch变体及TUNA仍在讨论，尚未启动。
 
 | 方法名 | 学习对象 | 历史信息 | 骨干更新 |
 | --- | --- | --- | --- |

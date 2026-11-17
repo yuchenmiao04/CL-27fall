@@ -1,4 +1,4 @@
-# Measured resources (11/12 formal cells)
+# Measured resources (12/12 formal cells)
 
 Counts use SHA-bound terminal CPU checkpoint tensors and native parameter-name/shape registries. Pending cells receive no estimates. M = 10^6 parameters; MiB = 2^20 bytes; GiB = 2^30 bytes. NN counts exclude analytic coefficients and moment arrays.
 
@@ -6,7 +6,7 @@ Counts use SHA-bound terminal CPU checkpoint tensors and native parameter-name/s
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | CIFAR-100 | Frozen shared basis | 0.000 | 85.799 | 1 | 6.05 | 335.40 | 0.83 | 8.36 |
 | CIFAR-100 | History transport | 85.876 | 171.674 | 1 | 15.30 | 686.45 | 1.15 | 27.81 |
-| CIFAR-100 | Fixed module library | — | — | — | — | — | — | — |
+| CIFAR-100 | Fixed module library | 85.903 | 171.702 | 2 | 673.40 | 1337.90 | 3.92 | 162.64 |
 | CIFAR-100 | Plastic shared basis | 85.876 | 171.674 | 1 | 21.16 | 694.25 | 1.15 | 27.99 |
 | CIFAR-100 | ER | 85.876 | 85.876 | 1 | 0.00 | 336.40 | 18.46 | 252.45 |
 | CIFAR-100 | Joint | 85.876 | 85.876 | 1 | 0.00 | 327.65 | 9.92 | 73.24 |
@@ -23,11 +23,12 @@ Auxiliary numeric state is logical tensor payload, not RSS or CUDA residency. It
 
 | Current dataset | Encoder including NN/buffers (MiB) | History G/C (MiB) | W0/V (MiB) | Resident anchor cache (MiB) | Persistent optimizers (MiB) | Successful module / body steps | Attempts / skips |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| cifar224 | 654.99 | 5.10 | 1.17 | 11.73 | 655.39 | 3949 / 3949 | 7900 / 2 |
 | imagenetr | 654.99 | 5.69 | 2.35 | 23.47 | 655.39 | 5685 / 1895 | 7580 / 0 |
 
 ## Timing and shared work
 
-The 11 completed selected runners contain 55165.248372 seconds of measured timer regions in total. Count each actual runner once: the ER donor already includes native CE training, while HT/PSB rows are their actual reader workflows. These concurrent timer-region sums are neither elapsed campaign time nor GPU-hours.
+The 12 completed selected runners contain 64923.382295 seconds of measured timer regions in total. Count each actual runner once: the ER donor already includes native CE training, while HT/PSB rows are their actual reader workflows. These concurrent timer-region sums are neither elapsed campaign time nor GPU-hours.
 
 - `formal_cifar_er_fixed_v1`: 14653.037004 seconds of native CE, already contained in its ER runner; 10 cache files, 3434381358 bytes, counted once.
 - `formal_imagenetr_er_fixed_v1`: 9029.934395 seconds of native CE, already contained in its ER runner; 10 cache files, 3436073326 bytes, counted once.

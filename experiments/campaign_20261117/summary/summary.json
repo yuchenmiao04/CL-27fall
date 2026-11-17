@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "runs_root": "<server_root>/campaign_20261117/formal/runs",
-  "selection_file": "<server_root>/campaign_20261117/verification/partial_summary_11_v1/PARTIAL_SELECTED_JOBS.json",
+  "selection_file": "/tmp/cl27_selected_jobs_final12.json",
   "selection_policy": "explicit path for duplicates; never optimize selection against reported scores",
   "seed": 1993,
   "expected_results": 12,
-  "available_results": 11,
+  "available_results": 12,
   "metric_units": "fractions; Markdown multiplies accuracy by 100 and forgetting by 100 percentage points",
   "rows": [
     {
@@ -235,13 +235,61 @@
     {
       "dataset": "cifar224",
       "method": "current_adapted",
-      "status": "missing",
+      "seed": 1993,
       "metrics": {
-        "final_accuracy": null,
-        "aia": null,
-        "forgetting_previous": null,
-        "forgetting_including_final": null
-      }
+        "final_accuracy": 0.9053,
+        "aia": 0.9429960317460319,
+        "forgetting_previous": 0.05955555555555552,
+        "forgetting_including_final": 0.05955555555555552
+      },
+      "data_permission": "2000 total",
+      "resources": {
+        "execution": {
+          "torch": "2.7.1+cu128",
+          "numpy": "1.26.4",
+          "device_type": "cuda",
+          "random_stream_policy": "canonical_loader_isolated_v1",
+          "wall_seconds": 9758.13392362371,
+          "numeric_checkpoint_payload_bytes": 1392923208,
+          "gpu_peak_allocated_bytes": 4208519680
+        },
+        "final_task_resources": {
+          "replay_images": 2000,
+          "replay_payload_bytes": 6176000,
+          "numeric_payload_bytes": {
+            "encoder_weights": 686807080,
+            "statistics": 5346088,
+            "readouts": 1230400,
+            "resident_anchor_cache": 12304000,
+            "optimizer_state": 687225528
+          }
+        },
+        "configured_replay": {
+          "memory_size": 2000,
+          "memory_per_class": 20,
+          "fixed_memory": false
+        }
+      },
+      "source": {
+        "directory": "<server_root>/campaign_20261117/formal/runs/formal_cifar_current_selected_v5",
+        "results": "<server_root>/campaign_20261117/formal/runs/formal_cifar_current_selected_v5/results.json",
+        "config": "<server_root>/campaign_20261117/formal/runs/formal_cifar_current_selected_v5/config.json",
+        "data_manifest": "<server_root>/campaign_20261117/formal/runs/formal_cifar_current_selected_v5/data_manifest.json",
+        "checkpoint": "<server_root>/campaign_20261117/formal/runs/formal_cifar_current_selected_v5/checkpoint.pt",
+        "config_fingerprint": "0a3fe413faf9057826f7f2e55d9b580e4b0ce3f8692fca3b6b8188329fc7ade9",
+        "data_fingerprint": "98b4aa3a9e6bfd167c52eb391f6dc1b028f2fb920f8a20c8c48751282b8f7ed4",
+        "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63",
+        "backbone_provenance": {
+          "kind": "pretrained",
+          "timm_version": "0.6.12",
+          "checkpoint_family": "augreg_in21k_ft_in1k",
+          "public_weight_url": "https://storage.googleapis.com/vit_models/augreg/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+          "weight_file_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+          "initial_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+          "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63"
+        }
+      },
+      "completion_receipt": "../formal/completion_receipts/formal_cifar_current_selected_v5.json"
     },
     {
       "dataset": "cifar224",
@@ -1346,7 +1394,9 @@
     "cifar224/history_transport": [
       "<server_root>/campaign_20261117/formal/runs/formal_cifar_transport_selected_v2"
     ],
-    "cifar224/current_adapted": [],
+    "cifar224/current_adapted": [
+      "<server_root>/campaign_20261117/formal/runs/formal_cifar_current_selected_v5"
+    ],
     "cifar224/plastic_shared_basis": [
       "<server_root>/campaign_20261117/formal/runs/formal_cifar_plastic_shared_selected_v5"
     ],
@@ -1377,10 +1427,10 @@
   },
   "skipped_results": [],
   "export_provenance": {
-    "raw_summary_sha256": "07b11432af11e1c56d869451b97dfb93ffe863224da0dd5caeb3a480680a6bc9",
-    "raw_summary_bytes": 75831,
-    "paths_policy": "server root replaced by <server_root>; raw JSON retained privately",
+    "raw_summary_sha256": "97773903248127a226239acec2bb609f52c47fdd5438ad6038b5fce4c6d517bd",
+    "raw_summary_bytes": 78345,
+    "paths_policy": "Server root replaced by <server_root>; raw JSON retained privately.",
     "prebound_full_selection": "../formal/SELECTED_JOBS.json",
-    "partial_selection_reason": "Eleven prebound complete formal runs; CIFAR current still pending. No score ranking."
+    "selection_reason": "All twelve exact prebound complete formal runs; no score ranking."
   }
 }

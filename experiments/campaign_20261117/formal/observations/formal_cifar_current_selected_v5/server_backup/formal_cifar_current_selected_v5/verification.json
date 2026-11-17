@@ -1,0 +1,24 @@
+{
+  "status": "verified_server_local_backup",
+  "job": "formal_cifar_current_selected_v5",
+  "payload_left_server": false,
+  "source_checkpoint": "remote_runtime/campaign_20261117/formal/runs/formal_cifar_current_selected_v5/checkpoint.pt",
+  "backup_checkpoint": "remote_runtime/formal_backups/campaign_20261117/formal_cifar_current_selected_v5/checkpoint.pt",
+  "checkpoint_bytes": 1402886779,
+  "checkpoint_sha256": "b842888aa0cf0a19d9b2a08b2d2f9ac00926f44fb1e5e92e458988db9da040e0",
+  "source_process_terminal": {
+    "pid": 39054,
+    "expected_ticks": "1791452139",
+    "state": "absent"
+  },
+  "source_metadata_sha256": {
+    "config": "7ff102e2cd4cff62b6d31b1777a78e89b05a470b1533e9113fe2e83ee945ce5a",
+    "results": "3229b1f09549897e057544161ad141bd9744a09307228d0b0bcd43be3d80e83c",
+    "data_manifest": "1471599966cbc1427d69bcff8a186e0c648b22fb2be88b6de103cb469bdcb823"
+  },
+  "source_receipt_sha256": "ccb052ca04dcaa4e1b83f4c30d8ef7d08a7e2449f28760635c2d677bae3802ef",
+  "backup_volume": "/root/autodl-tmp",
+  "completed_utc": "2026-11-17T14:59:51.814251+00:00",
+  "backup_actual_sha256": "b842888aa0cf0a19d9b2a08b2d2f9ac00926f44fb1e5e92e458988db9da040e0",
+  "free_backup_volume_bytes": 1612840960
+}

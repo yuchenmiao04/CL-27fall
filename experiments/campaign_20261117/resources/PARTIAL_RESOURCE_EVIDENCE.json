@@ -1,18 +1,16 @@
 {
-  "status": "resource_definitions_for_twelve_cells_with_pending_measurements",
+  "status": "resource_definitions_and_twelve_completed_measurements",
   "scope": {
     "required_formal_cells": 12,
-    "measured_completed_cells": 11,
+    "measured_completed_cells": 12,
     "seed": 1993,
-    "pending_jobs": [
-      "formal_cifar_current_selected_v5"
-    ],
+    "pending_jobs": [],
     "pending_policy": "No active checkpoint read; fill actual tensor counts/replay/bytes/wall/peak from completed SHA-bound metadata later. No extra experiments requested."
   },
   "evidence": {
     "canonical_completed_rows": {
       "path": "local_repository/experiments/campaign_20261117/formal/PARTIAL_RESULTS.json",
-      "sha256": "a7ba632c56df4f8e421723e0460f8fdba338938582299f18265d5b927b084728"
+      "sha256": "5285eef1055fb6df119320d8f5521b9eb0b1df53b7d4069093156bf2d641b20b"
     },
     "server_cpu_shape_count_json": {
       "path": "/tmp/cl27-session/completed_resource_shape_counts.json",
@@ -61,6 +59,7 @@
         "path": "local_repository/models/current_adapted.py",
         "sha256": "8cfbe15d35f4d956a665e6c553670bad296289c0ba457df07af7ab5585c0f1c1",
         "matching_archived_runtime_sources": [
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_cifar_current_selected_v5/runtime_source/models/current_adapted.py",
           "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_current_selected_v5/runtime_source/models/current_adapted.py"
         ]
       },
@@ -69,6 +68,7 @@
         "sha256": "33b63ca2b6baef4585e677d54d9e72e6e5247efb24d997e6eeec968911e0c3bf",
         "matching_archived_runtime_sources": [
           "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_transport_selected_v3/runtime_source/cl27/common.py",
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_cifar_current_selected_v5/runtime_source/cl27/common.py",
           "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_current_selected_v5/runtime_source/cl27/common.py",
           "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_er_fixed_v1/runtime_source/cl27/common.py",
           "local_workspace/.experiment_private_20261117/formal_observations/formal_cifar_plastic_shared_selected_v5/runtime_source/cl27/common.py",
@@ -81,6 +81,7 @@
         "sha256": "c334c443a977aa656e07c381ea1a3232dedc56159d70a0717131c50e754a17a9",
         "matching_archived_runtime_sources": [
           "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_transport_selected_v3/runtime_source/cl27/replay.py",
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_cifar_current_selected_v5/runtime_source/cl27/replay.py",
           "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_current_selected_v5/runtime_source/cl27/replay.py",
           "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_er_fixed_v1/runtime_source/cl27/replay.py",
           "local_workspace/.experiment_private_20261117/formal_observations/formal_cifar_plastic_shared_selected_v5/runtime_source/cl27/replay.py",
@@ -128,15 +129,16 @@
         "path": "local_repository/cl27/current/engine.py",
         "sha256": "43fc2597aeaaa64f23517d598cbb62a0a18e0af1f82520bdfd58de265aa1e372",
         "matching_archived_runtime_sources": [
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_cifar_current_selected_v5/runtime_source/cl27/current/engine.py",
           "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_current_selected_v5/runtime_source/cl27/current/engine.py"
         ]
       }
     ],
     "server_current_cpu_shape_count_json": {
       "path": "/tmp/cl27-session/current_completed_resource_shape_counts.json",
-      "sha256": "d4b16267f03ca34014fc1a66196c10b69472f2340fd8d5dee6d7d992b2b3de3a",
+      "sha256": "d8a4b710654971e4b21874b37e6f9fa1167c1ab25b65eabd58e553d327c93a48",
       "status": "sha_bound_audited_current_checkpoint_shape_counts",
-      "completed_rows": 1
+      "completed_rows": 2
     }
   },
   "definitions": {
@@ -1812,6 +1814,381 @@
         "inference_backbones": 1,
         "training_backbones": 2
       }
+    },
+    {
+      "job": "formal_cifar_current_selected_v5",
+      "dataset": "cifar224",
+      "method": "current_adapted",
+      "status": "completed_metadata_and_sha_bound_cpu_shapes",
+      "source_runtime": "<server_root>/runtime_bounded_v4",
+      "checkpoint_source": "<server_root>/formal_backups/campaign_20261117/formal_cifar_current_selected_v5/checkpoint.pt",
+      "terminal_and_cpu_only_confirmed": true,
+      "sources": {
+        "results": {
+          "path": "local_workspace/.experiment_private_20261117/formal_observations/formal_cifar_current_selected_v5/formal/runs/formal_cifar_current_selected_v5/results.json",
+          "original_file_sha256": "3229b1f09549897e057544161ad141bd9744a09307228d0b0bcd43be3d80e83c",
+          "bytes": 76340
+        },
+        "config": {
+          "path": "local_workspace/.experiment_private_20261117/formal_observations/formal_cifar_current_selected_v5/formal/runs/formal_cifar_current_selected_v5/config.json",
+          "original_file_sha256": "7ff102e2cd4cff62b6d31b1777a78e89b05a470b1533e9113fe2e83ee945ce5a",
+          "bytes": 1533
+        },
+        "data_manifest": {
+          "path": "local_workspace/.experiment_private_20261117/formal_observations/formal_cifar_current_selected_v5/formal/runs/formal_cifar_current_selected_v5/data_manifest.json",
+          "original_file_sha256": "1471599966cbc1427d69bcff8a186e0c648b22fb2be88b6de103cb469bdcb823",
+          "bytes": 1785
+        }
+      },
+      "identities": {
+        "config_fingerprint": "0a3fe413faf9057826f7f2e55d9b580e4b0ce3f8692fca3b6b8188329fc7ade9",
+        "data_fingerprint": "98b4aa3a9e6bfd167c52eb391f6dc1b028f2fb920f8a20c8c48751282b8f7ed4",
+        "checkpoint_sha256": "b842888aa0cf0a19d9b2a08b2d2f9ac00926f44fb1e5e92e458988db9da040e0",
+        "seed": 1993
+      },
+      "parameter_counts": {
+        "backbone": {
+          "numel": 85798656,
+          "bytes": 343194624,
+          "dtypes": [
+            "torch.float32"
+          ],
+          "native_parameter_names": 150
+        },
+        "ce_head": {
+          "numel": 0,
+          "bytes": 0
+        },
+        "extra_frozen_anchor": {
+          "numel": 85798656,
+          "bytes": 343194624,
+          "dtypes": [
+            "torch.float32"
+          ],
+          "native_parameter_names": 150
+        },
+        "modules": {
+          "numel": 104456,
+          "bytes": 417824,
+          "dtypes": [
+            "torch.float32"
+          ],
+          "native_parameter_names": 8
+        },
+        "buffers": {
+          "backbone_buffers": {
+            "numel": 0,
+            "bytes": 0,
+            "dtypes": [],
+            "native_buffer_names": 0
+          },
+          "extra_frozen_anchor_buffers": {
+            "numel": 0,
+            "bytes": 0,
+            "dtypes": [],
+            "native_buffer_names": 0
+          },
+          "module_buffers": {
+            "numel": 2,
+            "bytes": 8,
+            "dtypes": [
+              "torch.float32"
+            ],
+            "native_buffer_names": 2
+          }
+        },
+        "gradient_eligible_nn_numel": 85903112,
+        "training_resident_nn_numel": 171701768,
+        "active_inference_backbones": 2,
+        "training_backbones": 2,
+        "inference_nn_numel": 171701768,
+        "optimizer_eligible_families": {
+          "backbone": {
+            "numel": 85798656,
+            "bytes": 343194624,
+            "parameter_count": 150,
+            "parameter_names": [
+              "main.cls_token",
+              "main.pos_embed",
+              "main.patch_embed.proj.weight",
+              "main.patch_embed.proj.bias",
+              "main.blocks.0.norm1.weight",
+              "main.blocks.0.norm1.bias",
+              "main.blocks.0.attn.qkv.weight",
+              "main.blocks.0.attn.qkv.bias",
+              "main.blocks.0.attn.proj.weight",
+              "main.blocks.0.attn.proj.bias",
+              "main.blocks.0.norm2.weight",
+              "main.blocks.0.norm2.bias",
+              "main.blocks.0.mlp.fc1.weight",
+              "main.blocks.0.mlp.fc1.bias",
+              "main.blocks.0.mlp.fc2.weight",
+              "main.blocks.0.mlp.fc2.bias",
+              "main.blocks.1.norm1.weight",
+              "main.blocks.1.norm1.bias",
+              "main.blocks.1.attn.qkv.weight",
+              "main.blocks.1.attn.qkv.bias",
+              "main.blocks.1.attn.proj.weight",
+              "main.blocks.1.attn.proj.bias",
+              "main.blocks.1.norm2.weight",
+              "main.blocks.1.norm2.bias",
+              "main.blocks.1.mlp.fc1.weight",
+              "main.blocks.1.mlp.fc1.bias",
+              "main.blocks.1.mlp.fc2.weight",
+              "main.blocks.1.mlp.fc2.bias",
+              "main.blocks.2.norm1.weight",
+              "main.blocks.2.norm1.bias",
+              "main.blocks.2.attn.qkv.weight",
+              "main.blocks.2.attn.qkv.bias",
+              "main.blocks.2.attn.proj.weight",
+              "main.blocks.2.attn.proj.bias",
+              "main.blocks.2.norm2.weight",
+              "main.blocks.2.norm2.bias",
+              "main.blocks.2.mlp.fc1.weight",
+              "main.blocks.2.mlp.fc1.bias",
+              "main.blocks.2.mlp.fc2.weight",
+              "main.blocks.2.mlp.fc2.bias",
+              "main.blocks.3.norm1.weight",
+              "main.blocks.3.norm1.bias",
+              "main.blocks.3.attn.qkv.weight",
+              "main.blocks.3.attn.qkv.bias",
+              "main.blocks.3.attn.proj.weight",
+              "main.blocks.3.attn.proj.bias",
+              "main.blocks.3.norm2.weight",
+              "main.blocks.3.norm2.bias",
+              "main.blocks.3.mlp.fc1.weight",
+              "main.blocks.3.mlp.fc1.bias",
+              "main.blocks.3.mlp.fc2.weight",
+              "main.blocks.3.mlp.fc2.bias",
+              "main.blocks.4.norm1.weight",
+              "main.blocks.4.norm1.bias",
+              "main.blocks.4.attn.qkv.weight",
+              "main.blocks.4.attn.qkv.bias",
+              "main.blocks.4.attn.proj.weight",
+              "main.blocks.4.attn.proj.bias",
+              "main.blocks.4.norm2.weight",
+              "main.blocks.4.norm2.bias",
+              "main.blocks.4.mlp.fc1.weight",
+              "main.blocks.4.mlp.fc1.bias",
+              "main.blocks.4.mlp.fc2.weight",
+              "main.blocks.4.mlp.fc2.bias",
+              "main.blocks.5.norm1.weight",
+              "main.blocks.5.norm1.bias",
+              "main.blocks.5.attn.qkv.weight",
+              "main.blocks.5.attn.qkv.bias",
+              "main.blocks.5.attn.proj.weight",
+              "main.blocks.5.attn.proj.bias",
+              "main.blocks.5.norm2.weight",
+              "main.blocks.5.norm2.bias",
+              "main.blocks.5.mlp.fc1.weight",
+              "main.blocks.5.mlp.fc1.bias",
+              "main.blocks.5.mlp.fc2.weight",
+              "main.blocks.5.mlp.fc2.bias",
+              "main.blocks.6.norm1.weight",
+              "main.blocks.6.norm1.bias",
+              "main.blocks.6.attn.qkv.weight",
+              "main.blocks.6.attn.qkv.bias",
+              "main.blocks.6.attn.proj.weight",
+              "main.blocks.6.attn.proj.bias",
+              "main.blocks.6.norm2.weight",
+              "main.blocks.6.norm2.bias",
+              "main.blocks.6.mlp.fc1.weight",
+              "main.blocks.6.mlp.fc1.bias",
+              "main.blocks.6.mlp.fc2.weight",
+              "main.blocks.6.mlp.fc2.bias",
+              "main.blocks.7.norm1.weight",
+              "main.blocks.7.norm1.bias",
+              "main.blocks.7.attn.qkv.weight",
+              "main.blocks.7.attn.qkv.bias",
+              "main.blocks.7.attn.proj.weight",
+              "main.blocks.7.attn.proj.bias",
+              "main.blocks.7.norm2.weight",
+              "main.blocks.7.norm2.bias",
+              "main.blocks.7.mlp.fc1.weight",
+              "main.blocks.7.mlp.fc1.bias",
+              "main.blocks.7.mlp.fc2.weight",
+              "main.blocks.7.mlp.fc2.bias",
+              "main.blocks.8.norm1.weight",
+              "main.blocks.8.norm1.bias",
+              "main.blocks.8.attn.qkv.weight",
+              "main.blocks.8.attn.qkv.bias",
+              "main.blocks.8.attn.proj.weight",
+              "main.blocks.8.attn.proj.bias",
+              "main.blocks.8.norm2.weight",
+              "main.blocks.8.norm2.bias",
+              "main.blocks.8.mlp.fc1.weight",
+              "main.blocks.8.mlp.fc1.bias",
+              "main.blocks.8.mlp.fc2.weight",
+              "main.blocks.8.mlp.fc2.bias",
+              "main.blocks.9.norm1.weight",
+              "main.blocks.9.norm1.bias",
+              "main.blocks.9.attn.qkv.weight",
+              "main.blocks.9.attn.qkv.bias",
+              "main.blocks.9.attn.proj.weight",
+              "main.blocks.9.attn.proj.bias",
+              "main.blocks.9.norm2.weight",
+              "main.blocks.9.norm2.bias",
+              "main.blocks.9.mlp.fc1.weight",
+              "main.blocks.9.mlp.fc1.bias",
+              "main.blocks.9.mlp.fc2.weight",
+              "main.blocks.9.mlp.fc2.bias",
+              "main.blocks.10.norm1.weight",
+              "main.blocks.10.norm1.bias",
+              "main.blocks.10.attn.qkv.weight",
+              "main.blocks.10.attn.qkv.bias",
+              "main.blocks.10.attn.proj.weight",
+              "main.blocks.10.attn.proj.bias",
+              "main.blocks.10.norm2.weight",
+              "main.blocks.10.norm2.bias",
+              "main.blocks.10.mlp.fc1.weight",
+              "main.blocks.10.mlp.fc1.bias",
+              "main.blocks.10.mlp.fc2.weight",
+              "main.blocks.10.mlp.fc2.bias",
+              "main.blocks.11.norm1.weight",
+              "main.blocks.11.norm1.bias",
+              "main.blocks.11.attn.qkv.weight",
+              "main.blocks.11.attn.qkv.bias",
+              "main.blocks.11.attn.proj.weight",
+              "main.blocks.11.attn.proj.bias",
+              "main.blocks.11.norm2.weight",
+              "main.blocks.11.norm2.bias",
+              "main.blocks.11.mlp.fc1.weight",
+              "main.blocks.11.mlp.fc1.bias",
+              "main.blocks.11.mlp.fc2.weight",
+              "main.blocks.11.mlp.fc2.bias",
+              "main.norm.weight",
+              "main.norm.bias"
+            ],
+            "observed_min_step": 3949.0,
+            "observed_max_step": 3949.0,
+            "successful_updates": 3949
+          },
+          "modules": {
+            "numel": 104456,
+            "bytes": 417824,
+            "parameter_count": 8,
+            "parameter_names": [
+              "libraries.0.U",
+              "libraries.0.V",
+              "libraries.0.gate_weight",
+              "libraries.0.gate_bias",
+              "libraries.1.U",
+              "libraries.1.V",
+              "libraries.1.gate_weight",
+              "libraries.1.gate_bias"
+            ],
+            "observed_min_step": 3949.0,
+            "observed_max_step": 3949.0,
+            "successful_updates": 3949
+          }
+        },
+        "eligibility_source": "Actual restored native optimizer family/name bindings and finalized checkpoint tensors; dynamic final requires_grad is not eligibility."
+      },
+      "numeric_state": {
+        "reported_resident_auxiliary_numeric_bytes": 706106016,
+        "reported_source": "task_diagnostics[-1].numeric_payload_bytes, excluding encoder_weights from the auxiliary sum",
+        "current_group_payload_bytes": {
+          "encoder_weights": 686807080,
+          "statistics": 5346088,
+          "readouts": 1230400,
+          "resident_anchor_cache": 12304000,
+          "optimizer_state": 687225528
+        },
+        "checkpoint_numeric_array_groups": {
+          "G": {
+            "shape": [
+              769,
+              769
+            ],
+            "dtype": "torch.float64",
+            "numel": 591361,
+            "bytes": 4730888
+          },
+          "C": {
+            "shape": [
+              769,
+              100
+            ],
+            "dtype": "torch.float64",
+            "numel": 76900,
+            "bytes": 615200
+          },
+          "W0": {
+            "shape": [
+              769,
+              100
+            ],
+            "dtype": "torch.float64",
+            "numel": 76900,
+            "bytes": 615200
+          },
+          "V": {
+            "shape": [
+              769,
+              100
+            ],
+            "dtype": "torch.float64",
+            "numel": 76900,
+            "bytes": 615200
+          }
+        },
+        "resident_anchor_cache": {
+          "rows": 2000,
+          "bytes": 12304000
+        },
+        "non_sgd_learning": "Immutable-anchor all-history ridge W0; resident/current residual readout V fitted by closed form.",
+        "overlap_rule": "encoder_weights contains both backbone families, libraries and buffers already counted as NN payload; never add it again to auxiliary bytes or sum group/total duplicates."
+      },
+      "replay": {
+        "final_images": 2000,
+        "reported_raw_payload_bytes": 6176000,
+        "representation": "uint8 RGB raw arrays",
+        "identity_accounting_bytes": 32000,
+        "raw_array_bytes": 6144000,
+        "rgb_decoded_equivalent_bytes": null,
+        "compressed_external_image_file_bytes": null,
+        "path_string_and_python_resident_bytes": null
+      },
+      "serialization": {
+        "checkpoint_file_bytes": 1402886779,
+        "numeric_checkpoint_payload_bytes": 1392923208,
+        "optimizer_state_policy": "Two AdamW states persist across tasks; epoch cosine resets learning rates per task. Counts/steps are observed successful updates, not no-skip theoretical values.",
+        "recovery_dependency": "Original runtime/config/data, pinned NPZ, raw replay source paths where applicable, both persistent AdamW states, history/readouts/resident anchor cache, owned and outer RNG. No CE trajectory replay."
+      },
+      "execution": {
+        "actual_run_wall_seconds": 9758.13392362371,
+        "sum_stage_wall_seconds": 9737.790157184005,
+        "gpu_peak_allocated_bytes": 4208519680,
+        "gpu_peak_scope": "this process PyTorch allocated-memory peak since reset; excludes other processes/reserved/context/CPU state",
+        "native_work_counters": {
+          "updates": 7898,
+          "module_updates": 3949,
+          "backbone_updates": 3949,
+          "episode_draws": 7900,
+          "skipped_episode_attempts": 2,
+          "cumulative_encoding_and_solver_counters": {
+            "canonical_anchor_images": 50000,
+            "canonical_main_images": 67900,
+            "episode_anchor_images": 835153,
+            "episode_full_prepass_images": 835153,
+            "episode_common_prepass_images": 417474,
+            "vjp_full_images": 815607,
+            "vjp_common_images": 417474,
+            "readout_solves": 19765,
+            "logical_current_presentations": 250000
+          }
+        },
+        "native_work_counters_scope": "Executed current-method work; terminal cumulative counters copied once, not summed across stages.",
+        "ce_reuse": null
+      },
+      "raw_resource_report": {
+        "encoder_weights": 686807080,
+        "statistics": 5346088,
+        "readouts": 1230400,
+        "resident_anchor_cache": 12304000,
+        "optimizer_state": 687225528
+      },
+      "raw_resource_report_kind": "current engine tensor-payload groups; encoder overlaps named NN parameter/buffer counts"
     },
     {
       "job": "formal_imagenetr_current_selected_v5",

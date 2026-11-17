@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "status": "partial_checkpoint_index_not_campaign_completion",
+  "status": "complete_checkpoint_index",
   "required_cells": 12,
-  "obtained_verified_checkpoints": 11,
-  "pending_cells": 1,
-  "build_scope": "Local index refresh from existing sealed JSON/log/source/archive evidence for ImageNet-R current only; no server connection, .pt read, model export, training or git action. Other entries retain their previous evidence scope.",
+  "obtained_verified_checkpoints": 12,
+  "pending_cells": 0,
+  "build_scope": "Final checkpoint-index refresh from existing sealed local JSON/log/source/archive evidence only; no server connection, .pt read, model export, training or git action. All twelve checkpoints are obtained; audit capability remains per-entry and is not upgraded to GPU continuation or new accuracy reproduction.",
   "selected_jobs": {
     "path": "experiments/campaign_20261117/formal/SELECTED_JOBS.json",
     "sha256": "4b1eee40de6568e6af2c5ad07b1ed8832a61ca42dcd3d58bd3dea641b68fbc33"
@@ -263,17 +263,118 @@
         "ce_cache_donor": null
       },
       "gpu_restore_or_continuation_executed": false,
-      "status": "pending_active_no_final_backup_or_audit_claim",
-      "checkpoint_sha256": null,
-      "checkpoint_bytes": null,
-      "backup": null,
-      "expected_server_local_backup": "${RUNTIME_ROOT}/formal_backups/campaign_20261117/formal_cifar_current_selected_v5/checkpoint.pt",
-      "runtime_snapshot": "runtime_bounded_v4",
-      "runtime_source_evidence": {
-        "path": "experiments/campaign_20261117/audit/source_correspondence_training_entries_v1.json",
-        "sha256": "76781a88cbbb943a87b8a0a16d2fcfa83cfbc361e81dccd1f085960345788f5b"
+      "status": "obtained_verified_checkpoint",
+      "checkpoint_sha256": "b842888aa0cf0a19d9b2a08b2d2f9ac00926f44fb1e5e92e458988db9da040e0",
+      "checkpoint_bytes": 1402886779,
+      "backup": {
+        "kind": "verified_server_local_backup",
+        "path": "${RUNTIME_ROOT}/formal_backups/campaign_20261117/formal_cifar_current_selected_v5/checkpoint.pt",
+        "payload_left_server": false,
+        "verification": {
+          "path": "experiments/campaign_20261117/formal/observations/formal_cifar_current_selected_v5/server_backup/formal_cifar_current_selected_v5/verification.json",
+          "sha256": "1441b0bc5ee3c4c48baee1d9a672a0273f72081c44ccb6e3e545bee79de5af99"
+        },
+        "original_verification_sha256": "0eb4612a767443ae8cf14cd9410bf828d798d1d92f5d0b3513c659300b8df6d4",
+        "source_process_terminal": {
+          "pid": 39054,
+          "expected_ticks": "1791452139",
+          "state": "absent"
+        }
       },
-      "runtime_entry_file_sha256": {
+      "runtime_snapshot": "runtime_bounded_v4",
+      "launch_evidence": {
+        "path": "experiments/campaign_20261117/formal/observations/formal_cifar_current_selected_v5/formal/receipts/formal_cifar_current_selected_v5.json",
+        "sha256": "b1d3218cab79df4eb3663812284e3032367ffd361d5b0259aa1318ae50d6bc3e"
+      },
+      "audit": {
+        "status": "native_cpu_checkpoint_audit_checks_passed_not_campaign_certificate",
+        "job": "audit_formal_cifar_current_selected_v5_v1",
+        "native_cpu_restore_executed": true,
+        "zero_input_forward_executed": true,
+        "finite_output_shape": [
+          1,
+          100
+        ],
+        "state_nodes_compared": 62535,
+        "raw_state_numerically_restored": true,
+        "original_log_sha256": "0be110440a731a4abcb3df645ed2e6a55806aed1939ba5cb5bf0040086b28d7c",
+        "auditor_sha256": "ca025b07d92cc0eeed295d1c4f6a8db9655aa45487435fecaa5c839e426f9b3b",
+        "state_loader_sha256": "696416de70cdfb5e7033cc26c93ad005eb5e20918379f4ef01fc3d76142b2d02",
+        "source_metadata_sha256": {
+          "config": "7ff102e2cd4cff62b6d31b1777a78e89b05a470b1533e9113fe2e83ee945ce5a",
+          "results": "3229b1f09549897e057544161ad141bd9744a09307228d0b0bcd43be3d80e83c",
+          "data_manifest": "1471599966cbc1427d69bcff8a186e0c648b22fb2be88b6de103cb469bdcb823"
+        },
+        "public_receipt": {
+          "path": "experiments/campaign_20261117/formal/observations/formal_cifar_current_selected_v5/verification/receipts/audit_formal_cifar_current_selected_v5_v1.json",
+          "sha256": "f2af4be3e312487422f7e710bef0c34d961f6212c8b7fea80bf63789e999b196"
+        },
+        "accuracy_rerun": false,
+        "extra_training_steps": 0,
+        "cuda_rng_applied": false,
+        "actual_successful_updates": {
+          "updates": 7898,
+          "module_updates": 3949,
+          "backbone_updates": 3949,
+          "episode_draws": 7900
+        },
+        "actual_skipped_episode_attempts": 2,
+        "final_audit_complete_field_scope": "Helper leaves final_audit_complete false because it is not a twelve-cell campaign certificate; status records actual per-checkpoint PASS."
+      },
+      "original_metadata_sha256": {
+        "results": "3229b1f09549897e057544161ad141bd9744a09307228d0b0bcd43be3d80e83c",
+        "config": "7ff102e2cd4cff62b6d31b1777a78e89b05a470b1533e9113fe2e83ee945ce5a",
+        "data_manifest": "1471599966cbc1427d69bcff8a186e0c648b22fb2be88b6de103cb469bdcb823"
+      },
+      "completion_receipt": {
+        "path": "experiments/campaign_20261117/formal/completion_receipts/formal_cifar_current_selected_v5.json",
+        "sha256": "b91cc8cab0c289b987e5ddffd8537d8a841fdafab3425270b06055f1f4674e09"
+      },
+      "runtime_source_file_sha256": {
+        "cl27/__init__.py": "77f44223a067ed9123ca03c50fe5b4c423c6dc75afe3b47c2a291af4491e5211",
+        "utils/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "utils/toolkit.py": "1f64bb032beacb6510bf9eff1e009ad217a42c9a7fa40cd867a56e71cb4123f6",
+        "utils/data.py": "a5f1b056a244439a45c7359c4328ae378c1557078ab81cf332ebaf0a8118f87c",
+        "utils/data_manager.py": "74601c9c46d1e51ee95ee20c8a261b28325b997586bd3bf6e78a361d41289857",
+        "cl27/replay.py": "c334c443a977aa656e07c381ea1a3232dedc56159d70a0717131c50e754a17a9",
+        "models/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "models/base.py": "55e59eb4698004ae33862332731f172476be28dffafc07e85ad72013d722bcbf",
+        "cl27/common.py": "33b63ca2b6baef4585e677d54d9e72e6e5247efb24d997e6eeec968911e0c3bf",
+        "cl27/pilot_imagenetr.py": "037325bb474f1a59a6c1f4d1c0a7960423cb50b0924e903c5b86836c017bb4f5",
+        "cl27/data.py": "18fae0aaa165451c0c7b8f5c06eab2fed34c99be4a31623f3d26b930a7a19230",
+        "utils/factory.py": "8b036ee9f3fd4b471e4a91e1abeea29267f3c7949298228ead87d42901233272",
+        "cl27/current/__init__.py": "6583bfdc6053466a527279590da98319bf33fa2575b5f49f65c5142488a5d93e",
+        "cl27/current/episodes.py": "114dbb71f97a954f6bca786dd83599ca82caf2fcb273c93ab21e1500512a062f",
+        "cl27/current/readout.py": "a08cd3c7f036f589081dbb0422bd22114e8e002c2f96b122b9aab234a9c39547",
+        "cl27/current/engine.py": "43fc2597aeaaa64f23517d598cbb62a0a18e0af1f82520bdfd58de265aa1e372",
+        "models/current_adapted.py": "8cfbe15d35f4d956a665e6c553670bad296289c0ba457df07af7ab5585c0f1c1",
+        "backbone/linears.py": "d8cf24ab4cbea4c2b84afe6061cdf4276bb5b4e34c0cb2a56712b63f0b6e4505",
+        "backbone/prompt.py": "ce57c5a4aa5c9c5ab9d7eb70ae27cb5a966ac2a1d9a540b45b55dfcd46ff2b04",
+        "utils/inc_net.py": "62b178b90f2ab5262be5a35082e7d92d8faca74dae01135785bbb0454e9e52ed"
+      },
+      "runtime_source_payloads_archived": [
+        "cl27/__init__.py",
+        "utils/__init__.py",
+        "utils/toolkit.py",
+        "utils/data.py",
+        "utils/data_manager.py",
+        "cl27/replay.py",
+        "models/__init__.py",
+        "models/base.py",
+        "cl27/common.py",
+        "cl27/pilot_imagenetr.py",
+        "cl27/data.py",
+        "utils/factory.py",
+        "cl27/current/__init__.py",
+        "cl27/current/episodes.py",
+        "cl27/current/readout.py",
+        "cl27/current/engine.py",
+        "models/current_adapted.py",
+        "backbone/linears.py",
+        "backbone/prompt.py",
+        "utils/inc_net.py"
+      ],
+      "runtime_training_entry_file_sha256": {
         "main.py": "23d494c98deaf6a408664865f7d7dc1259a417531ab2d0c975dcbb02d14117ca",
         "trainer.py": "cffff7ce8249442a4540559f350dabf78dcdbe774f4d3d910090b1e61859de81",
         "cl27/runner.py": "931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e",
@@ -282,24 +383,24 @@
         "cl27/transport_training.py": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9",
         "scripts/run_ce_cohort.py": "e0c9c4ff9667b5843eee5efe836ccc4fec31312f028ef04d0a7a7e611ac6014a"
       },
-      "launch_evidence": {
-        "path": "experiments/campaign_20261117/development/selection_evidence/cifar_current_v5/campaign_20261117/formal/receipts/formal_cifar_current_selected_v5.json",
-        "sha256": "b1d3218cab79df4eb3663812284e3032367ffd361d5b0259aa1318ae50d6bc3e"
+      "runtime_training_entry_evidence": {
+        "path": "experiments/campaign_20261117/audit/source_correspondence_training_entries_v1.json",
+        "sha256": "76781a88cbbb943a87b8a0a16d2fcfa83cfbc361e81dccd1f085960345788f5b"
       },
-      "process_identity": {
-        "pid": 39054,
-        "proc_start_ticks": "1791452139",
-        "scope": "Existing local launch receipt (CIF) and saved process observation (R); root reports both remain active. No server probe by this index build."
+      "source_export_manifest": {
+        "path": "experiments/campaign_20261117/formal/observations/formal_cifar_current_selected_v5/SOURCE_EXPORT_MANIFEST.json",
+        "sha256": "1e55a6aa7a42f190edca5127b3b1371bfcd0a165ecf24e024e1164d91165e114"
       },
-      "audit": {
-        "native_cpu_restore_executed": false,
-        "zero_input_forward_executed": false,
-        "status": "pending_terminal_sha_bound_backup"
+      "public_export_manifest": {
+        "path": "experiments/campaign_20261117/formal/observations/formal_cifar_current_selected_v5/PUBLIC_EXPORT_MANIFEST.json",
+        "sha256": "f7af5b92b512c64f230726fc85c2c026bc836ab98470e0e46be771ddd26116f6"
       },
-      "original_config_sha256": "f0ff4c7296918d4b3d1428cbaabd2c16a424c19de948d0608bb8ba46675b2a16",
-      "original_config_sha_evidence": {
-        "path": "experiments/campaign_20261117/development/selection_evidence/cifar_current_v5/campaign_20261117/formal/receipts/formal_cifar_current_selected_v5.json",
-        "sha256": "b1d3218cab79df4eb3663812284e3032367ffd361d5b0259aa1318ae50d6bc3e"
+      "metadata_archive": {
+        "private_local_path": "${PRIVATE_WORKSPACE_ROOT}/formal_cifar_current_selected_v5.audited_metadata.tar.gz",
+        "server_path": "${RUNTIME_ROOT}/campaign_20261117/formal/audited_metadata/formal_cifar_current_selected_v5.tar.gz",
+        "sha256": "6c3096aaf4aa132d84405aeeff0c5050d54f93e551a4672109acef79b3eba0f7",
+        "bytes": 90138,
+        "weights_included": false
       }
     },
     {
@@ -1449,8 +1550,8 @@
     "No entry certifies GPU RNG restoration, GPU continuation, or independent accuracy rerun.",
     "Original runtime/config/data/source hashes govern restoration; configuration commit strings alone are not a replacement for actual source evidence.",
     "ImageNet-R replay stores external image references; checkpoint alone is not a self-contained dataset archive.",
-    "Current pending checkpoints must not be opened/archived by this index while their original processes are active.",
-    "Canceled model-export branch stays canceled; pending models remain server-local."
+    "All indexed checkpoints are completed immutable backups; active or partial files are not admissible.",
+    "Canceled model-export branch stays canceled; the eight later models remain server-local."
   ],
-  "private_index_sha256": "9977eb6cf31102b33d3013ba0880143cd16c9c3846668590ab6c7ac29079979b"
+  "private_index_sha256": "9cca53de082a4e1215f975f1353bb690d47465605b7628246872c7293f9bda15"
 }
