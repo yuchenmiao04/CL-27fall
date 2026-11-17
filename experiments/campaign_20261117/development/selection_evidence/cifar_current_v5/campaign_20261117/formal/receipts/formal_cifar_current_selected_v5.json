@@ -1,0 +1,30 @@
+{
+  "job": "formal_cifar_current_selected_v5",
+  "pid": 39054,
+  "proc_start_ticks": "1791452139",
+  "launch_utc": "2026-11-17T12:15:51Z",
+  "cwd": "remote_runtime/runtime_bounded_v4",
+  "command": [
+    "remote_python",
+    "main.py",
+    "--config",
+    "remote_runtime/campaign_20261117/formal/configs/formal_cifar_current_selected_v5.json"
+  ],
+  "metadata": {
+    "selection_decision": "D0055",
+    "gpu": 0,
+    "prepared_only": false,
+    "fresh_full_training_refit": true,
+    "expected_full_training_rows": 50000,
+    "method_source_commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+    "selected_development_trial": "cifar_current_mb2_full_v5",
+    "development_native_audit": "audit_selected_cifar_current_development_v1",
+    "configuration_sha256": "f0ff4c7296918d4b3d1428cbaabd2c16a424c19de948d0608bb8ba46675b2a16",
+    "selection_decision_sha256": "508b50bf8c988b9eb14a50732aff1396a954f5c72065f1731b0a412d543f2573",
+    "execution_role": "candidate_method",
+    "data_phase": "fresh_full_training"
+  },
+  "environment": {
+    "CL27_CURRENT_FROZEN_PREFIX_REUSE": "1"
+  }
+}

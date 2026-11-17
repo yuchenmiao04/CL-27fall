@@ -1,0 +1,21 @@
+{
+  "status": "immutable_selected_development_snapshot",
+  "selected_trial": "cifar_current_mb2_full_v5",
+  "source_checkpoint": "remote_runtime/campaign_20261117/development/runs/cifar_current_mb2_full_v5/checkpoint.pt",
+  "snapshot_checkpoint": "remote_runtime/campaign_20261117/verification/development_snapshots/cifar_current_mb2_full_v5/checkpoint.pt",
+  "snapshot_method": "hardlink_to_terminal_original_checkpoint_same_filesystem",
+  "independent_byte_copy": false,
+  "checkpoint_sha256": "8f863e3ef1d4250b098d52030ab82ee4cb48354eee2c48300ca6be478d3099db",
+  "checkpoint_bytes": 1402951483,
+  "original_pid": 33284,
+  "original_ticks": "1790443681",
+  "original_process_absent": true,
+  "source_metadata_sha256": {
+    "config": "2e29969a360815190bf7d6a33a122d1c491911c6b6644ce59806b0162447e466",
+    "results": "1746a15ddf33f11922dd2419955a37670479900175223e8ee5c99e700b43e9c5",
+    "data_manifest": "a2a29a76b9a2deacb95bd4a520728bc42348338125c336e532db21de2943fdbc"
+  },
+  "created_utc": "2026-11-17T12:10:18.629013+00:00",
+  "source_fits_only_training_holdout": true,
+  "formal_result": false
+}

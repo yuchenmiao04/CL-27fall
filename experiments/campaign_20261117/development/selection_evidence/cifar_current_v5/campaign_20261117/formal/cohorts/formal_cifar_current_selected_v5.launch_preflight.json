@@ -1,0 +1,14 @@
+{
+  "observed_utc": "2026-11-17T12:15:51.357052+00:00",
+  "gpu": 0,
+  "gpu0_processes": [],
+  "observed_free_mib": 32106.9375,
+  "module_reserve_mib": 6440,
+  "extra_margin_mib": 1024,
+  "data_free_bytes": 5850144768,
+  "source_and_two_current_atomic_temporary_budget_GiB": 3.9,
+  "config_sha256": "f0ff4c7296918d4b3d1428cbaabd2c16a424c19de948d0608bb8ba46675b2a16",
+  "decision_sha256": "508b50bf8c988b9eb14a50732aff1396a954f5c72065f1731b0a412d543f2573",
+  "fresh_full_train_N": 50000,
+  "no_development_checkpoint_reused": true
+}

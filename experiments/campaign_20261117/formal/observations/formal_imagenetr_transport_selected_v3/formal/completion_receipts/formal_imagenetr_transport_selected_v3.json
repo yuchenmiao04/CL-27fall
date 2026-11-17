@@ -1,0 +1,68 @@
+{
+  "status": "audited_complete_formal_run",
+  "job": "formal_imagenetr_transport_selected_v3",
+  "dataset": "imagenetr",
+  "method": "history_transport",
+  "seed": 1993,
+  "completed_utc": "2026-11-17T12:17:25.950387+00:00",
+  "metrics": {
+    "final_accuracy": 0.807,
+    "aia": 0.8607820596332807,
+    "forgetting_previous": 0.08184323245955222,
+    "forgetting_including_final": 0.08184323245955222
+  },
+  "full_training_rows": 24000,
+  "final_evaluation_samples": 6000,
+  "final_replay_rows": 4000,
+  "results_sha256": "51a63865b9af1a99e3fd08c29f702e6f470ecfec3acd3f66d0810d77609c0e9e",
+  "checkpoint_sha256": "c24b44f387054bb8fcdfeb1d9a0f44dc30633fbffb5d7691c68ec82602c50d3a",
+  "checkpoint_bytes": 714430018,
+  "backup_location": "remote_runtime/formal_backups/campaign_20261117/formal_imagenetr_transport_selected_v3/checkpoint.pt",
+  "backup_payload_left_server": false,
+  "original_processes_terminal": {
+    "formal_imagenetr_transport_selected_v3": {
+      "pid": 37895,
+      "expected_ticks": "1791262075",
+      "state": "absent"
+    },
+    "audit_formal_imagenetr_transport_selected_v3_v1": {
+      "pid": 38928,
+      "expected_ticks": "1791438082",
+      "state": "absent"
+    }
+  },
+  "cpu_audit_job": "audit_formal_imagenetr_transport_selected_v3_v1",
+  "cpu_audit_json_sha256": "278afce85062fd52eddffa6a0dce2eade982031a552b539f114fd9c077ef6f9d",
+  "validator_source_sha256": "fc49f07d6bacdcd8e71c6d38eba66cf4ca9187f4252a3187e180cde189026f9b",
+  "cache_reuse_verification": {
+    "donor": "formal_imagenetr_er_fixed_v1",
+    "stages": 10,
+    "reader_reused": true,
+    "actual_payload_hashes_verified": true,
+    "shared_native_ce_seconds": 9029.934395097196,
+    "inventory_sha256": "8ec6c0d9486445ed8867fbb30ef39eed21d86859fdd2bc8c30d6033f12cc06d5"
+  },
+  "scope": "This one formal cell only; not a twelve-cell campaign certificate; no extra training, GPU continuation or accuracy rerun.",
+  "source_process_terminal": {
+    "pid": 37895,
+    "expected_ticks": "1791262075",
+    "state": "absent"
+  },
+  "audit_process_terminal": {
+    "pid": 38928,
+    "expected_ticks": "1791438082",
+    "state": "absent"
+  },
+  "final_correct": 4842,
+  "cpu_audit": {
+    "job": "audit_formal_imagenetr_transport_selected_v3_v1",
+    "log_sha256": "278afce85062fd52eddffa6a0dce2eade982031a552b539f114fd9c077ef6f9d",
+    "auditor_sha256": "ca025b07d92cc0eeed295d1c4f6a8db9655aa45487435fecaa5c839e426f9b3b",
+    "native_cpu_restore": true,
+    "compared_state_nodes": 24244,
+    "actual_source_data_and_replay_verified": true,
+    "no_extra_training_or_accuracy_evaluation": true,
+    "cuda_rng_payloads_retained_not_applied": true
+  },
+  "cache_inventory_sha256": "8ec6c0d9486445ed8867fbb30ef39eed21d86859fdd2bc8c30d6033f12cc06d5"
+}

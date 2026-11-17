@@ -1,0 +1,147 @@
+{
+  "id": "D0055",
+  "kind": "close_final_fixed_library_development_selection",
+  "status": "selected_after_full_development_and_native_cpu_audit",
+  "hpo_closed": true,
+  "method": "current_adapted",
+  "dataset": "cifar224",
+  "selected_development_trial": "cifar_current_mb2_full_v5",
+  "selection_rule": "Predeclared D0045/D0053: unrounded full10-stage Final first, cost only for exact tie. No tie occurred.",
+  "selected_parameters": {
+    "module_layers": [
+      7,
+      9
+    ],
+    "modules_per_layer": 4,
+    "module_rank": 8,
+    "epochs": 5,
+    "outer_updates": 2,
+    "schedule": [
+      "modules",
+      "backbone"
+    ],
+    "batch_size": 64,
+    "episode_replay_batch_size": 64,
+    "feature_batch_size": 16,
+    "backbone_lr": 1e-05,
+    "module_lr": 0.0001,
+    "weight_decay": 0.0001,
+    "base_ridge": 0.01,
+    "residual_ridge": 0.01,
+    "temperature": 10.0,
+    "support_shots": [
+      1,
+      5
+    ],
+    "background_shots": 5,
+    "target_classes": 5,
+    "query_per_class": 2,
+    "feature_normalization": "l2"
+  },
+  "selection_candidates": [
+    {
+      "trial": "cifar_current_bounded64_full_v4",
+      "metrics": {
+        "final_accuracy": 0.8958,
+        "aia": 0.941901984126984,
+        "forgetting_previous": 0.0713333333333333,
+        "forgetting_including_final": 0.0713333333333333
+      },
+      "final_correct": 4479,
+      "final_evaluation_images": 5000,
+      "data_fingerprint": "de3c0d03d365cb20722f5739314d3de7e4b1d002b98101e5409d4931f0e47227",
+      "source_sha256": {
+        "results.json": "fcd0ef9124193e37ee34d6768a4a153b99cefea1ee96dd46dda28ec74eac2d1b",
+        "config.json": "a7a3a1727a6c90e0ba4c5d79d4f8240db2577815a76beaeaaa41958f48fece0a",
+        "data_manifest.json": "a2a29a76b9a2deacb95bd4a520728bc42348338125c336e532db21de2943fdbc"
+      },
+      "cost_evidence": {
+        "sum_recorded_stage_seconds": 23834.587176546454,
+        "current_process_wall_seconds": 17770.10611004755,
+        "module_updates_total": 10650,
+        "backbone_updates_total": 3550,
+        "cumulative_counters": {
+          "canonical_anchor_images": 45000,
+          "canonical_main_images": 62900,
+          "episode_anchor_images": 1501838,
+          "episode_full_prepass_images": 1501838,
+          "episode_common_prepass_images": 375366,
+          "vjp_full_images": 1484234,
+          "vjp_common_images": 375366,
+          "readout_solves": 31970,
+          "logical_current_presentations": 225000
+        },
+        "limits": "Resumed-process wall excludes its prefix; stage sums exclude checkpoint-save overhead. Different concurrency prevents a controlled speedup claim."
+      }
+    },
+    {
+      "trial": "cifar_current_mb2_full_v5",
+      "metrics": {
+        "final_accuracy": 0.8984,
+        "aia": 0.943753888888889,
+        "forgetting_previous": 0.06977777777777776,
+        "forgetting_including_final": 0.06977777777777776
+      },
+      "final_correct": 4492,
+      "final_evaluation_images": 5000,
+      "data_fingerprint": "de3c0d03d365cb20722f5739314d3de7e4b1d002b98101e5409d4931f0e47227",
+      "source_sha256": {
+        "results.json": "1746a15ddf33f11922dd2419955a37670479900175223e8ee5c99e700b43e9c5",
+        "config.json": "2e29969a360815190bf7d6a33a122d1c491911c6b6644ce59806b0162447e466",
+        "data_manifest.json": "a2a29a76b9a2deacb95bd4a520728bc42348338125c336e532db21de2943fdbc"
+      },
+      "cost_evidence": {
+        "sum_recorded_stage_seconds": 15290.158877525479,
+        "current_process_wall_seconds": 9509.55185213685,
+        "module_updates_total": 3550,
+        "backbone_updates_total": 3550,
+        "cumulative_counters": {
+          "canonical_anchor_images": 45000,
+          "canonical_main_images": 62900,
+          "episode_anchor_images": 751235,
+          "episode_full_prepass_images": 751235,
+          "episode_common_prepass_images": 375661,
+          "vjp_full_images": 733573,
+          "vjp_common_images": 375661,
+          "readout_solves": 17770,
+          "logical_current_presentations": 225000
+        },
+        "limits": "Resumed-process wall excludes its prefix; stage sums exclude checkpoint-save overhead. Different concurrency prevents a controlled speedup claim."
+      }
+    }
+  ],
+  "evidence": {
+    "selected_checkpoint_sha256": "8f863e3ef1d4250b098d52030ab82ee4cb48354eee2c48300ca6be478d3099db",
+    "selected_development_native_audit": "audit_selected_cifar_current_development_v1",
+    "native_audit_log_sha256": "fd13c48ee3e153d9e3acc3c8c1b5acb427261a835ad62272d11516d0c38a68eb",
+    "native_state_nodes": 62535,
+    "fitting_rows": 45000,
+    "holdout_rows": 5000,
+    "selected_correct": 4492,
+    "reference_correct": 4479,
+    "official_test_read_for_selection": false,
+    "actual_initial_anchor_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+    "module_adamw_parameters": 8,
+    "backbone_adamw_parameters": 150,
+    "both_adamw_steps": 3550
+  },
+  "interpretation": "0.26 percentage-point development Final improvement in one class order. Both use3550 backbone updates; the selected allocation uses3550 instead of10650 module updates. Different schedules also change episodes/RNG. Unequal concurrency prevents treating measured wall ratios as a controlled speedup.",
+  "formal_refit": {
+    "job": "formal_cifar_current_selected_v5",
+    "configuration_sha256": "f0ff4c7296918d4b3d1428cbaabd2c16a424c19de948d0608bb8ba46675b2a16",
+    "preferred_device": [
+      0
+    ],
+    "expected_training_rows": 50000,
+    "expected_test_rows": 10000,
+    "final_replay_images": 2000,
+    "fresh_from_same_pretrained": true,
+    "development_checkpoint_or_statistics_reused": false,
+    "ce_trajectory_reused": false,
+    "runtime": "runtime_bounded_v4",
+    "source_commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+    "execution_prefix_reuse": "1",
+    "status": "prepared_not_yet_launched"
+  },
+  "created_utc": "2026-11-17T12:14:39.554290+00:00"
+}

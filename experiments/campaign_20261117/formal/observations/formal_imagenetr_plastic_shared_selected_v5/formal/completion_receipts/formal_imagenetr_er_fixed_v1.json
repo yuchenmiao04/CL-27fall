@@ -1,0 +1,68 @@
+{
+  "status": "audited_complete_formal_run",
+  "job": "formal_imagenetr_er_fixed_v1",
+  "dataset": "imagenetr",
+  "method": "er",
+  "seed": 1993,
+  "completed_utc": "2026-11-17T11:55:52.257881+00:00",
+  "metrics": {
+    "final_accuracy": 0.7,
+    "aia": 0.7866717489191675,
+    "forgetting_previous": 0.23764485260105456,
+    "forgetting_including_final": 0.23764485260105456
+  },
+  "full_training_rows": 24000,
+  "final_evaluation_samples": 6000,
+  "final_replay_rows": 4000,
+  "results_sha256": "358aa81a922f12a3b81d298816b82b786d25fe2078c8eac6d3c459097c146d40",
+  "checkpoint_sha256": "238b00f19af6198d4e1f81d44400e0e1e0373cc887f531d4e97e396ec298267d",
+  "checkpoint_bytes": 344356460,
+  "backup_location": "remote_formal_backups/formal_imagenetr_er_fixed_v1/checkpoint.pt",
+  "backup_payload_left_server": false,
+  "original_processes_terminal": {
+    "formal_imagenetr_er_fixed_v1": {
+      "pid": 32112,
+      "expected_ticks": "1790308172",
+      "state": "absent"
+    },
+    "audit_formal_imagenetr_er_fixed_v1_v1": {
+      "pid": 38180,
+      "expected_ticks": "1791308629",
+      "state": "absent"
+    }
+  },
+  "cpu_audit_job": "audit_formal_imagenetr_er_fixed_v1_v1",
+  "cpu_audit_json_sha256": "18b471740ac717a4f9ce4b35ffe13d919989adfbdb22d520b14f44f513e06ba0",
+  "validator_source_sha256": "fc49f07d6bacdcd8e71c6d38eba66cf4ca9187f4252a3187e180cde189026f9b",
+  "cache_reuse_verification": {
+    "donor": "formal_imagenetr_er_fixed_v1",
+    "stages": 10,
+    "reader_reused": false,
+    "actual_payload_hashes_verified": true,
+    "shared_native_ce_seconds": 9029.934395097196,
+    "inventory_sha256": "8ec6c0d9486445ed8867fbb30ef39eed21d86859fdd2bc8c30d6033f12cc06d5"
+  },
+  "scope": "This one formal cell only; not a twelve-cell campaign certificate; no extra training, GPU continuation or accuracy rerun.",
+  "source_process_terminal": {
+    "pid": 32112,
+    "expected_ticks": "1790308172",
+    "state": "absent"
+  },
+  "audit_process_terminal": {
+    "pid": 38180,
+    "expected_ticks": "1791308629",
+    "state": "absent"
+  },
+  "final_correct": 4200,
+  "cpu_audit": {
+    "job": "audit_formal_imagenetr_er_fixed_v1_v1",
+    "log_sha256": "18b471740ac717a4f9ce4b35ffe13d919989adfbdb22d520b14f44f513e06ba0",
+    "auditor_sha256": "ca025b07d92cc0eeed295d1c4f6a8db9655aa45487435fecaa5c839e426f9b3b",
+    "native_cpu_restore": true,
+    "compared_state_nodes": 18930,
+    "actual_source_data_and_replay_verified": true,
+    "no_extra_training_or_accuracy_evaluation": true,
+    "cuda_rng_payloads_retained_not_applied": true
+  },
+  "cache_inventory_sha256": "8ec6c0d9486445ed8867fbb30ef39eed21d86859fdd2bc8c30d6033f12cc06d5"
+}

@@ -1,0 +1,230 @@
+{
+  "source_archive_sha256": "8e75a13f53f4dd60eca7cb86c5c99d58879e5c4cbd9e2334e8082e5b8a6f756f",
+  "numerical_values_unchanged": true,
+  "operational_paths_replaced": true,
+  "raw_source_manifest_scope": "SOURCE_EXPORT_MANIFEST describes private raw source bytes before path replacement.",
+  "files": [
+    {
+      "source_name": "audit_tools/finalize_formal_cpu_audit.py",
+      "published_name": "audit_tools/finalize_formal_cpu_audit.py",
+      "source_sha256": "959254cc73ee61e574714d9ae31561cdc5a2c599115701c43216bacc7c783c46",
+      "published_sha256": "d7d4fa0968b17418bdb05118db24dd97051673f2c227168c2f5068ca6b0350aa"
+    },
+    {
+      "source_name": "audit_tools/metric_validator.py",
+      "published_name": "audit_tools/metric_validator.py",
+      "source_sha256": "fc49f07d6bacdcd8e71c6d38eba66cf4ca9187f4252a3187e180cde189026f9b",
+      "published_sha256": "fc49f07d6bacdcd8e71c6d38eba66cf4ca9187f4252a3187e180cde189026f9b"
+    },
+    {
+      "source_name": "audit_tools/native_cpu_auditor.py",
+      "published_name": "audit_tools/native_cpu_auditor.py",
+      "source_sha256": "ca025b07d92cc0eeed295d1c4f6a8db9655aa45487435fecaa5c839e426f9b3b",
+      "published_sha256": "ca025b07d92cc0eeed295d1c4f6a8db9655aa45487435fecaa5c839e426f9b3b"
+    },
+    {
+      "source_name": "audit_tools/state_loader.py",
+      "published_name": "audit_tools/state_loader.py",
+      "source_sha256": "696416de70cdfb5e7033cc26c93ad005eb5e20918379f4ef01fc3d76142b2d02",
+      "published_sha256": "696416de70cdfb5e7033cc26c93ad005eb5e20918379f4ef01fc3d76142b2d02"
+    },
+    {
+      "source_name": "formal/cohorts/formal_imagenetr_er_fixed_v1.cache_inventory.json",
+      "published_name": "formal/cohorts/formal_imagenetr_er_fixed_v1.cache_inventory.json",
+      "source_sha256": "8ec6c0d9486445ed8867fbb30ef39eed21d86859fdd2bc8c30d6033f12cc06d5",
+      "published_sha256": "b2ffc8dba5d011ecc213c2ad2735ea06cce1426b44f8b3243d4e52576c02abc4"
+    },
+    {
+      "source_name": "formal/completion_receipts/formal_imagenetr_er_fixed_v1.json",
+      "published_name": "formal/completion_receipts/formal_imagenetr_er_fixed_v1.json",
+      "source_sha256": "0d15b6ac0328cee31faeb21b08b2d48bd25632640b3eb68189952fe0d96365a7",
+      "published_sha256": "ec8f84e644b416a9e852050b89cf1e47cafeb4d1725f16f5c833629991837df3"
+    },
+    {
+      "source_name": "formal/logs/formal_imagenetr_transport_selected_v3.log",
+      "published_name": "formal/logs/formal_imagenetr_transport_selected_v3.log",
+      "source_sha256": "621e4b65dbbda42de64d0db8d97eebf9c65ac610600ff267680cfb6d80862264",
+      "published_sha256": "621e4b65dbbda42de64d0db8d97eebf9c65ac610600ff267680cfb6d80862264"
+    },
+    {
+      "source_name": "formal/receipts/formal_imagenetr_transport_selected_v3.json",
+      "published_name": "formal/receipts/formal_imagenetr_transport_selected_v3.json",
+      "source_sha256": "77232228206e96daaeafb41d8eb2f8d5db9a37342ebc57e60f6b31d5922c396f",
+      "published_sha256": "f72b6d794c566dddbac2b81cd4e11f3b1881fe0bb2991553f7ba586002120956"
+    },
+    {
+      "source_name": "formal/runs/formal_imagenetr_er_fixed_v1/config.json",
+      "published_name": "formal/runs/formal_imagenetr_er_fixed_v1/config.json",
+      "source_sha256": "835372adbb325d1317eed07b92b87ab8af419f4425060f6a6aabf4e34c2b1a9d",
+      "published_sha256": "ab40711c1f873a16e669caeff9b8477c9997367333e266bd4f3c44005b459834"
+    },
+    {
+      "source_name": "formal/runs/formal_imagenetr_er_fixed_v1/results.json",
+      "published_name": "formal/runs/formal_imagenetr_er_fixed_v1/results.json",
+      "source_sha256": "358aa81a922f12a3b81d298816b82b786d25fe2078c8eac6d3c459097c146d40",
+      "published_sha256": "62eea0cdfda6b794feaeb08487268085d49eec80c4cfac392518bf9432ac7065"
+    },
+    {
+      "source_name": "formal/runs/formal_imagenetr_transport_selected_v3/config.json",
+      "published_name": "formal/runs/formal_imagenetr_transport_selected_v3/config.json",
+      "source_sha256": "81307ad39004631714ccab46f5698a8b18508fc2f321eed375ac06de81c5e1e9",
+      "published_sha256": "93d47a6e8ad6f4847652e625d36ad45b213e262dbbec83ef6e1384f62cf81990"
+    },
+    {
+      "source_name": "formal/runs/formal_imagenetr_transport_selected_v3/data_manifest.json",
+      "published_name": "formal/runs/formal_imagenetr_transport_selected_v3/data_manifest.json",
+      "source_sha256": "80ce1916dfd7986bbb84684a188edb7ce8efb3b2c0cb29dbf5dfe832406a0131",
+      "published_sha256": "80ce1916dfd7986bbb84684a188edb7ce8efb3b2c0cb29dbf5dfe832406a0131"
+    },
+    {
+      "source_name": "formal/runs/formal_imagenetr_transport_selected_v3/results.json",
+      "published_name": "formal/runs/formal_imagenetr_transport_selected_v3/results.json",
+      "source_sha256": "51a63865b9af1a99e3fd08c29f702e6f470ecfec3acd3f66d0810d77609c0e9e",
+      "published_sha256": "00e541495678651732ab7163f912f16564bdf162a7ff095ba91069d2fe9db071"
+    },
+    {
+      "source_name": "runtime_source/backbone/linears.py",
+      "published_name": "runtime_source/backbone/linears.py",
+      "source_sha256": "d8cf24ab4cbea4c2b84afe6061cdf4276bb5b4e34c0cb2a56712b63f0b6e4505",
+      "published_sha256": "d8cf24ab4cbea4c2b84afe6061cdf4276bb5b4e34c0cb2a56712b63f0b6e4505"
+    },
+    {
+      "source_name": "runtime_source/backbone/prompt.py",
+      "published_name": "runtime_source/backbone/prompt.py",
+      "source_sha256": "ce57c5a4aa5c9c5ab9d7eb70ae27cb5a966ac2a1d9a540b45b55dfcd46ff2b04",
+      "published_sha256": "ce57c5a4aa5c9c5ab9d7eb70ae27cb5a966ac2a1d9a540b45b55dfcd46ff2b04"
+    },
+    {
+      "source_name": "runtime_source/cl27/__init__.py",
+      "published_name": "runtime_source/cl27/__init__.py",
+      "source_sha256": "77f44223a067ed9123ca03c50fe5b4c423c6dc75afe3b47c2a291af4491e5211",
+      "published_sha256": "77f44223a067ed9123ca03c50fe5b4c423c6dc75afe3b47c2a291af4491e5211"
+    },
+    {
+      "source_name": "runtime_source/cl27/common.py",
+      "published_name": "runtime_source/cl27/common.py",
+      "source_sha256": "33b63ca2b6baef4585e677d54d9e72e6e5247efb24d997e6eeec968911e0c3bf",
+      "published_sha256": "33b63ca2b6baef4585e677d54d9e72e6e5247efb24d997e6eeec968911e0c3bf"
+    },
+    {
+      "source_name": "runtime_source/cl27/cores/__init__.py",
+      "published_name": "runtime_source/cl27/cores/__init__.py",
+      "source_sha256": "8e080541adf8a76f2aca0b6e8ba95858f46edf4848ae8da80fc93a3abbe13912",
+      "published_sha256": "8e080541adf8a76f2aca0b6e8ba95858f46edf4848ae8da80fc93a3abbe13912"
+    },
+    {
+      "source_name": "runtime_source/cl27/cores/transport.py",
+      "published_name": "runtime_source/cl27/cores/transport.py",
+      "source_sha256": "632d13b5dad439d7a4eeed0849668fc7dc103d2a838cebea861e42d85865ccd9",
+      "published_sha256": "632d13b5dad439d7a4eeed0849668fc7dc103d2a838cebea861e42d85865ccd9"
+    },
+    {
+      "source_name": "runtime_source/cl27/data.py",
+      "published_name": "runtime_source/cl27/data.py",
+      "source_sha256": "18fae0aaa165451c0c7b8f5c06eab2fed34c99be4a31623f3d26b930a7a19230",
+      "published_sha256": "18fae0aaa165451c0c7b8f5c06eab2fed34c99be4a31623f3d26b930a7a19230"
+    },
+    {
+      "source_name": "runtime_source/cl27/pilot_imagenetr.py",
+      "published_name": "runtime_source/cl27/pilot_imagenetr.py",
+      "source_sha256": "037325bb474f1a59a6c1f4d1c0a7960423cb50b0924e903c5b86836c017bb4f5",
+      "published_sha256": "037325bb474f1a59a6c1f4d1c0a7960423cb50b0924e903c5b86836c017bb4f5"
+    },
+    {
+      "source_name": "runtime_source/cl27/replay.py",
+      "published_name": "runtime_source/cl27/replay.py",
+      "source_sha256": "c334c443a977aa656e07c381ea1a3232dedc56159d70a0717131c50e754a17a9",
+      "published_sha256": "c334c443a977aa656e07c381ea1a3232dedc56159d70a0717131c50e754a17a9"
+    },
+    {
+      "source_name": "runtime_source/cl27/transport_training.py",
+      "published_name": "runtime_source/cl27/transport_training.py",
+      "source_sha256": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9",
+      "published_sha256": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9"
+    },
+    {
+      "source_name": "runtime_source/models/__init__.py",
+      "published_name": "runtime_source/models/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_name": "runtime_source/models/base.py",
+      "published_name": "runtime_source/models/base.py",
+      "source_sha256": "55e59eb4698004ae33862332731f172476be28dffafc07e85ad72013d722bcbf",
+      "published_sha256": "55e59eb4698004ae33862332731f172476be28dffafc07e85ad72013d722bcbf"
+    },
+    {
+      "source_name": "runtime_source/models/history_transport.py",
+      "published_name": "runtime_source/models/history_transport.py",
+      "source_sha256": "a9b32229256cca60cca90ae969df480c20f1f4455629ede69e600d14971f2824",
+      "published_sha256": "a9b32229256cca60cca90ae969df480c20f1f4455629ede69e600d14971f2824"
+    },
+    {
+      "source_name": "runtime_source/utils/__init__.py",
+      "published_name": "runtime_source/utils/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_name": "runtime_source/utils/data.py",
+      "published_name": "runtime_source/utils/data.py",
+      "source_sha256": "a5f1b056a244439a45c7359c4328ae378c1557078ab81cf332ebaf0a8118f87c",
+      "published_sha256": "a5f1b056a244439a45c7359c4328ae378c1557078ab81cf332ebaf0a8118f87c"
+    },
+    {
+      "source_name": "runtime_source/utils/data_manager.py",
+      "published_name": "runtime_source/utils/data_manager.py",
+      "source_sha256": "74601c9c46d1e51ee95ee20c8a261b28325b997586bd3bf6e78a361d41289857",
+      "published_sha256": "74601c9c46d1e51ee95ee20c8a261b28325b997586bd3bf6e78a361d41289857"
+    },
+    {
+      "source_name": "runtime_source/utils/factory.py",
+      "published_name": "runtime_source/utils/factory.py",
+      "source_sha256": "8b036ee9f3fd4b471e4a91e1abeea29267f3c7949298228ead87d42901233272",
+      "published_sha256": "8b036ee9f3fd4b471e4a91e1abeea29267f3c7949298228ead87d42901233272"
+    },
+    {
+      "source_name": "runtime_source/utils/inc_net.py",
+      "published_name": "runtime_source/utils/inc_net.py",
+      "source_sha256": "62b178b90f2ab5262be5a35082e7d92d8faca74dae01135785bbb0454e9e52ed",
+      "published_sha256": "62b178b90f2ab5262be5a35082e7d92d8faca74dae01135785bbb0454e9e52ed"
+    },
+    {
+      "source_name": "runtime_source/utils/toolkit.py",
+      "published_name": "runtime_source/utils/toolkit.py",
+      "source_sha256": "1f64bb032beacb6510bf9eff1e009ad217a42c9a7fa40cd867a56e71cb4123f6",
+      "published_sha256": "1f64bb032beacb6510bf9eff1e009ad217a42c9a7fa40cd867a56e71cb4123f6"
+    },
+    {
+      "source_name": "server_backup/formal_imagenetr_transport_selected_v3/verification.json",
+      "published_name": "server_backup/formal_imagenetr_transport_selected_v3/verification.json",
+      "source_sha256": "af11c2bed6b462c52b1fe2e2ad1162290ea6ad07e5b88050ebbe540a31febe67",
+      "published_sha256": "74a0971d38a3cded3d5b17ee5d4f518f8ce020409959a6dbbaf7b1f3aea44ae9"
+    },
+    {
+      "source_name": "verification/logs/audit_formal_imagenetr_transport_selected_v3_v1.log",
+      "published_name": "verification/logs/audit_formal_imagenetr_transport_selected_v3_v1.log",
+      "source_sha256": "278afce85062fd52eddffa6a0dce2eade982031a552b539f114fd9c077ef6f9d",
+      "published_sha256": "8e85d500fd0ffcf6cd5177fb0beca2cf16dcf142cdcd5547772e0e365fa13b95"
+    },
+    {
+      "source_name": "verification/receipts/audit_formal_imagenetr_transport_selected_v3_v1.json",
+      "published_name": "verification/receipts/audit_formal_imagenetr_transport_selected_v3_v1.json",
+      "source_sha256": "4c5871955f8b35368c5d0c55d53d9e770414ddf3c59e3139b33d31a5bce2aa66",
+      "published_sha256": "bafd261c938391f989b6017869bca563e0f0d59069c9ab4a74280274c42c5e8d"
+    },
+    {
+      "source_name": "formal/completion_receipts/formal_imagenetr_transport_selected_v3.json",
+      "published_name": "formal/completion_receipts/formal_imagenetr_transport_selected_v3.json",
+      "source_sha256": "c4b03f39cff011caa5468b90d2b5c00376916e727c705342670abff1e5c82ad1",
+      "published_sha256": "3a5095406ca5c29603dfd46d4eb5cb933a5ae719a44c9b1186716f4e610c98ca"
+    },
+    {
+      "source_name": "EXPORT_MANIFEST.json",
+      "published_name": "SOURCE_EXPORT_MANIFEST.json",
+      "source_sha256": "4d0608c71507e9642f9b9cdc603e4ab15a56a0663d6dce5f2272568cb78a7a3c",
+      "published_sha256": "4d0608c71507e9642f9b9cdc603e4ab15a56a0663d6dce5f2272568cb78a7a3c"
+    }
+  ]
+}

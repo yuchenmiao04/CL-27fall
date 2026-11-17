@@ -1,0 +1,92 @@
+{
+  "source_archive_sha256": "0ea197e00d7c2a448b6600ac839df857877d67e6df488f0eb204fb002ccf9a19",
+  "source_bytes_retained_privately": true,
+  "operational_paths_replaced": true,
+  "files": [
+    {
+      "source_name": "campaign_20261117/development/decisions/D0055.json",
+      "source_sha256": "508b50bf8c988b9eb14a50732aff1396a954f5c72065f1731b0a412d543f2573",
+      "published_sha256": "508b50bf8c988b9eb14a50732aff1396a954f5c72065f1731b0a412d543f2573"
+    },
+    {
+      "source_name": "campaign_20261117/development/decisions/D0055_execution.json",
+      "source_sha256": "67fe98c34de227cbd31fbaba0f9236a56475041ac47d5f56eb43b8167d48d6ac",
+      "published_sha256": "67fe98c34de227cbd31fbaba0f9236a56475041ac47d5f56eb43b8167d48d6ac"
+    },
+    {
+      "source_name": "campaign_20261117/formal/configs/formal_cifar_current_selected_v5.json",
+      "source_sha256": "f0ff4c7296918d4b3d1428cbaabd2c16a424c19de948d0608bb8ba46675b2a16",
+      "published_sha256": "84e569809d6d84f4cff610c6328d05a6a8ff353c4ef8d3a8798b8d3db5d761ae"
+    },
+    {
+      "source_name": "campaign_20261117/formal/receipts/formal_cifar_current_selected_v5.json",
+      "source_sha256": "ccb052ca04dcaa4e1b83f4c30d8ef7d08a7e2449f28760635c2d677bae3802ef",
+      "published_sha256": "b1d3218cab79df4eb3663812284e3032367ffd361d5b0259aa1318ae50d6bc3e"
+    },
+    {
+      "source_name": "campaign_20261117/formal/cohorts/formal_cifar_current_selected_v5.launch_preflight.json",
+      "source_sha256": "58e4b7e53526c117d7d8d3fdd168747523eb5240fcd9534161c96ab328df9dee",
+      "published_sha256": "58e4b7e53526c117d7d8d3fdd168747523eb5240fcd9534161c96ab328df9dee"
+    },
+    {
+      "source_name": "campaign_20261117/verification/receipts/audit_selected_cifar_current_development_v1.json",
+      "source_sha256": "8581933b996041666f4862b7d851e0795d81176be4185a0d2e9f3d2318970fbd",
+      "published_sha256": "0fe04d6a74e8dd9561f9bb59880ebec7e2a2bf6af5eea730a189f34334ac065a"
+    },
+    {
+      "source_name": "campaign_20261117/verification/logs/audit_selected_cifar_current_development_v1.log",
+      "source_sha256": "fd13c48ee3e153d9e3acc3c8c1b5acb427261a835ad62272d11516d0c38a68eb",
+      "published_sha256": "67ecf8bdad20dbbe5d7f4e2474ace4ab53e88f691b5363f2f35211ba34851375"
+    },
+    {
+      "source_name": "campaign_20261117/verification/development_snapshots/cifar_current_mb2_full_v5/verification.json",
+      "source_sha256": "92a100e734a5f6cb94e45bb690a735e7274de8e8bff58d7cf8d2a69ec22872a9",
+      "published_sha256": "cc794c3c38dc931b730dbf9110c6be54551fc09de77673c1095ac9925c0b8f73"
+    },
+    {
+      "source_name": "audit_selected_cifar_current_development_cpu.py",
+      "source_sha256": "e0eaae51aead6a25f381b36620a056c6d9e97ef4dbf8121aebee710a71825832",
+      "published_sha256": "e0eaae51aead6a25f381b36620a056c6d9e97ef4dbf8121aebee710a71825832"
+    },
+    {
+      "source_name": "prepare_cifar_current_selection.py",
+      "source_sha256": "ee2a60b530af60afff277adfc56d3c540c8150ab6c4dfe7f74f14d8c88a8647a",
+      "published_sha256": "574acd43343ce71884a4683b5f3f1c91206d630c413394b1555a954c38cb4c69"
+    },
+    {
+      "source_name": "campaign_20261117/development/runs/cifar_current_bounded64_full_v4/config.json",
+      "source_sha256": "a7a3a1727a6c90e0ba4c5d79d4f8240db2577815a76beaeaaa41958f48fece0a",
+      "published_sha256": "7c6a3bfd1f53e412af5a935e2d4e7d7a33314032667d689ff06837b49ccb46c4"
+    },
+    {
+      "source_name": "campaign_20261117/development/runs/cifar_current_bounded64_full_v4/results.json",
+      "source_sha256": "fcd0ef9124193e37ee34d6768a4a153b99cefea1ee96dd46dda28ec74eac2d1b",
+      "published_sha256": "fcd0ef9124193e37ee34d6768a4a153b99cefea1ee96dd46dda28ec74eac2d1b"
+    },
+    {
+      "source_name": "campaign_20261117/development/runs/cifar_current_bounded64_full_v4/data_manifest.json",
+      "source_sha256": "a2a29a76b9a2deacb95bd4a520728bc42348338125c336e532db21de2943fdbc",
+      "published_sha256": "a2a29a76b9a2deacb95bd4a520728bc42348338125c336e532db21de2943fdbc"
+    },
+    {
+      "source_name": "campaign_20261117/development/runs/cifar_current_mb2_full_v5/config.json",
+      "source_sha256": "2e29969a360815190bf7d6a33a122d1c491911c6b6644ce59806b0162447e466",
+      "published_sha256": "e9b436a7e4ab3d87fffc7424b8c3e3037ed88d64972df43a122b09247ac5cff8"
+    },
+    {
+      "source_name": "campaign_20261117/development/runs/cifar_current_mb2_full_v5/results.json",
+      "source_sha256": "1746a15ddf33f11922dd2419955a37670479900175223e8ee5c99e700b43e9c5",
+      "published_sha256": "1746a15ddf33f11922dd2419955a37670479900175223e8ee5c99e700b43e9c5"
+    },
+    {
+      "source_name": "campaign_20261117/development/runs/cifar_current_mb2_full_v5/data_manifest.json",
+      "source_sha256": "a2a29a76b9a2deacb95bd4a520728bc42348338125c336e532db21de2943fdbc",
+      "published_sha256": "a2a29a76b9a2deacb95bd4a520728bc42348338125c336e532db21de2943fdbc"
+    },
+    {
+      "source_name": "selection/comparison.json",
+      "source_sha256": "f03d4f588c77e331cfd96a232857dc96a6fcca412b1258a5eaf2078c94fbdf7f",
+      "published_sha256": "f03d4f588c77e331cfd96a232857dc96a6fcca412b1258a5eaf2078c94fbdf7f"
+    }
+  ]
+}

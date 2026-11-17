@@ -1,0 +1,24 @@
+{
+  "status": "verified_server_local_backup",
+  "job": "formal_imagenetr_transport_selected_v3",
+  "payload_left_server": false,
+  "source_checkpoint": "remote_runtime/campaign_20261117/formal/runs/formal_imagenetr_transport_selected_v3/checkpoint.pt",
+  "backup_checkpoint": "remote_runtime/formal_backups/campaign_20261117/formal_imagenetr_transport_selected_v3/checkpoint.pt",
+  "checkpoint_bytes": 714430018,
+  "checkpoint_sha256": "c24b44f387054bb8fcdfeb1d9a0f44dc30633fbffb5d7691c68ec82602c50d3a",
+  "source_process_terminal": {
+    "pid": 37895,
+    "expected_ticks": "1791262075",
+    "state": "absent"
+  },
+  "source_metadata_sha256": {
+    "config": "81307ad39004631714ccab46f5698a8b18508fc2f321eed375ac06de81c5e1e9",
+    "results": "51a63865b9af1a99e3fd08c29f702e6f470ecfec3acd3f66d0810d77609c0e9e",
+    "data_manifest": "80ce1916dfd7986bbb84684a188edb7ce8efb3b2c0cb29dbf5dfe832406a0131"
+  },
+  "source_receipt_sha256": "77232228206e96daaeafb41d8eb2f8d5db9a37342ebc57e60f6b31d5922c396f",
+  "backup_volume": "/root/autodl-tmp",
+  "completed_utc": "2026-11-17T12:12:19.755936+00:00",
+  "backup_actual_sha256": "c24b44f387054bb8fcdfeb1d9a0f44dc30633fbffb5d7691c68ec82602c50d3a",
+  "free_backup_volume_bytes": 6574182400
+}

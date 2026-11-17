@@ -1,6 +1,6 @@
 # 可塑骨干、历史统计迁移与共享预测基
 
-本文件对应第四条候选路线 `plastic_shared_basis`，核心为 `cl27/cores/plastic_shared_basis.py`。前三条路线保留。本路线将已有可塑表征及矩迁移流程，与共享预测器经验贝叶斯读出组合；不是简单取消冻结标志，也没有新增模块增长。完整实验尚未运行，以下不包含准确率或新颖性结论。
+本文件对应第四条候选路线 `plastic_shared_basis`，核心为 `cl27/cores/plastic_shared_basis.py`。前三条路线保留。本路线将已有可塑表征及矩迁移流程，与共享预测器经验贝叶斯读出组合；不是简单取消冻结标志，也没有新增模块增长。本文件给出实现与推导；本轮完整配置和已完成主实验见 [开发选择](../../experiments/campaign_20261117/development/SELECTIONS.md) 与 [正式结果](../../experiments/campaign_20261117/formal/PARTIAL_RESULTS.md)，不由方法组合本身推断准确率或新颖性。
 
 ## 1. 学习流程与接口边界
 

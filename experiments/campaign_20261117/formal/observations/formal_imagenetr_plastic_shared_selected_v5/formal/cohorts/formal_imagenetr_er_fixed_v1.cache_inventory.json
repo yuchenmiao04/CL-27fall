@@ -1,0 +1,130 @@
+{
+  "status": "closed_formal_er_cache_inventory",
+  "captured_utc": "2026-11-17T11:51:32.141653+00:00",
+  "donor": "formal_imagenetr_er_fixed_v1",
+  "source_results_sha256": "358aa81a922f12a3b81d298816b82b786d25fe2078c8eac6d3c459097c146d40",
+  "cache_files": [
+    {
+      "task": 0,
+      "path": "remote_runtime/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_000.pt",
+      "request_fingerprint": "805bad87a0cc212603956d83cc78dd021d979e4f6750105eb15963f3597ffb69",
+      "body_after_sha256": "c7bc913ce81988eded5c683e7fb1c8701a4968a52dacf69ba48672f911e7be3e",
+      "head_after_sha256": "67d77800c7fe48351c6928ac8d4462004431b1334e3f00bc53ef3e23f8f35dd6",
+      "reused": false,
+      "shared_native_ce_seconds": 513.8422395698726,
+      "executor_wall_seconds": 515.1153755411506,
+      "file_bytes": 343330315,
+      "file_sha256": "8d0690811a9585d5e6524dbcd48d56a7ccc72bea3424fa1ea687a6b514c536b3"
+    },
+    {
+      "task": 1,
+      "path": "remote_runtime/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_001.pt",
+      "request_fingerprint": "230f832ce71f72b51b14cef72c8b784d38ef3aac712f019e5091014f440dd1b2",
+      "body_after_sha256": "ccfeb402138519a56cf9465b7efbc2cdb911d30a869015a241b5c94a7db32b7b",
+      "head_after_sha256": "5e77fd2c809695e33d3cb2f4c07c2541597002e03c39d063946ffeb997162648",
+      "reused": false,
+      "shared_native_ce_seconds": 850.8189991116524,
+      "executor_wall_seconds": 852.0615691840649,
+      "file_bytes": 343391883,
+      "file_sha256": "b3aa9f53459c1ab3051f7e1c3249fdc5c7a559847c5002917f5fc34bf27bc99e"
+    },
+    {
+      "task": 2,
+      "path": "remote_runtime/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_002.pt",
+      "request_fingerprint": "964174ec21a3f4064c2de36441002648a1c22ac74f9d8f4483e8f951d7562b95",
+      "body_after_sha256": "381e8ab3f2870d43444bf0e22fac6554e894e93bdd11ad269d748670428597dc",
+      "head_after_sha256": "490b88278533f26a670eb320d65b5215801dd9453bab66fea86ff9f61e7d6761",
+      "reused": false,
+      "shared_native_ce_seconds": 959.6455697640777,
+      "executor_wall_seconds": 960.7970625013113,
+      "file_bytes": 343453387,
+      "file_sha256": "ec92608d1dc3369131ea95e58d30c8923828c57c145af40084ef6cd7c3fd5258"
+    },
+    {
+      "task": 3,
+      "path": "remote_runtime/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_003.pt",
+      "request_fingerprint": "0fb2af7ace67626073a609a20910744ebe96cc88db2d9ea13b3ca6f3124eb214",
+      "body_after_sha256": "d3f971883c60c93df530fc9aa43369a8b729a304ddd120dba259a526f4e0f638",
+      "head_after_sha256": "3bf8160973964acc8f9dedaea687cf0699db3422157f71bd5622aced87183bdc",
+      "reused": false,
+      "shared_native_ce_seconds": 932.4503972120583,
+      "executor_wall_seconds": 933.639324080199,
+      "file_bytes": 343515019,
+      "file_sha256": "4388f3028379fe2cda9e3a8b988620c45afd4969c9340f07008bec4ae9f83fa2"
+    },
+    {
+      "task": 4,
+      "path": "remote_runtime/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_004.pt",
+      "request_fingerprint": "004cd08365ee6f620f285ba977947497de9fd850669c29ddcb3f336284e77281",
+      "body_after_sha256": "6a715c04964bba27a1fe1529e29a882b8e85a1ac47074b700fe5b9632cb64365",
+      "head_after_sha256": "ee9b27ab024dfbd7c4ccafb4de758c89aed1e990ed974771d3f400132fbb2797",
+      "reused": false,
+      "shared_native_ce_seconds": 882.4767485484481,
+      "executor_wall_seconds": 883.6883284896612,
+      "file_bytes": 343576523,
+      "file_sha256": "05ae9be705679629b3391b6bff98b7bb56170045d2434660a7548890c25c5497"
+    },
+    {
+      "task": 5,
+      "path": "remote_runtime/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_005.pt",
+      "request_fingerprint": "0ee2952bb76c8ef67f78f529822e83c6893346b0ef738455e3fad7a48d4e2db4",
+      "body_after_sha256": "2bb4bf00a7e8ed80acfaf983b5ce193392bebfa8fed00542f2c5b46901ac66e0",
+      "head_after_sha256": "f4a1d2292ef8d938daa620cd09582f38fc461add544e7300d4952a411a44e09d",
+      "reused": false,
+      "shared_native_ce_seconds": 1100.739054709673,
+      "executor_wall_seconds": 1102.033136896789,
+      "file_bytes": 343638091,
+      "file_sha256": "8949613d62c7458c49a06a8c9971dceb9c7ad3fe796e7605c36aed61c1fa3862"
+    },
+    {
+      "task": 6,
+      "path": "remote_runtime/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_006.pt",
+      "request_fingerprint": "a6eaef4d3e76bb1cd956a596565b97fc09df1cb7cefac1a3f4db31fe56596bc8",
+      "body_after_sha256": "d07df58b78296f847ed034fc628bbe6e5c31644ac8fab296bd8309f719c4eaa9",
+      "head_after_sha256": "c4f9d749210479c5993ce65dfd9e49a914b208595499b9c8633090511be7c2a9",
+      "reused": false,
+      "shared_native_ce_seconds": 884.9217579551041,
+      "executor_wall_seconds": 886.2315064966679,
+      "file_bytes": 343699659,
+      "file_sha256": "3cebb79431b82458c0a4869d9a889d40b5a5c4f26c1f043c5021dadc0d418134"
+    },
+    {
+      "task": 7,
+      "path": "remote_runtime/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_007.pt",
+      "request_fingerprint": "6562b773f55bb0b040e7934030e59d62622248be017906b2e7a23b900989874c",
+      "body_after_sha256": "2636e437069d11cf9101b579bea0d39ad89ac6d224100c566cb5f37a1c47e551",
+      "head_after_sha256": "c3e69474f5748aebf48ff2f5122528b970b76114e84fa9571dd4882fe04e455d",
+      "reused": false,
+      "shared_native_ce_seconds": 1152.9892436638474,
+      "executor_wall_seconds": 1154.3468568250537,
+      "file_bytes": 343761291,
+      "file_sha256": "8b3d86820b94ae2d281e86a1b8ba2c8d9d5c3c71e4041e32296db4e3bfb287ee"
+    },
+    {
+      "task": 8,
+      "path": "remote_runtime/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_008.pt",
+      "request_fingerprint": "6897e4a2c371f0cc37037e8a5a03079d856928159a3258af110e5d5fe0fcc0b2",
+      "body_after_sha256": "84a668d94ed799f0dde12894941962755126ca23af691752fde4008a81eb7c07",
+      "head_after_sha256": "cd93b9fa57b10eb014759fc1d5faf5004262e6d051598a92efa9425dba8f1a5c",
+      "reused": false,
+      "shared_native_ce_seconds": 809.4336462169886,
+      "executor_wall_seconds": 810.7971913330257,
+      "file_bytes": 343822795,
+      "file_sha256": "e9c0febc579950d84468e3450b69e8e0351439b991680bf8a3601615d9579f3b"
+    },
+    {
+      "task": 9,
+      "path": "remote_runtime/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_009.pt",
+      "request_fingerprint": "846dd260e71446765f31df99a7451a2155781206e7ea4f9173ca15a862286d72",
+      "body_after_sha256": "4edf7caca0a885a7829f347ae10e65a11c8577d4f31f19a3d12f4693b4882ffc",
+      "head_after_sha256": "6705f70f3e6ea0be50306c959a2b5c06c540ff171dbb7b62f5bba3a0cf7a77c6",
+      "reused": false,
+      "shared_native_ce_seconds": 942.616738345474,
+      "executor_wall_seconds": 944.0370617993176,
+      "file_bytes": 343884363,
+      "file_sha256": "4fcd8e950fc00e5a89c5da9db4df99897fe4c392663a7c70a059e9b36f88997a"
+    }
+  ],
+  "shared_native_ce_seconds": 9029.934395097196,
+  "limits": "Server-local payloads; reader-native request/body/head/RNG checks separately required."
+}

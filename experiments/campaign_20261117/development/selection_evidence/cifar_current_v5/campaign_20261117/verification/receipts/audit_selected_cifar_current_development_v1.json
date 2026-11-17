@@ -1,0 +1,38 @@
+{
+  "job": "audit_selected_cifar_current_development_v1",
+  "pid": 38778,
+  "proc_start_ticks": "1791418867",
+  "launch_utc": "2026-11-17T12:10:18Z",
+  "cwd": "remote_runtime/runtime_bounded_v4",
+  "command": [
+    "remote_python",
+    "remote_runtime/audit_selected_cifar_current_development_cpu.py",
+    "--repo",
+    "remote_runtime/runtime_bounded_v4",
+    "--state-loader",
+    "remote_runtime/compare_checkpoint_state.py",
+    "--native-auditor",
+    "remote_runtime/inspect_completed_backup_cpu.py",
+    "--checkpoint-backup",
+    "remote_runtime/campaign_20261117/verification/development_snapshots/cifar_current_mb2_full_v5/checkpoint.pt",
+    "--expected-sha256",
+    "8f863e3ef1d4250b098d52030ab82ee4cb48354eee2c48300ca6be478d3099db",
+    "--metadata-dir",
+    "remote_runtime/campaign_20261117/verification/development_snapshots/cifar_current_mb2_full_v5",
+    "--pretrained-npz",
+    "remote_runtime/torch/hub/checkpoints/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+    "--selected-trial",
+    "cifar_current_mb2_full_v5",
+    "--confirmed-completed-development-backup"
+  ],
+  "metadata": {
+    "execution_role": "selected_development_cpu_audit",
+    "formal_result_cell": false,
+    "selected_trial": "cifar_current_mb2_full_v5",
+    "checkpoint_sha256": "8f863e3ef1d4250b098d52030ab82ee4cb48354eee2c48300ca6be478d3099db",
+    "no_formal_test_read": true,
+    "no_extra_training": true,
+    "wrapper_sha256": "e0eaae51aead6a25f381b36620a056c6d9e97ef4dbf8121aebee710a71825832"
+  },
+  "environment": {}
+}

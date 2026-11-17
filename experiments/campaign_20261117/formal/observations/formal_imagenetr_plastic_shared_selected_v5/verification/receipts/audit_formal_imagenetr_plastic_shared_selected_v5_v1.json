@@ -1,0 +1,34 @@
+{
+  "job": "audit_formal_imagenetr_plastic_shared_selected_v5_v1",
+  "pid": 38929,
+  "proc_start_ticks": "1791438082",
+  "launch_utc": "2026-11-17T12:13:30Z",
+  "cwd": "remote_runtime/runtime_tuning_v1",
+  "command": [
+    "remote_python",
+    "remote_runtime/inspect_completed_backup_cpu.py",
+    "--repo",
+    "remote_runtime/runtime_tuning_v1",
+    "--state-loader",
+    "remote_runtime/compare_checkpoint_state.py",
+    "--checkpoint-backup",
+    "remote_runtime/formal_backups/campaign_20261117/formal_imagenetr_plastic_shared_selected_v5/checkpoint.pt",
+    "--expected-sha256",
+    "2d20633df13a58716805510adce4c423ee9714a95ae40d25d9ba7c7c444097b2",
+    "--metadata-dir",
+    "remote_runtime/formal_backups/campaign_20261117/formal_imagenetr_plastic_shared_selected_v5",
+    "--pretrained-npz",
+    "remote_runtime/torch/hub/checkpoints/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+    "--confirmed-final-backup"
+  ],
+  "metadata": {
+    "execution_role": "native_cpu_final_checkpoint_audit",
+    "formal_result_cell": false,
+    "original_formal_job": "formal_imagenetr_plastic_shared_selected_v5",
+    "checkpoint_sha256": "2d20633df13a58716805510adce4c423ee9714a95ae40d25d9ba7c7c444097b2",
+    "auditor_sha256": "ca025b07d92cc0eeed295d1c4f6a8db9655aa45487435fecaa5c839e426f9b3b",
+    "payload_left_server": false,
+    "no_extra_training": true
+  },
+  "environment": {}
+}

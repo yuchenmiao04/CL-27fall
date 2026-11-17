@@ -1,6 +1,6 @@
 # Partial formal results
 
-8 of 12 formal dataset/method cells completed and audited. Full designated training data, selected test splits and seed 1993 are used. Remaining configuration selection uses only its fixed training holdout.
+10 of 12 formal dataset/method cells completed and audited. Full designated training data, selected test splits and seed 1993 are used. Remaining configuration selection uses only its fixed training holdout.
 
 | Dataset | Method | Final (%) | AIA (%) | Forgetting previous (pp) |
 | --- | --- | ---: | ---: | ---: |
@@ -12,6 +12,8 @@
 | ImageNet-R | Frozen shared predictor basis | 67.60 | 74.30 | 7.30 |
 | ImageNet-R | Joint | 83.87 | — | — |
 | ImageNet-R | ER | 70.00 | 78.67 | 23.76 |
+| ImageNet-R | History-statistics transport | 80.70 | 86.08 | 8.18 |
+| ImageNet-R | Plastic shared predictor basis | 80.68 | 86.05 | 8.13 |
 
 Joint is an offline full-class reference reporting Final only. Frozen shared basis retains zero historical images. Replay methods use 2,000 final images on CIFAR-100 and 20/class (4,000 final) on ImageNet-R. Native CPU restoration, actual source-data membership, arrivals, resident counts and all-class finite zero-input output are checked per completed replay cell without extra training or accuracy evaluation. Model backups remain server-local.
 
