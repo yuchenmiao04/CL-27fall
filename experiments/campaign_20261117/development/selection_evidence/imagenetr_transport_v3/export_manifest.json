@@ -1,0 +1,56 @@
+{
+  "decision": "D0048",
+  "private_raw_archive_sha256": "b78b06bd34a3f2f7b877aacbf9407774401cf220e7897f7fbc647754c8eec232",
+  "path_replacements": {
+    "server_project_root": "runtime/",
+    "server_environment_root": "environment/",
+    "remaining_server_home_paths": "server_home/"
+  },
+  "files": [
+    {
+      "path": "imagenetr_ce_full_v1_history_transport/results.json",
+      "original_sha256": "5f7599a49041300cc75f90aeb5a9280759ce9423fa1b52d194c04b14dd8b8fe1",
+      "exported_sha256": "d163354d9540962215f480e45580298f8d5ef11370aa50d30e4046f9330532ab"
+    },
+    {
+      "path": "imagenetr_ce_full_v1_history_transport/config.json",
+      "original_sha256": "7455833170371b6575f4eaf22731c3f4be0d4eb6177bca16ee1f90c2a58aee19",
+      "exported_sha256": "2be12a9714622f952a3db258fea17af32f47773131ab93c9c6977b12cb2a197b"
+    },
+    {
+      "path": "imagenetr_ce_full_v1_history_transport/data_manifest.json",
+      "original_sha256": "71684ed1caf31cd387ef0fb24c46cd93eadb67a619fd7752c9582bacf961e8ea",
+      "exported_sha256": "71684ed1caf31cd387ef0fb24c46cd93eadb67a619fd7752c9582bacf961e8ea"
+    },
+    {
+      "path": "imagenetr_transport_chained_full_v2/results.json",
+      "original_sha256": "7bd643f300b66f5fe1ec58df3373334bea31420704cf19a75662774186f7142e",
+      "exported_sha256": "42059f6a552a32305e8f58a91f693886a51cd6fccf04b495d52c5222f9dabe2b"
+    },
+    {
+      "path": "imagenetr_transport_chained_full_v2/config.json",
+      "original_sha256": "2bdd08b94c9933dd6b3ad718e2cc67522bd821aff5dc66b70e9b15b08b557a98",
+      "exported_sha256": "0ea8d793990aed128b7caab374848414bccc4ec2cce1c6e861b4debba807d5fb"
+    },
+    {
+      "path": "imagenetr_transport_chained_full_v2/data_manifest.json",
+      "original_sha256": "71684ed1caf31cd387ef0fb24c46cd93eadb67a619fd7752c9582bacf961e8ea",
+      "exported_sha256": "71684ed1caf31cd387ef0fb24c46cd93eadb67a619fd7752c9582bacf961e8ea"
+    },
+    {
+      "path": "imagenetr_transport_chained_map01_full_v3/results.json",
+      "original_sha256": "2866325072443d61d9a3bf7a51c04bcd4742b0bdcaf2d082a9d199bc5d204008",
+      "exported_sha256": "5bef74bce85953bc74dce370d64f88ce1589b7af07821144d88c20c21d75982a"
+    },
+    {
+      "path": "imagenetr_transport_chained_map01_full_v3/config.json",
+      "original_sha256": "3faf71323173b9c35bb2e556a457f91d101f45fbc699c7b5ae968548636a43d2",
+      "exported_sha256": "143a264d07939600f23b2b37a47e5f54f4fe0d2492015f1492f3e50b20e0199b"
+    },
+    {
+      "path": "imagenetr_transport_chained_map01_full_v3/data_manifest.json",
+      "original_sha256": "71684ed1caf31cd387ef0fb24c46cd93eadb67a619fd7752c9582bacf961e8ea",
+      "exported_sha256": "71684ed1caf31cd387ef0fb24c46cd93eadb67a619fd7752c9582bacf961e8ea"
+    }
+  ]
+}

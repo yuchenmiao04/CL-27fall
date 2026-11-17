@@ -1,0 +1,110 @@
+{
+  "id": "D0048",
+  "kind": "freeze_method_hyperparameters",
+  "method": "history_transport",
+  "dataset": "imagenetr",
+  "selected_development_trial": "imagenetr_transport_chained_map01_full_v3",
+  "selected_result_sha256": "2866325072443d61d9a3bf7a51c04bcd4742b0bdcaf2d082a9d199bc5d204008",
+  "selection_candidates": [
+    {
+      "trial": "imagenetr_ce_full_v1_history_transport",
+      "mode": "direct",
+      "map_ridge": 0.01,
+      "metrics": {
+        "final_accuracy": 0.7966248377325833,
+        "aia": 0.8446685758924717,
+        "forgetting_previous": 0.10083106333382412,
+        "forgetting_including_final": 0.10083106333382412,
+        "completed_tasks": 10,
+        "definition": "Fractions; AIA is mean stage sample-weighted all-seen accuracy; forgetting averages old tasks only."
+      },
+      "final_correct": 1841,
+      "final_evaluation_images": 2311,
+      "result_sha256": "5f7599a49041300cc75f90aeb5a9280759ce9423fa1b52d194c04b14dd8b8fe1",
+      "config_sha256": "7455833170371b6575f4eaf22731c3f4be0d4eb6177bca16ee1f90c2a58aee19",
+      "data_manifest_sha256": "71684ed1caf31cd387ef0fb24c46cd93eadb67a619fd7752c9582bacf961e8ea",
+      "data_fingerprint": "a3f6bfac903cffd7ef5e7e5f2badeead19bb37d7f4a928faff0f36fe9cc59313"
+    },
+    {
+      "trial": "imagenetr_transport_chained_full_v2",
+      "mode": "chained",
+      "map_ridge": 0.01,
+      "metrics": {
+        "final_accuracy": 0.8031155344006924,
+        "aia": 0.8576650271195781,
+        "forgetting_previous": 0.08003688249822534,
+        "forgetting_including_final": 0.08063425406333885,
+        "completed_tasks": 10,
+        "definition": "Fractions; AIA is mean stage sample-weighted all-seen accuracy; forgetting averages old tasks only."
+      },
+      "final_correct": 1856,
+      "final_evaluation_images": 2311,
+      "result_sha256": "7bd643f300b66f5fe1ec58df3373334bea31420704cf19a75662774186f7142e",
+      "config_sha256": "2bdd08b94c9933dd6b3ad718e2cc67522bd821aff5dc66b70e9b15b08b557a98",
+      "data_manifest_sha256": "71684ed1caf31cd387ef0fb24c46cd93eadb67a619fd7752c9582bacf961e8ea",
+      "data_fingerprint": "a3f6bfac903cffd7ef5e7e5f2badeead19bb37d7f4a928faff0f36fe9cc59313"
+    },
+    {
+      "trial": "imagenetr_transport_chained_map01_full_v3",
+      "mode": "chained",
+      "map_ridge": 0.1,
+      "metrics": {
+        "final_accuracy": 0.8057118130679359,
+        "aia": 0.8591849501262063,
+        "forgetting_previous": 0.07449693648771516,
+        "forgetting_including_final": 0.07569167961794215,
+        "completed_tasks": 10,
+        "definition": "Fractions; AIA is mean stage sample-weighted all-seen accuracy; forgetting averages old tasks only."
+      },
+      "final_correct": 1862,
+      "final_evaluation_images": 2311,
+      "result_sha256": "2866325072443d61d9a3bf7a51c04bcd4742b0bdcaf2d082a9d199bc5d204008",
+      "config_sha256": "3faf71323173b9c35bb2e556a457f91d101f45fbc699c7b5ae968548636a43d2",
+      "data_manifest_sha256": "71684ed1caf31cd387ef0fb24c46cd93eadb67a619fd7752c9582bacf961e8ea",
+      "data_fingerprint": "a3f6bfac903cffd7ef5e7e5f2badeead19bb37d7f4a928faff0f36fe9cc59313"
+    }
+  ],
+  "criterion": "All three candidates completed ten fixed internal training-holdout stages. Rank by unrounded Final first and AIA second. The chained gamma=0.1 candidate has the highest Final and AIA, so its configuration is selected without reading formal test results.",
+  "selection_improvement": {
+    "vs_chained_map001": {
+      "correct_samples": 6,
+      "final_percentage_points": 0.25962786672435456,
+      "aia_percentage_points": 0.15199230066281766
+    },
+    "vs_direct_map001": {
+      "correct_samples": 21,
+      "final_percentage_points": 0.9086975335352632
+    }
+  },
+  "selected_parameters": {
+    "transport_mode": "chained",
+    "residual_model": "class_conditional_psd",
+    "map_ridge": 0.1,
+    "head_ridge": 0.01,
+    "covariance_shrinkage": 0.1,
+    "mean_shrinkage": 20.0,
+    "crossfit_folds": 5,
+    "epochs": 20,
+    "backbone_lr": 1e-05,
+    "head_lr": 0.001,
+    "weight_decay": 0.0001
+  },
+  "interpretation": "The stronger existing identity-slope regularizer improved this one-seed complete development stream by six final holdout predictions over gamma=0.01. This does not establish multi-seed stability or a formal-test improvement.",
+  "evidence": "../selection_evidence/imagenetr_transport_v3/export_manifest.json",
+  "evidence_validation": {
+    "complete_stage_metric_closure_passed": true,
+    "same_development_data_fingerprint": true,
+    "same_ten_post_stage_backbone_hashes": true,
+    "all_raw_evidence_sha256_verified": true,
+    "private_raw_archive_sha256": "b78b06bd34a3f2f7b877aacbf9407774401cf220e7897f7fbc647754c8eec232"
+  },
+  "official_test_used_for_parameter_decision": false,
+  "formal_refit": "Fresh initial pretrained state, all official training rows, no development checkpoint/moments/cache; reuse only the matching formal fixed-ER CE trajectory after all ten transitions exist and each native guard passes.",
+  "formal_job": "formal_imagenetr_transport_selected_v3",
+  "formal_configuration_reuse_identity": "d109f9c6aee82a9517cf884b27c81c44b7d0908b561092638c844383528cf3bb",
+  "formal_baseline_comparator": "formal_imagenetr_er_fixed_v1 config only; no formal test result read",
+  "formal_execution_status": "prepared_only; not launched",
+  "created_utc": "2026-11-17T07:56:21.588082+00:00",
+  "formal_fixed_er_config_sha256": "f5e6da82869a936aa80e24b1a10fe50a3a61b5aa38469f05dafdb9d599f430aa",
+  "formal_reuse_identity_verified_against_actual_server_config": true
+}

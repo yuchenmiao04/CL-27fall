@@ -1,6 +1,6 @@
 # CE 训练轨迹复用：执行协议
 
-本机制只减少重复计算，不改变 ER、`history_transport`、`plastic_shared_basis` 的学习目标或数据权限。它不是第四个算法。三个方法当前的骨干和 CE 辅助头均由相同 `adapt_backbone` 训练，历史统计和共享先验不反传到该训练；当训练参数一致时，可共享这一完整状态转移。
+本机制属于执行层，只减少重复计算，不改变 ER、`history_transport`、`plastic_shared_basis` 的学习目标或数据权限。三个方法当前的骨干和 CE 辅助头均由相同 `adapt_backbone` 训练，历史统计和共享先验不反传到该训练；当训练参数一致时，可共享这一完整状态转移。
 
 按当前调参规则，只有四个候选方法调参，ER/Joint baseline 使用预先固定配置。cohort 中名为 ER 的对象只是实现共享 CE 的内部执行器，配置和报告均标记 `execution_role=internal_shared_ce_driver`，不能将它当作调过参数的 ER baseline 或填入正式 ER 行。baseline 对照需另行使用固定配置的原生运行。
 
@@ -71,3 +71,13 @@ CLI 的静态预检要求本次三份扩展配置的数据、训练、设备及�
 每个结果的 `execution.ce_training_reuse` 标明记录或复用、共享 CE 耗时、缓存身份与执行器耗时。`execution.wall_seconds` 是该次实际执行时间：读者没有实际执行共享 CE，不能直接把其较短时间称为独立算法训练速度。cohort 总实际时间单独报告；若报告独立等价分项成本，需明确共享训练只实际计算一次，不重复计为三次实测 GPU 工作。
 
 该验证不证明任意自定义骨干、隐藏的外部随机源或修改后的训练函数都可复用。当前机制只应用于经过一致性检查的三个原生 CE 体方法；真实 CUDA 上还应完成短程核对后再用于正式运行。
+
+## 本次双卡物理落卡验证
+
+2026-11-17 的开发调度在两张同型号 RTX5090 上完成了一次完整十阶段验证。原运行与验证运行均使用逻辑 `cuda:1`、两个可见设备和相同随机流索引；验证运行设置 `CUDA_VISIBLE_DEVICES=1,0`，使逻辑卡1落到另一张物理卡。原生训练缓存条件、模型、数据、解析头参数和数值开关保持不变，没有改写缓存中的 CUDA RNG 状态。
+
+验证覆盖完整 CIFAR-100 chained HT 开发流。最终 checkpoint 的33,081个状态节点逐位一致，包含历史矩、读出、回放原图及顺序、模型和全部随机状态；唯一排除项是十个阶段各自的 `wall_seconds`。完整阶段结果摘要、样本数与指标一致，十个原生 CE request fingerprints 相同，十个缓存文件的 SHA256和大小均未变化。序列化文件自身的 SHA可以不同；比较工具另给出排除指定时间字段后的状态 SHA。原始逐样本阶段预测向量未保存，因此此证据使用已保存的完整阶段结果摘要。
+
+完整证据见 [换卡验证记录](../../experiments/campaign_20261117/correctness/cifar_chained_physical_swap_gate_v1.json)，决定见 D0044与D0047。`scripts/compare_checkpoint_state.py` 比较整个可信 checkpoint，仅允许忽略 root `stages[i].wall_seconds`；13项CPU测试覆盖浮点签名零、tensor单bit、对象数组、原图dataclass、随机状态和未知元数据。
+
+本轮仅将这项实测结果用于明确标记的开发 HT/PSB解析读出调度，所有后续阶段仍保留原生缓存检查。证据针对上述硬件与完整HT工作负载；其他方法或硬件的数值等价性需另有证据。正式 CIFAR读出继续使用原物理卡1。记录物理落卡、实际进程耗时和共享计算成本，调度收益与算法独立训练成本分开报告。

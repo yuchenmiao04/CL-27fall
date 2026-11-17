@@ -1,0 +1,62 @@
+{
+  "id": "D0049",
+  "kind": "single_shared_prior_adaptation_screen",
+  "method": "plastic_shared_basis",
+  "dataset": "imagenetr",
+  "candidate": "imagenetr_psb_chained_map01_screen_v5",
+  "parent_candidate": "imagenetr_psb_chained_screen_v4",
+  "motivation": {
+    "source_decision": "D0048",
+    "source_method": "history_transport",
+    "source_evaluation": "complete ten-stage fixed internal training holdout",
+    "change_tested": {
+      "map_ridge": {
+        "from": 0.01,
+        "to": 0.1
+      }
+    },
+    "source_final_correct_change": 6,
+    "source_final_percentage_point_change": 0.25962786672435456,
+    "interpretation": "The stronger identity-slope penalty improved complete HT development Final by six of 2311 holdout predictions. Test that one estimator adjustment in the related shared-prior reader without assuming it transfers or changing prior scale/rank."
+  },
+  "change": {
+    "map_ridge": {
+      "from": 0.01,
+      "to": 0.1
+    },
+    "output_dir": "fresh candidate directory",
+    "max_tasks": 3,
+    "resume": null
+  },
+  "unchanged_shared_prior": {
+    "basis_noise_variance": 0.0001,
+    "basis_rank": 32,
+    "basis_epsilon": 0.001,
+    "basis_max_iter": 20,
+    "basis_tolerance": 1e-06,
+    "basis_reset_each_task": true
+  },
+  "exact_changed_configuration_keys": [
+    "map_ridge",
+    "output_dir"
+  ],
+  "fresh_history_required": true,
+  "execution": "Reuse only unchanged, guarded development CE body transitions. Fit fresh analytic moments from stage0. No previous gamma=.01 moment checkpoint is resumed.",
+  "predeclared_screen_rule": {
+    "stages": 3,
+    "reference_run": "imagenetr_psb_chained_screen_v4",
+    "reference_final_accuracy": 0.8847184986595175,
+    "reference_correct": 660,
+    "reference_evaluation_images": 746,
+    "maximum_allowed_final_drop_fraction": 0.005,
+    "minimum_candidate_final_accuracy": 0.8797184986595175,
+    "same_sample_count_minimum_correct": 657,
+    "numerical_gate": "Training/gradient records and parameters must be finite where recorded; native CE reuse guards must pass, and transported moments/readout/statistical diagnostics must remain finite without failures. Replayed CE is not described as newly executed gradient work.",
+    "promotion": "If the numerical gate passes and the unrounded three-stage Final is at least reference Final minus .005, extend this exact candidate unchanged through all ten development stages. Otherwise reject it.",
+    "selection": "Final selection compares completed ten-stage development Final first, with AIA/forgetting/diagnostics; no three-stage candidate is selected for formal refit."
+  },
+  "search_scope": "Exactly this one PSB mapping-penalty adaptation. No new noise, rank, learning-rate or HT HPO candidate. D0048 remains the locked HT choice.",
+  "official_test_used_for_parameter_decision": false,
+  "candidate_status": "prepared_only; not launched",
+  "benefit_claimed": false
+}
