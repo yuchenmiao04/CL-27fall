@@ -1,0 +1,47 @@
+{
+  "id": "D0042",
+  "kind": "adaptive_transport_regularization_screen",
+  "dataset": "imagenetr",
+  "method": "history_transport",
+  "parent_candidate": "imagenetr_transport_chained_screen_v2",
+  "candidate": "imagenetr_transport_chained_map01_screen_v3",
+  "candidate_status": "prepared_only; not launched",
+  "evidence_source": "runtime/campaign_20261117/development/runs/imagenetr_ce_full_v1_history_transport/results.json",
+  "evidence": {
+    "phase": "development",
+    "evaluation_source": "fixed internal training holdout",
+    "diagnostic_source_mode": "direct",
+    "task2_oof_residual_covariance_trace": 1.317347253122709,
+    "task2_resident_in_sample_map_r_squared": 0.96934392955627,
+    "last_resident_in_sample_map_r_squared": 0.6636668284747771,
+    "interpretation": "These replay-fit and OOF residual diagnostics motivate testing estimator variance; resident replay trained the body and is herded, so neither is independent old-population generalization evidence. Direct-mode diagnostics do not establish a chained-mode failure."
+  },
+  "code_audit": {
+    "location": "cl27/cores/transport.py::_fit_map",
+    "existing_objective": "sum_i w_i ||u_i A+b-v_i||^2 + gamma ||A-I||_F^2",
+    "offset_prior": "flat",
+    "automatic_gamma_selection": false,
+    "same_gamma_in_oof_fits": true
+  },
+  "hypothesis": "A modest increase in the existing identity-slope penalty can reduce variance in weakly identified affine directions. Adjacent chained representations are expected to be closer than initial-anchor and later representations, making the identity prior plausible but not guaranteed correct. Higher gamma may instead introduce harmful bias.",
+  "mathematical_basis": "After weighted centering, A_gamma-I=(U_c^T W U_c+gamma I)^-1 U_c^T W (V_c-U_c), b=mean_v-mean_u A_gamma. Increasing gamma damps poorly identified deviations from identity. With d=768, early five-fold fits can contain fewer resident rows than the affine coefficient dimension; existing gamma already regularizes them, and the candidate only strengthens it.",
+  "change": {
+    "map_ridge": {
+      "from": 0.01,
+      "to": 0.1
+    },
+    "output_dir": "fresh candidate directory",
+    "max_tasks": 3,
+    "resume": null
+  },
+  "unchanged": "All other body training, data, replay, estimator, head and validation settings are identical to the original chained screen. No formal test information is used.",
+  "execution": "Start fresh analytic moments; reuse only the guarded unchanged CE body trajectory. Never resume a gamma=.01 analytic checkpoint under gamma=.1.",
+  "expected_observations": [
+    "Compare three-stage training-holdout Final/AIA/old-class accuracy to the parent chained screen.",
+    "Inspect OOF residual covariance trace, map replay fit and PSD diagnostics; a lower residual trace alone is not sufficient for selection.",
+    "Only a surviving candidate can be extended unchanged through all ten development stages before final selection."
+  ],
+  "search_scope": "One ImageNet-R candidate; no grid and no other candidate created by this decision.",
+  "official_test_used_for_parameter_decision": false,
+  "benefit_claimed": false
+}

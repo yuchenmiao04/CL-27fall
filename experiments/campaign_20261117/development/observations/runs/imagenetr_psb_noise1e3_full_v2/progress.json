@@ -1,0 +1,940 @@
+{
+  "status": "running",
+  "stages": [
+    {
+      "task": 0,
+      "seen_classes": 20,
+      "accuracy": 0.9481481481481482,
+      "task_accuracy": [
+        0.9481481481481482,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "task_counts": [
+        270,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "evaluation_images": 270,
+      "prediction_space": "all_seen_classes_without_task_id",
+      "cnn_report": {
+        "grouped": {
+          "total": 94.81,
+          "00-19": 94.81,
+          "old": 0,
+          "new": 94.81
+        },
+        "top1": 94.81,
+        "top5": 99.26
+      },
+      "nme_report": null,
+      "evaluation_head": "cnn",
+      "heads": {
+        "cnn": {
+          "accuracy": 0.9481481481481482,
+          "task_accuracy": [
+            0.9481481481481482,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "task_counts": [
+            270,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "evaluation_images": 270
+        }
+      },
+      "extra_evaluation_pass_for_raw_matrix": false,
+      "extra_nme_evaluation_pass_for_raw_matrix": false,
+      "wall_seconds": 53.94963589683175
+    },
+    {
+      "task": 1,
+      "seen_classes": 40,
+      "accuracy": 0.8903846153846153,
+      "task_accuracy": [
+        0.8888888888888888,
+        0.892,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "task_counts": [
+        270,
+        250,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "evaluation_images": 520,
+      "prediction_space": "all_seen_classes_without_task_id",
+      "cnn_report": {
+        "grouped": {
+          "total": 89.04,
+          "00-19": 88.89,
+          "20-39": 89.2,
+          "old": 88.89,
+          "new": 89.2
+        },
+        "top1": 89.04,
+        "top5": 97.5
+      },
+      "nme_report": null,
+      "evaluation_head": "cnn",
+      "heads": {
+        "cnn": {
+          "accuracy": 0.8903846153846153,
+          "task_accuracy": [
+            0.8888888888888888,
+            0.892,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "task_counts": [
+            270,
+            250,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "evaluation_images": 520
+        }
+      },
+      "extra_evaluation_pass_for_raw_matrix": false,
+      "extra_nme_evaluation_pass_for_raw_matrix": false,
+      "wall_seconds": 59.67709496244788
+    },
+    {
+      "task": 2,
+      "seen_classes": 60,
+      "accuracy": 0.8592493297587132,
+      "task_accuracy": [
+        0.8629629629629629,
+        0.832,
+        0.8849557522123894,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "task_counts": [
+        270,
+        250,
+        226,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "evaluation_images": 746,
+      "prediction_space": "all_seen_classes_without_task_id",
+      "cnn_report": {
+        "grouped": {
+          "total": 85.92,
+          "00-19": 86.3,
+          "20-39": 83.2,
+          "40-59": 88.5,
+          "old": 84.81,
+          "new": 88.5
+        },
+        "top1": 85.92,
+        "top5": 94.91
+      },
+      "nme_report": null,
+      "evaluation_head": "cnn",
+      "heads": {
+        "cnn": {
+          "accuracy": 0.8592493297587132,
+          "task_accuracy": [
+            0.8629629629629629,
+            0.832,
+            0.8849557522123894,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "task_counts": [
+            270,
+            250,
+            226,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "evaluation_images": 746
+        }
+      },
+      "extra_evaluation_pass_for_raw_matrix": false,
+      "extra_nme_evaluation_pass_for_raw_matrix": false,
+      "wall_seconds": 65.77379539608955
+    },
+    {
+      "task": 3,
+      "seen_classes": 80,
+      "accuracy": 0.8426501035196687,
+      "task_accuracy": [
+        0.8703703703703703,
+        0.836,
+        0.7787610619469026,
+        0.8818181818181818,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "task_counts": [
+        270,
+        250,
+        226,
+        220,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "evaluation_images": 966,
+      "prediction_space": "all_seen_classes_without_task_id",
+      "cnn_report": {
+        "grouped": {
+          "total": 84.27,
+          "00-19": 87.04,
+          "20-39": 83.6,
+          "40-59": 77.88,
+          "60-79": 88.18,
+          "old": 83.11,
+          "new": 88.18
+        },
+        "top1": 84.27,
+        "top5": 93.37
+      },
+      "nme_report": null,
+      "evaluation_head": "cnn",
+      "heads": {
+        "cnn": {
+          "accuracy": 0.8426501035196687,
+          "task_accuracy": [
+            0.8703703703703703,
+            0.836,
+            0.7787610619469026,
+            0.8818181818181818,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "task_counts": [
+            270,
+            250,
+            226,
+            220,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "evaluation_images": 966
+        }
+      },
+      "extra_evaluation_pass_for_raw_matrix": false,
+      "extra_nme_evaluation_pass_for_raw_matrix": false,
+      "wall_seconds": 100.01041229441762
+    },
+    {
+      "task": 4,
+      "seen_classes": 100,
+      "accuracy": 0.8330494037478705,
+      "task_accuracy": [
+        0.8629629629629629,
+        0.82,
+        0.7876106194690266,
+        0.8,
+        0.8942307692307693,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "task_counts": [
+        270,
+        250,
+        226,
+        220,
+        208,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "evaluation_images": 1174,
+      "prediction_space": "all_seen_classes_without_task_id",
+      "cnn_report": {
+        "grouped": {
+          "total": 83.3,
+          "00-19": 86.3,
+          "20-39": 82.0,
+          "40-59": 78.76,
+          "60-79": 80.0,
+          "80-99": 89.42,
+          "old": 81.99,
+          "new": 89.42
+        },
+        "top1": 83.3,
+        "top5": 93.44
+      },
+      "nme_report": null,
+      "evaluation_head": "cnn",
+      "heads": {
+        "cnn": {
+          "accuracy": 0.8330494037478705,
+          "task_accuracy": [
+            0.8629629629629629,
+            0.82,
+            0.7876106194690266,
+            0.8,
+            0.8942307692307693,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "task_counts": [
+            270,
+            250,
+            226,
+            220,
+            208,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "evaluation_images": 1174
+        }
+      },
+      "extra_evaluation_pass_for_raw_matrix": false,
+      "extra_nme_evaluation_pass_for_raw_matrix": false,
+      "wall_seconds": 110.37029506638646
+    },
+    {
+      "task": 5,
+      "seen_classes": 120,
+      "accuracy": 0.8162124388539483,
+      "task_accuracy": [
+        0.837037037037037,
+        0.804,
+        0.7787610619469026,
+        0.740909090909091,
+        0.8221153846153846,
+        0.8988326848249028,
+        null,
+        null,
+        null,
+        null
+      ],
+      "task_counts": [
+        270,
+        250,
+        226,
+        220,
+        208,
+        257,
+        0,
+        0,
+        0,
+        0
+      ],
+      "evaluation_images": 1431,
+      "prediction_space": "all_seen_classes_without_task_id",
+      "cnn_report": {
+        "grouped": {
+          "total": 81.62,
+          "00-19": 83.7,
+          "20-39": 80.4,
+          "40-59": 77.88,
+          "60-79": 74.09,
+          "80-99": 82.21,
+          "100-119": 89.88,
+          "old": 79.81,
+          "new": 89.88
+        },
+        "top1": 81.62,
+        "top5": 93.29
+      },
+      "nme_report": null,
+      "evaluation_head": "cnn",
+      "heads": {
+        "cnn": {
+          "accuracy": 0.8162124388539483,
+          "task_accuracy": [
+            0.837037037037037,
+            0.804,
+            0.7787610619469026,
+            0.740909090909091,
+            0.8221153846153846,
+            0.8988326848249028,
+            null,
+            null,
+            null,
+            null
+          ],
+          "task_counts": [
+            270,
+            250,
+            226,
+            220,
+            208,
+            257,
+            0,
+            0,
+            0,
+            0
+          ],
+          "evaluation_images": 1431
+        }
+      },
+      "extra_evaluation_pass_for_raw_matrix": false,
+      "extra_nme_evaluation_pass_for_raw_matrix": false,
+      "wall_seconds": 123.52611329779029
+    },
+    {
+      "task": 6,
+      "seen_classes": 140,
+      "accuracy": 0.8242498469075321,
+      "task_accuracy": [
+        0.8481481481481481,
+        0.796,
+        0.7964601769911505,
+        0.7545454545454545,
+        0.8461538461538461,
+        0.8210116731517509,
+        0.9158415841584159,
+        null,
+        null,
+        null
+      ],
+      "task_counts": [
+        270,
+        250,
+        226,
+        220,
+        208,
+        257,
+        202,
+        0,
+        0,
+        0
+      ],
+      "evaluation_images": 1633,
+      "prediction_space": "all_seen_classes_without_task_id",
+      "cnn_report": {
+        "grouped": {
+          "total": 82.42,
+          "00-19": 84.81,
+          "20-39": 79.6,
+          "40-59": 79.65,
+          "60-79": 75.45,
+          "80-99": 84.62,
+          "100-119": 82.1,
+          "120-139": 91.58,
+          "old": 81.13,
+          "new": 91.58
+        },
+        "top1": 82.42,
+        "top5": 93.45
+      },
+      "nme_report": null,
+      "evaluation_head": "cnn",
+      "heads": {
+        "cnn": {
+          "accuracy": 0.8242498469075321,
+          "task_accuracy": [
+            0.8481481481481481,
+            0.796,
+            0.7964601769911505,
+            0.7545454545454545,
+            0.8461538461538461,
+            0.8210116731517509,
+            0.9158415841584159,
+            null,
+            null,
+            null
+          ],
+          "task_counts": [
+            270,
+            250,
+            226,
+            220,
+            208,
+            257,
+            202,
+            0,
+            0,
+            0
+          ],
+          "evaluation_images": 1633
+        }
+      },
+      "extra_evaluation_pass_for_raw_matrix": false,
+      "extra_nme_evaluation_pass_for_raw_matrix": false,
+      "wall_seconds": 120.52551387995481
+    },
+    {
+      "task": 7,
+      "seen_classes": 160,
+      "accuracy": 0.8121720881427072,
+      "task_accuracy": [
+        0.8222222222222222,
+        0.804,
+        0.7699115044247787,
+        0.75,
+        0.7932692307692307,
+        0.8249027237354085,
+        0.806930693069307,
+        0.9010989010989011,
+        null,
+        null
+      ],
+      "task_counts": [
+        270,
+        250,
+        226,
+        220,
+        208,
+        257,
+        202,
+        273,
+        0,
+        0
+      ],
+      "evaluation_images": 1906,
+      "prediction_space": "all_seen_classes_without_task_id",
+      "cnn_report": {
+        "grouped": {
+          "total": 81.22,
+          "00-19": 82.22,
+          "20-39": 80.4,
+          "40-59": 76.99,
+          "60-79": 75.0,
+          "80-99": 79.33,
+          "100-119": 82.49,
+          "120-139": 80.69,
+          "140-159": 90.11,
+          "old": 79.73,
+          "new": 90.11
+        },
+        "top1": 81.22,
+        "top5": 92.6
+      },
+      "nme_report": null,
+      "evaluation_head": "cnn",
+      "heads": {
+        "cnn": {
+          "accuracy": 0.8121720881427072,
+          "task_accuracy": [
+            0.8222222222222222,
+            0.804,
+            0.7699115044247787,
+            0.75,
+            0.7932692307692307,
+            0.8249027237354085,
+            0.806930693069307,
+            0.9010989010989011,
+            null,
+            null
+          ],
+          "task_counts": [
+            270,
+            250,
+            226,
+            220,
+            208,
+            257,
+            202,
+            273,
+            0,
+            0
+          ],
+          "evaluation_images": 1906
+        }
+      },
+      "extra_evaluation_pass_for_raw_matrix": false,
+      "extra_nme_evaluation_pass_for_raw_matrix": false,
+      "wall_seconds": 149.2703873962164
+    },
+    {
+      "task": 8,
+      "seen_classes": 180,
+      "accuracy": 0.8116634799235182,
+      "task_accuracy": [
+        0.8222222222222222,
+        0.792,
+        0.8053097345132744,
+        0.7545454545454545,
+        0.7980769230769231,
+        0.8093385214007782,
+        0.8267326732673267,
+        0.8644688644688645,
+        0.8225806451612904,
+        null
+      ],
+      "task_counts": [
+        270,
+        250,
+        226,
+        220,
+        208,
+        257,
+        202,
+        273,
+        186,
+        0
+      ],
+      "evaluation_images": 2092,
+      "prediction_space": "all_seen_classes_without_task_id",
+      "cnn_report": {
+        "grouped": {
+          "total": 81.17,
+          "00-19": 82.22,
+          "20-39": 79.2,
+          "40-59": 80.53,
+          "60-79": 75.45,
+          "80-99": 79.81,
+          "100-119": 80.93,
+          "120-139": 82.67,
+          "140-159": 86.45,
+          "160-179": 82.26,
+          "old": 81.06,
+          "new": 82.26
+        },
+        "top1": 81.17,
+        "top5": 92.5
+      },
+      "nme_report": null,
+      "evaluation_head": "cnn",
+      "heads": {
+        "cnn": {
+          "accuracy": 0.8116634799235182,
+          "task_accuracy": [
+            0.8222222222222222,
+            0.792,
+            0.8053097345132744,
+            0.7545454545454545,
+            0.7980769230769231,
+            0.8093385214007782,
+            0.8267326732673267,
+            0.8644688644688645,
+            0.8225806451612904,
+            null
+          ],
+          "task_counts": [
+            270,
+            250,
+            226,
+            220,
+            208,
+            257,
+            202,
+            273,
+            186,
+            0
+          ],
+          "evaluation_images": 2092
+        }
+      },
+      "extra_evaluation_pass_for_raw_matrix": false,
+      "extra_nme_evaluation_pass_for_raw_matrix": false,
+      "wall_seconds": 168.02890027686954
+    },
+    {
+      "task": 9,
+      "seen_classes": 200,
+      "accuracy": 0.7948939852877542,
+      "task_accuracy": [
+        0.8074074074074075,
+        0.756,
+        0.7477876106194691,
+        0.759090909090909,
+        0.7980769230769231,
+        0.8054474708171206,
+        0.8415841584158416,
+        0.8315018315018315,
+        0.7634408602150538,
+        0.8310502283105022
+      ],
+      "task_counts": [
+        270,
+        250,
+        226,
+        220,
+        208,
+        257,
+        202,
+        273,
+        186,
+        219
+      ],
+      "evaluation_images": 2311,
+      "prediction_space": "all_seen_classes_without_task_id",
+      "cnn_report": {
+        "grouped": {
+          "total": 79.49,
+          "00-19": 80.74,
+          "20-39": 75.6,
+          "40-59": 74.78,
+          "60-79": 75.91,
+          "80-99": 79.81,
+          "100-119": 80.54,
+          "120-139": 84.16,
+          "140-159": 83.15,
+          "160-179": 76.34,
+          "180-199": 83.11,
+          "old": 79.11,
+          "new": 83.11
+        },
+        "top1": 79.49,
+        "top5": 92.04
+      },
+      "nme_report": null,
+      "evaluation_head": "cnn",
+      "heads": {
+        "cnn": {
+          "accuracy": 0.7948939852877542,
+          "task_accuracy": [
+            0.8074074074074075,
+            0.756,
+            0.7477876106194691,
+            0.759090909090909,
+            0.7980769230769231,
+            0.8054474708171206,
+            0.8415841584158416,
+            0.8315018315018315,
+            0.7634408602150538,
+            0.8310502283105022
+          ],
+          "task_counts": [
+            270,
+            250,
+            226,
+            220,
+            208,
+            257,
+            202,
+            273,
+            186,
+            219
+          ],
+          "evaluation_images": 2311
+        }
+      },
+      "extra_evaluation_pass_for_raw_matrix": false,
+      "extra_nme_evaluation_pass_for_raw_matrix": false,
+      "wall_seconds": 189.58889273926616
+    }
+  ],
+  "metrics": {
+    "final_accuracy": 0.7948939852877542,
+    "aia": 0.8432673439674476,
+    "forgetting_previous": 0.10324105505649363,
+    "forgetting_including_final": 0.10324105505649363,
+    "accuracy_matrix": [
+      [
+        0.9481481481481482,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        0.8888888888888888,
+        0.892,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        0.8629629629629629,
+        0.832,
+        0.8849557522123894,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        0.8703703703703703,
+        0.836,
+        0.7787610619469026,
+        0.8818181818181818,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        0.8629629629629629,
+        0.82,
+        0.7876106194690266,
+        0.8,
+        0.8942307692307693,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        0.837037037037037,
+        0.804,
+        0.7787610619469026,
+        0.740909090909091,
+        0.8221153846153846,
+        0.8988326848249028,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        0.8481481481481481,
+        0.796,
+        0.7964601769911505,
+        0.7545454545454545,
+        0.8461538461538461,
+        0.8210116731517509,
+        0.9158415841584159,
+        null,
+        null,
+        null
+      ],
+      [
+        0.8222222222222222,
+        0.804,
+        0.7699115044247787,
+        0.75,
+        0.7932692307692307,
+        0.8249027237354085,
+        0.806930693069307,
+        0.9010989010989011,
+        null,
+        null
+      ],
+      [
+        0.8222222222222222,
+        0.792,
+        0.8053097345132744,
+        0.7545454545454545,
+        0.7980769230769231,
+        0.8093385214007782,
+        0.8267326732673267,
+        0.8644688644688645,
+        0.8225806451612904,
+        null
+      ],
+      [
+        0.8074074074074075,
+        0.756,
+        0.7477876106194691,
+        0.759090909090909,
+        0.7980769230769231,
+        0.8054474708171206,
+        0.8415841584158416,
+        0.8315018315018315,
+        0.7634408602150538,
+        0.8310502283105022
+      ]
+    ],
+    "completed_tasks": 10,
+    "definition": "Fractions; AIA is mean stage sample-weighted all-seen accuracy; forgetting averages old tasks only."
+  }
+}

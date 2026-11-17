@@ -1,0 +1,28 @@
+{
+  "job": "cifar_current_mb2_screen_v5",
+  "pid": 27544,
+  "proc_start_ticks": "1789700264",
+  "launch_utc": "2026-11-17T07:23:52Z",
+  "cwd": "runtime/runtime_bounded_v4",
+  "command": [
+    "environment/bin/python",
+    "main.py",
+    "--config",
+    "runtime/campaign_20261117/development/configs/cifar_current_mb2_screen_v5.json"
+  ],
+  "metadata": {
+    "decision": "D0045",
+    "gpu": 0,
+    "development_only": true,
+    "prepared_only": false,
+    "fresh_candidate": true,
+    "method_source_commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+    "algorithm_or_sampling_change": true,
+    "execution_only_equivalence_claimed": false,
+    "planned_module_attempts_per_current_minibatch": 1,
+    "planned_backbone_attempts_per_current_minibatch": 1
+  },
+  "environment": {
+    "CL27_CURRENT_FROZEN_PREFIX_REUSE": "1"
+  }
+}

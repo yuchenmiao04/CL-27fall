@@ -1,0 +1,234 @@
+{
+  "status": "complete",
+  "runs": [
+    {
+      "method": "history_transport",
+      "output_dir": "runtime/campaign_20261117/development/runs/cifar_transport_chained_full_v2",
+      "execution_role": "candidate_method",
+      "status": "complete",
+      "ce_mode": "replay",
+      "metrics": {
+        "final_accuracy": 0.908,
+        "aia": 0.9480995238095238,
+        "forgetting_previous": 0.06822222222222221,
+        "forgetting_including_final": 0.06822222222222221,
+        "accuracy_matrix": [
+          [
+            0.996,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            0.982,
+            0.978,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            0.966,
+            0.972,
+            0.988,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            0.952,
+            0.942,
+            0.99,
+            0.976,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            0.946,
+            0.906,
+            0.974,
+            0.954,
+            0.972,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            0.928,
+            0.908,
+            0.968,
+            0.938,
+            0.948,
+            0.972,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            0.912,
+            0.91,
+            0.96,
+            0.938,
+            0.93,
+            0.932,
+            0.98,
+            null,
+            null,
+            null
+          ],
+          [
+            0.914,
+            0.898,
+            0.962,
+            0.924,
+            0.896,
+            0.872,
+            0.946,
+            0.904,
+            null,
+            null
+          ],
+          [
+            0.896,
+            0.89,
+            0.958,
+            0.928,
+            0.876,
+            0.86,
+            0.936,
+            0.882,
+            0.97,
+            null
+          ],
+          [
+            0.89,
+            0.878,
+            0.956,
+            0.926,
+            0.874,
+            0.868,
+            0.928,
+            0.856,
+            0.948,
+            0.956
+          ]
+        ],
+        "completed_tasks": 10,
+        "definition": "Fractions; AIA is mean stage sample-weighted all-seen accuracy; forgetting averages old tasks only."
+      },
+      "execution": {
+        "torch": "2.7.1+cu128",
+        "numpy": "1.26.4",
+        "device_type": "cuda",
+        "random_stream_policy": "canonical_loader_isolated_v1",
+        "wall_seconds": 856.7229781188071,
+        "numeric_checkpoint_payload_bytes": 702735912,
+        "gpu_peak_allocated_bytes": 1372871168,
+        "ce_training_reuse": {
+          "version": 1,
+          "mode": "replay",
+          "execution_role": "candidate_method",
+          "trajectory_directory": "runtime/campaign_20261117/development/ce_trajectories/cifar_body_default_v1",
+          "stages": [
+            {
+              "task": 3,
+              "path": "runtime/campaign_20261117/development/ce_trajectories/cifar_body_default_v1/stage_003.pt",
+              "request_fingerprint": "f91dbdf6a5505349532d13c23741071f9bfbaed65a40852ffaacb10581cc72db",
+              "body_after_sha256": "f933bd5ba71b2eaf8a32bdebe46326596c392020cabb78f0c7c1ce140f48a159",
+              "head_after_sha256": "df2f948b943309c8b47dbe4f6fbf08d919e897764b9c3ede3593d4e485bafd27",
+              "reused": true,
+              "shared_native_ce_seconds": 1174.7003045491874,
+              "executor_wall_seconds": 1.437851008027792
+            },
+            {
+              "task": 4,
+              "path": "runtime/campaign_20261117/development/ce_trajectories/cifar_body_default_v1/stage_004.pt",
+              "request_fingerprint": "8136f2805f03bdd7db3d2b05fde92d6299efe956e5e634a1a3a6e32231b78bc7",
+              "body_after_sha256": "f50f5a40a5b0872a464ad6a62e2a167cf04a2d0263de34858682a73358ea437b",
+              "head_after_sha256": "6a5b2299dd0d4e744ea8653b8c59fc709ace7483ef8f7fc7001f5f790d81191d",
+              "reused": true,
+              "shared_native_ce_seconds": 1367.3233773075044,
+              "executor_wall_seconds": 1.2625977471470833
+            },
+            {
+              "task": 5,
+              "path": "runtime/campaign_20261117/development/ce_trajectories/cifar_body_default_v1/stage_005.pt",
+              "request_fingerprint": "2b858f43b97bd4eec59d32b375cbdacfef4df6455df6ccde4e304efbd4b64ce3",
+              "body_after_sha256": "1e78bbeb3288c07041369ba371bbc2b70fdf1fce0da2385fda013689602128ab",
+              "head_after_sha256": "98b61dbf738dd90b04e92f454029a8be22c1a4eccce07a76e76255c6301e7761",
+              "reused": true,
+              "shared_native_ce_seconds": 1315.313848670572,
+              "executor_wall_seconds": 1.2648810781538486
+            },
+            {
+              "task": 6,
+              "path": "runtime/campaign_20261117/development/ce_trajectories/cifar_body_default_v1/stage_006.pt",
+              "request_fingerprint": "63098d9ebab93b3a4d6532558228d7bb8baa5dfbb1419e2e5ac1b5e35d6f9960",
+              "body_after_sha256": "9cd54c84b432b958f7fdcb14d27f973da5c1133a989ef14e49754e4d7dda4eaa",
+              "head_after_sha256": "cf95ee467c06f27aa23b49d835e8c354369e8f4ec5d13d28268df6942f8e79a9",
+              "reused": true,
+              "shared_native_ce_seconds": 1431.7978488691151,
+              "executor_wall_seconds": 1.1674511022865772
+            },
+            {
+              "task": 7,
+              "path": "runtime/campaign_20261117/development/ce_trajectories/cifar_body_default_v1/stage_007.pt",
+              "request_fingerprint": "62c85ab5260a33fbd09e6b34564c79f7942c27255e14f7dc201c13433e6e3a1c",
+              "body_after_sha256": "e7c2624ceb2e061ca8092a9d83e02c67a519963b14850d6207d552af074d1e30",
+              "head_after_sha256": "e3442953c4edacf0815536bb023189fbd7bd263b38e167fb2f40d0c9e388eb6f",
+              "reused": true,
+              "shared_native_ce_seconds": 1343.4980767406523,
+              "executor_wall_seconds": 1.3542968519032001
+            },
+            {
+              "task": 8,
+              "path": "runtime/campaign_20261117/development/ce_trajectories/cifar_body_default_v1/stage_008.pt",
+              "request_fingerprint": "c947913051ad4c26e37a253102eb6ef819a7cc09d2e2d218fde266fea08ff476",
+              "body_after_sha256": "081263947d377741b2c0e5905333d6f97ec02df38a6c3907c4451911aee4803a",
+              "head_after_sha256": "45e0f667d0ba3fef3a0b0d146b89678c9c214d9af93b7755377c17ff53a21655",
+              "reused": true,
+              "shared_native_ce_seconds": 1508.0173624381423,
+              "executor_wall_seconds": 1.286353338509798
+            },
+            {
+              "task": 9,
+              "path": "runtime/campaign_20261117/development/ce_trajectories/cifar_body_default_v1/stage_009.pt",
+              "request_fingerprint": "c471d1b61ab666014db95e02567261aa0fe76e7dd06613c62bd817b77fe90a6a",
+              "body_after_sha256": "fdbda47439a6211063979bc81594a204ac36069573f4c2c4b08189f1d1288a00",
+              "head_after_sha256": "d674ddbc22896c83c4d978a8e80ca4abb6fb630732685605fda5bff25f449fdf",
+              "reused": true,
+              "shared_native_ce_seconds": 1036.8070908300579,
+              "executor_wall_seconds": 1.441247545182705
+            }
+          ],
+          "timing_policy": "Run wall time is actual; reused CE seconds are shared driver work, not separately executed training",
+          "feature_cache": false,
+          "independent_native_initialization_and_evaluation": true
+        }
+      }
+    }
+  ],
+  "actual_cohort_wall_seconds": 862.2760511189699,
+  "timing_policy": "Shared CE is executed once; per-reader wall time excludes that driver work"
+}

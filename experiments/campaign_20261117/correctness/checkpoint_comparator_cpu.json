@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "recorded_utc": "2026-11-17T07:33:03.436845+00:00",
+  "status": "passed",
+  "scope": "CPU-only trusted checkpoint comparator fixtures; not training, physical-GPU parity, or method-performance evidence.",
+  "script": "scripts/compare_checkpoint_state.py",
+  "script_sha256": "696416de70cdfb5e7033cc26c93ad005eb5e20918379f4ef01fc3d76142b2d02",
+  "test_file": "tests/test_checkpoint_state_comparison.py",
+  "test_sha256": "e52221f102e8d7358271102762834ce4ffbbf95f3474704b00972731ecaa3345",
+  "command": [
+    "../.venv-pilot/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/test_checkpoint_state_comparison.py"
+  ],
+  "working_directory": "CL-27fall",
+  "expected_cases": 13,
+  "cases": [
+    "same",
+    "only_stage_time",
+    "missing_stage_time",
+    "python_signed_zero",
+    "tensor_one_bit",
+    "object_array_dataclass_pixel",
+    "nested_object_array",
+    "stage_other_field",
+    "nested_stage_time_not_ignored",
+    "other_metadata_time_not_ignored",
+    "cuda_rng_changed",
+    "data_identity_changed",
+    "dataclass_dynamic_attribute"
+  ],
+  "cuda_initialization_prohibited_in_each_case": true,
+  "exit_code": 0,
+  "wall_seconds": 1.3797261250001611,
+  "stdout": ".............                                                            [100%]\n13 passed in 0.99s",
+  "stderr": "",
+  "case_count": 13,
+  "observed_passed_cases": 13,
+  "observed_failed_cases": 0
+}

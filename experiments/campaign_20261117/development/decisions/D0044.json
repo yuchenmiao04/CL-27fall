@@ -1,0 +1,21 @@
+{
+  "id": "D0044",
+  "kind": "physical_device_reordering_equivalence_gate",
+  "reason": "Physical GPU1 is occupied by the fixed ER plus module flow; CIFAR analytic-reader HPO is blocked on VRAM while physical GPU0 has measured spare capacity. Test an explicit device ordering on the two identical RTX5090 cards without changing the logical CUDA index, number of visible devices, cache guards, algorithm or random-stream indexing.",
+  "candidate_execution": {
+    "CUDA_VISIBLE_DEVICES": "1,0",
+    "logical_device": "cuda:1",
+    "physical_gpu_index": 0
+  },
+  "scope": "Fresh10-stage development HT chained reader, same current data and selected parameters, existing immutable development CE transitions; no gradient training and no official test evaluation.",
+  "required_evidence": [
+    "All10 native CE precondition guards pass",
+    "All final learner tensors/moments/head/replay and global+owned RNG bitwise match the original same-logical-device reader",
+    "All10 stage prediction summaries and counts match; execution timing excluded",
+    "Record both physical GPU models/capabilities and mapping; passing a software guard alone is not equivalence evidence"
+  ],
+  "boundary": "No formal run or other reader is relocated before this actual-workload gate passes. Failure leaves the original placement and does not relax cache guards. Passing this real workload does not prove arbitrary GPU models/kernels interchangeable.",
+  "verification_job": "cifar_chained_physical_swap_gate_v1",
+  "official_test_used_for_parameter_decision": false,
+  "created_utc": "2026-11-17T07:13:45.125952+00:00"
+}

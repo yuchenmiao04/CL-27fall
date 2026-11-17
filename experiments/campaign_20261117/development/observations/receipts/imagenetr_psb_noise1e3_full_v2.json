@@ -1,0 +1,28 @@
+{
+  "job": "imagenetr_psb_noise1e3_full_v2",
+  "pid": 26918,
+  "proc_start_ticks": "1789641156",
+  "launch_utc": "2026-11-17T07:14:01Z",
+  "cwd": "runtime/runtime_tuning_v1",
+  "command": [
+    "environment/bin/python",
+    "scripts/run_ce_cohort.py",
+    "--replay-only",
+    "--configs",
+    "runtime/campaign_20261117/development/configs/imagenetr_psb_noise1e3_full_v2.json",
+    "--trajectory-dir",
+    "runtime/campaign_20261117/development/ce_trajectories/imagenetr_body_default_v1",
+    "--report",
+    "runtime/campaign_20261117/development/cohorts/imagenetr_psb_noise1e3_full_v2.json"
+  ],
+  "metadata": {
+    "decision": "D0034",
+    "gpu": 0,
+    "development_only": true,
+    "CE_training_repeated": false,
+    "prepared_only": false,
+    "prior_prefix": "imagenetr_psb_noise0001_screen_v2",
+    "requires_full_trajectory": true
+  },
+  "environment": {}
+}

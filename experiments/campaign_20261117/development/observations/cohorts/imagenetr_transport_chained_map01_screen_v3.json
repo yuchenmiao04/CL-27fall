@@ -1,0 +1,110 @@
+{
+  "status": "complete",
+  "runs": [
+    {
+      "method": "history_transport",
+      "output_dir": "runtime/campaign_20261117/development/runs/imagenetr_transport_chained_map01_screen_v3",
+      "execution_role": "candidate_method",
+      "status": "validation_partial",
+      "ce_mode": "replay",
+      "metrics": {
+        "final_accuracy": 0.8820375335120644,
+        "aia": 0.9119849708098143,
+        "forgetting_previous": 0.040074074074074095,
+        "forgetting_including_final": 0.040074074074074095,
+        "accuracy_matrix": [
+          [
+            0.9481481481481482,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            0.9148148148148149,
+            0.896,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            0.9,
+            0.864,
+            0.8805309734513275,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        ],
+        "completed_tasks": 3,
+        "definition": "Fractions; AIA is mean stage sample-weighted all-seen accuracy; forgetting averages old tasks only."
+      },
+      "execution": {
+        "torch": "2.7.1+cu128",
+        "numpy": "1.26.4",
+        "device_type": "cuda",
+        "random_stream_policy": "canonical_loader_isolated_v1",
+        "wall_seconds": 246.96276172995567,
+        "numeric_checkpoint_payload_bytes": 701874312,
+        "gpu_peak_allocated_bytes": 1230147584,
+        "ce_training_reuse": {
+          "version": 1,
+          "mode": "replay",
+          "execution_role": "candidate_method",
+          "trajectory_directory": "runtime/campaign_20261117/development/ce_trajectories/imagenetr_body_default_v1",
+          "stages": [
+            {
+              "task": 0,
+              "path": "runtime/campaign_20261117/development/ce_trajectories/imagenetr_body_default_v1/stage_000.pt",
+              "request_fingerprint": "13439f172201286a83812a83895b7c0876d1e249c15fedc38dc2278230c3701e",
+              "body_after_sha256": "ea4f3179ddbbcda0b877db3e592874c4e8fded3a26899a83e1c6581348c20ece",
+              "head_after_sha256": "7231d1182b5f468aee84ebe0f956828df71b931435b837d2cd8ad84c7cd30937",
+              "reused": true,
+              "shared_native_ce_seconds": 442.4992256425321,
+              "executor_wall_seconds": 1.8195001818239689
+            },
+            {
+              "task": 1,
+              "path": "runtime/campaign_20261117/development/ce_trajectories/imagenetr_body_default_v1/stage_001.pt",
+              "request_fingerprint": "089d3dce3fe6b5af3b0c5525e65d283efb869891b3c616d33bd599c427b619bd",
+              "body_after_sha256": "3b69dddcc51ae3216cfd87b573384dd8b834f47e896e294f3d507292f3f75fca",
+              "head_after_sha256": "d745dd794961aa8292dfd85b4c082f7d3efddb2d8a7a3845e23b250927c8363f",
+              "reused": true,
+              "shared_native_ce_seconds": 665.4465040154755,
+              "executor_wall_seconds": 2.3598344810307026
+            },
+            {
+              "task": 2,
+              "path": "runtime/campaign_20261117/development/ce_trajectories/imagenetr_body_default_v1/stage_002.pt",
+              "request_fingerprint": "b8a53d5b1f2eb0abc4b182af39781f6c90453c3eef3f60b40db89da2ab13d1b7",
+              "body_after_sha256": "78b7f91f65b8b121d178332a4d565323a5297e1a91c482813f604e5e04a50de0",
+              "head_after_sha256": "90b09eef39dce70e421cc3042df091cdfa06d54266d6c78113333d463dcab75a",
+              "reused": true,
+              "shared_native_ce_seconds": 614.6767052300274,
+              "executor_wall_seconds": 2.1049158424139023
+            }
+          ],
+          "timing_policy": "Run wall time is actual; reused CE seconds are shared driver work, not separately executed training",
+          "feature_cache": false,
+          "independent_native_initialization_and_evaluation": true
+        }
+      }
+    }
+  ],
+  "actual_cohort_wall_seconds": 252.1358644142747,
+  "timing_policy": "Shared CE is executed once; per-reader wall time excludes that driver work"
+}

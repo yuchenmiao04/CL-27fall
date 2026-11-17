@@ -1,0 +1,292 @@
+{
+  "schema_version": 1,
+  "recorded_utc": "2026-11-17T07:39:36.029841+00:00",
+  "status": "passed",
+  "passed": true,
+  "scope": "Complete ten-stage CIFAR-100 development history_transport chained workload, seed1993; exact checkpoint/stage/metric/cache parity under this physical remapping. Does not establish universal parity for other methods, datasets, shapes or numeric policies.",
+  "reference_run": "development/runs/cifar_transport_chained_full_v2",
+  "candidate_run": "verification/runs/cifar_chained_physical_swap_gate_v1",
+  "reference_complete_tasks": 10,
+  "candidate_complete_tasks": 10,
+  "comparator_script_sha256": "696416de70cdfb5e7033cc26c93ad005eb5e20918379f4ef01fc3d76142b2d02",
+  "comparator_command": [
+    "environment/bin/python",
+    "runtime/compare_checkpoint_state.py",
+    "--reference",
+    "runtime/campaign_20261117/development/runs/cifar_transport_chained_full_v2/checkpoint.pt",
+    "--candidate",
+    "runtime/campaign_20261117/verification/runs/cifar_chained_physical_swap_gate_v1/checkpoint.pt",
+    "--report",
+    "runtime/campaign_20261117/verification/cifar_chained_physical_swap_state_comparison_v1.json"
+  ],
+  "comparator_exit_code": 0,
+  "checkpoint_comparison": {
+    "schema_version": 1,
+    "passed": true,
+    "reference": "runtime/campaign_20261117/development/runs/cifar_transport_chained_full_v2/checkpoint.pt",
+    "candidate": "runtime/campaign_20261117/verification/runs/cifar_chained_physical_swap_gate_v1/checkpoint.pt",
+    "ignored_policy": "Only root stages[index].wall_seconds is excluded.",
+    "difference_count_policy": "Mismatching comparison sites; not a count of unequal scalar elements.",
+    "reference_file_sha256": "8f56cf18034532aa1900237e7161f282e9f5ae9d2d86bcd7f239d13c57a16011",
+    "candidate_file_sha256": "26b676e29f6048c33c2849aad0cf7893bd28c7bee1ef592466e2b623fe44b5ce",
+    "reference_state_sha256": "a1af081910877165c6842e3ac62e731564c8adfd4a896cbedeb1754725a77dff",
+    "candidate_state_sha256": "a1af081910877165c6842e3ac62e731564c8adfd4a896cbedeb1754725a77dff",
+    "compared_nodes": 33081,
+    "ignored_paths": [
+      "$.stages[0].wall_seconds",
+      "$.stages[1].wall_seconds",
+      "$.stages[2].wall_seconds",
+      "$.stages[3].wall_seconds",
+      "$.stages[4].wall_seconds",
+      "$.stages[5].wall_seconds",
+      "$.stages[6].wall_seconds",
+      "$.stages[7].wall_seconds",
+      "$.stages[8].wall_seconds",
+      "$.stages[9].wall_seconds"
+    ],
+    "ignored_path_count": 10,
+    "difference_count": 0,
+    "differences": []
+  },
+  "metrics_comparison": {
+    "passed": true,
+    "difference_count": 0,
+    "differences": [],
+    "reference_sha256": "4ff64faae453b675767aea38eb44633c653608e98fe80f46e6d2abdba4ece3bc",
+    "candidate_sha256": "4ff64faae453b675767aea38eb44633c653608e98fe80f46e6d2abdba4ece3bc"
+  },
+  "stages_comparison": {
+    "passed": true,
+    "difference_count": 0,
+    "differences": [],
+    "ignored_paths": [
+      "$.stages[0].wall_seconds",
+      "$.stages[1].wall_seconds",
+      "$.stages[2].wall_seconds",
+      "$.stages[3].wall_seconds",
+      "$.stages[4].wall_seconds",
+      "$.stages[5].wall_seconds",
+      "$.stages[6].wall_seconds",
+      "$.stages[7].wall_seconds",
+      "$.stages[8].wall_seconds",
+      "$.stages[9].wall_seconds"
+    ],
+    "reference_sha256": "5699a22e214ae09a34c99705d905c0ebf82d271816678db1a3f00173df7ab9e2",
+    "candidate_sha256": "5699a22e214ae09a34c99705d905c0ebf82d271816678db1a3f00173df7ab9e2"
+  },
+  "reference_execution_chain": [
+    {
+      "run": "development/runs/cifar_transport_chained_screen_v2",
+      "recorded_tasks": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "run": "development/runs/cifar_transport_chained_full_v2",
+      "recorded_tasks": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    }
+  ],
+  "candidate_execution_chain": [
+    {
+      "run": "verification/runs/cifar_chained_physical_swap_gate_v1",
+      "recorded_tasks": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    }
+  ],
+  "ce_request_fingerprints": [
+    {
+      "task": 0,
+      "reference": "ed7e8fa604f7a0b5d2fc9a725fb96f254becad739995b4f49b3b9dc680008c7b",
+      "candidate": "ed7e8fa604f7a0b5d2fc9a725fb96f254becad739995b4f49b3b9dc680008c7b",
+      "equal": true
+    },
+    {
+      "task": 1,
+      "reference": "ea99e7c6389183bc70396ed2c168175fa7e65f6e8a48b044c959d88c8246b53d",
+      "candidate": "ea99e7c6389183bc70396ed2c168175fa7e65f6e8a48b044c959d88c8246b53d",
+      "equal": true
+    },
+    {
+      "task": 2,
+      "reference": "66a9c532fb5d52b466d83c6deee926fb1e620690a7d25c6511d897be186800a4",
+      "candidate": "66a9c532fb5d52b466d83c6deee926fb1e620690a7d25c6511d897be186800a4",
+      "equal": true
+    },
+    {
+      "task": 3,
+      "reference": "f91dbdf6a5505349532d13c23741071f9bfbaed65a40852ffaacb10581cc72db",
+      "candidate": "f91dbdf6a5505349532d13c23741071f9bfbaed65a40852ffaacb10581cc72db",
+      "equal": true
+    },
+    {
+      "task": 4,
+      "reference": "8136f2805f03bdd7db3d2b05fde92d6299efe956e5e634a1a3a6e32231b78bc7",
+      "candidate": "8136f2805f03bdd7db3d2b05fde92d6299efe956e5e634a1a3a6e32231b78bc7",
+      "equal": true
+    },
+    {
+      "task": 5,
+      "reference": "2b858f43b97bd4eec59d32b375cbdacfef4df6455df6ccde4e304efbd4b64ce3",
+      "candidate": "2b858f43b97bd4eec59d32b375cbdacfef4df6455df6ccde4e304efbd4b64ce3",
+      "equal": true
+    },
+    {
+      "task": 6,
+      "reference": "63098d9ebab93b3a4d6532558228d7bb8baa5dfbb1419e2e5ac1b5e35d6f9960",
+      "candidate": "63098d9ebab93b3a4d6532558228d7bb8baa5dfbb1419e2e5ac1b5e35d6f9960",
+      "equal": true
+    },
+    {
+      "task": 7,
+      "reference": "62c85ab5260a33fbd09e6b34564c79f7942c27255e14f7dc201c13433e6e3a1c",
+      "candidate": "62c85ab5260a33fbd09e6b34564c79f7942c27255e14f7dc201c13433e6e3a1c",
+      "equal": true
+    },
+    {
+      "task": 8,
+      "reference": "c947913051ad4c26e37a253102eb6ef819a7cc09d2e2d218fde266fea08ff476",
+      "candidate": "c947913051ad4c26e37a253102eb6ef819a7cc09d2e2d218fde266fea08ff476",
+      "equal": true
+    },
+    {
+      "task": 9,
+      "reference": "c471d1b61ab666014db95e02567261aa0fe76e7dd06613c62bd817b77fe90a6a",
+      "candidate": "c471d1b61ab666014db95e02567261aa0fe76e7dd06613c62bd817b77fe90a6a",
+      "equal": true
+    }
+  ],
+  "all_ten_request_fingerprints_match": true,
+  "cache_baseline_file": "verification/cifar_physical_swap_cache_baseline_v1.json",
+  "cache_baseline_sha256": "e9b6269bc1f922e0364d18071e64cbd46d8a48cef61797e88896123d864dd5b0",
+  "cache_files": [
+    {
+      "file": "stage_000.pt",
+      "expected_sha256": "2965801496c31b6597e71b7c2b2a98670fec60bf98e2757e40ffceec6882bd36",
+      "actual_sha256": "2965801496c31b6597e71b7c2b2a98670fec60bf98e2757e40ffceec6882bd36",
+      "bytes": 343299595,
+      "unchanged": true
+    },
+    {
+      "file": "stage_001.pt",
+      "expected_sha256": "1d584f8cad9b359e670db461eb35856389e227b4abd27e76a522dfd7682bbc24",
+      "actual_sha256": "1d584f8cad9b359e670db461eb35856389e227b4abd27e76a522dfd7682bbc24",
+      "bytes": 343330379,
+      "unchanged": true
+    },
+    {
+      "file": "stage_002.pt",
+      "expected_sha256": "14394e0ca2b94207ab18098b9577fc2e6e45a3d9b2c3068fb21683c25f820145",
+      "actual_sha256": "14394e0ca2b94207ab18098b9577fc2e6e45a3d9b2c3068fb21683c25f820145",
+      "bytes": 343361163,
+      "unchanged": true
+    },
+    {
+      "file": "stage_003.pt",
+      "expected_sha256": "87c695cd767c8be896ece8b53e01728e81f11c703e9a6eef7f9239b50915d5bf",
+      "actual_sha256": "87c695cd767c8be896ece8b53e01728e81f11c703e9a6eef7f9239b50915d5bf",
+      "bytes": 343391947,
+      "unchanged": true
+    },
+    {
+      "file": "stage_004.pt",
+      "expected_sha256": "1e8f1d400d894307ff3288be98821a68f66c04338d40ddce5c4444c1486a422c",
+      "actual_sha256": "1e8f1d400d894307ff3288be98821a68f66c04338d40ddce5c4444c1486a422c",
+      "bytes": 343422731,
+      "unchanged": true
+    },
+    {
+      "file": "stage_005.pt",
+      "expected_sha256": "92dc4fe83b5d11eda572b432fb7dfe2a8b3fd569c7575a9a37655750a6fe34c1",
+      "actual_sha256": "92dc4fe83b5d11eda572b432fb7dfe2a8b3fd569c7575a9a37655750a6fe34c1",
+      "bytes": 343453515,
+      "unchanged": true
+    },
+    {
+      "file": "stage_006.pt",
+      "expected_sha256": "4056d880ea44e900c1aff5c92c53458c3c1160408390e8ee2110a9031b8c47dc",
+      "actual_sha256": "4056d880ea44e900c1aff5c92c53458c3c1160408390e8ee2110a9031b8c47dc",
+      "bytes": 343484299,
+      "unchanged": true
+    },
+    {
+      "file": "stage_007.pt",
+      "expected_sha256": "f54af7b0c491f9cd00ebe5d105af9ce45c175bcc773794d264b3c98bc5a22b8c",
+      "actual_sha256": "f54af7b0c491f9cd00ebe5d105af9ce45c175bcc773794d264b3c98bc5a22b8c",
+      "bytes": 343515083,
+      "unchanged": true
+    },
+    {
+      "file": "stage_008.pt",
+      "expected_sha256": "295c5d1dc59a9245f648ba249752d39b9c0a787c31f4d218b0d4d31753e25ea9",
+      "actual_sha256": "295c5d1dc59a9245f648ba249752d39b9c0a787c31f4d218b0d4d31753e25ea9",
+      "bytes": 343545867,
+      "unchanged": true
+    },
+    {
+      "file": "stage_009.pt",
+      "expected_sha256": "183e72f3e63b6da7f7c6d5878dfaeae47526f92a90d725ef73e02a41fecde53e",
+      "actual_sha256": "183e72f3e63b6da7f7c6d5878dfaeae47526f92a90d725ef73e02a41fecde53e",
+      "bytes": 343576651,
+      "unchanged": true
+    }
+  ],
+  "all_ten_cache_files_unchanged": true,
+  "live_device_evidence": {
+    "checked_utc": "2026-11-17T07:37:34.015374+00:00",
+    "pid": 26925,
+    "proc_start_ticks": "1789641166",
+    "live_pid_ticks_command_verified": true,
+    "observed_physical_indices": [
+      0
+    ],
+    "expected_logical_device": 1,
+    "CUDA_VISIBLE_DEVICES": "1,0",
+    "physical_mapping_verified": true,
+    "gpu_inventory": [
+      {
+        "physical_index": 0,
+        "name": "NVIDIA GeForce RTX 5090",
+        "compute_capability": "12.0"
+      },
+      {
+        "physical_index": 1,
+        "name": "NVIDIA GeForce RTX 5090",
+        "compute_capability": "12.0"
+      }
+    ],
+    "no_uuid_or_connection_credentials_exported": true
+  },
+  "receipt_identity_verified": true,
+  "source_result_sha256": {
+    "reference": "337eb45cd5292a76c76bf97c6ca53f15b3e6f1c4328a37c81592440fd1583557",
+    "candidate": "edfdb5ea74a691659f9521fa84c7f39541c61459468444503c011cd3bf526830"
+  },
+  "algorithm_or_guard_modified": false,
+  "additional_gradient_training": false,
+  "paths_sanitized_for_export": true,
+  "hardware_uuids_exported": false,
+  "original_comparison_report_sha256": "fbd3aca8619ca3687fc446536d70c7ba0ce90f0f326850ddb6f651f554ba0d24",
+  "verification_elapsed_seconds": 12.668236520141363,
+  "approved_evidence_scope": "This exact full-development workload supports explicitly recorded development analytic-reader placement on physical GPU0/logical1 for the same two GPUs and execution policy; formal CIFAR runs remain on original physical GPU1. No universal cross-hardware or algorithmic parity claim.",
+  "comparison_report_embedded_in_full": true
+}

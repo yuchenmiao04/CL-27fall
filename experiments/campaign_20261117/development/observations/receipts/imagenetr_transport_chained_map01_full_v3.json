@@ -1,0 +1,28 @@
+{
+  "job": "imagenetr_transport_chained_map01_full_v3",
+  "pid": 27872,
+  "proc_start_ticks": "1789756273",
+  "launch_utc": "2026-11-17T07:33:12Z",
+  "cwd": "runtime/runtime_tuning_v1",
+  "command": [
+    "environment/bin/python",
+    "scripts/run_ce_cohort.py",
+    "--replay-only",
+    "--configs",
+    "runtime/campaign_20261117/development/configs/imagenetr_transport_chained_map01_full_v3.json",
+    "--trajectory-dir",
+    "runtime/campaign_20261117/development/ce_trajectories/imagenetr_body_default_v1",
+    "--report",
+    "runtime/campaign_20261117/development/cohorts/imagenetr_transport_chained_map01_full_v3.json"
+  ],
+  "metadata": {
+    "decision": "D0046",
+    "gpu": 0,
+    "development_only": true,
+    "CE_training_repeated": false,
+    "requires_full_trajectory": true,
+    "continuation_of": "imagenetr_transport_chained_map01_screen_v3",
+    "prepared_only": false
+  },
+  "environment": {}
+}

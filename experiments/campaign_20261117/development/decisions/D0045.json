@@ -1,0 +1,62 @@
+{
+  "id": "D0045",
+  "kind": "adaptive_module_backbone_update_ratio_screen",
+  "method": "current_adapted",
+  "dataset": "cifar224",
+  "new_trial": "cifar_current_mb2_screen_v5",
+  "source_configuration": "cifar_current_bounded64_screen_v4",
+  "evidence": {
+    "bounded_three_stage_final": 0.9686666666666667,
+    "bounded_three_stage_aia": 0.9798888888888889,
+    "same_pool_deployed_module_diagnostics": "At the two-stage bounded CIFAR checkpoint the fixed-body common-path readout was0.976 and the full module readout0.977. This small deployed increment is not a causal estimate of the benefit of module training.",
+    "compute": "The existing candidate attempts M,M,B,M per current minibatch and performs repeated anchor/full/common encoding, differentiable support solves and VJP recomputation.",
+    "causal_boundary": "A small full-minus-common deployed increment does not establish that module training is useless; the backbone and library were jointly trained."
+  },
+  "change": {
+    "outer_updates": {
+      "from": 4,
+      "to": 2
+    },
+    "schedule": {
+      "from": [
+        "modules",
+        "modules",
+        "backbone",
+        "modules"
+      ],
+      "to": [
+        "modules",
+        "backbone"
+      ]
+    },
+    "logical_device": {
+      "from": 1,
+      "to": 0
+    }
+  },
+  "hypothesis": "Retain one backbone attempt per current minibatch while reducing module attempts from3 to1; test whether the original module-update allocation is needed for held-out accuracy. GPU0 is a fresh independent run, not CE-cache reuse.",
+  "fixed_controls": "Five epochs, seed1993, learning rates, AdamW configuration, module locations/count/rank/scale, support/query sampling parameters, bounded old pool64, canonical historical statistics, PILOT data/transforms, ten-class task width and fixed internal10% holdout remain unchanged.",
+  "not_equivalent_acceleration": "This changes the training update ratio, total episode draws, augmentation/sampling RNG trajectory and AdamW states. It is a new method/HPO candidate, not an execution-equivalent optimization.",
+  "initialization": "Fresh original pretrained backbone; no resume and no reuse of an old-schedule checkpoint. Running tasks are not modified.",
+  "screening_rule_predeclared": {
+    "stages": 3,
+    "requirement": "Training objectives and gradients remain finite and training completes normally on the unchanged three-stage development split.",
+    "maximum_final_accuracy_drop_fraction": 0.005,
+    "comparison_baseline_final": 0.9686666666666667,
+    "minimum_final_accuracy_for_promotion": 0.9636666666666667,
+    "promotion": "If the completed3-stage Final is at least the specified threshold, promote the same candidate to an unchanged full10-stage development continuation. Otherwise reject; do not promote from partial or failed training.",
+    "formal_selection": "Choose only after full10-stage development results; prioritize unrounded Final, then measured training cost when accuracy is equal. Do not select from official test scores."
+  },
+  "official_test_used_for_parameter_decision": false,
+  "execution_prefix_flag": "The already validated opt-in prefix execution flag remains enabled; it is separate from this non-equivalent schedule change.",
+  "configuration_correctness_evidence": {
+    "artifact": "../../correctness/current_mb2_schedule_semantics_cpu.json",
+    "status": "passed",
+    "scope": "Tiny synthetic CPU two-task schedule/history/learning semantics only; no real-data or performance inference.",
+    "observed": "One module and one backbone update per valid minibatch; ten updates of each across two tasks and five epochs/task; zero skipped episodes;24 distinct arrivals committed once; frozen anchor unchanged and both main/library changed.",
+    "maximum_joint_history_gram_error": 1.7763568394002505e-15,
+    "maximum_joint_history_cross_error": 4.440892098500626e-16
+  },
+  "status_at_preparation": "prepared_not_running",
+  "execution_note": "Launched subsequently under its own job receipt; actual live status must be checked against PID/start ticks."
+}

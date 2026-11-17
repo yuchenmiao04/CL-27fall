@@ -1,0 +1,46 @@
+{
+  "id": "D0046",
+  "kind": "full_development_transport_regularization_continuation",
+  "dataset": "imagenetr",
+  "method": "history_transport",
+  "candidate": "imagenetr_transport_chained_map01_full_v3",
+  "prior": "imagenetr_transport_chained_map01_screen_v3",
+  "prior_decision": "D0042",
+  "evidence": {
+    "phase": "development",
+    "evaluation_source": "fixed internal training holdout",
+    "stages": 3,
+    "candidate_map_ridge": 0.1,
+    "candidate_final_accuracy": 0.8820375335120644,
+    "candidate_aia": 0.9119849708098143,
+    "candidate_forgetting_previous": 0.040074074074074095,
+    "candidate_correct": 658,
+    "evaluation_images": 746,
+    "reference_map_ridge": 0.01,
+    "reference_final_accuracy": 0.8847184986595175,
+    "reference_aia": 0.9115965745769142,
+    "reference_correct": 660,
+    "reference_run": "imagenetr_transport_chained_screen_v2",
+    "candidate_result": "runtime/campaign_20261117/development/runs/imagenetr_transport_chained_map01_screen_v3/results.json"
+  },
+  "reason": "The stronger identity-slope candidate has two fewer correct holdout predictions at the third stage, but slightly higher prefix AIA. This limited prefix evidence does not establish a clearly ineffective candidate, and later-stage accumulated transport error remains untested. Extend this one surviving candidate unchanged through all ten development stages before selection. No claim of statistical equivalence, guaranteed improvement or formal-test performance is made.",
+  "change": {
+    "max_tasks": {
+      "from": 3,
+      "to": 10
+    },
+    "output_dir": "new full-development run directory",
+    "resume": "own completed gamma=0.1 three-stage checkpoint"
+  },
+  "exact_changed_configuration_keys": [
+    "max_tasks",
+    "output_dir",
+    "resume"
+  ],
+  "hyperparameters_changed": false,
+  "map_ridge": 0.1,
+  "unchanged": "All data, seed, CE body, replay, affine and residual estimator, head settings, and fixed training holdout are retained. The gamma=.01 checkpoint is not used for resume.",
+  "formal_selection_requirement": "Use completed ten-stage development Final primarily, together with AIA/forgetting/diagnostics; the selected method requires a fresh full-training formal refit.",
+  "official_test_used_for_parameter_decision": false,
+  "candidate_status": "prepared_only; not launched by this preparation"
+}

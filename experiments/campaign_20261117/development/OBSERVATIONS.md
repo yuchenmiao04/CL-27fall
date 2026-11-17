@@ -27,6 +27,7 @@ Internal training-holdout scores only. Different stage/class counts are not dire
 | cifar_shared_stronger_full_v8 | cifar224 | 10 | 83.98 | 89.69 |
 | cifar_shared_stronger_isotropic_diagnostic_v8 | cifar224 | 10 | 83.32 | 88.71 |
 | cifar_shared_stronger_screen_v8 | cifar224 | 3 | 92.80 | 94.73 |
+| cifar_transport_chained_full_v2 | cifar224 | 10 | 90.80 | 94.81 |
 | cifar_transport_chained_screen_v2 | cifar224 | 3 | 97.53 | 98.38 |
 | imagenetr_ce_full_v1_er | imagenetr | 10 | 69.80 | 78.34 |
 | imagenetr_ce_full_v1_history_transport | imagenetr | 10 | 79.66 | 84.47 |
@@ -35,8 +36,11 @@ Internal training-holdout scores only. Different stage/class counts are not dire
 | imagenetr_ce_screen_v1_history_transport | imagenetr | 3 | 86.19 | 90.02 |
 | imagenetr_ce_screen_v1_plastic_shared_basis | imagenetr | 3 | 84.72 | 89.64 |
 | imagenetr_current_bounded64_screen_v5 | imagenetr | 3 | 87.40 | 90.48 |
+| imagenetr_psb_chained_full_v4 | imagenetr | 10 | 80.27 | 85.76 |
 | imagenetr_psb_chained_screen_v4 | imagenetr | 3 | 88.47 | 91.16 |
 | imagenetr_psb_noise0001_screen_v2 | imagenetr | 3 | 85.92 | 89.93 |
+| imagenetr_psb_noise1e3_full_v2 | imagenetr | 10 | 79.49 | 84.33 |
+| imagenetr_psb_noise1e4_full_v3 | imagenetr | 10 | 79.66 | 84.47 |
 | imagenetr_psb_noise1e4_screen_v3 | imagenetr | 3 | 86.19 | 90.02 |
 | imagenetr_shared_initial_v1 | imagenetr | 10 | 43.31 | 44.58 |
 | imagenetr_shared_isotropic_diagnostic_v6 | imagenetr | 10 | 67.59 | 74.61 |
@@ -50,10 +54,12 @@ Internal training-holdout scores only. Different stage/class counts are not dire
 | imagenetr_shared_stronger_full_v8 | imagenetr | 10 | 64.34 | 72.87 |
 | imagenetr_shared_stronger_isotropic_diagnostic_v8 | imagenetr | 10 | 65.43 | 72.13 |
 | imagenetr_shared_stronger_screen_v8 | imagenetr | 3 | 79.22 | 82.30 |
+| imagenetr_transport_chained_full_v2 | imagenetr | 10 | 80.31 | 85.77 |
+| imagenetr_transport_chained_map01_screen_v3 | imagenetr | 3 | 88.20 | 91.20 |
 | imagenetr_transport_chained_screen_v2 | imagenetr | 3 | 88.47 | 91.16 |
 
-D0023 fixed the frozen-basis parameters before its formal runs. D0026/D0027 introduced a fresh bounded64 module candidate after auditing the legacy all-buffer sampling cost. D0030 corrected an inherited epoch setting before any ImageNet-R module task completed.
-D0031–D0034 use only development evidence to test lower plastic-basis prior noise. D0035–D0038 test chained coordinates and combine the surviving prior with that reference strategy. D0036/D0039 extend bounded module candidates from their own prefixes. D0041 extends the surviving chained PSB prefixes without changing their parameters.
-Any final selected candidate must complete all10 development stages before fresh full-data formal refit. Native replay-only execution reuses exact CE transitions and still independently fits moments/herding/readouts. D0040 releases completed CE driver reservations without changing training or head parameters.
+Selection reasons, candidate changes and promotion requirements are recorded in decisions/. Every final selected candidate must complete all10 development stages before a fresh full-data formal refit. Prepared configurations are not evidence that a task ran.
 
-Source records and original/export hashes are retained. Completed formal results are separate in ../formal/PARTIAL_RESULTS.md; they are not used in subsequent tuning decisions.
+Native replay-only execution reuses exact CE transitions and independently fits moments/herding/readouts. Physical-device reordering, where used, is an explicitly recorded execution experiment and requires its own numerical evidence.
+
+Source records and original/export hashes are retained. Formal results are separate in ../formal/PARTIAL_RESULTS.md and are not used in subsequent tuning decisions.

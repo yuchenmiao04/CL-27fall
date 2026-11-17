@@ -1,0 +1,24 @@
+{
+  "id": "D0047",
+  "kind": "development_only_analytic_reader_physical_placement",
+  "gate_decision": "D0044",
+  "verified_workload": "Fresh complete10-stage CIFAR chained HT development replay, same logical cuda:1, two visible identical RTX5090 cards, unchanged native source and cache guards.",
+  "observed_evidence": {
+    "checkpoint_compared_nodes": 33081,
+    "state_differences": 0,
+    "only_ignored_fields": "10 root stages[i].wall_seconds",
+    "reference_and_candidate_state_sha256": "a1af081910877165c6842e3ac62e731564c8adfd4a896cbedeb1754725a77dff",
+    "raw_strict_comparison_sha256": "fbd3aca8619ca3687fc446536d70c7ba0ce90f0f326850ddb6f651f554ba0d24",
+    "full_stage_summaries_and_metrics_equal": true,
+    "native_request_fingerprints_equal": 10,
+    "immutable_cache_sha_checks_unchanged": 10
+  },
+  "allowed_scope": "Explicitly marked development HT/PSB analytic readers may use CUDA_VISIBLE_DEVICES=1,0 with logical device1 retained; no logical CUDA RNG index is rewritten. Record actual physical placement and keep all original CE guards.",
+  "limits": "This measured full HT workload does not prove arbitrary kernels/GPUs universally interchangeable. No claim of bitwise comparison of unavailable per-example stage prediction logs. PSB still independently fits its prior and own moment state. Formal runs retain their original physical placement.",
+  "algorithm_or_parameter_change": false,
+  "official_test_used_for_parameter_decision": false,
+  "first_queued_reader": "cifar_psb_chained_full_v4",
+  "created_utc": "2026-11-17T07:42:22.522161+00:00",
+  "public_gate_evidence": "../../correctness/cifar_chained_physical_swap_gate_v1.json",
+  "public_gate_evidence_sha256": "5e5621e83da816bc2e9ce5840349847386904b6465cb2f6559ffd316e3b953d8"
+}

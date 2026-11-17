@@ -1,0 +1,37 @@
+{
+  "job": "cifar_psb_chained_full_v4",
+  "pid": 28455,
+  "proc_start_ticks": "1789818443",
+  "launch_utc": "2026-11-17T07:43:34Z",
+  "cwd": "runtime/runtime_tuning_v1",
+  "command": [
+    "/usr/bin/env",
+    "CUDA_VISIBLE_DEVICES=1,0",
+    "environment/bin/python",
+    "scripts/run_ce_cohort.py",
+    "--replay-only",
+    "--configs",
+    "runtime/campaign_20261117/development/configs/cifar_psb_chained_full_v4.json",
+    "--trajectory-dir",
+    "runtime/campaign_20261117/development/ce_trajectories/cifar_body_default_v1",
+    "--report",
+    "runtime/campaign_20261117/development/cohorts/cifar_psb_chained_full_v4.json"
+  ],
+  "metadata": {
+    "decision": "D0041",
+    "development_only": true,
+    "CE_training_repeated": false,
+    "requires_full_trajectory": true,
+    "continuation_of": "cifar_psb_chained_screen_v4",
+    "prepared_only": false,
+    "execution_placement_decision": "D0047",
+    "logical_gpu": 1,
+    "physical_gpu": 0,
+    "CUDA_VISIBLE_DEVICES": "1,0",
+    "formal_relocation": false,
+    "measured_prior_reader_vram_mib": 2382,
+    "minimum_free_before_launch_mib": 5200,
+    "observed_free_before_launch_mib": 5536
+  },
+  "environment": {}
+}

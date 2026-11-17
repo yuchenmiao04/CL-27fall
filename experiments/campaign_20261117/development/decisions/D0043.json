@@ -1,0 +1,42 @@
+{
+  "id": "D0043",
+  "kind": "freeze_method_hyperparameters",
+  "method": "history_transport",
+  "dataset": "cifar224",
+  "selected_development_trial": "cifar_transport_chained_full_v2",
+  "selected_result_sha256": "337eb45cd5292a76c76bf97c6ca53f15b3e6f1c4328a37c81592440fd1583557",
+  "selected_full_development_metrics": {
+    "final_accuracy": 0.908,
+    "aia": 0.9480995238095238,
+    "forgetting_previous": 0.06822222222222221,
+    "forgetting_including_final": 0.06822222222222221,
+    "completed_tasks": 10,
+    "definition": "Fractions; AIA is mean stage sample-weighted all-seen accuracy; forgetting averages old tasks only."
+  },
+  "comparators": [
+    {
+      "trial": "cifar_ce_full_v1_history_transport",
+      "mode": "direct",
+      "final_accuracy": 0.8974,
+      "aia": 0.9390315873015872
+    }
+  ],
+  "selected_parameters": {
+    "transport_mode": "chained",
+    "residual_model": "class_conditional_psd",
+    "map_ridge": 0.01,
+    "head_ridge": 0.01,
+    "covariance_shrinkage": 0.1,
+    "mean_shrinkage": 20.0,
+    "crossfit_folds": 5,
+    "epochs": 20,
+    "backbone_lr": 1e-05,
+    "head_lr": 0.001,
+    "weight_decay": 0.0001
+  },
+  "criterion": "Completed10-stage training-holdout Final, with AIA/forgetting observed. Chained improves Final by1.06 percentage points over the completed direct candidate. No CIFAR-specific mapping-ridge candidate is introduced.",
+  "official_test_used_for_parameter_decision": false,
+  "formal_refit": "Fresh initial pretrained state, complete official training data, no development resume/statistics/cache. Reuse only matching formal fixed-ER CE transitions after all10 exist and per-stage guards pass.",
+  "formal_job": "formal_cifar_transport_selected_v2",
+  "created_utc": "2026-11-17T07:08:17.238686+00:00"
+}
