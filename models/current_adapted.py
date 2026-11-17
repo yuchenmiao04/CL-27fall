@@ -65,6 +65,9 @@ class Learner(IntegratedLearner):
         self.canonical_transform = RawTransform()
         self.training_transform = RawTransform()
         options = {k: args.get(k, v) for k, v in DEFAULTS.items()}
+        # A separate, opt-in episode distribution. replay_batch_size is the CE
+        # learner quota and has never bounded this method's episode old pool.
+        options["episode_replay_batch_size"] = args.get("episode_replay_batch_size")
         options["schedule"] = tuple(options["schedule"])
         options["support_shots"] = tuple(options["support_shots"])
         backbone = build_backbone(args)
@@ -121,6 +124,12 @@ class Learner(IntegratedLearner):
             {
                 "replay_images": len(self.memory),
                 "replay_payload_bytes": self.memory.payload_bytes(),
+                "episode_replay_policy": (
+                    "all_resident"
+                    if self.core.options["episode_replay_batch_size"] is None
+                    else "bounded_old_class_balanced"
+                ),
+                "ce_replay_batch_size_applies": False,
                 "backbone_changed": before != state_hash(self.core.encoder.main),
                 "backbone_sha256_before": before,
                 "backbone_sha256_after": state_hash(self.core.encoder.main),

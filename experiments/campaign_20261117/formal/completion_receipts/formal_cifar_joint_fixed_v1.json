@@ -10,5 +10,8 @@
   "joint_nonapplicable_fields_null": true,
   "checkpoint_exists": true,
   "results_sha256": "6625bbcda3a8a352594b6e5b0d04d617dff318f8439d6514553e7a827ef8a523",
-  "test_metric_value_disclosed": false
+  "test_metric_value_disclosed": false,
+  "full_main_protocol_and_metric_consistency_validated": true,
+  "validator_source_sha256": "fc49f07d6bacdcd8e71c6d38eba66cf4ca9187f4252a3187e180cde189026f9b",
+  "validated_utc": "2026-11-17T04:29:00.974351+00:00"
 }

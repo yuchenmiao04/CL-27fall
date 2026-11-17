@@ -1,0 +1,15 @@
+{
+  "job": "formal_imagenetr_shared_selected_v7",
+  "status": "complete",
+  "phase": "final",
+  "method": "shared_basis",
+  "completed_tasks": 10,
+  "full_training_refit": true,
+  "full_main_protocol_and_metric_consistency_validated": true,
+  "checkpoint_exists": true,
+  "results_sha256": "d711573701fa2ad4746260b5e7d3ba9e333083d7f69766ba4c32935aa9d92802",
+  "test_metric_values_disclosed": false,
+  "validated_utc": "2026-11-17T04:36:26.794720+00:00",
+  "training_rows_in_checkpoint": 24000,
+  "pretrained_frozen_backbone_verified": true
+}

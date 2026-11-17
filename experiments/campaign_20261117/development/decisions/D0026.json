@@ -1,0 +1,29 @@
+{
+  "id": "D0026",
+  "kind": "new_episode_sampling_candidate",
+  "method": "current_adapted",
+  "prior_cost_evidence": {
+    "legacy_third_stage_epoch_seconds": 781.4341111183167,
+    "old_classes": 20,
+    "old_buffer_rows": 2000,
+    "current_batch_size": 64,
+    "legacy_combined_pool_rows": 2064,
+    "ce_replay_batch_size64_does_not_limit_legacy_pool": true
+  },
+  "change": {
+    "episode_replay_batch_size": {
+      "from": null,
+      "to": 64
+    }
+  },
+  "raw_image_storage_rule_unchanged": true,
+  "objective_change": true,
+  "reason": "Legacy episode support/query work grows with all resident old classes. Test a fixed-size class-balanced old pool with enough examples for support+query; the nonlinear episode objective is changed, not claimed equivalent or unbiased. Keep full historical statistics, global seen-class outputs, final full-buffer residual refit and herding.",
+  "validation": "286 local tests; first run a genuine pretrained-ViT two-stage development-only correctness flow whose old pool exceeds64, then fresh full-data3-stage screening. Final candidate still requires all10 development stages.",
+  "fresh_required": true,
+  "source_sha256": {
+    "cl27/current/engine.py": "43fc2597aeaaa64f23517d598cbb62a0a18e0af1f82520bdfd58de265aa1e372",
+    "models/current_adapted.py": "8cfbe15d35f4d956a665e6c553670bad296289c0ba457df07af7ab5585c0f1c1"
+  },
+  "official_test_used": false
+}

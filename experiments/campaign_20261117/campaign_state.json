@@ -1,6 +1,6 @@
 {
   "status": "adaptive_development_running",
-  "formal_completed": 1,
+  "formal_completed": 3,
   "formal_required": 12,
   "seed": 1993,
   "datasets": {
@@ -81,7 +81,7 @@
     ]
   },
   "development_tool_validation": {
-    "cpu_tests_passed": 260,
+    "cpu_tests_passed": 286,
     "cuda_trajectory_gate": "pending",
     "frozen_prefix_optimization": {
       "enabled_in_campaign": true,
@@ -90,26 +90,31 @@
       "isolated_fragment_speedup": 1.0989229835828975,
       "whole_training_speedup_measured": false,
       "gate": "correctness/current_prefix_cuda_prod_isolated_v4.json"
+    },
+    "bounded_episode_candidate": {
+      "budget": 64,
+      "default": null,
+      "fresh_start_required": true,
+      "genuine_vit_two_stage": "passed",
+      "second_stage_old_rows_per_batch": 64,
+      "second_stage_old_classes_per_batch": 9,
+      "full_history_rows": 240
     }
   },
-  "formal_running": [
-    "formal_cifar_shared_selected_v7"
-  ],
-  "last_progress_check_utc": "2026-11-17T04:09:11Z",
+  "formal_running": [],
+  "last_progress_check_utc": "2026-11-17T04:40:27Z",
   "progress_snapshot": {
     "utc": "2026-11-17T04:09:11Z",
     "official_test_metrics_read": false,
-    "formal_completed": 1,
-    "formal_running": [
-      "formal_cifar_shared_selected_v7"
-    ],
+    "formal_completed": 3,
+    "formal_running": [],
     "development_running": [
       "cifar_ce_full_v1",
       "cifar_current_full_v1",
       "imagenetr_ce_screen_v1"
     ],
     "prepared_next": [
-      "formal_imagenetr_shared_selected_v7"
+      "cifar_current_bounded64_screen_v4"
     ],
     "completed_full_development": {
       "cifar224/shared_basis": {
@@ -127,14 +132,16 @@
     "formal_metric_policy": "Do not open formal test scores until all method selections are frozen."
   },
   "formal_completed_metrics_deferred": [
-    "formal_cifar_joint_fixed_v1"
+    "formal_cifar_joint_fixed_v1",
+    "formal_cifar_shared_selected_v7",
+    "formal_imagenetr_shared_selected_v7"
   ],
   "selected_methods": {
     "shared_basis": {
       "decision": "D0023",
       "parameters": "development/parameters/shared_rank64_v7.json",
       "both_dataset_full_development_complete": true,
-      "formal_refit_status": "cifar running; ImageNet-R prepared"
+      "formal_refit_status": "both datasets complete; main protocol/metric closure and checkpoint training rows verified; test values withheld"
     }
   }
 }

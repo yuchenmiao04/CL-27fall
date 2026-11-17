@@ -12,6 +12,7 @@ import copy
 import hashlib
 import json
 import math
+import operator
 import os
 import time
 from contextlib import contextmanager
@@ -298,6 +299,9 @@ DEFAULTS = {
     "transfer_probability": 0.5,
     "feature_batch_size": 16,
     "memory_efficient": True,
+    # None preserves the original all-resident-memory episode distribution.
+    # This is independent of replay_batch_size used by the CE learners.
+    "episode_replay_batch_size": None,
     "seed": 0,
 }
 
@@ -336,6 +340,19 @@ class FixedLibraryEngine(nn.Module):
             raise ValueError("Invalid solver or episode parameters")
         if not 0 <= o["transfer_probability"] <= 1:
             raise ValueError("Invalid episode probability")
+        budget = o["episode_replay_batch_size"]
+        if budget is not None:
+            if isinstance(budget, bool):
+                raise TypeError("episode_replay_batch_size must be an integer or None")
+            try:
+                budget = operator.index(budget)
+            except TypeError as error:
+                raise TypeError(
+                    "episode_replay_batch_size must be an integer or None"
+                ) from error
+            if budget < 1:
+                raise ValueError("episode_replay_batch_size must be positive")
+            o["episode_replay_batch_size"] = budget
         self.device = torch.device(device)
         self.encoder = NativeDualEncoder(backbone, positions, count, rank, scale).to(
             self.device
@@ -400,6 +417,53 @@ class FixedLibraryEngine(nn.Module):
 
     def _inc(self, key, n):
         self.counters[key] = self.counters.get(key, 0) + int(n)
+
+    def _sample_episode_replay_indices(self, labels):
+        """Select an old-class-balanced pool once per current minibatch.
+
+        Returned CPU indices address the original resident order, including its
+        canonical cache. A full-buffer selection neither permutes nor consumes
+        RNG. The bounded alternative changes the episode distribution; it is
+        not an equivalent execution of the legacy all-buffer objective.
+        """
+        budget = self.options["episode_replay_batch_size"]
+        n = len(labels)
+        if budget is None or budget >= n:
+            return torch.arange(n, dtype=torch.long)
+        classes = labels.unique(sorted=True)
+        members = [
+            torch.nonzero(labels == c, as_tuple=False).flatten() for c in classes
+        ]
+        # Prefer enough examples per selected class for the largest possible
+        # support plus query. Sparse memories may require additional classes.
+        group_size = (
+            max(max(self.options["support_shots"]), self.options["background_shots"])
+            + self.options["query_per_class"]
+        )
+        class_order = torch.randperm(len(classes), generator=self.rng).tolist()
+        count = min(len(classes), max(1, budget // group_size))
+        selected = class_order[:count]
+        capacity = sum(len(members[c]) for c in selected)
+        while capacity < budget:
+            c = class_order[len(selected)]
+            selected.append(c)
+            capacity += len(members[c])
+        # Round-robin water filling redistributes unavailable slots without
+        # replacement; the uniform class order also randomizes remainder slots.
+        quotas = [0] * len(selected)
+        remaining = budget
+        while remaining:
+            for j, c in enumerate(selected):
+                if quotas[j] < len(members[c]):
+                    quotas[j] += 1
+                    remaining -= 1
+                    if not remaining:
+                        break
+        chosen = [
+            members[c][torch.randperm(len(members[c]), generator=self.rng)[:quota]]
+            for c, quota in zip(selected, quotas)
+        ]
+        return torch.cat(chosen).sort().values
 
     def _stack(self, items, augment=False):
         fn = self.training_transform if augment else self.canonical_transform
@@ -725,13 +789,58 @@ class FixedLibraryEngine(nn.Module):
                     group["lr"] = original_lrs[name] * factor
             order = torch.randperm(len(current), generator=rng)
             losses = []
+            replay_sampling = {
+                "policy": (
+                    "all_resident"
+                    if self.options["episode_replay_batch_size"] is None
+                    else "bounded_old_class_balanced"
+                ),
+                "configured_budget": self.options["episode_replay_batch_size"],
+                "resident_old_rows": len(old),
+                "minibatches": 0,
+                "old_rows_total": 0,
+                "old_rows_min": None,
+                "old_rows_max": 0,
+                "old_classes_total": 0,
+                "old_classes_min": None,
+                "old_classes_max": 0,
+                "combined_pool_rows_max": 0,
+                "outer_attempts_per_minibatch": self.options["outer_updates"],
+            }
             for start in range(0, len(current), batch_size):
                 pick = order[start : start + batch_size]
                 batch = [current[i] for i in pick.tolist()]
                 yc = torch.tensor([i[1] for i in batch], dtype=torch.long)
-                labels = torch.cat((yc, y_old))
-                items = batch + old
-                canonical = torch.cat((current_base[pick], old_base))
+                if self.options["episode_replay_batch_size"] is None:
+                    # Keep legacy ordering and random consumption unchanged.
+                    episode_old = old
+                    episode_y_old = y_old
+                    episode_old_base = old_base
+                else:
+                    old_pick = self._sample_episode_replay_indices(y_old)
+                    episode_old = [old[i] for i in old_pick.tolist()]
+                    episode_y_old = y_old[old_pick]
+                    episode_old_base = old_base[old_pick]
+                labels = torch.cat((yc, episode_y_old))
+                items = batch + episode_old
+                canonical = torch.cat((current_base[pick], episode_old_base))
+                # All counts are CPU metadata; no network/device synchronization.
+                replay_sampling["minibatches"] += 1
+                for key, value in (
+                    ("old_rows", len(episode_old)),
+                    ("old_classes", len(episode_y_old.unique())),
+                ):
+                    replay_sampling[key + "_total"] += value
+                    minimum = replay_sampling[key + "_min"]
+                    replay_sampling[key + "_min"] = (
+                        value if minimum is None else min(minimum, value)
+                    )
+                    replay_sampling[key + "_max"] = max(
+                        replay_sampling[key + "_max"], value
+                    )
+                replay_sampling["combined_pool_rows_max"] = max(
+                    replay_sampling["combined_pool_rows_max"], len(items)
+                )
                 self._inc("logical_current_presentations", len(batch))
                 for _ in range(self.options["outer_updates"]):
                     phase = self.options["schedule"][
@@ -746,7 +855,7 @@ class FixedLibraryEngine(nn.Module):
                     self.episode_draws += 1
                     episode = sample_episode(
                         yc,
-                        y_old,
+                        episode_y_old,
                         kind,
                         self.rng,
                         self.options["support_shots"],
@@ -766,6 +875,7 @@ class FixedLibraryEngine(nn.Module):
                     "epoch": epoch,
                     "mean_query_ce": float(np.mean(losses)) if losses else None,
                     "lr_factor": factor,
+                    "episode_replay_sampling": replay_sampling,
                 }
             )
             print(
@@ -785,6 +895,7 @@ class FixedLibraryEngine(nn.Module):
                         - epoch_backbone_updates,
                         "skipped_episodes": skipped - epoch_skipped,
                         "skipped_episodes_total": skipped,
+                        "episode_replay_sampling": replay_sampling,
                         "wall_seconds": time.perf_counter() - epoch_started,
                     },
                     allow_nan=False,
@@ -840,6 +951,7 @@ class FixedLibraryEngine(nn.Module):
             "epoch_summaries": summaries,
             "counters": dict(self.counters),
             "solver_history": "current task added once after all learning epochs",
+            "episode_replay_batch_size": self.options["episode_replay_batch_size"],
             "compute_note": (
                 f"{self.options['outer_updates']} episode attempts per current minibatch; "
                 "not matched FLOPs to supervised methods"
@@ -886,7 +998,19 @@ class FixedLibraryEngine(nn.Module):
     def load_training_state(self, state):
         if state.get("architecture") != self.architecture:
             raise ValueError("Current-method library architecture changed on restore")
-        if state["options"] != self.options:
+        stored_options = dict(state["options"])
+        # Old checkpoints implicitly used all resident replay. Only that same
+        # distribution is compatible; a bounded candidate must start fresh.
+        stored_options.setdefault("episode_replay_batch_size", None)
+        if (
+            stored_options.get("episode_replay_batch_size")
+            != self.options["episode_replay_batch_size"]
+        ):
+            raise ValueError(
+                "Episode replay budget changed on restore; start a fresh bounded "
+                "candidate rather than reusing an all-buffer checkpoint"
+            )
+        if stored_options != self.options:
             raise ValueError("Current-method options changed on restore")
         # Validate tensor dimensions and the coordinate-system identity before
         # altering this learner's tensors or moments.

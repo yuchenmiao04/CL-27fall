@@ -1,0 +1,46 @@
+{
+  "status": "passed",
+  "purpose": "genuine_pretrained_encoder bounded replay correctness only; no accuracy selection",
+  "verified_utc": "2026-11-17T04:40:27.165747+00:00",
+  "phase": "development",
+  "validation_only": true,
+  "official_test_read": false,
+  "seed": 1993,
+  "tasks_completed": 2,
+  "per_class_fit_cap": 12,
+  "image_storage_quota": 2000,
+  "episode_budget": 64,
+  "second_stage_sampling": {
+    "policy": "bounded_old_class_balanced",
+    "configured_budget": 64,
+    "resident_old_rows": 120,
+    "minibatches": 2,
+    "old_rows_total": 128,
+    "old_rows_min": 64,
+    "old_rows_max": 64,
+    "old_classes_total": 18,
+    "old_classes_min": 9,
+    "old_classes_max": 9,
+    "combined_pool_rows_max": 128,
+    "outer_attempts_per_minibatch": 4
+  },
+  "history_rows_committed_once": 240,
+  "backbone_changed": true,
+  "modules_changed": true,
+  "frozen_anchor_unchanged": true,
+  "all_seen_outputs_verified": true,
+  "original_results_sha256": "01f0c20e8a9aa7a41a91c5a3288362de31a6d1550499288d4fdb4fbda37e421e",
+  "execution": {
+    "torch": "2.7.1+cu128",
+    "numpy": "1.26.4",
+    "device_type": "cuda",
+    "random_stream_policy": "canonical_loader_isolated_v1",
+    "wall_seconds": 29.583023324608803,
+    "numeric_checkpoint_payload_bytes": 1380619208,
+    "gpu_peak_allocated_bytes": 4209614336
+  },
+  "source_files_sha256": {
+    "cl27/current/engine.py": "43fc2597aeaaa64f23517d598cbb62a0a18e0af1f82520bdfd58de265aa1e372",
+    "models/current_adapted.py": "8cfbe15d35f4d956a665e6c553670bad296289c0ba457df07af7ab5585c0f1c1"
+  }
+}

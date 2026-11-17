@@ -28,6 +28,16 @@
 
 ## 使用
 
+正式固定 ER baseline 可以在保留原生训练流程的同时录制轨迹：
+
+```sh
+python scripts/run_fixed_er_record.py \
+  --config /path/fixed_er_formal.json \
+  --trajectory-dir /path/fixed_er_ce_trajectory
+```
+
+该薄入口只接受正式完整流、seed 1993 和两个选定 PILOT 数据集，拒绝开发、子集和内部 driver 配置。它不改变所提供的固定训练参数，也不搜索；配置及执行报告均标记 `execution_role=fixed_baseline`。实际适配与缓存检查仍委托原生 runner 和 `CEStageCache(record)`，代理仅修正报告角色。之后只有已选 HT/PSB 与该固定 ER 训练前提完全相同时才可复用；不匹配仍拒绝，不能为复用而改变 baseline 固定配置。
+
 为三份配置分别指定新输出目录，并保持数据、训练和设备设置一致：
 
 ```sh

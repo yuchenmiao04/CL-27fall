@@ -1,0 +1,11 @@
+# Bounded episode replay validation
+
+The new optional episode_replay_batch_size changes the old-image sampling distribution. It is not an equivalent computation of the all-resident-buffer objective. Null preserves the existing episode distribution; positive64 requires a fresh candidate. Raw storage rules remain unchanged.
+
+Full local suite:286 passed in17.86s under .venv-pilot. Dedicated bounded checks cover23 cases including budgets, sparse allocation, ID/canonical alignment, complete historical statistics and final-buffer residual fitting, owned RNG and task-boundary restore. The fixed-ER recording entry point has3 dedicated checks and preserves the native fixed baseline parameters/role.
+
+An independent CPU FP64 three-task comparison loaded the pre-extension engine source using importlib and compared null-mode encoder, both AdamW states, G/C, W0/V, resident cache, counters, generator states and query losses exactly. Source hashes: before3aa11f91e551a8fbad52097fab9dd0b5276ae2e7e63c7a0470503328b9f09077; after43fc2597aeaaa64f23517d598cbb62a0a18e0af1f82520bdfd58de265aa1e372. Equal mean query losses were4.319981370045883,5.639765879253757,5.786397193812787. This inline comparison was observed in the tool log; no standalone comparison script/output file was retained. Permanent null/full-pool equivalence and restore tests remain in tests/test_current_episode_replay.py.
+
+The genuine pretrained ViT run used the selected CIFAR class order, two tasks, one epoch and an explicit correctness-only cap of12 fitting images/class. It did not select accuracy parameters. Stage2 had120 resident old images: each minibatch selected exactly64 from9 old classes, the combined current/old pool never exceeded128, and final history contained240 committed rows. Backbone and modules changed; the frozen anchor did not. The final readout still used the full legal resident buffer and all-seen output columns. See bounded64_genuine_v4_report.json for source/result hashes and measured counters.
+
+This verifies implementation behavior, not full-stream accuracy or isolated throughput. The next development candidate removes the per-class cap, keeps the fixed train holdout, starts fresh, screens3 stages, and must complete10 stages if retained.
