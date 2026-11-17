@@ -1,0 +1,95 @@
+{
+  "mode": "server_local_archive",
+  "payload_left_server": false,
+  "all_source_paths_remain_loadable_symlinks": true,
+  "completed_utc": "2026-11-17T10:33:57.709699+00:00",
+  "rows": [
+    {
+      "trial": "cifar_plastic_shared_basis_direct_split_full_v1",
+      "checkpoint": {
+        "path": "remote_runtime/campaign_20261117/development/runs/cifar_plastic_shared_basis_direct_split_full_v1/checkpoint.pt",
+        "exists": true,
+        "is_symlink": false,
+        "link_target": null,
+        "resolved_path": "remote_runtime/campaign_20261117/development/runs/cifar_plastic_shared_basis_direct_split_full_v1/checkpoint.pt",
+        "bytes": 728160834,
+        "mtime_ns": 1794905010711780594,
+        "inode": 16109438737,
+        "device": 2304,
+        "is_regular": true,
+        "sha256": "35110c273c0d0c253009e83b0bc3b3ed6bccc7976380e0654c6fafe867fc828d"
+      },
+      "receipt_path": "remote_runtime/campaign_20261117/development/receipts/cifar_plastic_shared_basis_direct_split_full_v1.json",
+      "receipt_sha256": "2b2af40ebf467c0dfef904cf78b46d81f120004bfc0dfece0d51bf4badc59926",
+      "results_path": "remote_runtime/campaign_20261117/development/runs/cifar_plastic_shared_basis_direct_split_full_v1/results.json",
+      "results_sha256": "b70bd046ed8c451bb781df8c5e0b7b8eddc66d2f6eaa5d90d80712e01b175fbe",
+      "archive_path": "remote_hpo_archive/development/runs/cifar_plastic_shared_basis_direct_split_full_v1/checkpoint.pt"
+    },
+    {
+      "trial": "imagenetr_ce_full_v1_plastic_shared_basis",
+      "checkpoint": {
+        "path": "remote_runtime/campaign_20261117/development/runs/imagenetr_ce_full_v1_plastic_shared_basis/checkpoint.pt",
+        "exists": true,
+        "is_symlink": false,
+        "link_target": null,
+        "resolved_path": "remote_runtime/campaign_20261117/development/runs/imagenetr_ce_full_v1_plastic_shared_basis/checkpoint.pt",
+        "bytes": 724155138,
+        "mtime_ns": 1794897532047158861,
+        "inode": 13982578739,
+        "device": 2304,
+        "is_regular": true,
+        "sha256": "d69f2461f8182195a018a7d48b5169205bdac06e97cbd84eefc8228b09fdaa0c"
+      },
+      "receipt_path": "remote_runtime/campaign_20261117/development/receipts/imagenetr_ce_full_v1.json",
+      "receipt_sha256": "768151a5871cb624c6155b7a8b1ba37ae2d225695f4c0f07297ae44f0f79738e",
+      "results_path": "remote_runtime/campaign_20261117/development/runs/imagenetr_ce_full_v1_plastic_shared_basis/results.json",
+      "results_sha256": "0d78eb1496caf1169f4544eb238be63052322c5ab236830070850f67ca97c535",
+      "archive_path": "remote_hpo_archive/development/runs/imagenetr_ce_full_v1_plastic_shared_basis/checkpoint.pt"
+    },
+    {
+      "trial": "imagenetr_psb_noise1e4_full_v3",
+      "checkpoint": {
+        "path": "remote_runtime/campaign_20261117/development/runs/imagenetr_psb_noise1e4_full_v3/checkpoint.pt",
+        "exists": true,
+        "is_symlink": false,
+        "link_target": null,
+        "resolved_path": "remote_runtime/campaign_20261117/development/runs/imagenetr_psb_noise1e4_full_v3/checkpoint.pt",
+        "bytes": 724154306,
+        "mtime_ns": 1794899172023472117,
+        "inode": 19340534400,
+        "device": 2304,
+        "is_regular": true,
+        "sha256": "bcf3f5355b91267b024d2cb65bc5f23256aee5b6bab9745dcc267b9ce4268a9e"
+      },
+      "receipt_path": "remote_runtime/campaign_20261117/development/receipts/imagenetr_psb_noise1e4_full_v3.json",
+      "receipt_sha256": "633e57091b8c1731c1360aecc842040482905b0f9c9f5b9609de5a41d0a6a4ea",
+      "results_path": "remote_runtime/campaign_20261117/development/runs/imagenetr_psb_noise1e4_full_v3/results.json",
+      "results_sha256": "cf4b31b94fae8efafcd90a9c9879a46ac82b7a0e6e308b2ec8c9901d38403ac6",
+      "archive_path": "remote_hpo_archive/development/runs/imagenetr_psb_noise1e4_full_v3/checkpoint.pt"
+    },
+    {
+      "trial": "imagenetr_psb_chained_full_v4",
+      "checkpoint": {
+        "path": "remote_runtime/campaign_20261117/development/runs/imagenetr_psb_chained_full_v4/checkpoint.pt",
+        "exists": true,
+        "is_symlink": false,
+        "link_target": null,
+        "resolved_path": "remote_runtime/campaign_20261117/development/runs/imagenetr_psb_chained_full_v4/checkpoint.pt",
+        "bytes": 723885122,
+        "mtime_ns": 1794899329200869740,
+        "inode": 20422559386,
+        "device": 2304,
+        "is_regular": true,
+        "sha256": "522518eff2bcb0bb0c598284b7224bd45393b766275dc2d90bb4861b3ba727a9"
+      },
+      "receipt_path": "remote_runtime/campaign_20261117/development/receipts/imagenetr_psb_chained_full_v4.json",
+      "receipt_sha256": "0c1c3a77ff181d9c9556a7ffb57365c4ad47cef2aa7f754d6e7ee9227d48e2e6",
+      "results_path": "remote_runtime/campaign_20261117/development/runs/imagenetr_psb_chained_full_v4/results.json",
+      "results_sha256": "b57628d376d50f55a8559d453ca91559d35ba7e5c3877c23c8421cab6e045123",
+      "archive_path": "remote_hpo_archive/development/runs/imagenetr_psb_chained_full_v4/checkpoint.pt"
+    }
+  ],
+  "archived_bytes": 2900355400,
+  "free_root_after": 2375356416,
+  "free_data_after": 15077580800
+}
