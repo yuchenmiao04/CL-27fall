@@ -86,7 +86,7 @@ recomputes the metrics without downloading or reopening remote model files.
 The optional `--base-summary` imports the original twelve results unchanged,
 retaining separate 5-epoch and 20-epoch fixed-library rows.
 
-Formal results will be published only after those checks pass.
+Each formal result is published only after those checks pass.
 
 Recovered runs additionally require `--recovery-manifest` in the backup and
 partition audit commands. Their retained checkpoint, exact saved stage prefix,
@@ -99,3 +99,32 @@ segment. The sum of all ten recorded stage durations includes retained and
 resumed stage loops, but excludes checkpoint I/O and discarded interrupted
 work. Complete uninterrupted-run wall time and peak memory cannot be inferred
 from the resumed process and are left unreported.
+
+## Verified TUNA results
+
+Both 20-image-epoch TUNA runs completed all ten stages. Their workers exited,
+their final checkpoints were copied on the owning server, and native CPU
+restoration matched exactly: 20,951 compared nodes for CIFAR-100 and 24,601
+for ImageNet-R, with no ignored learner fields. All saved pre-restart stage
+records, RNG payload identities, and permitted configuration differences were
+verified. The server-local partition audit and its transferred copy share
+SHA-256 `aee0a3ff3629b40e2ae98b6d2446722d72257757c30591231a11c8174eac0373`.
+
+| Dataset | Final (%) | AIA (%) | F_previous (pp) | F_including_final (pp) |
+| --- | ---: | ---: | ---: | ---: |
+| CIFAR-100 | 91.23 | 94.60 | 3.29 | 3.33 |
+| ImageNet-R | 79.27 | 84.84 | 8.69 | 8.69 |
+
+These use the native TUNA mechanism, the common data/checkpoint/evaluation
+protocol, and the user-requested 20 image epochs per stage. They are not
+reproductions of PILOT's original 15-/10-image-epoch settings.
+
+The complete unrounded metrics, stage matrices, recovery lineage and resource
+scopes are in [partitions/tuna/summary.json](partitions/tuna/summary.json).
+Actual CPU-restored component and statistics counts are in
+[checkpoint_evidence/tuna](checkpoint_evidence/tuna/). Those small reports were
+transferred; checkpoint payloads remain on the server.
+
+The two fixed-library 20-epoch runs are still running. The extension currently
+has two of four verified endpoints; the original twelve results are unchanged.
+The full sixteen-result merge requires both host partitions to finish.

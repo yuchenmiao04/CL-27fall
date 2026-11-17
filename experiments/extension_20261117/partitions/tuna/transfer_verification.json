@@ -1,0 +1,18 @@
+{
+  "status": "verified_complete",
+  "partition": "tuna",
+  "verified_results": 2,
+  "summary_sha256_captured_on_server": "aee0a3ff3629b40e2ae98b6d2446722d72257757c30591231a11c8174eac0373",
+  "summary_sha256_verified_after_transfer": "aee0a3ff3629b40e2ae98b6d2446722d72257757c30591231a11c8174eac0373",
+  "auditor_sha256": "ae30b86235b9417f2fbacf65066bc2949bb6d5e4915dd1f6bd173246e5006c03",
+  "server_runtime_identity": {
+    "fingerprint_sha256": "46ae09b80a5f65a890d4fedeb82547e6629e7e51c3d94cbf19b4fa456c7e04ad",
+    "gpu_models": [
+      "NVIDIA GeForce RTX 4090 D",
+      "NVIDIA GeForce RTX 4090 D"
+    ],
+    "rule": "sha256(canonical JSON of boot_id and sorted GPU UUIDs)"
+  },
+  "weight_payload_downloaded": false,
+  "scope": "Two TUNA endpoints only. The current20 partition is still running; this is not completion of the four-job extension."
+}

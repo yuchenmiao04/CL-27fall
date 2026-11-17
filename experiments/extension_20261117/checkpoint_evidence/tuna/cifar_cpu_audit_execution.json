@@ -1,0 +1,26 @@
+{
+  "command": [
+    "/root/cl27-env/bin/python",
+    "/root/autodl-tmp/cl27/extension_20261117/tools/backup_followup_checkpoint_v3.py",
+    "--manifest",
+    "/root/autodl-tmp/cl27/extension_20261117/campaign_tuna20/manifest.json",
+    "--recovery-manifest",
+    "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v1/manifest.json",
+    "--job",
+    "formal_cifar_tuna_native_v1",
+    "--backup-root",
+    "/root/autodl-tmp/cl27/formal_backups/recovery_20261118",
+    "--evidence-root",
+    "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v1/checkpoint_evidence",
+    "--state-loader",
+    "/root/autodl-tmp/cl27/runtime_extension_a006566/scripts/compare_checkpoint_state.py"
+  ],
+  "pid": 18920,
+  "utc": "2026-11-17T20:04:26.068594+00:00",
+  "returncode": 0,
+  "wall_seconds": 27.554059222340584,
+  "maximum_child_rss_kib": 2601380,
+  "user_seconds": 26.497707,
+  "system_seconds": 4.932508,
+  "resource_scope": "CPU audit child process only; Linux maximum RSS in KiB, not training resources."
+}

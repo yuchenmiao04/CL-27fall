@@ -1,0 +1,243 @@
+{
+  "schema_version": 1,
+  "job": "formal_imagenetr_tuna_native_v1",
+  "validation_only": false,
+  "formal_checkpoint_evidence": true,
+  "checkpoint_sha256": "cc7a8e84d013dad3aa90804cb74f9491ac9675c771d7a20e477a309d747ac8f5",
+  "checkpoint_bytes": 832355251,
+  "backup_sha256": "cc7a8e84d013dad3aa90804cb74f9491ac9675c771d7a20e477a309d747ac8f5",
+  "native_restore_verified": true,
+  "source_process_terminal_verified": true,
+  "source_metadata_sha256": {
+    "config": "6ccffbf6dd68df8b94b2e614f231a9a0d8bde957dd608ddc6cc4c2b69dc6201e",
+    "results": "c45a82434c0c51c71fb871a3ac0d4b64ed8171b7a457d6f12dfc18e6d9bd656a",
+    "data_manifest": "80ce1916dfd7986bbb84684a188edb7ce8efb3b2c0cb29dbf5dfe832406a0131"
+  },
+  "backup_checkpoint_path": "/root/autodl-tmp/cl27/formal_backups/recovery_20261118/formal_imagenetr_tuna_native_v1/checkpoint.pt",
+  "source_run_dir": "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v1/runs/formal_imagenetr_tuna_native_v1",
+  "source_receipt_sha256": "625e81de57b986ddc7f1c399b659e0d5b8dc234d4f55c5ddfd8cd338fb40f64d",
+  "source_manifest_sha256": "04fda502b11e670bb3f13b35b31fef7545d2d47728b4947220210c6b3bd0c2c6",
+  "source_terminal_before": {
+    "pid": 2271,
+    "proc_start_ticks": 6397899522,
+    "command": [
+      "/root/cl27-env/bin/python",
+      "/root/autodl-tmp/cl27/runtime_extension_a006566/main.py",
+      "--config",
+      "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v1/configs/formal_imagenetr_tuna_native_v1.json"
+    ],
+    "observed_state": "absent",
+    "observed_exit_code": null,
+    "exit_code_known": false,
+    "original_process_terminal_verified": true,
+    "queue_completion_seal_required": true,
+    "observed_utc": "2026-11-17T19:40:39.997481+00:00"
+  },
+  "source_terminal_after": {
+    "pid": 2271,
+    "proc_start_ticks": 6397899522,
+    "command": [
+      "/root/cl27-env/bin/python",
+      "/root/autodl-tmp/cl27/runtime_extension_a006566/main.py",
+      "--config",
+      "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v1/configs/formal_imagenetr_tuna_native_v1.json"
+    ],
+    "observed_state": "absent",
+    "observed_exit_code": null,
+    "exit_code_known": false,
+    "original_process_terminal_verified": true,
+    "queue_completion_seal_required": true,
+    "observed_utc": "2026-11-17T19:41:06.853531+00:00"
+  },
+  "restore_report": {
+    "native_cpu_restore_executed": true,
+    "compared_nodes": 24601,
+    "reference_semantic_sha256": "56d447296ec1ae7c6bcb4dbeeb469000fabedf8bef7f49eaf99a97e36bac5de9",
+    "restored_semantic_sha256": "56d447296ec1ae7c6bcb4dbeeb469000fabedf8bef7f49eaf99a97e36bac5de9",
+    "ignored_paths": [],
+    "exact_typed_bitwise_comparison": true,
+    "recovery_prefix_verified": true,
+    "source_checkpoint_stages_sha256": "3d798d5598de7c00f9d6f8fd2076a23d67449477d874824229feefe6507adaf8",
+    "restored_final_prefix_sha256": "3d798d5598de7c00f9d6f8fd2076a23d67449477d874824229feefe6507adaf8",
+    "saved_stage_count": 6,
+    "recovery_prefix_compared_nodes": 818,
+    "recovery_prefix_ignored_paths": [],
+    "source_checkpoint_prefix_semantic_sha256": "008dc8dd98f650ee4160e38012f96c039474599ab71e53151013bf9bd3937836",
+    "source_checkpoint_rng_semantic_sha256": "fe382bb8ae588809532953aaccb643c933a00a62edaa26f87abfa9c3ac00279c",
+    "original_checkpoint_sha256": "ee237cf40a49c3cf044c6a4f4cf2a77f8565b6c0953b684fd96bb8949009280c",
+    "resume_checkpoint_sha256": "ee237cf40a49c3cf044c6a4f4cf2a77f8565b6c0953b684fd96bb8949009280c",
+    "recovery_execution_scope": {
+      "wall_seconds": 1619.5569207444787,
+      "wall_seconds_scope": "Resumed segment only, timed by the unchanged runner after restoration; earlier prefix stages retain their original stage timers",
+      "gpu_peak_scope": "Resumed process only, after its CUDA peak reset; not a whole-lineage peak",
+      "interrupted_uncheckpointed_work_cost_reconstructed": false,
+      "complete_lineage_training_cost_claimed": false
+    },
+    "actual_training_rows": 24000,
+    "actual_seen_classes": 200,
+    "source_data_manifest_rebuilt": true,
+    "source_training_arrivals_verified": true,
+    "native_optimizer_parameter_bindings": {},
+    "persisted_mode_map_compared": true,
+    "mode_scope": "All stored module_training/requires_grad leaves compared exactly",
+    "global_rng_payloads_validated_on_cpu": true,
+    "saved_cuda_rng_payload_lengths": [
+      16,
+      16
+    ],
+    "cuda_rng_applied": false,
+    "extra_training_steps": 0,
+    "accuracy_evaluation_performed": false,
+    "finite_scan": {
+      "tensors": 1189,
+      "arrays": 11,
+      "scalars": 254
+    },
+    "restored_resources": {
+      "schema_version": 1,
+      "method": "tuna",
+      "neural_network": {
+        "resident_nn_parameters": 89757896,
+        "resident_nn_parameter_bytes": 359031584,
+        "gradient_eligible_nn_parameters": 3959240,
+        "gradient_eligible_nn_parameter_bytes": 15836960,
+        "registered_nn_buffer_bytes": 0,
+        "components": {
+          "original_backbone_body": {
+            "parameters": 85798656,
+            "parameter_bytes": 343194624,
+            "gradient_eligible_parameters": 0,
+            "gradient_eligible_parameter_bytes": 0,
+            "registered_buffer_bytes": 0
+          },
+          "native_backbone_heads": {
+            "parameters": 153800,
+            "parameter_bytes": 615200,
+            "gradient_eligible_parameters": 153800,
+            "gradient_eligible_parameter_bytes": 615200,
+            "registered_buffer_bytes": 0
+          },
+          "historical_adapters": {
+            "parameters": 3043200,
+            "parameter_bytes": 12172800,
+            "gradient_eligible_parameters": 3043200,
+            "gradient_eligible_parameter_bytes": 12172800,
+            "registered_buffer_bytes": 0
+          },
+          "current_adapters": {
+            "parameters": 304320,
+            "parameter_bytes": 1217280,
+            "gradient_eligible_parameters": 304320,
+            "gradient_eligible_parameter_bytes": 1217280,
+            "registered_buffer_bytes": 0
+          },
+          "merged_adapters": {
+            "parameters": 304320,
+            "parameter_bytes": 1217280,
+            "gradient_eligible_parameters": 304320,
+            "gradient_eligible_parameter_bytes": 1217280,
+            "registered_buffer_bytes": 0
+          },
+          "class_predictor_heads": {
+            "parameters": 153600,
+            "parameter_bytes": 614400,
+            "gradient_eligible_parameters": 153600,
+            "gradient_eligible_parameter_bytes": 614400,
+            "registered_buffer_bytes": 0
+          }
+        },
+        "component_partition_verified": true,
+        "gradient_eligibility_scope": "requires_grad at the restored task boundary; not observed gradient updates",
+        "byte_scope": "Logical tensor payload of unique registered Parameter/buffer objects; no activations, Python overhead, or allocator/peak-memory claim"
+      },
+      "architecture": {
+        "current_adapter_layers": 12,
+        "historical_adapter_sets": 10,
+        "historical_adapter_layers_per_set": [
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12
+        ],
+        "historical_adapter_layers": 120,
+        "merged_adapter_layers": 12,
+        "class_predictor_heads": 10
+      },
+      "optimizer": {
+        "persisted_optimizer_count": 0,
+        "persisted_optimizer_state_tensor_bytes": 0,
+        "per_optimizer": {},
+        "scope": "Native TUNA does not retain its main/CA optimizers across task boundaries; zero persisted state is not a training peak-memory measurement"
+      },
+      "auxiliary": {
+        "class_mean_bytes": 614400,
+        "class_covariance_bytes": 471859200,
+        "historical_class_statistics_bytes": 472473600,
+        "training_arrival_id_bytes": 192000,
+        "native_prefix_state_bytes": 0
+      },
+      "replay": {
+        "images": 0,
+        "inline_rgb_array_bytes": 0,
+        "referenced_images": 0,
+        "referenced_encoded_image_file_bytes": 0,
+        "image_path_utf8_bytes": 0,
+        "image_id_label_int64_payload_bytes": 0,
+        "decoded_rgb_plus_id_label_payload_bytes": 0
+      },
+      "measurement_scope": "Measured from actual CPU-restored completed-task objects; logical tensor payloads and source-image sizes, not matched compute, training FLOPs, wall time, or peak resident memory"
+    },
+    "runtime_source_files_sha256": {
+      "cl27/__init__.py": "77f44223a067ed9123ca03c50fe5b4c423c6dc75afe3b47c2a291af4491e5211",
+      "utils/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "utils/factory.py": "0721744a20b251cb6ca6f1eb6e415032e9a5bd354160882919c76f0b11a76971",
+      "models/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "utils/toolkit.py": "1f64bb032beacb6510bf9eff1e009ad217a42c9a7fa40cd867a56e71cb4123f6",
+      "models/base.py": "55e59eb4698004ae33862332731f172476be28dffafc07e85ad72013d722bcbf",
+      "cl27/common.py": "61089c9c071761e338c4e15eb93618879648a13a4f4708b7b73ad70d4ea1c443",
+      "utils/data.py": "a5f1b056a244439a45c7359c4328ae378c1557078ab81cf332ebaf0a8118f87c",
+      "utils/data_manager.py": "74601c9c46d1e51ee95ee20c8a261b28325b997586bd3bf6e78a361d41289857",
+      "cl27/pilot_imagenetr.py": "037325bb474f1a59a6c1f4d1c0a7960423cb50b0924e903c5b86836c017bb4f5",
+      "cl27/data.py": "18fae0aaa165451c0c7b8f5c06eab2fed34c99be4a31623f3d26b930a7a19230",
+      "cl27/protocol.py": "ebc3048e53dddf95176cf3ce8f01ec0591c343193b5ba3a527eb01ac84d455ae",
+      "cl27/runner.py": "931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e",
+      "backbone/linears.py": "d8cf24ab4cbea4c2b84afe6061cdf4276bb5b4e34c0cb2a56712b63f0b6e4505",
+      "backbone/prompt.py": "ce57c5a4aa5c9c5ab9d7eb70ae27cb5a966ac2a1d9a540b45b55dfcd46ff2b04",
+      "utils/inc_net.py": "62b178b90f2ab5262be5a35082e7d92d8faca74dae01135785bbb0454e9e52ed",
+      "models/tuna.py": "87afb7e1be70c7ee6d7943d5d40eaa1e1fa80057f46bbe3bc898c14c94b56827",
+      "models/tuna_protocol.py": "e9098f2626eeda0f54d8310f1e9b8aebbf60732733473ccc702faa1a380bced3",
+      "backbone/vit_tuna.py": "be59fd0ef53b116c99f16eb68d0275f82cf2fe0386ce252cea9ec3a0f9248f1d"
+    },
+    "state_comparator_sha256": "696416de70cdfb5e7033cc26c93ad005eb5e20918379f4ef01fc3d76142b2d02",
+    "pretrained_npz_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124"
+  },
+  "restore_report_path": "/root/autodl-tmp/cl27/formal_backups/recovery_20261118/formal_imagenetr_tuna_native_v1/native_restore.json",
+  "restore_report_sha256": "4b174bdfa6f2c4770edc0dd8d8a86ccbedf00be2bec2e1bfa701c6bb47a84acb",
+  "auditor_sha256": "c28ef14c2deb7fc98bdcee738842e14c84a269881d6b0d13c421b17e9d45d34d",
+  "audit_wall_seconds": 28.346036054193974,
+  "created_utc": "2026-11-17T19:41:09.338502+00:00",
+  "recovery_manifest_sha256": "5ce2a19e047d5129295d89b89ecce38dd9adf761ecec211e917201d2afb2af0d",
+  "recovery_lineage": {
+    "original_checkpoint_sha256": "ee237cf40a49c3cf044c6a4f4cf2a77f8565b6c0953b684fd96bb8949009280c",
+    "resume_checkpoint_sha256": "ee237cf40a49c3cf044c6a4f4cf2a77f8565b6c0953b684fd96bb8949009280c",
+    "saved_stage_count": 6,
+    "prefix_stages_sha256": "3d798d5598de7c00f9d6f8fd2076a23d67449477d874824229feefe6507adaf8",
+    "config_fingerprint": "faf3819760e198f6a9a620f8b36c10ae8c620b878f9052a0f2b650ae272e1fa2",
+    "data_fingerprint": "014b448f085423b32b6ca0468e7165f896460ff3e4341d1f7bcc305d96a2de76",
+    "random_stream_policy": "canonical_loader_isolated_v1",
+    "prefix_verified": true
+  },
+  "recovery_execution_scope": {
+    "wall_seconds": 1619.5569207444787,
+    "wall_seconds_scope": "Resumed segment only, timed by the unchanged runner after restoration; earlier prefix stages retain their original stage timers",
+    "gpu_peak_scope": "Resumed process only, after its CUDA peak reset; not a whole-lineage peak",
+    "interrupted_uncheckpointed_work_cost_reconstructed": false,
+    "complete_lineage_training_cost_claimed": false
+  }
+}
