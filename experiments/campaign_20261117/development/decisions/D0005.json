@@ -1,0 +1,11 @@
+{
+  "id": "D0005",
+  "kind": "user_protocol_update",
+  "scope": "four proposed methods only",
+  "screening": "first2-3 stages eliminate obvious failures",
+  "final_candidate": "full10-stage development before selection",
+  "formal": "fresh full-training-data refit after selection",
+  "baselines": "ER and Joint fixed conventional settings; no tuning",
+  "prior_records": "Keep completed earlier development diagnostics as historical records; ER initial two-stage run is a pipeline/training sanity check, not baseline parameter selection.",
+  "execution_driver": "ER-shaped CE caches may support candidate methods, but driver variants are not tuned ER benchmark rows and cannot alter the fixed formal ER configuration."
+}

@@ -1,0 +1,41 @@
+{
+  "model_name": "joint",
+  "cl27_protocol": "pilot_figure2",
+  "dataset": "cifar224",
+  "phase": "final",
+  "prefix": "fixed_conventional_no_search",
+  "seed": [
+    1993
+  ],
+  "device": [
+    0
+  ],
+  "shuffle": true,
+  "init_cls": 10,
+  "increment": 10,
+  "backbone_type": "vit_base_patch16_224",
+  "pretrained": true,
+  "memory_size": 0,
+  "memory_per_class": 0,
+  "fixed_memory": false,
+  "replay_selection": "herding",
+  "data_root": "data/cifar100",
+  "download": false,
+  "epochs": 20,
+  "batch_size": 64,
+  "replay_batch_size": 0,
+  "backbone_lr": 1e-05,
+  "head_lr": 0.001,
+  "weight_decay": 0.0001,
+  "feature_batch_size": 16,
+  "eval_batch_size": 64,
+  "num_workers": 0,
+  "cpu_threads": 4,
+  "save_checkpoints": true,
+  "output_dir": "runs/formal/formal_cifar_joint_fixed_v1",
+  "evaluation_head": "cnn",
+  "implementation_commit": "b125dbd0361ba1dc5a7e532804c768459023ac96",
+  "experiment_role": "fixed_baseline",
+  "test_reporting_policy": "Read final test metrics only after proposed-method development selection is frozen",
+  "path_export_note": "Portable paths; exact runtime expansion is retained privately."
+}

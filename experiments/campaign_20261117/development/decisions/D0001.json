@@ -1,0 +1,17 @@
+{
+  "id": "D0001",
+  "kind": "initial_diagnostic_trials",
+  "reason": "Establish a full-data training-holdout CE trajectory and a module-learning cost/loss reference before adapting hyperparameters. No grid. Current-module five-epoch screen is not a budget-matched performance comparison with ER.",
+  "data_access": "train split only; fixed internal holdout; official test never opened",
+  "trials": [
+    "cifar_er_initial_v1",
+    "cifar_current_initial_v1"
+  ],
+  "expected_observations": [
+    "loss trend and epoch throughput",
+    "current/old-class holdout accuracy after each stage",
+    "module/backbone updates and skips",
+    "checkpoint and statistics counts"
+  ],
+  "next_rule": "Choose subsequent changes from measured underfitting, old-class loss and module runtime; complete ten-stage development before freezing final configurations."
+}

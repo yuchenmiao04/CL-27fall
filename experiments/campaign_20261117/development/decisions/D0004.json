@@ -1,0 +1,29 @@
+{
+  "id": "D0004",
+  "kind": "adaptive_parameter_change",
+  "prior_trial": "cifar_shared_initial_v1",
+  "evidence": {
+    "holdout_final": 0.6428,
+    "holdout_aia": 0.7658966666666667,
+    "last_stage_new_accuracy": 0.524,
+    "last_stage_old_accuracy": 0.656,
+    "effective_rank": 32,
+    "default_isotropic_ridge": 1000
+  },
+  "hypothesis": "The strong isotropic residual shrinkage (noise/epsilon=1000) and limited shared rank penalize new contrasts after more than32 classes. Lower observation noise alone to0.01 (residual ridge10), a scale closer to a one-hot residual than variance1. Inspect scores and EM before changing rank or iteration budget.",
+  "change": {
+    "basis_noise_variance": {
+      "from": 1.0,
+      "to": 0.01
+    }
+  },
+  "unchanged": [
+    "rank32",
+    "epsilon0.001",
+    "max_iter20",
+    "data",
+    "seed",
+    "features"
+  ],
+  "official_test_used": false
+}

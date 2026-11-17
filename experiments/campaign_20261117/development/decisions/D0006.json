@@ -1,0 +1,16 @@
+{
+  "id": "D0006",
+  "kind": "fixed_baseline_execution",
+  "job": "formal_cifar_joint_fixed_v1",
+  "reason": "Baselines are no longer tuned. Joint uses the previously specified20-epoch AdamW baseline configuration unchanged; execute it once on the complete official training set while proposed-method development uses the other GPU.",
+  "parameter_search": false,
+  "full_training_images": 50000,
+  "fixed_hyperparameters": {
+    "epochs": 20,
+    "batch_size": 64,
+    "backbone_lr": 1e-05,
+    "head_lr": 0.001,
+    "weight_decay": 0.0001
+  },
+  "test_metric_policy": "Do not inspect its test metrics to choose proposed-method parameters; open for final reporting only after selection is frozen."
+}

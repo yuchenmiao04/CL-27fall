@@ -1,0 +1,11 @@
+{
+  "id": "D0003",
+  "kind": "initial_shared_prior_calibration",
+  "parameters": "shared_initial_v1.json",
+  "reason": "Evaluate the existing explicit prior on the entire ten-stage training-holdout stream. Inspect validation scores, effective rank, isotropic-collapse conditions and EM termination before selecting a next noise/regularization/rank change. This is one configuration, not a search grid.",
+  "datasets": [
+    "cifar224",
+    "imagenetr"
+  ],
+  "official_test_used": false
+}

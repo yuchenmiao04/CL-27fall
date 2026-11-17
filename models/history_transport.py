@@ -19,7 +19,7 @@ from cl27.common import (
 )
 from cl27.cores.transport import TransportHistory
 from cl27.replay import ReplayMemory
-from cl27.transport_training import adapt_backbone, expand_head
+from cl27.transport_training import adapt_backbone, execute_adaptation, expand_head
 
 
 def _cpu_state(module):
@@ -128,7 +128,9 @@ class Learner(IntegratedLearner):
         self.ce_head = expand_head(
             self.ce_head, self.backbone.out_dim, self._total_classes, self._device
         )
-        training = adapt_backbone(
+        training = execute_adaptation(
+            self,
+            adapt_backbone,
             self.backbone,
             self.ce_head,
             train,

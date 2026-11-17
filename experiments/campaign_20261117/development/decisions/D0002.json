@@ -1,0 +1,15 @@
+{
+  "id": "D0002",
+  "kind": "execution_cache",
+  "reason": "Precompute immutable pretrained training-only features once, while the module trial uses microbatches and has substantial memory headroom; later basis candidates fit on CPU without repeated ViT inference.",
+  "datasets": [
+    "cifar224",
+    "imagenetr"
+  ],
+  "cache_scope": "development-only; no official test; never attached to formal replay-free learner",
+  "encoding_batches": {
+    "fit": 16,
+    "holdout": 64
+  },
+  "concurrency": "Shares GPU1 temporarily with module development; runtime accounting records contention. No training batch/updates/objective changes."
+}

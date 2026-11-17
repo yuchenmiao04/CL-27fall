@@ -1,0 +1,18 @@
+{
+  "id": "D0008",
+  "kind": "adaptive_screen",
+  "prior_evidence": {
+    "imagenetr_default_final": 0.43314582431847687,
+    "final_effective_rank": 30,
+    "final_em_iterations": 1
+  },
+  "change": {
+    "basis_noise_variance": {
+      "from": 1.0,
+      "to": 0.01
+    }
+  },
+  "screen_stages": 3,
+  "reason": "Default prior has severe shrinkage and weak class separation. Independently screen lower one-hot observation noise on the cached ImageNet-R training holdout, keeping other settings unchanged.",
+  "official_test_used": false
+}

@@ -301,7 +301,7 @@ def _run_joint(args, model, dm, output, fingerprint, device):
     return result
 
 
-def run(args):
+def run(args, *, ce_training_executor=None):
     args = copy.deepcopy(args)
     args.setdefault("phase", "final")
     validate_protocol(args)
@@ -348,6 +348,10 @@ def run(args):
     args["nb_classes"] = dm.nb_classes
     args["nb_tasks"] = dm.nb_tasks
     model = factory.get_model(args["model_name"], args)
+    if ce_training_executor is not None:
+        if args["model_name"] not in {"er", "history_transport", "plastic_shared_basis"}:
+            raise ValueError("CE trajectory reuse is limited to the three matching CE-body methods")
+        model._ce_training_executor = ce_training_executor.for_run(args, dm.manifest)
     if args["model_name"] == "joint":
         return _run_joint(args, model, dm, output, fingerprint, device)
     stages = []
@@ -459,5 +463,7 @@ def run(args):
             ),
         },
     }
+    if ce_training_executor is not None:
+        result["execution"]["ce_training_reuse"] = model._ce_training_executor.report()
     write_json(output / "results.json", result)
     return result

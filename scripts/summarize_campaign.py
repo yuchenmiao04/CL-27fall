@@ -155,6 +155,8 @@ def inspect_run(result_path, root):
     dataset, method = config.get("dataset"), config.get("model_name")
     if dataset not in DATASETS or method not in METHODS:
         return None, "outside the two-dataset/six-method scope"
+    if method == "er" and config.get("execution_role") == "internal_shared_ce_driver":
+        return None, "internal shared CE driver, not the fixed ER baseline"
     seed = config.get("seed")
     if seed != 1993 and seed != [1993]:
         return None, "seed is not 1993"

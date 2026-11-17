@@ -1,5 +1,5 @@
 {
-  "status": "awaiting_tuning_data_decision",
+  "status": "adaptive_development_running",
   "formal_completed": 0,
   "formal_required": 12,
   "seed": 1993,
@@ -36,7 +36,55 @@
     "imagenetr_genuine_vit_checks": 6,
     "both_gpu_capacity_probes_passed": true
   },
-  "tuning_data_policy": null,
+  "tuning_data_policy": {
+    "source": "fixed_internal_training_holdout",
+    "validation_fraction": 0.1,
+    "split_seed": 0,
+    "selection": "adaptive_not_grid",
+    "formal_refit": "complete_training_split",
+    "official_test": "final_reporting_only"
+  },
   "official_test_used_for_hyperparameter_selection": false,
-  "agent_b_contacted": false
+  "agent_b_contacted": true,
+  "review_handoff": {
+    "message": "0007",
+    "status": "pending",
+    "methods": [
+      "shared_basis",
+      "history_transport",
+      "current_adapted",
+      "plastic_shared_basis"
+    ],
+    "source_commit": "b125dbd0361ba1dc5a7e532804c768459023ac96",
+    "artifact": "artifacts/agent-a/method_review_20261117/",
+    "publication_verified": true,
+    "blocking": false
+  },
+  "user_resume": "Start experiments now without waiting for Agent B",
+  "tuning_scope": {
+    "methods": [
+      "shared_basis",
+      "history_transport",
+      "current_adapted",
+      "plastic_shared_basis"
+    ],
+    "screening_stages": [
+      2,
+      3
+    ],
+    "final_candidate_validation_stages": 10,
+    "formal_refit": "all_training_data_from_initial_pretrained_weights",
+    "baseline_search": false,
+    "fixed_baselines": [
+      "er",
+      "joint"
+    ]
+  },
+  "development_tool_validation": {
+    "cpu_tests_passed": 224,
+    "cuda_trajectory_gate": "pending"
+  },
+  "formal_running": [
+    "formal_cifar_joint_fixed_v1"
+  ]
 }

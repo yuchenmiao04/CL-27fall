@@ -1,0 +1,19 @@
+{
+  "id": "D0007",
+  "kind": "adaptive_screen",
+  "prior_evidence": {
+    "cifar_shared_default_final": 0.6428,
+    "cifar_noise001_final": 0.8386,
+    "cifar_noise001_stage3": 0.928,
+    "cifar_noise001_em": "iteration_limit at final stage"
+  },
+  "change": {
+    "basis_noise_variance": {
+      "from": 0.01,
+      "to": 0.001
+    }
+  },
+  "screen_stages": 3,
+  "reason": "The single noise reduction improved full-stream development19.58 points and removed severe new-class suppression. Test one further reduction with unchanged rank/epsilon/EM to see whether residual shrinkage still limits fit. Only advance to ten stages if promising.",
+  "official_test_used": false
+}

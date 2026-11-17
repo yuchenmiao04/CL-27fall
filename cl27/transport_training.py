@@ -18,6 +18,18 @@ from torch.utils.data import DataLoader
 from torch.utils.data._utils.collate import default_collate
 
 
+def execute_adaptation(owner, native_adapt, *arguments):
+    """Optional execution-only CE reuse; independent learners take native path.
+
+    Keep the caller's imported native function so existing validation hooks and
+    independent entry points retain their original behavior.
+    """
+    executor = getattr(owner, "_ce_training_executor", None)
+    if executor is None:
+        return native_adapt(*arguments)
+    return executor.adapt(owner, native_adapt, *arguments)
+
+
 def expand_head(head, feature_dim, classes, device):
     result = nn.Linear(feature_dim, classes).to(device)
     if head is not None:
