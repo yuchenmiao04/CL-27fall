@@ -1,0 +1,56 @@
+{
+  "decision": "D0052",
+  "private_raw_archive_sha256": "481bdf4112fee2431b239d294a04672640c3354b8ebecc801ca533ed20c2f0e8",
+  "path_replacements": {
+    "server_project_root": "runtime/",
+    "server_environment_root": "environment/",
+    "remaining_server_home_paths": "server_home/"
+  },
+  "files": [
+    {
+      "path": "cifar_plastic_shared_basis_direct_split_full_v1/results.json",
+      "original_sha256": "b70bd046ed8c451bb781df8c5e0b7b8eddc66d2f6eaa5d90d80712e01b175fbe",
+      "exported_sha256": "961dd64ba4c34b74e202ded9498fc01f71bd80ad2357701dfc3a028dde32ef7f"
+    },
+    {
+      "path": "cifar_plastic_shared_basis_direct_split_full_v1/config.json",
+      "original_sha256": "28735d8c0514816006d81f2ebbcc371f173ff65dd1b05c290579cc45cab1dd70",
+      "exported_sha256": "013eaa20e8f93e1531abbf5cfd6a3f52f2280fbef4b82897b3eb9fa8d201a881"
+    },
+    {
+      "path": "cifar_plastic_shared_basis_direct_split_full_v1/data_manifest.json",
+      "original_sha256": "a2a29a76b9a2deacb95bd4a520728bc42348338125c336e532db21de2943fdbc",
+      "exported_sha256": "a2a29a76b9a2deacb95bd4a520728bc42348338125c336e532db21de2943fdbc"
+    },
+    {
+      "path": "cifar_psb_noise1e3_full_v2/results.json",
+      "original_sha256": "cdfa9bdab81908f10ffe240a8807e3fce498532c88cff39422a1411e07d7fa28",
+      "exported_sha256": "18fb35ee65f822d6bd114ab16d41e373afff5730818b1b6951ddf76f993a0368"
+    },
+    {
+      "path": "cifar_psb_noise1e3_full_v2/config.json",
+      "original_sha256": "6cabe2b0d8ec93ba78904c366cb70f43c74739747d05775d9b0a5915d97f8240",
+      "exported_sha256": "d4e6988c9e865b127ec24cc1fb1aa179e267be30a13488103d302dfe48e9478f"
+    },
+    {
+      "path": "cifar_psb_noise1e3_full_v2/data_manifest.json",
+      "original_sha256": "a2a29a76b9a2deacb95bd4a520728bc42348338125c336e532db21de2943fdbc",
+      "exported_sha256": "a2a29a76b9a2deacb95bd4a520728bc42348338125c336e532db21de2943fdbc"
+    },
+    {
+      "path": "cifar_psb_chained_full_v4/results.json",
+      "original_sha256": "5271b63185cdb52b757b0e93477e311dc6eb0fc6a472536ed290b1cf9360f30a",
+      "exported_sha256": "509f8f5f1396241408ff54aea12cbd7d8c7449b89d9e33c778c3b965bab36d1d"
+    },
+    {
+      "path": "cifar_psb_chained_full_v4/config.json",
+      "original_sha256": "d5875947396c7ad31f88309f7d54bf5ee83095d00ce579c249a6bf500735ab46",
+      "exported_sha256": "2db1e50b17fcacfe81156950a0315e20fd15d807fa0441da331a3b6b281d6106"
+    },
+    {
+      "path": "cifar_psb_chained_full_v4/data_manifest.json",
+      "original_sha256": "a2a29a76b9a2deacb95bd4a520728bc42348338125c336e532db21de2943fdbc",
+      "exported_sha256": "a2a29a76b9a2deacb95bd4a520728bc42348338125c336e532db21de2943fdbc"
+    }
+  ]
+}

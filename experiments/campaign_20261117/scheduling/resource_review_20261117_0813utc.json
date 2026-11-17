@@ -1,0 +1,294 @@
+{
+  "schema_version": 1,
+  "recorded_utc": "2026-11-17T08:21:29.977034+00:00",
+  "training_observation_utc": "2026-11-17T08:13:38.139474+00:00",
+  "memory_observation_utc": "2026-11-17T08:07:44.360714+00:00",
+  "scope": "Read-only scheduling/cost review using live PID identity, training epoch logs, development stage elapsed times, training sample counts and source. No formal test accuracies read or used. No job launched, stopped, restarted or modified.",
+  "gpu_snapshot": [
+    {
+      "physical_index": 0,
+      "reported_total_MiB": 32607,
+      "used_MiB": 26576,
+      "free_MiB": 5536,
+      "utilization_percent": 100
+    },
+    {
+      "physical_index": 1,
+      "reported_total_MiB": 32607,
+      "used_MiB": 30503,
+      "free_MiB": 1609,
+      "utilization_percent": 100
+    }
+  ],
+  "long_jobs": [
+    {
+      "job": "imagenetr_current_bounded64_full_v5",
+      "phase": "development",
+      "physical_gpu": 0,
+      "process_memory_MiB": 6440,
+      "completed_stages": 7,
+      "current_stage_zero_based": 7,
+      "completed_epochs_in_current_stage": 2,
+      "epochs_per_stage": 5,
+      "remaining_training_epochs": 13,
+      "remaining_scheduled_episode_attempts": 1700,
+      "remaining_stage_commits": 3,
+      "recent_evidence": {
+        "stage6_epoch_seconds": [
+          389.09697768464684,
+          409.2967601530254,
+          449.61198707297444,
+          409.40185299888253,
+          442.15932657942176
+        ],
+        "stage7_completed_epoch_seconds": [
+          559.6613587811589,
+          556.8697797507048
+        ],
+        "stage7_episode_attempts_per_epoch": 160,
+        "future_stage8_attempts_per_epoch": 112,
+        "future_stage9_attempts_per_epoch": 132
+      },
+      "planning_range_minutes_if_current_contention_persists": [
+        90,
+        120
+      ],
+      "range_note": "Weighted remaining attempts use actual task sizes; includes stage overhead. Joint/readers terminating can improve throughput; this is not a completion-time guarantee."
+    },
+    {
+      "job": "cifar_current_bounded64_full_v4",
+      "phase": "development",
+      "physical_gpu": 1,
+      "process_memory_MiB": 6440,
+      "completed_stages_at_prior_snapshot": 4,
+      "current_stage_zero_based": 4,
+      "completed_epochs_in_current_stage": 5,
+      "epochs_per_stage": 5,
+      "remaining_training_epochs": 25,
+      "remaining_scheduled_episode_attempts": 7100,
+      "remaining_stage_commits_including_current_unconfirmed": 6,
+      "recent_epoch_seconds": [
+        468.20125027000904,
+        469.4140493609011,
+        470.3044516891241,
+        462.05304596200585,
+        464.4438981227577
+      ],
+      "episode_attempts_per_epoch": 284,
+      "planning_range_minutes_if_current_contention_persists": [
+        200,
+        230
+      ],
+      "range_note": "Current stage training is done; commit was not assumed complete without its stage record. CF ER may finish first and reduce contention."
+    },
+    {
+      "job": "cifar_current_mb2_screen_v5",
+      "phase": "development",
+      "physical_gpu": 0,
+      "process_memory_MiB_at_memory_snapshot": 5594,
+      "completed_stages": 1,
+      "current_stage_zero_based": 1,
+      "completed_epochs_in_current_stage": 3,
+      "epochs_per_stage": 5,
+      "screen_stages": 3,
+      "remaining_training_epochs_for_screen": 7,
+      "remaining_scheduled_episode_attempts_for_screen": 994,
+      "recent_stage1_epoch_seconds": [
+        563.3207776136696,
+        525.8695371635258,
+        538.5244701616466
+      ],
+      "episode_attempts_per_epoch": 142,
+      "planning_range_minutes_if_current_contention_persists": [
+        65,
+        80
+      ],
+      "if_promoted_unchanged_after_screen": {
+        "additional_stages": 7,
+        "additional_epochs": 35,
+        "additional_scheduled_episode_attempts": 4970
+      },
+      "range_note": "A surviving screen still requires the full ten-stage development continuation before selection; it is not ready for formal refit."
+    },
+    {
+      "job": "formal_cifar_er_fixed_v1",
+      "phase": "final",
+      "physical_gpu": 1,
+      "process_memory_MiB": 24048,
+      "completed_stages": 3,
+      "current_stage_zero_based": 3,
+      "completed_epochs_in_current_stage": 15,
+      "epochs_per_stage": 20,
+      "remaining_training_epochs": 125,
+      "remaining_optimizer_updates": 9875,
+      "current_rows_per_stage": 5000,
+      "updates_per_epoch": 79,
+      "recent_epoch_seconds_range": [
+        74.9,
+        76.9
+      ],
+      "planning_range_minutes_if_current_contention_persists": [
+        165,
+        195
+      ],
+      "range_note": "Includes growing all-seen evaluation/herding/checkpoint overhead. Derived only from training timings and stage counts."
+    },
+    {
+      "job": "formal_imagenetr_joint_fixed_v1",
+      "phase": "final",
+      "physical_gpu": 0,
+      "process_memory_MiB": 11452,
+      "completed_epochs": 14,
+      "epochs_total": 20,
+      "remaining_training_epochs": 6,
+      "remaining_optimizer_updates": 2250,
+      "updates_per_epoch": 375,
+      "recent_epoch_seconds": [
+        437.9775495417416,
+        408.17397643998265,
+        425.6891686283052,
+        437.24286256730556,
+        419.6246537640691,
+        415.7235165387392
+      ],
+      "planning_range_minutes_if_current_contention_persists": [
+        35,
+        55
+      ],
+      "range_note": "Plus one final evaluation/checkpoint. Earlier epochs took 208–327 seconds under different contention; departure of other jobs may improve speed."
+    }
+  ],
+  "imagenetr_formal_er_workload": {
+    "status": "not_launched_at_review",
+    "epochs_per_stage": 20,
+    "total_updates": 7580,
+    "formal_training_rows": 24000,
+    "development_fit_rows": 21689,
+    "stage_counts": [
+      {
+        "task": 0,
+        "formal_current_rows": 2804,
+        "development_current_rows": 2534,
+        "formal_updates_per_epoch": 44,
+        "development_module_outer4_attempts_per_epoch": 160
+      },
+      {
+        "task": 1,
+        "formal_current_rows": 2562,
+        "development_current_rows": 2312,
+        "formal_updates_per_epoch": 41,
+        "development_module_outer4_attempts_per_epoch": 148
+      },
+      {
+        "task": 2,
+        "formal_current_rows": 2343,
+        "development_current_rows": 2117,
+        "formal_updates_per_epoch": 37,
+        "development_module_outer4_attempts_per_epoch": 136
+      },
+      {
+        "task": 3,
+        "formal_current_rows": 2293,
+        "development_current_rows": 2073,
+        "formal_updates_per_epoch": 36,
+        "development_module_outer4_attempts_per_epoch": 132
+      },
+      {
+        "task": 4,
+        "formal_current_rows": 2175,
+        "development_current_rows": 1967,
+        "formal_updates_per_epoch": 34,
+        "development_module_outer4_attempts_per_epoch": 124
+      },
+      {
+        "task": 5,
+        "formal_current_rows": 2665,
+        "development_current_rows": 2408,
+        "formal_updates_per_epoch": 42,
+        "development_module_outer4_attempts_per_epoch": 152
+      },
+      {
+        "task": 6,
+        "formal_current_rows": 2124,
+        "development_current_rows": 1922,
+        "formal_updates_per_epoch": 34,
+        "development_module_outer4_attempts_per_epoch": 124
+      },
+      {
+        "task": 7,
+        "formal_current_rows": 2816,
+        "development_current_rows": 2543,
+        "formal_updates_per_epoch": 44,
+        "development_module_outer4_attempts_per_epoch": 160
+      },
+      {
+        "task": 8,
+        "formal_current_rows": 1948,
+        "development_current_rows": 1762,
+        "formal_updates_per_epoch": 31,
+        "development_module_outer4_attempts_per_epoch": 112
+      },
+      {
+        "task": 9,
+        "formal_current_rows": 2270,
+        "development_current_rows": 2051,
+        "formal_updates_per_epoch": 36,
+        "development_module_outer4_attempts_per_epoch": 132
+      }
+    ],
+    "historical_matching_development_ce_training_seconds_per_update": {
+      "min": 0.825585851728013,
+      "median": 1.160862109751926,
+      "max": 1.4001981170114242,
+      "sampled_epochs": 140
+    },
+    "planning_range_minutes_after_launch_with_one_ordinary_module": [
+      150,
+      210
+    ],
+    "range_note": "7580 updates times historical 1.16–1.40 s/update implies about147–177 min of gradient work, then encoding/evaluation/I/O. This is conditional on comparable contention and CPU/JPEG throughput, not an absolute finish timestamp."
+  },
+  "resource_gate_for_formal_imagenetr_er": {
+    "preferred_physical_gpu": 0,
+    "baseline_future_batch_rows": 128,
+    "measured_cifar_er_peak_process_memory_MiB": 24048,
+    "reserved_formal_r_er_MiB": 24576,
+    "minimum_margin_MiB": 1024,
+    "minimum_effective_free_MiB": 25600,
+    "require_all": [
+      "No other CE/Joint trainer remains on the selected GPU.",
+      "JointR has terminated and released its allocation; a result file alone does not prove memory is released.",
+      "All analytic readers have terminated, unless a stricter complete peak-budget calculation still leaves the stated margin.",
+      "At most one ordinary module remains, with its demonstrated high-water allocation near6440MiB; budget future growth of a still-maturing MB2 process before evaluating effective free memory.",
+      "Confirm PID/start-ticks/command identities and actual nvidia-smi allocations; two successive memory observations must satisfy the gate.",
+      "Use the same fixed ER training configuration; preserve fresh full-data training and record its device choice before recording the formal trajectory."
+    ],
+    "effective_free_definition": "reported free minus reserved additional high-water growth of surviving jobs. Do not infer capacity from ER stage0 batch64: stage1 onward uses up to128 rows.",
+    "joint_exit_alone_is_insufficient": true,
+    "r_old_module_exit_alone_is_insufficient": true,
+    "earliest_generic_condition": "Joint and readers end, and either MB2 screen or R old module ends, leaving only one module. Both modules need not end if the measured peak gate passes.",
+    "priority_rule": "When MB2 screen completes while R old module remains, do not immediately consume a second module slot with MB2 full continuation on GPU0; give the next safe slot to formal R ER.",
+    "if_gate_fails": "Leave live work running; wait for a natural process termination. Do not restart partial training or weaken the method to make it fit.",
+    "possible_trigger_window_minutes_from_observation": [
+      60,
+      120
+    ],
+    "trigger_window_note": "A planning window from observed Joint/module remaining work; actual admission depends on measured free memory, not this estimate."
+  },
+  "formal_module_placement": {
+    "selection_gate": "Complete ten-stage internal-holdout candidates first; select without formal test accuracy. Formal module runs start fresh on the full official training split, never by changing phase on a development checkpoint.",
+    "preferred_next_location": "After formal CF ER terminates, GPU1 can host the selected formal R module alongside the continuing CF development module(s), within measured peak budgets. This avoids adding a second6GB module beside R ER on GPU0.",
+    "alternative_location": "If R old module has ended and MB2 is absent from GPU0, a selected formal module may occupy the single6GB co-resident slot beside R ER, subject to the same future-batch peak gate.",
+    "mb2_continuation_location": "If promoted, use GPU1 after CF ER terminates, or replace the naturally finished R old module on GPU0; do not stack it into an extra slot beside R ER.",
+    "training_volume_note": "Formal CF has79 current minibatches/stage versus71 in development. Formal R has379 current minibatches across all stages versus345 in development. Fixed-batch memory need not grow with dataset size, but training update count does.",
+    "outer_schedule_caveat": "Old M,M,B,M has3 module and1 backbone update per minibatch; new M,B has1 module and1 backbone update. Halving outer-update count does not halve backbone work or establish a2x speedup."
+  },
+  "reader_tail_policy": "Finish the queued CF old-prior .01 reference and R PSB map .1 full development readers before admitting another memory-heavy gradient job when their reservations would violate its peak budget. Do not extend the reader search merely to fill the GPU.",
+  "no_single_overall_completion_time_claimed": true,
+  "sources": {
+    "epoch_logs": "campaign_20261117/{development,formal}/logs/<job>.log; formal parsed only task counters and epoch_progress training records",
+    "development_stage_times": "development/runs/<module>/progress.json wall_seconds fields only",
+    "training_counts": "ImageFolder official ImageNet-R train directory plus the fixed internal split rule and recorded class order",
+    "module_engine_sha256": "43fc2597aeaaa64f23517d598cbb62a0a18e0af1f82520bdfd58de265aa1e372"
+  }
+}

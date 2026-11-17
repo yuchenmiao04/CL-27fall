@@ -1,0 +1,55 @@
+{
+  "id": "D0050",
+  "kind": "full_development_shared_prior_continuation",
+  "dataset": "imagenetr",
+  "method": "plastic_shared_basis",
+  "prior_decision": "D0049",
+  "prior": "imagenetr_psb_chained_map01_screen_v5",
+  "candidate": "imagenetr_psb_chained_map01_full_v5",
+  "predeclared_screen_gate": {
+    "reference_final_accuracy": 0.8847184986595175,
+    "maximum_allowed_final_drop_fraction": 0.005,
+    "minimum_candidate_final_accuracy": 0.8797184986595175,
+    "observed_candidate_final_accuracy": 0.8820375335120644,
+    "observed_candidate_correct": 658,
+    "evaluation_images": 746,
+    "candidate_aia": 0.91262599645084,
+    "completed_stages": 3,
+    "all_serialized_numeric_records_finite": true,
+    "all_three_native_ce_transitions_reused_with_guards": true,
+    "own_checkpoint_exists": true,
+    "passed": true
+  },
+  "reason": "The single mapping-penalty adaptation passed the numerical and predeclared three-stage Final gate in D0049. Extend its own analytic state unchanged to all ten development stages; the prefix is not sufficient for final selection.",
+  "change": {
+    "max_tasks": {
+      "from": 3,
+      "to": 10
+    },
+    "output_dir": "new full-development run directory",
+    "resume": "own completed gamma=0.1 three-stage shared-prior checkpoint"
+  },
+  "exact_changed_configuration_keys": [
+    "max_tasks",
+    "output_dir",
+    "resume"
+  ],
+  "hyperparameters_changed": false,
+  "unchanged": {
+    "transport_mode": "chained",
+    "map_ridge": 0.1,
+    "basis_noise_variance": 0.0001,
+    "basis_rank": 32,
+    "basis_epsilon": 0.001,
+    "basis_max_iter": 20,
+    "basis_tolerance": 1e-06,
+    "epochs": 20,
+    "seed": [
+      1993
+    ]
+  },
+  "formal_selection_requirement": "Compare only complete ten-stage development candidates using unrounded Final first and AIA second; selected method requires a fresh full-training formal refit.",
+  "official_test_used_for_parameter_decision": false,
+  "no_further_search": "No new noise, rank, learning-rate, transport, or HT candidate is added by this decision. HT remains locked by D0048.",
+  "candidate_status": "prepared_only; not launched by this preparation"
+}

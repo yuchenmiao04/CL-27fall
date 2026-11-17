@@ -1,0 +1,167 @@
+{
+  "id": "D0051",
+  "kind": "freeze_method_hyperparameters",
+  "method": "plastic_shared_basis",
+  "dataset": "imagenetr",
+  "selected_development_trial": "imagenetr_psb_chained_map01_full_v5",
+  "selected_result_sha256": "d71ac0e15072a94d0b9ce8ad89ff1efcf6db6e4068da3d9c7acd7d340d4ecee5",
+  "selection_candidates": [
+    {
+      "trial": "imagenetr_ce_full_v1_plastic_shared_basis",
+      "mode": "direct",
+      "map_ridge": 0.01,
+      "basis_noise_variance": 0.01,
+      "basis_rank": 32,
+      "metrics": {
+        "final_accuracy": 0.7806144526179143,
+        "aia": 0.8316797838610814,
+        "forgetting_previous": 0.10833110644980687,
+        "forgetting_including_final": 0.10833110644980687,
+        "completed_tasks": 10,
+        "definition": "Fractions; AIA is mean stage sample-weighted all-seen accuracy; forgetting averages old tasks only."
+      },
+      "final_correct": 1804,
+      "final_evaluation_images": 2311,
+      "data_fingerprint": "a3f6bfac903cffd7ef5e7e5f2badeead19bb37d7f4a928faff0f36fe9cc59313",
+      "result_sha256": "0d78eb1496caf1169f4544eb238be63052322c5ab236830070850f67ca97c535",
+      "config_sha256": "ee97230e832baab213fbe8a337bcd9f9e4db4b69fcf001c8e709312a0b1348c9",
+      "data_manifest_sha256": "71684ed1caf31cd387ef0fb24c46cd93eadb67a619fd7752c9582bacf961e8ea"
+    },
+    {
+      "trial": "imagenetr_psb_noise1e3_full_v2",
+      "mode": "direct",
+      "map_ridge": 0.01,
+      "basis_noise_variance": 0.001,
+      "basis_rank": 32,
+      "metrics": {
+        "final_accuracy": 0.7948939852877542,
+        "aia": 0.8432673439674476,
+        "forgetting_previous": 0.10324105505649363,
+        "forgetting_including_final": 0.10324105505649363,
+        "completed_tasks": 10,
+        "definition": "Fractions; AIA is mean stage sample-weighted all-seen accuracy; forgetting averages old tasks only."
+      },
+      "final_correct": 1837,
+      "final_evaluation_images": 2311,
+      "data_fingerprint": "a3f6bfac903cffd7ef5e7e5f2badeead19bb37d7f4a928faff0f36fe9cc59313",
+      "result_sha256": "4bf355e8d3d1488f80b3c1c4ddd85e58e67ed1b9a9d5425b3124a332bc13490d",
+      "config_sha256": "f750bc003ffd14cf5af8ceac25a8a8a4620fb632dd175759eabb963db607071a",
+      "data_manifest_sha256": "71684ed1caf31cd387ef0fb24c46cd93eadb67a619fd7752c9582bacf961e8ea"
+    },
+    {
+      "trial": "imagenetr_psb_noise1e4_full_v3",
+      "mode": "direct",
+      "map_ridge": 0.01,
+      "basis_noise_variance": 0.0001,
+      "basis_rank": 32,
+      "metrics": {
+        "final_accuracy": 0.7966248377325833,
+        "aia": 0.8446695013807801,
+        "forgetting_previous": 0.10083106333382412,
+        "forgetting_including_final": 0.10083106333382412,
+        "completed_tasks": 10,
+        "definition": "Fractions; AIA is mean stage sample-weighted all-seen accuracy; forgetting averages old tasks only."
+      },
+      "final_correct": 1841,
+      "final_evaluation_images": 2311,
+      "data_fingerprint": "a3f6bfac903cffd7ef5e7e5f2badeead19bb37d7f4a928faff0f36fe9cc59313",
+      "result_sha256": "cf4b31b94fae8efafcd90a9c9879a46ac82b7a0e6e308b2ec8c9901d38403ac6",
+      "config_sha256": "8d6039eb641d2ebb33ae8f836237a5f18196140da51eec61a069c2405f81f72d",
+      "data_manifest_sha256": "71684ed1caf31cd387ef0fb24c46cd93eadb67a619fd7752c9582bacf961e8ea"
+    },
+    {
+      "trial": "imagenetr_psb_chained_full_v4",
+      "mode": "chained",
+      "map_ridge": 0.01,
+      "basis_noise_variance": 0.0001,
+      "basis_rank": 32,
+      "metrics": {
+        "final_accuracy": 0.8026828212894851,
+        "aia": 0.8575518746065006,
+        "forgetting_previous": 0.0804813269426698,
+        "forgetting_including_final": 0.08107869850778329,
+        "completed_tasks": 10,
+        "definition": "Fractions; AIA is mean stage sample-weighted all-seen accuracy; forgetting averages old tasks only."
+      },
+      "final_correct": 1855,
+      "final_evaluation_images": 2311,
+      "data_fingerprint": "a3f6bfac903cffd7ef5e7e5f2badeead19bb37d7f4a928faff0f36fe9cc59313",
+      "result_sha256": "b57628d376d50f55a8559d453ca91559d35ba7e5c3877c23c8421cab6e045123",
+      "config_sha256": "38be7cd967b2f7441db04e9921a5063d6ad55b6d400edfc8fd6d4e5b9659faef",
+      "data_manifest_sha256": "71684ed1caf31cd387ef0fb24c46cd93eadb67a619fd7752c9582bacf961e8ea"
+    },
+    {
+      "trial": "imagenetr_psb_chained_map01_full_v5",
+      "mode": "chained",
+      "map_ridge": 0.1,
+      "basis_noise_variance": 0.0001,
+      "basis_rank": 32,
+      "metrics": {
+        "final_accuracy": 0.8052790999567286,
+        "aia": 0.8593405130911019,
+        "forgetting_previous": 0.07504699149321571,
+        "forgetting_including_final": 0.0762417346234427,
+        "completed_tasks": 10,
+        "definition": "Fractions; AIA is mean stage sample-weighted all-seen accuracy; forgetting averages old tasks only."
+      },
+      "final_correct": 1861,
+      "final_evaluation_images": 2311,
+      "data_fingerprint": "a3f6bfac903cffd7ef5e7e5f2badeead19bb37d7f4a928faff0f36fe9cc59313",
+      "result_sha256": "d71ac0e15072a94d0b9ce8ad89ff1efcf6db6e4068da3d9c7acd7d340d4ecee5",
+      "config_sha256": "ea6dc979fdc032c3be55d735f094e5ada95851b9016c797aee041e4d8672691c",
+      "data_manifest_sha256": "71684ed1caf31cd387ef0fb24c46cd93eadb67a619fd7752c9582bacf961e8ea"
+    }
+  ],
+  "criterion": "All five existing candidates completed ten fixed internal training-holdout stages. Rank by unrounded Final first and AIA second. The chained map_ridge=0.1/noise=0.0001 candidate has the highest Final and AIA, so that complete configuration is selected.",
+  "selection_improvement": {
+    "vs_previous_chained_map001": {
+      "correct_samples": 6,
+      "final_percentage_points": 0.25962786672435456,
+      "aia_percentage_points": 0.17886384846013126
+    },
+    "vs_best_direct": {
+      "correct_samples": 20,
+      "final_percentage_points": 0.8654262224145337
+    }
+  },
+  "selected_parameters": {
+    "transport_mode": "chained",
+    "residual_model": "class_conditional_psd",
+    "map_ridge": 0.1,
+    "head_ridge": 0.01,
+    "covariance_shrinkage": 0.1,
+    "mean_shrinkage": 20.0,
+    "crossfit_folds": 5,
+    "basis_rank": 32,
+    "basis_epsilon": 0.001,
+    "basis_noise_variance": 0.0001,
+    "basis_max_iter": 20,
+    "basis_tolerance": 1e-06,
+    "basis_reset_each_task": true,
+    "epochs": 20,
+    "backbone_lr": 1e-05,
+    "head_lr": 0.001,
+    "weight_decay": 0.0001
+  },
+  "interpretation": "This complete one-seed development comparison supports selecting the stronger mapping regularizer within PSB. It does not establish multi-seed stability, a formal-test improvement, or an isolated gain from shared-basis learning over a matched non-PSB head.",
+  "evidence": "../selection_evidence/imagenetr_plastic_shared_v5/export_manifest.json",
+  "evidence_validation": {
+    "complete_stage_metric_closure_passed": true,
+    "all_serialized_numeric_records_finite": true,
+    "same_development_data_fingerprint": true,
+    "same_ten_post_stage_backbone_hashes": true,
+    "all_raw_evidence_sha256_verified": true,
+    "private_raw_archive_sha256": "3b4f46512628db63e0ec0584b5d80753c40e061e4c6d73491f713ab7ca483808"
+  },
+  "official_test_used_for_parameter_decision": false,
+  "formal_refit": "Fresh initial pretrained state, all official training rows, no development checkpoint/moments/cache. Reuse only matching formal fixed-ER CE transitions after all ten exist and per-stage native guards pass.",
+  "formal_job": "formal_imagenetr_plastic_shared_selected_v5",
+  "formal_configuration_reuse_identity": "d109f9c6aee82a9517cf884b27c81c44b7d0908b561092638c844383528cf3bb",
+  "formal_baseline_comparator": "formal_imagenetr_er_fixed_v1 configuration only; no formal test result read",
+  "formal_execution_status": "prepared_only; not launched",
+  "hpo_closed": true,
+  "hpo_closure_scope": "ImageNet-R plastic_shared_basis only: no further noise, rank, mapping-penalty or learning-rate candidates. CIFAR PSB remains unlocked pending its existing full-flow comparator.",
+  "created_utc": "2026-11-17T08:38:30.735573+00:00",
+  "formal_fixed_er_config_sha256": "f5e6da82869a936aa80e24b1a10fe50a3a61b5aa38469f05dafdb9d599f430aa",
+  "formal_reuse_identity_verified_against_actual_server_config": true
+}

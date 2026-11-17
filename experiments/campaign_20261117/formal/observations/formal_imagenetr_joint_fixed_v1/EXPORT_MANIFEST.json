@@ -1,0 +1,52 @@
+{
+  "job": "formal_imagenetr_joint_fixed_v1",
+  "original_metadata_verified_against_remote_audit": true,
+  "paths_exported": "Only absolute operational path prefixes rewritten; original bytes retained privately and original/exported hashes recorded. Exported config is an audit view, not a new executed config.",
+  "local_current_inspect_run_and_validate_complete_passed": true,
+  "local_summary_validator_sha256": "fc49f07d6bacdcd8e71c6d38eba66cf4ca9187f4252a3187e180cde189026f9b",
+  "files": [
+    {
+      "file": "config.json",
+      "original_sha256": "40419d9c86e65e80d85aa4e28aec41138d55bd2117f2a919e823c9a7dff7c885",
+      "exported_sha256": "1e3a20b8ab774218ed3f21b14192a63027a386ffecb1752e8406994bee6619b9",
+      "original_bytes": 1302,
+      "exported_bytes": 1260
+    },
+    {
+      "file": "results.json",
+      "original_sha256": "09bb7ce9bf45dc90f7ed72da0115abf68fb24ef1de518876ec62d6b58c24579b",
+      "exported_sha256": "09bb7ce9bf45dc90f7ed72da0115abf68fb24ef1de518876ec62d6b58c24579b",
+      "original_bytes": 8188,
+      "exported_bytes": 8188
+    },
+    {
+      "file": "data_manifest.json",
+      "original_sha256": "80ce1916dfd7986bbb84684a188edb7ce8efb3b2c0cb29dbf5dfe832406a0131",
+      "exported_sha256": "80ce1916dfd7986bbb84684a188edb7ce8efb3b2c0cb29dbf5dfe832406a0131",
+      "original_bytes": 8381,
+      "exported_bytes": 8381
+    },
+    {
+      "file": "launch_receipt.json",
+      "original_sha256": "ad9ca33282d4f1a92a98e778a4d69e0e17d68a43077eae1f0a463379c313acdf",
+      "exported_sha256": "dc340c124aaefdac83a4f86c7ebb7d56e7742e8bedf50ee506b77c5642741360",
+      "original_bytes": 638,
+      "exported_bytes": 607
+    },
+    {
+      "file": "training.log",
+      "original_sha256": "8cb444ed49432d71670bc1670bf0eddbcf924a935e2f6c1c865194569280b9f4",
+      "exported_sha256": "8cb444ed49432d71670bc1670bf0eddbcf924a935e2f6c1c865194569280b9f4",
+      "original_bytes": 4756,
+      "exported_bytes": 4756
+    },
+    {
+      "file": "audit_receipt.json",
+      "original_sha256": "6e45fd932196a293c81b8023459e7a7c6f30fc0664b5271fb40b9305b5d511f3",
+      "exported_sha256": "6e45fd932196a293c81b8023459e7a7c6f30fc0664b5271fb40b9305b5d511f3",
+      "original_bytes": 4683,
+      "exported_bytes": 4683
+    }
+  ],
+  "checkpoint_downloaded_by_this_audit": false
+}

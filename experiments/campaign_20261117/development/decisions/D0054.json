@@ -1,0 +1,128 @@
+{
+  "id": "D0054",
+  "kind": "freeze_method_hyperparameters",
+  "method": "current_adapted",
+  "dataset": "imagenetr",
+  "selected_development_trial": "imagenetr_current_bounded64_full_v5",
+  "selected_result_sha256": "194300a528fa52d712570896c7d4cedbd055fb5e130ec946d393da31d05bdfb7",
+  "selected_config_sha256": "303e72e1ad729cd3ab745ef7972d618984f4604fcb79c617828ed947f4677fb0",
+  "selected_data_manifest_sha256": "71684ed1caf31cd387ef0fb24c46cd93eadb67a619fd7752c9582bacf961e8ea",
+  "selected_checkpoint_sha256": "06bbebd1115719e5c9101f173401dc8bdf87a4e467a2715235e0c7d2f5c49827",
+  "selection_candidates": [
+    {
+      "trial": "imagenetr_current_bounded64_full_v5",
+      "metrics": {
+        "final_accuracy": 0.799221116399827,
+        "aia": 0.8475382752072307,
+        "forgetting_previous": 0.08585496192948888,
+        "forgetting_including_final": 0.08585496192948888,
+        "completed_tasks": 10,
+        "definition": "Fractions; AIA is mean stage sample-weighted all-seen accuracy; forgetting averages old tasks only."
+      },
+      "final_correct": 1847,
+      "final_evaluation_images": 2311,
+      "data_fingerprint": "a3f6bfac903cffd7ef5e7e5f2badeead19bb37d7f4a928faff0f36fe9cc59313"
+    }
+  ],
+  "criterion": "The sole surviving complete ImageNet-R fixed-library candidate has completed all10 fixed internal training-holdout stages and passed checkpoint/state audits. Lock this existing configuration without introducing further ImageNet-R module HPO. Formal test scores were not read or used.",
+  "selected_parameters": {
+    "epochs": 5,
+    "batch_size": 64,
+    "backbone_lr": 1e-05,
+    "module_lr": 0.0001,
+    "weight_decay": 0.0001,
+    "module_layers": [
+      7,
+      9
+    ],
+    "modules_per_layer": 4,
+    "module_rank": 8,
+    "outer_updates": 4,
+    "schedule": [
+      "modules",
+      "modules",
+      "backbone",
+      "modules"
+    ],
+    "base_ridge": 0.01,
+    "residual_ridge": 0.01,
+    "temperature": 10.0,
+    "support_shots": [
+      1,
+      5
+    ],
+    "background_shots": 5,
+    "target_classes": 5,
+    "query_per_class": 2,
+    "episode_replay_batch_size": 64,
+    "feature_batch_size": 16
+  },
+  "evidence": "../selection_evidence/imagenetr_current_v5/export_manifest.json",
+  "checkpoint_evidence": {
+    "history_rows": 21689,
+    "all_seen_classes": 200,
+    "fixed_libraries": {
+      "positions": [
+        7,
+        9
+      ],
+      "count_per_layer": 4,
+      "rank": 8,
+      "scale": 0.1,
+      "width": 768
+    },
+    "native_cpu_restore_passed": true,
+    "both_main_and_library_changed_each_task": true,
+    "anchor_matches_initial_and_is_frozen_on_restore": true,
+    "legal_resident_images": 4000,
+    "resident_images_per_class": 20,
+    "complete_AdamW_states": [
+      {
+        "name": "modules",
+        "algorithm": "AdamW",
+        "parameter_count": 8,
+        "complete_parameter_states": 8,
+        "min_step": 5175,
+        "max_step": 5175
+      },
+      {
+        "name": "backbone",
+        "algorithm": "AdamW",
+        "parameter_count": 150,
+        "complete_parameter_states": 150,
+        "min_step": 1725,
+        "max_step": 1725
+      }
+    ],
+    "owned_CPU_and_PCG64_generators_restored": true,
+    "global_RNG_state_saved_and_schema_checked": true,
+    "CUDA_RNG_payloads_applied_to_live_jobs": false,
+    "all_serialized_numeric_checkpoint_values_finite": true,
+    "ten_stage_metric_closure_passed": true
+  },
+  "interpretation": "The completed one-seed development result supports freezing this candidate for formal refit. It does not establish multi-seed stability, beneficial future-class reuse, causal module value or an efficiency advantage over alternatives.",
+  "formal_refit": {
+    "initialization": "Fresh original pretrained weights and new optimizers; no development resume, statistics or learned parameters.",
+    "training_rows": 24000,
+    "training_count_basis": "Official training split, equal to the21689 fitting plus2311 internal holdout rows used during development; validation_only=false restores all original training rows.",
+    "scope": "Full10 stages,20 new classes each; test all seen classes without task ID.",
+    "job": "formal_imagenetr_current_selected_v5",
+    "preferred_device": [
+      1
+    ],
+    "execution_status": "prepared_only; not launched"
+  },
+  "launch_constraints": {
+    "required_predecessor": {
+      "job": "formal_cifar_er_fixed_v1",
+      "condition": "Natural successful completion and terminal original process identity; validate completion using status/stage count without consulting its accuracy for selection."
+    },
+    "placement": "Preferred physical/logical GPU1; this module method does not use a CE execution cache.",
+    "resources": "Run the current resource preflight before dispatch and reserve the measured module budget plus safety margin; prepared files do not authorize ignoring live jobs or VRAM.",
+    "enforcement": "Generic launch_jobs.py does not enforce these metadata guards; the scheduler must verify them immediately before launch."
+  },
+  "hpo_closed": true,
+  "hpo_closure_scope": "ImageNet-R current_adapted only; no new ImageNet-R module candidate is introduced. Existing CIFAR MB2 development continuation remains separate.",
+  "official_test_used_for_parameter_decision": false,
+  "created_utc": "2026-11-17T09:32:54.581366+00:00"
+}

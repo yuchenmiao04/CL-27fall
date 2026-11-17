@@ -1,0 +1,22 @@
+{
+  "job": "formal_imagenetr_joint_fixed_v1",
+  "pid": 25652,
+  "proc_start_ticks": "1789467574",
+  "launch_utc": "2026-11-17T06:45:05Z",
+  "cwd": "runtime/runtime_b125dbd",
+  "command": [
+    "environment/bin/python",
+    "main.py",
+    "--config",
+    "runtime/campaign_20261117/formal/configs/formal_imagenetr_joint_fixed_v1.json"
+  ],
+  "metadata": {
+    "execution_role": "fixed_baseline",
+    "hyperparameter_search": false,
+    "gpu": 0,
+    "source_base_commit": "b125dbd0361ba1dc5a7e532804c768459023ac96",
+    "recording_wrapper_commit": null,
+    "prepared_only": false
+  },
+  "environment": {}
+}

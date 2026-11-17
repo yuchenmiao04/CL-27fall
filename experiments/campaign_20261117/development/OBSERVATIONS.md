@@ -12,8 +12,12 @@ Internal training-holdout scores only. Different stage/class counts are not dire
 | cifar_current_bg1_screen_v2 | cifar224 | 2 | 97.30 | 98.25 |
 | cifar_current_bounded64_screen_v4 | cifar224 | 3 | 96.87 | 97.99 |
 | cifar_current_initial_v1 | cifar224 | 2 | 98.00 | 98.70 |
+| cifar_current_mb2_screen_v5 | cifar224 | 3 | 96.80 | 97.97 |
 | cifar_er_initial_v1 | cifar224 | 2 | 97.80 | 98.80 |
+| cifar_plastic_shared_basis_direct_split_full_v1 | cifar224 | 10 | 89.68 | 93.88 |
+| cifar_psb_chained_full_v4 | cifar224 | 10 | 90.78 | 94.83 |
 | cifar_psb_chained_screen_v4 | cifar224 | 3 | 97.60 | 98.40 |
+| cifar_psb_noise1e3_full_v2 | cifar224 | 10 | 89.74 | 93.91 |
 | cifar_psb_noise1e3_screen_v2 | cifar224 | 3 | 96.60 | 98.03 |
 | cifar_shared_em100_screen_v4 | cifar224 | 3 | 92.80 | 94.73 |
 | cifar_shared_initial_v1 | cifar224 | 10 | 64.28 | 76.59 |
@@ -35,8 +39,11 @@ Internal training-holdout scores only. Different stage/class counts are not dire
 | imagenetr_ce_screen_v1_er | imagenetr | 3 | 82.71 | 88.73 |
 | imagenetr_ce_screen_v1_history_transport | imagenetr | 3 | 86.19 | 90.02 |
 | imagenetr_ce_screen_v1_plastic_shared_basis | imagenetr | 3 | 84.72 | 89.64 |
+| imagenetr_current_bounded64_full_v5 | imagenetr | 10 | 79.92 | 84.75 |
 | imagenetr_current_bounded64_screen_v5 | imagenetr | 3 | 87.40 | 90.48 |
 | imagenetr_psb_chained_full_v4 | imagenetr | 10 | 80.27 | 85.76 |
+| imagenetr_psb_chained_map01_full_v5 | imagenetr | 10 | 80.53 | 85.93 |
+| imagenetr_psb_chained_map01_screen_v5 | imagenetr | 3 | 88.20 | 91.26 |
 | imagenetr_psb_chained_screen_v4 | imagenetr | 3 | 88.47 | 91.16 |
 | imagenetr_psb_noise0001_screen_v2 | imagenetr | 3 | 85.92 | 89.93 |
 | imagenetr_psb_noise1e3_full_v2 | imagenetr | 10 | 79.49 | 84.33 |
@@ -55,6 +62,7 @@ Internal training-holdout scores only. Different stage/class counts are not dire
 | imagenetr_shared_stronger_isotropic_diagnostic_v8 | imagenetr | 10 | 65.43 | 72.13 |
 | imagenetr_shared_stronger_screen_v8 | imagenetr | 3 | 79.22 | 82.30 |
 | imagenetr_transport_chained_full_v2 | imagenetr | 10 | 80.31 | 85.77 |
+| imagenetr_transport_chained_map01_full_v3 | imagenetr | 10 | 80.57 | 85.92 |
 | imagenetr_transport_chained_map01_screen_v3 | imagenetr | 3 | 88.20 | 91.20 |
 | imagenetr_transport_chained_screen_v2 | imagenetr | 3 | 88.47 | 91.16 |
 

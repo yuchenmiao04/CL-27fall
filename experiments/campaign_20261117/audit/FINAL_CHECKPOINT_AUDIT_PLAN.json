@@ -1,0 +1,857 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-17T08:47:24.888022+00:00",
+  "status": "audit_plan_not_completion_certificate",
+  "required_formal_cells": 12,
+  "per_formal_cell_audit_status": "pending independent final-run audit; no12-cell completion claim",
+  "scope": "Read-only schema and evidence planning. Trusted existing checkpoints inspected on CPU for structure/counters/tensor identity only. No formal accuracy/AIA/forgetting values accessed, no training, no GPU run, no tests invoked.",
+  "notation": {
+    "cp": "CPU-loaded trusted checkpoint.pt",
+    "manifest": "sibling data_manifest.json",
+    "config": "exact executed run config.json",
+    "result": "sibling results.json",
+    "N": "CIF50000 orR24000 formal training rows",
+    "C": "CIF100 orR200 final classes",
+    "[prefix.*]": "strip the stated prefix from encoder state_dict keys when reconstructing backbone hashes"
+  },
+  "expected_protocol": {
+    "seed": 1993,
+    "datasets": {
+      "cifar224": {
+        "classes": 100,
+        "stages": 10,
+        "class_increment": 10,
+        "train_N": 50000,
+        "eval_N": 10000,
+        "replay_final": 2000
+      },
+      "imagenetr": {
+        "classes": 200,
+        "stages": 10,
+        "class_increment": 20,
+        "train_N": 24000,
+        "eval_N": 6000,
+        "replay_final": 4000
+      }
+    },
+    "random_stream_policy": "canonical_loader_isolated_v1",
+    "pretrained_weight_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124"
+  },
+  "pinned_formal_data_identities_observed_without_scores": {
+    "cifar224": {
+      "train_source_sha256": "735e79b04f092ca3d2e6d07f368c0a7d70d48c48d28865950cc24454cf45129b",
+      "evaluation_source_sha256": "4b67687d9933c4db8f0831104447f15b93774f4f464bd0516f0f0f2ac83b7864",
+      "data_fingerprint": "98b4aa3a9e6bfd167c52eb391f6dc1b028f2fb920f8a20c8c48751282b8f7ed4"
+    },
+    "imagenetr": {
+      "train_source_sha256": "925706d3908e5ebe55c5a18565f5699786074013cee3f1fcd525095836b19035",
+      "evaluation_source_sha256": "ff2d41d250c2223126e3749d0b9eaed8d926e1f5f06725a11b4a8a312652eba2",
+      "data_fingerprint": "014b448f085423b32b6ca0468e7165f896460ff3e4341d1f7bcc305d96a2de76"
+    }
+  },
+  "schema_samples_inspected": [
+    {
+      "job": "formal_cifar_joint_fixed_v1",
+      "sample_role": "existing formal schema probe only",
+      "cur_task": 9,
+      "stages": 1,
+      "unique_training_images": 50000,
+      "output_weight_shape": [
+        100,
+        768
+      ],
+      "body_differs_initial": true,
+      "global_rng_fields": [
+        "python",
+        "numpy",
+        "torch",
+        "cuda"
+      ],
+      "cuda_rng_count": 2
+    },
+    {
+      "job": "formal_cifar_shared_selected_v7",
+      "sample_role": "existing formal schema probe only",
+      "cur_task": 9,
+      "stages": 10,
+      "n_samples": 50000,
+      "classes": 100,
+      "basis_rank": 64,
+      "basis_nonzero": true,
+      "actual_frozen_hash_matches_provenance": true,
+      "full_manifest_seed_order_fit_ids_verified": true
+    },
+    {
+      "job": "formal_imagenetr_shared_selected_v7",
+      "sample_role": "existing formal schema probe only",
+      "cur_task": 9,
+      "stages": 10,
+      "n_samples": 24000,
+      "classes": 200,
+      "basis_rank": 64,
+      "basis_nonzero": true,
+      "actual_frozen_hash_matches_provenance": true,
+      "minimum_formal_class_train_rows": 38,
+      "full_manifest_seed_order_fit_ids_verified": true
+    },
+    {
+      "job": "cifar_transport_chained_full_v2",
+      "sample_role": "completed development schema; not formal",
+      "n_samples": 45000,
+      "classes": 100,
+      "tasks": 10,
+      "head_shape": [
+        769,
+        100
+      ],
+      "replay_rows": 2000,
+      "anchor_hash_matches_provenance": true,
+      "body_differs_initial": true
+    },
+    {
+      "job": "imagenetr_ce_full_v1_plastic_shared_basis",
+      "sample_role": "completed development schema; not formal",
+      "n_samples": 21689,
+      "classes": 200,
+      "tasks": 10,
+      "basis_rank": 32,
+      "basis_nonzero": true,
+      "replay_rows": 4000,
+      "anchor_hash_matches_provenance": true,
+      "body_differs_initial": true
+    },
+    {
+      "job": "cifar_current_bounded64_screen_v4",
+      "sample_role": "completed3-stage development prefix schema; not full stream/formal",
+      "n_samples": 13500,
+      "classes": 30,
+      "tasks": 3,
+      "replay_rows": 1980,
+      "per_class_replay": 66,
+      "W0_shape": [
+        769,
+        30
+      ],
+      "V_shape": [
+        769,
+        30
+      ],
+      "anchor_hash_matches_provenance": true,
+      "body_differs_initial": true,
+      "module_U_nonzero": true,
+      "optimizer_state_counts": {
+        "modules": 8,
+        "backbone": 150
+      },
+      "module_updates": 3195,
+      "backbone_updates": 1065
+    },
+    {
+      "job": "cifar_ce_full_v1_er",
+      "sample_role": "completed development internal CE driver schema; not formal baseline",
+      "n_samples": 45000,
+      "classes": 100,
+      "tasks": 10,
+      "replay_rows": 2000,
+      "body_differs_initial": true
+    }
+  ],
+  "common_checks": [
+    {
+      "id": "A01_formal_inventory_and_selection",
+      "applies_to": "all12",
+      "fields": [
+        "config.dataset",
+        "config.model_name",
+        "config.seed",
+        "config.phase",
+        "config.validation_only",
+        "config.max_tasks",
+        "config.validation_max_per_class",
+        "config.joint_max_classes",
+        "result.status",
+        "result.phase",
+        "explicit_selection_manifest"
+      ],
+      "assertions": [
+        "Exactly six explicitly selected methods per dataset; allseed1993; final phase and no validation/truncation/caps.",
+        "Frozen shared basis, HT, fixed library, plastic shared basis, fixed ER, offline Joint must all be retained regardless of score.",
+        "Selections trace to completed ten-stage internal-training-holdout decisions, never highest formal test accuracy."
+      ],
+      "evidence": "Config + decision records + selected run paths + completed results; summarize_campaign is one check, not full completion proof.",
+      "gap": "A complete-looking filename/status or matching output dimension alone does not prove full-data training."
+    },
+    {
+      "id": "A02_manifest_full_official_data",
+      "applies_to": "all12",
+      "fields": [
+        "manifest.dataset",
+        "manifest.phase",
+        "manifest.train_count",
+        "manifest.evaluation_count",
+        "manifest.evaluation_source",
+        "manifest.official_test_read",
+        "manifest.validation_only",
+        "manifest.train_source_sha256",
+        "manifest.evaluation_source_sha256",
+        "manifest.fit_ids_sha256",
+        "manifest.evaluation_ids_sha256",
+        "manifest.fingerprint",
+        "cp.data_fingerprint",
+        "result.data_fingerprint"
+      ],
+      "assertions": [
+        "CIFAR formaltrain50000/eval10000; ImageNet-R prepared formaltrain24000/eval6000.",
+        "phasefinal, validation_onlyfalse, evaluation_sourcedesignated_test, official_test_readtrue.",
+        "Recompute manifest fingerprint from every field exceptfingerprint using source JSON serialization; match checkpoint/result.",
+        "Recompute dataset source manifests/checksums and full natural-order int64fit IDs, not just stored self-declarations."
+      ],
+      "gap": "Manifest self-consistency is not independent source authenticity; source files/checksums and correct loader version are needed."
+    },
+    {
+      "id": "A03_seed_order_and_preprocessing",
+      "applies_to": "all12",
+      "fields": [
+        "config.seed",
+        "config.shuffle",
+        "config.init_cls",
+        "config.increment",
+        "manifest.class_order",
+        "manifest.order_rule",
+        "manifest.class_mapping",
+        "manifest.preprocessing_source",
+        "manifest.normalization"
+      ],
+      "assertions": [
+        "Seed1993; shuffletrue; class order exactly RandomState(1993).permutation(100 or200).",
+        "Ten equal class stages,10classesCIF/20classesR; official class_mapping preserved.",
+        "224input, upstream training crop/flip and evaluation resize256/centercrop224, no extra pixel mean/std normalization.",
+        "Analytic feature L2 normalization is a separate method parameter; do not confuse it with image pixel normalization."
+      ],
+      "gap": "The manifest contains descriptive transform strings, not a serialized full executable transform; validate pinned loader/source and actual config."
+    },
+    {
+      "id": "A04_pretrained_source_and_runtime",
+      "applies_to": "all12",
+      "fields": [
+        "config.backbone_type",
+        "config.pretrained",
+        "config.implementation_commit",
+        "method-specific backbone_provenance",
+        "run_receipt.cwd",
+        "runtime_source_identity_manifest"
+      ],
+      "assertions": [
+        "Native vit_base_patch16_224, timm0.6.12, AugReg IN21K thenIN1K checkpoint family.",
+        "Weight file SHA256 ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124.",
+        "Independently load/check the immutable initial pretrained feature model and match provenance.initial_state_sha256.",
+        "Bind actual runtime file SHAs to its source snapshot; a config implementation_commit string or upstream_commit alone does not prove our code identity."
+      ],
+      "gap": "configuration_fingerprint excludes output/resume/max_tasks/device/num_workers/cpu_threads; validate those execution fields separately. Weight-state hash helper omitsdtype, so verify tensor dtype/shape too."
+    },
+    {
+      "id": "A05_checkpoint_lifecycle",
+      "applies_to": "all12",
+      "fields": [
+        "cp.version",
+        "cp.random_stream_policy",
+        "cp.config_fingerprint",
+        "cp.data_fingerprint",
+        "cp.learner.version",
+        "cp.learner.method",
+        "cp.learner.cur_task",
+        "cp.learner.known_classes",
+        "cp.learner.total_classes",
+        "cp.stages",
+        "cp.learner.task_diagnostics"
+      ],
+      "assertions": [
+        "Outer version1 and canonical_loader_isolated_v1 policy; exact selected config/data fingerprint.",
+        "All final models have cur_task9 and100/200known=totalclasses.",
+        "CIL:10stages/10diagnostics; Joint:1stage/1diagnostic at protocol endpoint9, not10fits.",
+        "Checkpoint stage records agree with result stage records; summary matrix/metric closure checked separately."
+      ],
+      "gap": "Joint cur_task9 means selected class-union protocol endpoint, not nine completed incremental fits. No partial-task checkpoint is a supported resume state."
+    },
+    {
+      "id": "A06_arrivals_exactly_once",
+      "applies_to": "all12",
+      "fields": [
+        "method-specific N/counts/per-classcounts",
+        "method-specific task arrival records",
+        "manifest.fit_ids_sha256",
+        "stage fitting-ID evidence",
+        "pinned current-task commit source"
+      ],
+      "assertions": [
+        "Per-method final history count or unique union count equals officialN and per-class counts match official training labels after remapping.",
+        "Every incoming task contains only its new classes and unique stable IDs; class partitions are disjoint.",
+        "Persistent G/C count changes once per task by number of unique current arrivals, not epochs or replay presentations.",
+        "For PSB, transported snapshot fitting replaces basis statistics rather than adds history again."
+      ],
+      "gap": "Equal totalN alone cannot exclude duplicate rows replacing omitted rows. Frozen basis stores per-task ordered-ID hashes; Joint stores union ordered-ID hash; HT/PSB/ER can use exact CE request current IDs/raw-content digest. Current-library checkpoint lacks a full historical-ID ledger, so combine fixed dataset/source/partition guards with count increments, or independently re-encode frozen-anchor G/C if stronger evidence is needed. Do not claim final moments alone certify membership."
+    },
+    {
+      "id": "A07_all_seen_output_space",
+      "applies_to": "all12",
+      "fields": [
+        "cp.learner.known_classes",
+        "cp.learner.total_classes",
+        "method-specific classes and head tensors",
+        "cp.stages[*].prediction_space",
+        "cp.stages[*].seen_classes"
+      ],
+      "assertions": [
+        "Final vocabulary exactly list(range(C)); class columns and deployment scores cover all100/200classes.",
+        "Each CIL stage scores all seen classes without task ID or task-block mask.",
+        "Validate native checkpoint restore and, if needed, CPU analytic-head score shape; basis weights/intercept are reconstructed, not directly serialized."
+      ],
+      "gap": "A C-column auxiliary CE head alone does not establish the deployed analytic output path; inspect method network/readout wiring."
+    },
+    {
+      "id": "A08_replay_budget_and_membership",
+      "applies_to": [
+        "history_transport",
+        "plastic_shared_basis",
+        "current_adapted",
+        "er"
+      ],
+      "fields": [
+        "method-specific replay.records",
+        "replay.classes",
+        "replay.seen",
+        "replay.fixed",
+        "replay.memory_size",
+        "replay.memory_per_class",
+        "replay.selection",
+        "replay.rng",
+        "cp.learner.task_diagnostics[*].replay_images"
+      ],
+      "assertions": [
+        "CIF fixedtotal2000: atC_tclasses, each class quota floor(2000/C_t), actual total C_t*floor(2000/C_t) when enough class data; final100classes2000images,20/class.",
+        "R fixed20/class: actual total20*C_t; final200classes4000images. Actual official full R minimum class size38 supports every20/class slot.",
+        "Unique retained sample IDs, correct labels/remapped classes, original uint8 RGB arrays or existing original file paths, no future/test IDs.",
+        "Validate all stages, not only final quota; training minibatch replay amount and episode replay budget are separate settings."
+      ],
+      "gap": "At30CIFclasses actual memory1980, not2000; never fail that legal floor allocation. Path strings alone do not verify R image bytes; bind to actual data manifest."
+    },
+    {
+      "id": "A09_frozen_paths_and_plastic_body",
+      "applies_to": "method-dependent",
+      "fields": [
+        "method-specific initial/final backbone and anchor tensors/hashes",
+        "provenance.initial_state_sha256",
+        "cp.learner.task_diagnostics[*].backbone_sha256_before",
+        "cp.learner.task_diagnostics[*].backbone_sha256_after",
+        "cp.learner.task_diagnostics[*].anchor_sha256",
+        "cp.learner.task_diagnostics[*].training"
+      ],
+      "assertions": [
+        "Frozen shared basis actual backbone tensor hash equals independently bound initial state at every reported stage.",
+        "HT/PSB/current anchor tensors equal initial pretrained tensors; all task anchor hashes agree.",
+        "Plastic final body differs initial; stage hashes form a coherent before/after chain and match actual final tensor state.",
+        "CE routes have finite positive backbone-gradient diagnostics; current also inspect nonzero backbone Adam moments and successful update counters."
+      ],
+      "gap": "requires_grad and eval mode are not saved in ordinary state_dict; final unchanged weights alone do not prove frozen-by-construction. Check source freezer/eval policy and optimizer parameter exclusion. Weight change alone may include weight decay, so combine update/gradient evidence."
+    },
+    {
+      "id": "A10_analytic_moment_integrity",
+      "applies_to": [
+        "shared_basis",
+        "history_transport",
+        "plastic_shared_basis",
+        "current_adapted"
+      ],
+      "fields": [
+        "method-specific G/C/counts/head",
+        "native core load_state_dict validators"
+      ],
+      "assertions": [
+        "Finite arrays/tensors, expected dimensions/dtypes, symmetric Gram and native PSD/moment consistency checks.",
+        "Augmented bias coordinate count cells equalN where applicable; per-class sums/counts match expected remapped official class counts.",
+        "Restored readout is consistent with saved moments/config.",
+        "Transport anchor history is exact in frozen coordinates, while predictive current_G/C are surrogate moments; do not call the latter exact current-feature history."
+      ],
+      "gap": "Moment consistency and PSD checks cannot certify nonlinear transport assumptions or old-population accuracy."
+    },
+    {
+      "id": "A11_basis_learning_activity",
+      "applies_to": [
+        "shared_basis",
+        "plastic_shared_basis"
+      ],
+      "fields": [
+        "method-specific D",
+        "basis diagnostics.basis_updated",
+        "basis diagnostics.iterations",
+        "basis diagnostics.effective_rank",
+        "basis diagnostics.log_likelihood_history",
+        "basis config"
+      ],
+      "assertions": [
+        "Check that EM was enabled and executed, D is finite with allowed shape/rank, and learned covariance differs isotropic initialization when claiming noncollapsed shared-basis activity.",
+        "Nonzero D/effective rank plus update diagnostics support actual prior fitting; changing D alone can reflect a factor rotation, so inspect D@D.T when comparing covariances.",
+        "PSB basis_reset_each_tasktrue; config prior scale and iteration settings match the selected full-development candidate."
+      ],
+      "gap": "basis_updated flag or iteration count alone does not prove a nonzero basis or benefit. If it legitimately collapses, report it; this does not justify omitting the formal result or claiming successful transfer. Learning activity is not evidence of accuracy benefit."
+    },
+    {
+      "id": "A12_module_learning_activity",
+      "applies_to": [
+        "current_adapted"
+      ],
+      "fields": [
+        "cp.learner.core.engine.encoder[libraries.*]",
+        "cp.learner.core.engine.module_updates",
+        "cp.learner.core.engine.backbone_updates",
+        "cp.learner.core.engine.updates",
+        "cp.learner.core.engine.optimizers",
+        "cp.learner.task_diagnostics[*].modules_changed"
+      ],
+      "assertions": [
+        "Architecture/options exactly match selected configuration; all fixed libraries exist at selected layers with selected count/rank.",
+        "Positive successful module/backbone updates; counters and optimizer steps/moments finite and consistent.",
+        "U starts exactlyzero in source: actual nonzero final U is direct evidence of a learned module correction; inspect before/after module hash flags and nonzero Adam moments as corroboration.",
+        "Record schedule/outer_updates/episode_replay_batch_size explicitly; do not restore one policy under another."
+      ],
+      "gap": "Random initial V is already nonzero; Vnorm alone is not evidence of learning. Parameter changes do not establish module benefit, specialization or cross-task reuse; those claims need separate experiments and are not assumed by completing the main table."
+    },
+    {
+      "id": "A13_complete_random_state",
+      "applies_to": "all12",
+      "fields": [
+        "cp.rng.python",
+        "cp.rng.numpy",
+        "cp.rng.torch",
+        "cp.rng.cuda",
+        "method-specific dedicated RNG fields"
+      ],
+      "assertions": [
+        "Complete Python/NumPy/CPUtorch/CUDA RNG mappings retained; CUDA list matches recorded visible logical-device count,2in current environment.",
+        "Dedicated replay selection/minibatch RNGs and current episode/kind generators saved where used.",
+        "Current task-local shuffle is recreated from saved base seed+1009*task at next complete boundary; no mid-epoch resume claim.",
+        "Preserve logical-device mapping for formal exact continuation; development physical-swap gate has an explicitly bounded validation scope."
+      ],
+      "gap": "End-of-run RNG bytes alone cannot prove the starting seed; combine config and class order. Mere field presence cannot prove native-equivalent continuation; reference existing task-boundary resume/equivalence evidence."
+    },
+    {
+      "id": "A14_optimizer_and_resume_scope",
+      "applies_to": "all12",
+      "fields": [
+        "method-specific optimizer/resume schema",
+        "source adapt_backbone",
+        "source FixedLibraryEngine.load_training_state"
+      ],
+      "assertions": [
+        "HT/PSB/ER AdamW and cosine scheduler reset per task, so full task-boundary checkpoints need no previous-task optimizer/scheduler payload.",
+        "Frozen basis has no gradient optimizer; G/C/D/config are sufficient for its next task plus global RNG.",
+        "Current preserves both AdamW optimizer states, parameter groups, steps, first/second moments, episode RNGs, counters and schedule phase; validate actual restore against architecture.",
+        "Joint restores only a completed offline fit; no optimizer or mid-epoch resumption is implemented or claimed."
+      ],
+      "gap": "Do not flag HT/PSB/ER optimizer absence as missing recovery state, or call Joint checkpoints restartable midtraining. Current optimizer IDs are not parameter names; parameter-group binding requires source-aware validation."
+    },
+    {
+      "id": "A15_exact_CE_reuse_evidence",
+      "applies_to": [
+        "history_transport",
+        "plastic_shared_basis"
+      ],
+      "fields": [
+        "result.execution.ce_training_reuse",
+        "formal CE trajectory stage requests",
+        "run configs and receipts"
+      ],
+      "assertions": [
+        "Formal-only cache from fixed ER, with same actual complete data, training hyperparameters, body/head initialization, replay content, RNGs, devices and numeric policy.",
+        "All stage requests/fingerprints and saved weights validated; reconstruct prefix execution chain if a development run resumed, but formal runs must start fresh.",
+        "No development checkpoint/statistics/cached fitting features imported into formal training."
+      ],
+      "gap": "Passing protocol/metric summary does not prove reuse preconditions. A matching CE-head training schedule is necessary but not enough; preserve all native guard evidence."
+    },
+    {
+      "id": "A16_resources_and_backups",
+      "applies_to": "all12",
+      "fields": [
+        "result.execution",
+        "task_diagnostics resources",
+        "checkpoint SHA manifests",
+        "offload/restore pointers",
+        "data source preparation manifests"
+      ],
+      "assertions": [
+        "Preserve selected configs/source/data/weights identity, stage logs, unrounded metrics/matrices/counts, model checkpoints and hashes.",
+        "Report actual replay, auxiliary moments/reference model/optimizer storage and training costs; reader wall/peak excludes shared gradients and must be labeled accordingly.",
+        "Checkpoint may be at an original file, verified symlink archive, or explicit SHA-verified local backup/offload pointer; check its resolved available bytes, not filename alone.",
+        "R replay stores original file paths: reproducible continuation requires the verified original dataset at a usable mapping. A model-weight backup alone is not a self-contained data bundle."
+      ],
+      "gap": "Two retired legacy/bg1 development latest files were SHA-verified locally before remote offload; checkpoint.pt.offloaded.json is a recovery pointer, not evidence of training loss. Formal and active checkpoints must be independently audited and backed up; this plan does not certify all12."
+    }
+  ],
+  "method_schemas": {
+    "shared_basis": {
+      "count_fields": [
+        "cp.learner.core.predictor.n_samples",
+        "cp.learner.core.predictor.counts",
+        "cp.learner.core.predictor.tasks",
+        "cp.learner.task_diagnostics[*].new_samples",
+        "cp.learner.task_diagnostics[*].current_fitting_ids_sha256"
+      ],
+      "count_checks": "n_samples=sum(counts)=N; tasks10; class counts equal official remapped counts; sum(new_samples)=N and stage ordered-ID hashes match reconstructed current class views.",
+      "output_fields": [
+        "cp.learner.core.predictor.classes",
+        "cp.learner.core.predictor.C",
+        "cp.learner.core.predictor.D"
+      ],
+      "output_shapes": {
+        "G": [
+          768,
+          768
+        ],
+        "C": [
+          768,
+          "C"
+        ],
+        "D": [
+          768,
+          "rank<=min(config.rank,768,C-1)"
+        ]
+      },
+      "frozen_fields": [
+        "cp.learner.core.backbone",
+        "cp.learner.core.backbone_state_sha256",
+        "cp.learner.core.backbone_provenance.initial_state_sha256"
+      ],
+      "replay": "No replay object/records; all task diagnostics raw_replay_images0; persistent predictor fields contain statistics and basis, not raw-image/row-feature history.",
+      "rng": "Outer global RNG only; deterministic numerical core has config.seed but no persistent random generator/optimizer.",
+      "notes": "Posterior weights/intercept are reconstructed by core.load_state_dict; they are not direct checkpoint keys."
+    },
+    "history_transport": {
+      "count_fields": [
+        "cp.learner.core.analytic.counts",
+        "cp.learner.core.analytic.tasks",
+        "cp.learner.core.analytic.anchor_G[-1,-1]",
+        "cp.learner.core.analytic.current_G[-1,-1]",
+        "cp.learner.core.analytic.anchor_C[-1,:]",
+        "cp.learner.core.analytic.current_C[-1,:]",
+        "cp.learner.core.replay.seen",
+        "cp.learner.task_diagnostics[*].unique_current_arrivals",
+        "cp.learner.task_diagnostics[*].statistics.historical_count_before",
+        "cp.learner.task_diagnostics[*].statistics.statistics_count"
+      ],
+      "count_checks": "All historical masses equalN, class counts expected, tasks10, stage mass increments exactly unique current rows.",
+      "output_fields": [
+        "cp.learner.core.analytic.classes",
+        "cp.learner.core.analytic.head",
+        "cp.learner.core.ce_head.weight",
+        "cp.learner.core.ce_head.bias"
+      ],
+      "output_shapes": {
+        "analytic_G": [
+          769,
+          769
+        ],
+        "analytic_C": [
+          769,
+          "C"
+        ],
+        "deployed_head": [
+          769,
+          "C"
+        ],
+        "aux_ce_weight": [
+          "C",
+          768
+        ],
+        "aux_ce_bias": [
+          "C"
+        ]
+      },
+      "replay_path": "cp.learner.core.replay",
+      "provenance_path": "cp.learner.core.backbone_provenance",
+      "frozen_fields": [
+        "cp.learner.core.anchor",
+        "cp.learner.core.anchor_hash",
+        "cp.learner.core.initial_anchor_hash"
+      ],
+      "plastic_body_path": "cp.learner.core.backbone",
+      "dedicated_rng_fields": [
+        "cp.learner.core.rng",
+        "cp.learner.core.replay.rng"
+      ],
+      "optimizer_policy": "New AdamW and cosine scheduler each task; task-boundary restore needs body/CEhead/analytic/replay/dedicated+global RNG, not previous-task optimizer."
+    },
+    "plastic_shared_basis": {
+      "count_fields": [
+        "cp.learner.core.analytic.transport.counts",
+        "cp.learner.core.analytic.transport.tasks",
+        "cp.learner.core.analytic.basis.n_samples",
+        "cp.learner.core.analytic.basis.counts",
+        "cp.learner.core.analytic.basis.tasks",
+        "cp.learner.core.replay.seen"
+      ],
+      "count_checks": "Transport/basis vocab/counts/tasks equal; n_samples=sum(transport.counts)=N. Basis snapshot replacement never re-adds old history.",
+      "snapshot_consistency": [
+        "cp.learner.core.analytic.basis.G == cp.learner.core.analytic.transport.current_G[:-1,:-1]",
+        "cp.learner.core.analytic.basis.C == cp.learner.core.analytic.transport.current_C[:-1,:]",
+        "cp.learner.core.analytic.basis.feature_sum == cp.learner.core.analytic.transport.current_G[:-1,-1]"
+      ],
+      "output_fields": [
+        "cp.learner.core.analytic.basis.classes",
+        "cp.learner.core.analytic.basis.C",
+        "cp.learner.core.analytic.basis.D"
+      ],
+      "output_shapes": {
+        "basis_G": [
+          768,
+          768
+        ],
+        "basis_C": [
+          768,
+          "C"
+        ],
+        "D": [
+          768,
+          "selected_rank_or_smaller"
+        ],
+        "aux_transport_head": [
+          769,
+          "C"
+        ],
+        "aux_ce_weight": [
+          "C",
+          768
+        ]
+      },
+      "replay_path": "cp.learner.core.replay",
+      "provenance_path": "cp.learner.core.backbone_provenance",
+      "frozen_fields": [
+        "cp.learner.core.anchor",
+        "cp.learner.core.anchor_hash",
+        "cp.learner.core.initial_anchor_hash"
+      ],
+      "plastic_body_path": "cp.learner.core.backbone",
+      "dedicated_rng_fields": [
+        "cp.learner.core.rng",
+        "cp.learner.core.replay.rng"
+      ],
+      "basis_diagnostics_path": "cp.learner.core.analytic.basis.diagnostics",
+      "basis_reset_evidence": [
+        "cp.learner.core.analytic.config",
+        "cp.learner.task_diagnostics[*].statistics.basis_reset_each_task"
+      ],
+      "optimizer_policy": "Same CE task reset as HT; empirical-Bayes basis is refitted from a replaced transported snapshot with no gradient optimizer."
+    },
+    "current_adapted": {
+      "count_fields": [
+        "cp.learner.core.engine.statistics.count",
+        "cp.learner.core.engine.statistics.G[-1,-1]",
+        "cp.learner.core.engine.statistics.C[-1,:]",
+        "cp.learner.core.engine.task_sizes",
+        "cp.learner.core.engine.completed_tasks",
+        "cp.learner.core.memory.seen",
+        "cp.learner.task_diagnostics[*].previous_history_count",
+        "cp.learner.task_diagnostics[*].history_count",
+        "cp.learner.task_diagnostics[*].new_images"
+      ],
+      "count_checks": "count=sum(task_sizes)=memory.seen=N; completed_tasks10; G bias countN and C last row per-class counts. task_sizes stores image counts, not class counts.",
+      "output_fields": [
+        "cp.learner.core.engine.statistics.classes",
+        "cp.learner.core.engine.statistics.C",
+        "cp.learner.core.engine.W0",
+        "cp.learner.core.engine.V"
+      ],
+      "output_shapes": {
+        "statistics_G": [
+          769,
+          769
+        ],
+        "statistics_C": [
+          769,
+          "C"
+        ],
+        "W0": [
+          769,
+          "C"
+        ],
+        "V": [
+          769,
+          "C"
+        ]
+      },
+      "readout_check": "W0 equals ridge solution from frozen-anchor G/C with selected base_ridge; V finite and shaped correctly. Nonzero V alone is not a module-learning proof.",
+      "replay_path": "cp.learner.core.memory",
+      "resident_anchor_cache": "cp.learner.core.engine.memory_base",
+      "resident_anchor_cache_check": "Cache ID set exactly retained replay sample IDs, rowshape769 and finalcoordinate1; discarded raw images are not retained via this cache.",
+      "provenance_path": "cp.learner.core.provenance",
+      "frozen_path": "cp.learner.core.engine.encoder[anchor.*]",
+      "plastic_body_path": "cp.learner.core.engine.encoder[main.*]",
+      "module_path": "cp.learner.core.engine.encoder[libraries.*]",
+      "learning_fields": [
+        "cp.learner.core.engine.module_updates",
+        "cp.learner.core.engine.backbone_updates",
+        "cp.learner.core.engine.updates",
+        "cp.learner.core.engine.optimizers.modules",
+        "cp.learner.core.engine.optimizers.backbone"
+      ],
+      "dedicated_rng_fields": [
+        "cp.learner.core.memory.rng",
+        "cp.learner.core.engine.rng",
+        "cp.learner.core.engine.kind_rng",
+        "cp.learner.core.engine.episode_draws"
+      ],
+      "optimizer_policy": "Both persistent AdamW states required, including state.step/exp_avg/exp_avg_sq and param_groups; architecture/options/schedule/counters must match. Per-task shuffle generator is deterministic and boundary-recreated.",
+      "gap": "No serialized initial module-weight hash or complete historical sample-ID ledger. Source-zero initial U plus changed flags/actual nonzero U supports training activity; full benefit/reuse remains a separate question."
+    },
+    "er": {
+      "count_fields": [
+        "cp.learner.core.completed_tasks",
+        "cp.learner.core.task_arrivals",
+        "cp.learner.core.task_class_sizes",
+        "cp.learner.core.replay.seen",
+        "cp.learner.task_diagnostics[*].unique_current_arrivals",
+        "cp.learner.task_diagnostics[*].unique_fitting_images_seen"
+      ],
+      "count_checks": "completed_tasks10; sum(task_arrivals)=replay.seen=N; len(task_arrivals)=len(task_class_sizes)=10; task_class_sizes all10/20; expected per-task counts derived from official labels/order.",
+      "output_fields": [
+        "cp.learner.core.replay.classes",
+        "cp.learner.core.ce_head.weight",
+        "cp.learner.core.ce_head.bias"
+      ],
+      "output_shapes": {
+        "weight": [
+          "C",
+          768
+        ],
+        "bias": [
+          "C"
+        ]
+      },
+      "replay_path": "cp.learner.core.replay",
+      "provenance_path": "cp.learner.core.backbone_provenance",
+      "initial_hash_path": "cp.learner.core.initial_backbone_hash",
+      "plastic_body_path": "cp.learner.core.backbone",
+      "dedicated_rng_fields": [
+        "cp.learner.core.rng",
+        "cp.learner.core.replay.rng"
+      ],
+      "optimizer_policy": "Optimizer/scheduler freshly reset each task; checkpoint is task-boundary only. Validate fixed baseline role, not internal_shared_ce_driver.",
+      "absent_by_design": "No frozen anchor, historical G/C or module library."
+    },
+    "joint": {
+      "count_fields": [
+        "cp.learner.core.selection.unique_training_images",
+        "cp.learner.core.selection.fitting_ids_sha256",
+        "cp.learner.core.selection.selected_classes",
+        "cp.learner.core.selection.protocol_total_classes",
+        "cp.learner.core.selection.protocol_endpoint_task",
+        "cp.learner.core.selection.protocol_task_sizes",
+        "cp.learner.core.fit_complete",
+        "cp.learner.task_diagnostics[0].offline_fit_count",
+        "cp.learner.task_diagnostics[0].training.current_training_visits"
+      ],
+      "count_checks": "unique_training_images=N; selected=protocol_total_classes=C; fit_complete true; endpoint/cur_task9; ten protocol task widths but only one offline_fit_count/stage/diagnostic; training visits=N*epochs and replay visits0.",
+      "ordered_ID_hash_warning": "selection.fitting_ids_sha256 hashes the union grouped by remapped class, whereas manifest.fit_ids_sha256 hashes the natural full-training row order. Reconstruct the exact grouped order; do not require these two distinct hashes to equal.",
+      "output_fields": [
+        "cp.learner.core.head.weight",
+        "cp.learner.core.head.bias"
+      ],
+      "output_shapes": {
+        "weight": [
+          "C",
+          768
+        ],
+        "bias": [
+          "C"
+        ]
+      },
+      "provenance_path": "cp.learner.core.backbone_provenance",
+      "initial_hash_path": "cp.learner.core.initial_backbone_hash",
+      "plastic_body_path": "cp.learner.core.backbone",
+      "replay": "Zero replay, all-class offline union permission; not subject to incremental history budget.",
+      "optimizer_policy": "Completed-fit restore only. No optimizer or mid-epoch continuation. resultAIA/forgetting mustnull, neverzero/pseudoCILcurve.",
+      "dedicated_rng_fields": "Global RNG is saved; the empty-replay training generator has no future use after completed Joint, so it is not a missing continuation state."
+    }
+  },
+  "manifest_schema": [
+    "dataset",
+    "phase",
+    "class_order",
+    "order_rule",
+    "train_count",
+    "evaluation_count",
+    "evaluation_source",
+    "official_test_read",
+    "train_source_sha256",
+    "evaluation_source_sha256",
+    "split_seed",
+    "fit_ids_sha256",
+    "evaluation_ids_sha256",
+    "validation_only",
+    "cross_split_content_overlap_checked",
+    "preprocessing_source",
+    "normalization",
+    "class_mapping",
+    "prepared_split_provenance (ImageNet-R)",
+    "fingerprint"
+  ],
+  "common_checkpoint_schema": {
+    "all": [
+      "version",
+      "random_stream_policy",
+      "config_fingerprint",
+      "data_fingerprint",
+      "learner",
+      "stages",
+      "rng"
+    ],
+    "joint_extra": [
+      "evaluation_mode=offline_joint_final"
+    ],
+    "learner": [
+      "version",
+      "method",
+      "cur_task",
+      "known_classes",
+      "total_classes",
+      "task_diagnostics",
+      "core"
+    ]
+  },
+  "summary_tool_scope": {
+    "covers": "Selected main protocol, final phase eligibility, stage counts/all-seen matrices and arithmetic closure, JointFinal-only handling, internalERdriver exclusion.",
+    "does_not_independently_prove": [
+      "Actual full-training sample coverage or exactly-once commits",
+      "Checkpoint count/head/optimizer/RNG validity",
+      "Actual anchor immutability or plastic/basis/module learning",
+      "Actual initial pretrained source or executed code identity",
+      "Backup existence/SHA/recovery prerequisites",
+      "Native-equivalent CE reuse or independent full training resource costs"
+    ]
+  },
+  "availability_notes": [
+    "Use active bounded/new current checkpoint or SHA-verified local backups; two retired legacy/bg1 latest remote files intentionally have offload pointers after verified local backup.",
+    "Completed HT/PSB checkpoints may be archived behind an original-path symlink; resolve/check actual bytes rather than misclassify archive location as data loss."
+  ],
+  "source_sha256": {
+    "cl27/runner.py": "931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e",
+    "cl27/data.py": "18fae0aaa165451c0c7b8f5c06eab2fed34c99be4a31623f3d26b930a7a19230",
+    "cl27/common.py": "33b63ca2b6baef4585e677d54d9e72e6e5247efb24d997e6eeec968911e0c3bf",
+    "cl27/replay.py": "c334c443a977aa656e07c381ea1a3232dedc56159d70a0717131c50e754a17a9",
+    "cl27/transport_training.py": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9",
+    "cl27/ce_trajectory.py": "371c8f4876059c1ca740d6efed80c00b525a2265a55a45e926dc958d9d6be14a",
+    "cl27/cores/shared_basis.py": "78bf3c39430dff022d61a22c90380ce57c0c3623e5c2271c653d6243c2d454a0",
+    "cl27/cores/transport.py": "632d13b5dad439d7a4eeed0849668fc7dc103d2a838cebea861e42d85865ccd9",
+    "cl27/cores/plastic_shared_basis.py": "57f9969ebb7f797afdbb9e23c05640462ee19e034d894a4f6815c1b405634691",
+    "cl27/current/engine.py": "43fc2597aeaaa64f23517d598cbb62a0a18e0af1f82520bdfd58de265aa1e372",
+    "cl27/current/readout.py": "a08cd3c7f036f589081dbb0422bd22114e8e002c2f96b122b9aab234a9c39547",
+    "models/shared_basis.py": "b5ba185c4c8f3a02a0e4c7ceefc4af659a90bd37427e2d2971ed963bd19bc38e",
+    "models/history_transport.py": "a9b32229256cca60cca90ae969df480c20f1f4455629ede69e600d14971f2824",
+    "models/plastic_shared_basis.py": "3e3be162f368d9baf6ee07c2cb60a10947d5186c0dc5e570d61b2894f1d54dc4",
+    "models/current_adapted.py": "8cfbe15d35f4d956a665e6c553670bad296289c0ba457df07af7ab5585c0f1c1",
+    "models/er.py": "5b43cdaf7ecf288dd9b0b64af16ea22b1681fce5ce212e886f00e2c13fbf356c",
+    "models/joint.py": "21b6d53d33b131297abcb47ae28b7a61fdc45344d11e523531553663f64cee80",
+    "scripts/summarize_campaign.py": "fc49f07d6bacdcd8e71c6d38eba66cf4ca9187f4252a3187e180cde189026f9b"
+  },
+  "completion_rule": "Execute the applicable checks against each of the12selected formal runs and retain independently tied evidence. This checklist and its limited schema probes are not evidence that12experiments have finished.",
+  "source_sha256_scope": "Current review checkout for schema references only; each actual formal runtime snapshot still needs its own independently tied source identity."
+}

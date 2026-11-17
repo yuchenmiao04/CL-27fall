@@ -1,0 +1,86 @@
+{
+  "decision": "D0051",
+  "private_raw_archive_sha256": "3b4f46512628db63e0ec0584b5d80753c40e061e4c6d73491f713ab7ca483808",
+  "path_replacements": {
+    "server_project_root": "runtime/",
+    "server_environment_root": "environment/",
+    "remaining_server_home_paths": "server_home/"
+  },
+  "files": [
+    {
+      "path": "imagenetr_ce_full_v1_plastic_shared_basis/results.json",
+      "original_sha256": "0d78eb1496caf1169f4544eb238be63052322c5ab236830070850f67ca97c535",
+      "exported_sha256": "0c8f2f1a943be4de4feeabd9cdf862a5302702f8766a7d01b8613c5379204308"
+    },
+    {
+      "path": "imagenetr_ce_full_v1_plastic_shared_basis/config.json",
+      "original_sha256": "ee97230e832baab213fbe8a337bcd9f9e4db4b69fcf001c8e709312a0b1348c9",
+      "exported_sha256": "7a6b0b5c34f8f0dc2219c3ca492ce2b1f70a0121f85f7253de807856c2c6b6b5"
+    },
+    {
+      "path": "imagenetr_ce_full_v1_plastic_shared_basis/data_manifest.json",
+      "original_sha256": "71684ed1caf31cd387ef0fb24c46cd93eadb67a619fd7752c9582bacf961e8ea",
+      "exported_sha256": "71684ed1caf31cd387ef0fb24c46cd93eadb67a619fd7752c9582bacf961e8ea"
+    },
+    {
+      "path": "imagenetr_psb_noise1e3_full_v2/results.json",
+      "original_sha256": "4bf355e8d3d1488f80b3c1c4ddd85e58e67ed1b9a9d5425b3124a332bc13490d",
+      "exported_sha256": "1b11fda227faacee861c6cedf01ce27c6b4da5c3a5d7b7af3c81816b13a9cb28"
+    },
+    {
+      "path": "imagenetr_psb_noise1e3_full_v2/config.json",
+      "original_sha256": "f750bc003ffd14cf5af8ceac25a8a8a4620fb632dd175759eabb963db607071a",
+      "exported_sha256": "5eca62288ef021f673dde90e6b7476a0a92c928fcba83461999a6b77c6e4d2ad"
+    },
+    {
+      "path": "imagenetr_psb_noise1e3_full_v2/data_manifest.json",
+      "original_sha256": "71684ed1caf31cd387ef0fb24c46cd93eadb67a619fd7752c9582bacf961e8ea",
+      "exported_sha256": "71684ed1caf31cd387ef0fb24c46cd93eadb67a619fd7752c9582bacf961e8ea"
+    },
+    {
+      "path": "imagenetr_psb_noise1e4_full_v3/results.json",
+      "original_sha256": "cf4b31b94fae8efafcd90a9c9879a46ac82b7a0e6e308b2ec8c9901d38403ac6",
+      "exported_sha256": "de58c324c7bf213da859cb14547176ff1e6fd87d134af1cd1914a3e95bd6cb73"
+    },
+    {
+      "path": "imagenetr_psb_noise1e4_full_v3/config.json",
+      "original_sha256": "8d6039eb641d2ebb33ae8f836237a5f18196140da51eec61a069c2405f81f72d",
+      "exported_sha256": "edbb2cfbef98efb99a23e7d245dabf0cc1bb39f1cf85f9480750c8081890ed9d"
+    },
+    {
+      "path": "imagenetr_psb_noise1e4_full_v3/data_manifest.json",
+      "original_sha256": "71684ed1caf31cd387ef0fb24c46cd93eadb67a619fd7752c9582bacf961e8ea",
+      "exported_sha256": "71684ed1caf31cd387ef0fb24c46cd93eadb67a619fd7752c9582bacf961e8ea"
+    },
+    {
+      "path": "imagenetr_psb_chained_full_v4/results.json",
+      "original_sha256": "b57628d376d50f55a8559d453ca91559d35ba7e5c3877c23c8421cab6e045123",
+      "exported_sha256": "bc4cfcb856f07e8e2a9ffd71feb8568c3dd41bcaaa1cc89b8b2fbe3680bc5039"
+    },
+    {
+      "path": "imagenetr_psb_chained_full_v4/config.json",
+      "original_sha256": "38be7cd967b2f7441db04e9921a5063d6ad55b6d400edfc8fd6d4e5b9659faef",
+      "exported_sha256": "94415a66f385c41db95e64e8dd1c7525f28a6f68e82e8296c7c2a1a0e0e42833"
+    },
+    {
+      "path": "imagenetr_psb_chained_full_v4/data_manifest.json",
+      "original_sha256": "71684ed1caf31cd387ef0fb24c46cd93eadb67a619fd7752c9582bacf961e8ea",
+      "exported_sha256": "71684ed1caf31cd387ef0fb24c46cd93eadb67a619fd7752c9582bacf961e8ea"
+    },
+    {
+      "path": "imagenetr_psb_chained_map01_full_v5/results.json",
+      "original_sha256": "d71ac0e15072a94d0b9ce8ad89ff1efcf6db6e4068da3d9c7acd7d340d4ecee5",
+      "exported_sha256": "7fe5d9ef5a10de4257955b407c63514d57589e5ed23251a6593bb648bab35452"
+    },
+    {
+      "path": "imagenetr_psb_chained_map01_full_v5/config.json",
+      "original_sha256": "ea6dc979fdc032c3be55d735f094e5ada95851b9016c797aee041e4d8672691c",
+      "exported_sha256": "43c8a6ca9719910c95da725ce509dae2307928a22990038f1a6c2a9dc1c39afa"
+    },
+    {
+      "path": "imagenetr_psb_chained_map01_full_v5/data_manifest.json",
+      "original_sha256": "71684ed1caf31cd387ef0fb24c46cd93eadb67a619fd7752c9582bacf961e8ea",
+      "exported_sha256": "71684ed1caf31cd387ef0fb24c46cd93eadb67a619fd7752c9582bacf961e8ea"
+    }
+  ]
+}

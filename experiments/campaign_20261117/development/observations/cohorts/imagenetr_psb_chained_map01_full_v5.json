@@ -1,0 +1,234 @@
+{
+  "status": "complete",
+  "runs": [
+    {
+      "method": "plastic_shared_basis",
+      "output_dir": "runtime/campaign_20261117/development/runs/imagenetr_psb_chained_map01_full_v5",
+      "execution_role": "candidate_method",
+      "status": "complete",
+      "ce_mode": "replay",
+      "metrics": {
+        "final_accuracy": 0.8052790999567286,
+        "aia": 0.8593405130911019,
+        "forgetting_previous": 0.07504699149321571,
+        "forgetting_including_final": 0.0762417346234427,
+        "accuracy_matrix": [
+          [
+            0.9481481481481482,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            0.9185185185185185,
+            0.896,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            0.9,
+            0.864,
+            0.8805309734513275,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            0.8925925925925926,
+            0.88,
+            0.8628318584070797,
+            0.8454545454545455,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            0.8740740740740741,
+            0.872,
+            0.827433628318584,
+            0.85,
+            0.8942307692307693,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            0.8555555555555555,
+            0.836,
+            0.8008849557522124,
+            0.7863636363636364,
+            0.875,
+            0.867704280155642,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            0.8555555555555555,
+            0.824,
+            0.8097345132743363,
+            0.7681818181818182,
+            0.8557692307692307,
+            0.8482490272373541,
+            0.900990099009901,
+            null,
+            null,
+            null
+          ],
+          [
+            0.8333333333333334,
+            0.824,
+            0.7831858407079646,
+            0.740909090909091,
+            0.8173076923076923,
+            0.8482490272373541,
+            0.8564356435643564,
+            0.8901098901098901,
+            null,
+            null
+          ],
+          [
+            0.8148148148148148,
+            0.796,
+            0.7876106194690266,
+            0.75,
+            0.8221153846153846,
+            0.8132295719844358,
+            0.8514851485148515,
+            0.8901098901098901,
+            0.7795698924731183,
+            null
+          ],
+          [
+            0.8111111111111111,
+            0.788,
+            0.7654867256637168,
+            0.7545454545454545,
+            0.8028846153846154,
+            0.8171206225680934,
+            0.8415841584158416,
+            0.8608058608058609,
+            0.7903225806451613,
+            0.8082191780821918
+          ]
+        ],
+        "completed_tasks": 10,
+        "definition": "Fractions; AIA is mean stage sample-weighted all-seen accuracy; forgetting averages old tasks only."
+      },
+      "execution": {
+        "torch": "2.7.1+cu128",
+        "numpy": "1.26.4",
+        "device_type": "cuda",
+        "random_stream_policy": "canonical_loader_isolated_v1",
+        "wall_seconds": 1196.6251461729407,
+        "numeric_checkpoint_payload_bytes": 711041656,
+        "gpu_peak_allocated_bytes": 1372963328,
+        "ce_training_reuse": {
+          "version": 1,
+          "mode": "replay",
+          "execution_role": "candidate_method",
+          "trajectory_directory": "runtime/campaign_20261117/development/ce_trajectories/imagenetr_body_default_v1",
+          "stages": [
+            {
+              "task": 3,
+              "path": "runtime/campaign_20261117/development/ce_trajectories/imagenetr_body_default_v1/stage_003.pt",
+              "request_fingerprint": "3b976657efc892753bedb7080f28f67587f2cc0b68259f765c26b5cab15399ba",
+              "body_after_sha256": "229b1f144784ab951a254f1dcd2f2cef527a7a0ab04d985bc03a761c2aa5e03f",
+              "head_after_sha256": "c3b79cb80298e7ff47d88be56eb157a5d8d043587bcc9be72d330aa754e75101",
+              "reused": true,
+              "shared_native_ce_seconds": 753.2968869619071,
+              "executor_wall_seconds": 2.027143355458975
+            },
+            {
+              "task": 4,
+              "path": "runtime/campaign_20261117/development/ce_trajectories/imagenetr_body_default_v1/stage_004.pt",
+              "request_fingerprint": "d28c612f9f67cd9f08e4233d5a3330de5ff40d000ce54af48cf9de0d4c410f08",
+              "body_after_sha256": "6f4222142903947717a7fa2dde45d701c7d88bdc8d86818032eeda27ebe744f7",
+              "head_after_sha256": "92f78c8da19924c2898a5173d5f5b5bdf3b7f9d78543691ef40d3dd63f1a3b93",
+              "reused": true,
+              "shared_native_ce_seconds": 760.8103983514011,
+              "executor_wall_seconds": 1.9027925729751587
+            },
+            {
+              "task": 5,
+              "path": "runtime/campaign_20261117/development/ce_trajectories/imagenetr_body_default_v1/stage_005.pt",
+              "request_fingerprint": "a1c439f72fe4e1a08e9ac55bf6e41103d0e7849f8cf003d1ff7fab72f205c9b7",
+              "body_after_sha256": "636a06fce6cdf25544577c63526b0401e4a8e5e818705c551e11b3760ec932aa",
+              "head_after_sha256": "d6444002efe6d674189ef89c69d0d199ce3eafb98fcb94289e05bb278a0c843d",
+              "reused": true,
+              "shared_native_ce_seconds": 889.0083528272808,
+              "executor_wall_seconds": 1.9794752933084965
+            },
+            {
+              "task": 6,
+              "path": "runtime/campaign_20261117/development/ce_trajectories/imagenetr_body_default_v1/stage_006.pt",
+              "request_fingerprint": "cd00ec1e593a260ae74619648161de90e9e528fd955144da0a9bf8c9d344b0f6",
+              "body_after_sha256": "ede41dd91669d94b87380ed8d6ef7b3fa9afe4afdae4b5ad32cc07f577426577",
+              "head_after_sha256": "6aecdd6b8ff83947b275839fb5e27af0cf6d15d9c2661d251dbee20317587fc9",
+              "reused": true,
+              "shared_native_ce_seconds": 721.6912823058665,
+              "executor_wall_seconds": 2.0113058239221573
+            },
+            {
+              "task": 7,
+              "path": "runtime/campaign_20261117/development/ce_trajectories/imagenetr_body_default_v1/stage_007.pt",
+              "request_fingerprint": "b1ec2f6c4711fef1afff6ccf087be3be55618d183a7866dcde54c5e7e0a54bad",
+              "body_after_sha256": "1eb407ef5bbe2632002207bf7e6d1da6e8985a49374a120fa97ec6bca05caa27",
+              "head_after_sha256": "91789bd4dca738fda94f92b365a2586a1da7cb11823b5570cf7660eeaa86db1a",
+              "reused": true,
+              "shared_native_ce_seconds": 825.525203038007,
+              "executor_wall_seconds": 1.780483640730381
+            },
+            {
+              "task": 8,
+              "path": "runtime/campaign_20261117/development/ce_trajectories/imagenetr_body_default_v1/stage_008.pt",
+              "request_fingerprint": "64fa2409af3faf6e738d883beb1bbc5b7dfced20627061915b09b0770f952297",
+              "body_after_sha256": "2b73f55ec20f33f2cdbede26b8caceb3514ad9a232bf3faecb3b8d646fb1158d",
+              "head_after_sha256": "e0c8de712ebfaaa7e668b50213e5ce0e18803b7a2d163a655370ec5c9b934513",
+              "reused": true,
+              "shared_native_ce_seconds": 499.5832190550864,
+              "executor_wall_seconds": 1.7257059030234814
+            },
+            {
+              "task": 9,
+              "path": "runtime/campaign_20261117/development/ce_trajectories/imagenetr_body_default_v1/stage_009.pt",
+              "request_fingerprint": "2478614d6e66b014cd6c14e976f3c477bcda9c03e7d45c3d36b2e95bbaf224be",
+              "body_after_sha256": "4cc4d7d9247e074dba05a6ab1a43649271055666cf51cb384cf6e3f59e777a2a",
+              "head_after_sha256": "938367635dc47f71aee0df4e45fd7b14b2c49840798ab1995e7f1180d0c45507",
+              "reused": true,
+              "shared_native_ce_seconds": 749.9371922984719,
+              "executor_wall_seconds": 1.6482111252844334
+            }
+          ],
+          "timing_policy": "Run wall time is actual; reused CE seconds are shared driver work, not separately executed training",
+          "feature_cache": false,
+          "independent_native_initialization_and_evaluation": true
+        }
+      }
+    }
+  ],
+  "actual_cohort_wall_seconds": 1205.63119507581,
+  "timing_policy": "Shared CE is executed once; per-reader wall time excludes that driver work"
+}

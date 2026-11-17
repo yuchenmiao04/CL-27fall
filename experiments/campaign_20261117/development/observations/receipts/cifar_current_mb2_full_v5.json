@@ -1,0 +1,52 @@
+{
+  "job": "cifar_current_mb2_full_v5",
+  "pid": 33284,
+  "proc_start_ticks": "1790443681",
+  "launch_utc": "2026-11-17T09:27:46Z",
+  "cwd": "runtime/runtime_bounded_v4",
+  "command": [
+    "environment/bin/python",
+    "main.py",
+    "--config",
+    "runtime/campaign_20261117/development/configs/cifar_current_mb2_full_v5.json"
+  ],
+  "metadata": {
+    "decision": "D0053",
+    "gpu": 0,
+    "development_only": true,
+    "prepared_only": false,
+    "continuation_of": "cifar_current_mb2_screen_v5",
+    "method_source_commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+    "algorithm_ratio_candidate": true,
+    "execution_only_equivalence_claimed": false,
+    "launch_constraints": {
+      "existing_formal_er": {
+        "job": "formal_imagenetr_er_fixed_v1",
+        "reference_pid_at_preparation": 32112,
+        "peak_reserve_GiB": 24
+      },
+      "must_wait_for": {
+        "job": "imagenetr_current_bounded64_full_v5",
+        "reference_pid_at_preparation": 24309,
+        "requirement": "Natural successful completion, complete10-stage result and terminal original process identity; do not kill or replace it."
+      },
+      "module_slots": {
+        "maximum": 1,
+        "require_old_module_slot_released": true,
+        "second_module_slot_forbidden": true
+      },
+      "memory_requirement": "Before launch on physical/logical GPU0, verify its total/free VRAM can accommodate the reserved24GiB formal ER peak plus the measured module budget and safety margin. A momentary low ER allocation is not proof of headroom.",
+      "preflight_enforcement": "Metadata is an operator/scheduler guard, not an enforcement feature of generic launch_jobs.py. Recheck current process identity, completion and VRAM immediately before dispatch."
+    },
+    "other_module_successfully_finished": "imagenetr_current_bounded64_full_v5",
+    "observed_er_vram_mib": 22630,
+    "projected_future_er_mib": 24576,
+    "module_budget_mib": 6440,
+    "additional_margin_mib": 1024,
+    "observed_usable_capacity_mib": 32112,
+    "observed_free_before_launch_mib": 9472
+  },
+  "environment": {
+    "CL27_CURRENT_FROZEN_PREFIX_REUSE": "1"
+  }
+}

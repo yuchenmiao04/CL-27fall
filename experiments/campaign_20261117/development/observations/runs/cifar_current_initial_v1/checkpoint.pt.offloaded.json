@@ -1,0 +1,19 @@
+{
+  "name": "cifar_current_initial_v1",
+  "source": "storage/hpo-archives/campaign_20261117/development/runs/cifar_current_initial_v1/checkpoint.pt",
+  "original_access_path": "runtime/campaign_20261117/development/runs/cifar_current_initial_v1/checkpoint.pt",
+  "bytes": 1401362619,
+  "sha256": "9a7990f18fb4f15fd1082c64bdf16eab175ac212f14ccf355610bbb1291d70c7",
+  "source_mtime_ns": 1794884629914531779,
+  "phase": "development",
+  "completed_tasks": 2,
+  "selected_for_formal": false,
+  "local_path": "local_private_archive/hpo_archived_backups/cifar_current_initial_v1/checkpoint.pt",
+  "size_verified": true,
+  "sha256_verified": true,
+  "status": "offloaded_after_verified_local_backup",
+  "offloaded_utc": "2026-11-17T08:40:01.196711+00:00",
+  "restore": "Upload the SHA-verified local_path to source and recreate original_access_path as a symlink to source before any resume/diagnostic.",
+  "formal_checkpoint": false,
+  "active_checkpoint": false
+}

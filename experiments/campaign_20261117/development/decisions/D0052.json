@@ -1,0 +1,126 @@
+{
+  "id": "D0052",
+  "kind": "freeze_method_hyperparameters",
+  "method": "plastic_shared_basis",
+  "dataset": "cifar224",
+  "selected_development_trial": "cifar_psb_chained_full_v4",
+  "selected_result_sha256": "5271b63185cdb52b757b0e93477e311dc6eb0fc6a472536ed290b1cf9360f30a",
+  "selection_candidates": [
+    {
+      "trial": "cifar_plastic_shared_basis_direct_split_full_v1",
+      "mode": "direct",
+      "map_ridge": 0.01,
+      "basis_noise_variance": 0.01,
+      "basis_rank": 32,
+      "metrics": {
+        "final_accuracy": 0.8968,
+        "aia": 0.9388267460317461,
+        "forgetting_previous": 0.09022222222222222,
+        "forgetting_including_final": 0.09022222222222222,
+        "completed_tasks": 10,
+        "definition": "Fractions; AIA is mean stage sample-weighted all-seen accuracy; forgetting averages old tasks only."
+      },
+      "final_correct": 4484,
+      "final_evaluation_images": 5000,
+      "data_fingerprint": "de3c0d03d365cb20722f5739314d3de7e4b1d002b98101e5409d4931f0e47227",
+      "result_sha256": "b70bd046ed8c451bb781df8c5e0b7b8eddc66d2f6eaa5d90d80712e01b175fbe",
+      "config_sha256": "28735d8c0514816006d81f2ebbcc371f173ff65dd1b05c290579cc45cab1dd70",
+      "data_manifest_sha256": "a2a29a76b9a2deacb95bd4a520728bc42348338125c336e532db21de2943fdbc"
+    },
+    {
+      "trial": "cifar_psb_noise1e3_full_v2",
+      "mode": "direct",
+      "map_ridge": 0.01,
+      "basis_noise_variance": 0.001,
+      "basis_rank": 32,
+      "metrics": {
+        "final_accuracy": 0.8974,
+        "aia": 0.9391485714285712,
+        "forgetting_previous": 0.08933333333333332,
+        "forgetting_including_final": 0.08933333333333332,
+        "completed_tasks": 10,
+        "definition": "Fractions; AIA is mean stage sample-weighted all-seen accuracy; forgetting averages old tasks only."
+      },
+      "final_correct": 4487,
+      "final_evaluation_images": 5000,
+      "data_fingerprint": "de3c0d03d365cb20722f5739314d3de7e4b1d002b98101e5409d4931f0e47227",
+      "result_sha256": "cdfa9bdab81908f10ffe240a8807e3fce498532c88cff39422a1411e07d7fa28",
+      "config_sha256": "6cabe2b0d8ec93ba78904c366cb70f43c74739747d05775d9b0a5915d97f8240",
+      "data_manifest_sha256": "a2a29a76b9a2deacb95bd4a520728bc42348338125c336e532db21de2943fdbc"
+    },
+    {
+      "trial": "cifar_psb_chained_full_v4",
+      "mode": "chained",
+      "map_ridge": 0.01,
+      "basis_noise_variance": 0.001,
+      "basis_rank": 32,
+      "metrics": {
+        "final_accuracy": 0.9078,
+        "aia": 0.9482969841269842,
+        "forgetting_previous": 0.06866666666666665,
+        "forgetting_including_final": 0.06866666666666665,
+        "completed_tasks": 10,
+        "definition": "Fractions; AIA is mean stage sample-weighted all-seen accuracy; forgetting averages old tasks only."
+      },
+      "final_correct": 4539,
+      "final_evaluation_images": 5000,
+      "data_fingerprint": "de3c0d03d365cb20722f5739314d3de7e4b1d002b98101e5409d4931f0e47227",
+      "result_sha256": "5271b63185cdb52b757b0e93477e311dc6eb0fc6a472536ed290b1cf9360f30a",
+      "config_sha256": "d5875947396c7ad31f88309f7d54bf5ee83095d00ce579c249a6bf500735ab46",
+      "data_manifest_sha256": "a2a29a76b9a2deacb95bd4a520728bc42348338125c336e532db21de2943fdbc"
+    }
+  ],
+  "criterion": "All three existing CIFAR PSB candidate configurations completed ten fixed internal training-holdout stages. Rank by unrounded Final first and AIA second. The chained map_ridge=0.01/noise=0.001 candidate has the highest Final and AIA, so its complete configuration is selected.",
+  "continuation_lineage": "The completed direct noise=0.01 split run continues the original same-configuration prefix after D0040 execution separation; it represents that original algorithm candidate, not a fourth hyperparameter trial.",
+  "selection_improvement": {
+    "vs_direct_noise001": {
+      "correct_samples": 52,
+      "final_percentage_points": 1.0400000000000076,
+      "aia_percentage_points": 0.9148412698412933
+    },
+    "vs_direct_noise01": {
+      "correct_samples": 55,
+      "final_percentage_points": 1.100000000000001
+    }
+  },
+  "selected_parameters": {
+    "transport_mode": "chained",
+    "residual_model": "class_conditional_psd",
+    "map_ridge": 0.01,
+    "head_ridge": 0.01,
+    "covariance_shrinkage": 0.1,
+    "mean_shrinkage": 20.0,
+    "crossfit_folds": 5,
+    "basis_rank": 32,
+    "basis_epsilon": 0.001,
+    "basis_noise_variance": 0.001,
+    "basis_max_iter": 20,
+    "basis_tolerance": 1e-06,
+    "basis_reset_each_task": true,
+    "epochs": 20,
+    "backbone_lr": 1e-05,
+    "head_lr": 0.001,
+    "weight_decay": 0.0001
+  },
+  "interpretation": "This complete one-seed internal-holdout comparison supports selecting the chained coordinate strategy within PSB. It does not establish multi-seed stability, formal-test improvement, or an isolated advantage of shared-basis learning over a matched non-PSB head.",
+  "evidence": "../selection_evidence/cifar_plastic_shared_v5/export_manifest.json",
+  "evidence_validation": {
+    "complete_stage_metric_closure_passed": true,
+    "all_serialized_numeric_records_finite": true,
+    "same_development_data_fingerprint": true,
+    "same_ten_post_stage_backbone_hashes": true,
+    "all_raw_evidence_sha256_verified": true,
+    "private_raw_archive_sha256": "481bdf4112fee2431b239d294a04672640c3354b8ebecc801ca533ed20c2f0e8"
+  },
+  "official_test_used_for_parameter_decision": false,
+  "formal_refit": "Fresh initial pretrained state, all official training rows, no development checkpoint/moments/cache. Reuse only matching formal fixed-ER CE transitions after all ten exist and per-stage native guards pass. Retain original physical/logical device1 without development-only device swapping.",
+  "formal_job": "formal_cifar_plastic_shared_selected_v5",
+  "formal_configuration_reuse_identity": "3d1a8c23eacf562727c2c24c802000fb27910323b38f7373ecb2c4fc72238648",
+  "formal_baseline_comparator": "formal_cifar_er_fixed_v1 configuration only; no formal test result read",
+  "formal_execution_status": "prepared_only; not launched",
+  "hpo_closed": true,
+  "hpo_closure_scope": "CIFAR-100 plastic_shared_basis only: no further noise, rank, mapping-penalty or learning-rate candidates. Together with D0051 both dataset-specific PSB searches are now locked.",
+  "created_utc": "2026-11-17T09:02:05.717126+00:00",
+  "formal_fixed_er_config_sha256": "e6a378e469fba0d22d4f8476a1151b011dfa71f0210421e19f4c60dc0fc689df",
+  "formal_reuse_identity_verified_against_actual_server_config": true
+}

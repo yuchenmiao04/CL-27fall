@@ -1,0 +1,128 @@
+{
+  "status": "passed",
+  "decision": "D0054",
+  "development_trial": "imagenetr_current_bounded64_full_v5",
+  "phase": "development",
+  "official_test_read": false,
+  "checked_utc": "2026-11-17T09:30:24.109704+00:00",
+  "source_files": {
+    "results.json": {
+      "sha256": "194300a528fa52d712570896c7d4cedbd055fb5e130ec946d393da31d05bdfb7",
+      "bytes": 78826
+    },
+    "config.json": {
+      "sha256": "303e72e1ad729cd3ab745ef7972d618984f4604fcb79c617828ed947f4677fb0",
+      "bytes": 1758
+    },
+    "data_manifest.json": {
+      "sha256": "71684ed1caf31cd387ef0fb24c46cd93eadb67a619fd7752c9582bacf961e8ea",
+      "bytes": 8297
+    },
+    "checkpoint.pt": {
+      "sha256": "06bbebd1115719e5c9101f173401dc8bdf87a4e467a2715235e0c7d2f5c49827",
+      "bytes": 1408935835
+    }
+  },
+  "data_fingerprint": "a3f6bfac903cffd7ef5e7e5f2badeead19bb37d7f4a928faff0f36fe9cc59313",
+  "config_fingerprint": "cf9af3324c9e276521ef4b86e43cacf25001d2f4d18ed4a9d9fa5d01bd37ff2e",
+  "metrics": {
+    "final_accuracy": 0.799221116399827,
+    "aia": 0.8475382752072307,
+    "forgetting_previous": 0.08585496192948888,
+    "forgetting_including_final": 0.08585496192948888,
+    "completed_tasks": 10,
+    "definition": "Fractions; AIA is mean stage sample-weighted all-seen accuracy; forgetting averages old tasks only."
+  },
+  "stages": 10,
+  "history_rows": 21689,
+  "classes": 200,
+  "prediction_space": "all_seen_classes_without_task_id",
+  "native_cpu_restored_output_shape": [
+    1,
+    200
+  ],
+  "restored_output_is_finite": true,
+  "finite_checkpoint_scan": {
+    "tensors": 4793,
+    "floating_tensors": 4788,
+    "floating_elements": 347636913,
+    "numeric_scalars": 365
+  },
+  "architecture": {
+    "positions": [
+      7,
+      9
+    ],
+    "count_per_layer": 4,
+    "rank": 8,
+    "scale": 0.1,
+    "width": 768
+  },
+  "both_main_and_library_changed_each_task": true,
+  "main_final_sha256": "205d4706b6658dcdd19fc4819c88b2e374d46725b9f655231c1af22dc026295b",
+  "anchor_sha256_all_tasks_and_checkpoint": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+  "anchor_matches_initial_backbone": true,
+  "native_restored_anchor_requires_grad": false,
+  "native_restored_main_and_library_require_grad": true,
+  "library_nonzero_U": true,
+  "history_gram_shape": [
+    769,
+    769
+  ],
+  "history_cross_shape": [
+    769,
+    200
+  ],
+  "replay": {
+    "images": 4000,
+    "classes": 200,
+    "per_class": 20,
+    "unique_ids": true,
+    "paths_exist_in_official_training_tree": true,
+    "resident_anchor_ids_match": true,
+    "historical_seen": 21689
+  },
+  "optimizers": [
+    {
+      "name": "modules",
+      "algorithm": "AdamW",
+      "parameter_count": 8,
+      "complete_parameter_states": 8,
+      "min_step": 5175,
+      "max_step": 5175
+    },
+    {
+      "name": "backbone",
+      "algorithm": "AdamW",
+      "parameter_count": 150,
+      "complete_parameter_states": 150,
+      "min_step": 1725,
+      "max_step": 1725
+    }
+  ],
+  "owned_generators": {
+    "episode_cpu": "restored_exact_state",
+    "kind_cpu": "restored_exact_state",
+    "replay_selection_PCG64": "restored_exact_state"
+  },
+  "global_rng": {
+    "policy": "canonical_loader_isolated_v1",
+    "python_numpy_torch_cpu_states_validated_in_independent_generators": true,
+    "saved_cuda_state_tensors": [
+      {
+        "dtype": "torch.uint8",
+        "numel": 16
+      },
+      {
+        "dtype": "torch.uint8",
+        "numel": 16
+      }
+    ],
+    "cuda_states_applied_to_live_training": false
+  },
+  "limits": [
+    "The synthetic zero-image forward checks output shape/finiteness only, not accuracy.",
+    "Native checkpoint restore was checked on CPU; saved CUDA RNG payloads were checked for completeness without changing live training RNG.",
+    "Parameter sharing and changed modules do not by themselves establish beneficial future-task reuse or causal module value."
+  ]
+}

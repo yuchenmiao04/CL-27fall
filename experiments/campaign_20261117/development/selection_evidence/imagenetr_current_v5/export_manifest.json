@@ -1,0 +1,33 @@
+{
+  "decision": "D0054",
+  "private_raw_archive_sha256": "4cf94f5f55d3b6168b036ab20cbab336d61141256fedf9a9e19584076c2d4bbb",
+  "path_replacements": {
+    "server_project_root": "runtime/",
+    "server_environment_root": "environment/",
+    "remaining_server_home_paths": "server_home/"
+  },
+  "official_test_included": false,
+  "checkpoint_audit_source": "Completed development checkpoint audited and restored on CPU using its own immutable runtime; checkpoint weights are not added to Git.",
+  "files": [
+    {
+      "path": "imagenetr_current_bounded64_full_v5/results.json",
+      "original_sha256": "194300a528fa52d712570896c7d4cedbd055fb5e130ec946d393da31d05bdfb7",
+      "exported_sha256": "194300a528fa52d712570896c7d4cedbd055fb5e130ec946d393da31d05bdfb7"
+    },
+    {
+      "path": "imagenetr_current_bounded64_full_v5/config.json",
+      "original_sha256": "303e72e1ad729cd3ab745ef7972d618984f4604fcb79c617828ed947f4677fb0",
+      "exported_sha256": "9c1724962b8ff6380df651b76d074fa58c081b95aa209b7ce89e8b92ea19af61"
+    },
+    {
+      "path": "imagenetr_current_bounded64_full_v5/data_manifest.json",
+      "original_sha256": "71684ed1caf31cd387ef0fb24c46cd93eadb67a619fd7752c9582bacf961e8ea",
+      "exported_sha256": "71684ed1caf31cd387ef0fb24c46cd93eadb67a619fd7752c9582bacf961e8ea"
+    },
+    {
+      "path": "checkpoint_audit.json",
+      "original_sha256": "724080f2de0a33f24b65863cdc042bbcaca05cca54960f80bc8202106aed2265",
+      "exported_sha256": "724080f2de0a33f24b65863cdc042bbcaca05cca54960f80bc8202106aed2265"
+    }
+  ]
+}

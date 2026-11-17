@@ -1,0 +1,29 @@
+{
+  "job": "imagenetr_psb_chained_map01_screen_v5",
+  "pid": 29280,
+  "proc_start_ticks": "1789921397",
+  "launch_utc": "2026-11-17T08:00:43Z",
+  "cwd": "runtime/runtime_tuning_v1",
+  "command": [
+    "environment/bin/python",
+    "scripts/run_ce_cohort.py",
+    "--replay-only",
+    "--configs",
+    "runtime/campaign_20261117/development/configs/imagenetr_psb_chained_map01_screen_v5.json",
+    "--trajectory-dir",
+    "runtime/campaign_20261117/development/ce_trajectories/imagenetr_body_default_v1",
+    "--report",
+    "runtime/campaign_20261117/development/cohorts/imagenetr_psb_chained_map01_screen_v5.json"
+  ],
+  "metadata": {
+    "decision": "D0049",
+    "gpu": 0,
+    "development_only": true,
+    "CE_training_repeated": false,
+    "requires_full_trajectory": false,
+    "fresh_analytic_history": true,
+    "changed_hyperparameter": "map_ridge 0.01 -> 0.1",
+    "prepared_only": false
+  },
+  "environment": {}
+}

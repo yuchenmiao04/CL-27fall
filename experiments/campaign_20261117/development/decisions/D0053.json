@@ -1,0 +1,68 @@
+{
+  "id": "D0053",
+  "kind": "promote_module_ratio_candidate_to_full_development",
+  "method": "current_adapted",
+  "dataset": "cifar224",
+  "new_trial": "cifar_current_mb2_full_v5",
+  "prior": "cifar_current_mb2_screen_v5",
+  "status": "prepared_not_running",
+  "evidence": {
+    "stages": 3,
+    "classes": 30,
+    "mb2_final_accuracy": 0.968,
+    "mb2_correct": 1452,
+    "holdout_rows": 1500,
+    "mb2_aia": 0.9796666666666667,
+    "mb2_forgetting_previous": 0.026,
+    "original_bounded4_final_accuracy": 0.9686666666666667,
+    "original_bounded4_correct": 1453,
+    "difference_correct_examples": -1,
+    "D0045_minimum_final_accuracy": 0.9636666666666667,
+    "passes_predeclared_accuracy_threshold": true,
+    "source": "Completed three-stage development result inspected by the parent scheduler; official test scores are not used."
+  },
+  "change": {
+    "max_tasks": {
+      "from": 3,
+      "to": 10
+    },
+    "output_dir": "New independent full-development output directory",
+    "resume": "Own completed three-stage MB2 checkpoint only"
+  },
+  "fixed_parameters": {
+    "epochs": 5,
+    "outer_updates": 2,
+    "schedule": [
+      "modules",
+      "backbone"
+    ],
+    "episode_replay_batch_size": 64,
+    "device": [
+      0
+    ],
+    "other_parameters": "All learning rates, architecture, support/query rules, holdout, data, class order and numerical policy are unchanged from the screened candidate."
+  },
+  "interpretation": "The MB ratio is a method/HPO candidate with a different optimization and RNG trajectory from MMBM. Continuing its own checkpoint does not reinterpret an old-schedule checkpoint. The one-example prefix difference does not establish equivalence or identify the best full-stream candidate.",
+  "selection_rule": "Complete all10 development stages and compare against the original bounded4outer full candidate using unrounded Final first. When accuracy is equal, consider measured resource cost. Formal refit remains fresh on complete training data after selection.",
+  "timing_boundary": "Wall times observed under different concurrent jobs are not a controlled speed comparison. Do not infer or claim1.5x deployment or training speed from these unequal-concurrency measurements.",
+  "launch_constraints": {
+    "existing_formal_er": {
+      "job": "formal_imagenetr_er_fixed_v1",
+      "reference_pid_at_preparation": 32112,
+      "peak_reserve_GiB": 24
+    },
+    "must_wait_for": {
+      "job": "imagenetr_current_bounded64_full_v5",
+      "reference_pid_at_preparation": 24309,
+      "requirement": "Natural successful completion, complete10-stage result and terminal original process identity; do not kill or replace it."
+    },
+    "module_slots": {
+      "maximum": 1,
+      "require_old_module_slot_released": true,
+      "second_module_slot_forbidden": true
+    },
+    "memory_requirement": "Before launch on physical/logical GPU0, verify its total/free VRAM can accommodate the reserved24GiB formal ER peak plus the measured module budget and safety margin. A momentary low ER allocation is not proof of headroom.",
+    "preflight_enforcement": "Metadata is an operator/scheduler guard, not an enforcement feature of generic launch_jobs.py. Recheck current process identity, completion and VRAM immediately before dispatch."
+  },
+  "official_test_used_for_parameter_decision": false
+}

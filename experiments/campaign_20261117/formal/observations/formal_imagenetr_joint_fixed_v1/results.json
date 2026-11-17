@@ -1,0 +1,289 @@
+{
+  "status": "complete",
+  "method": "joint",
+  "phase": "final",
+  "evaluation_mode": "offline_joint_final",
+  "data_access": "all_selected_training_classes_jointly",
+  "performance_claim": "offline reference, not a proven upper bound",
+  "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63",
+  "config_fingerprint": "59dca26158db0c97eb26ca4f6cb743e6f05535ec5936f46af8c393781ae744ef",
+  "data_fingerprint": "014b448f085423b32b6ca0468e7165f896460ff3e4341d1f7bcc305d96a2de76",
+  "selected_classes": 200,
+  "dataset_classes": 200,
+  "completed_fits": 1,
+  "metrics": {
+    "final_accuracy": 0.8386666666666667,
+    "aia": null,
+    "forgetting_previous": null,
+    "forgetting_including_final": null,
+    "accuracy_matrix": [],
+    "completed_fits": 1,
+    "definition": "One offline joint fit; Final only. No incremental AIA or forgetting is defined."
+  },
+  "metrics_by_head": {
+    "cnn": {
+      "final_accuracy": 0.8386666666666667,
+      "aia": null,
+      "forgetting_previous": null,
+      "forgetting_including_final": null,
+      "accuracy_matrix": [],
+      "completed_fits": 1,
+      "definition": "One offline joint fit; Final only. No incremental AIA or forgetting is defined."
+    }
+  },
+  "evaluation_head": "cnn",
+  "stages": [
+    {
+      "task": 9,
+      "seen_classes": 200,
+      "accuracy": 0.8386666666666667,
+      "task_accuracy": [
+        0.8461538461538461,
+        0.8512658227848101,
+        0.8283828382838284,
+        0.8283712784588442,
+        0.8193018480492813,
+        0.8833333333333333,
+        0.81195079086116,
+        0.8545953360768176,
+        0.8138075313807531,
+        0.8290155440414507
+      ],
+      "task_counts": [
+        689,
+        632,
+        606,
+        571,
+        487,
+        660,
+        569,
+        729,
+        478,
+        579
+      ],
+      "evaluation_images": 6000,
+      "prediction_space": "all_seen_classes_without_task_id",
+      "cnn_report": {
+        "grouped": {
+          "total": 83.87,
+          "00-19": 84.62,
+          "20-39": 85.13,
+          "40-59": 82.84,
+          "60-79": 82.84,
+          "80-99": 81.93,
+          "100-119": 88.33,
+          "120-139": 81.2,
+          "140-159": 85.46,
+          "160-179": 81.38,
+          "180-199": 82.9,
+          "old": 0,
+          "new": 83.87
+        },
+        "top1": 83.87,
+        "top5": 93.63
+      },
+      "nme_report": null,
+      "evaluation_head": "cnn",
+      "heads": {
+        "cnn": {
+          "accuracy": 0.8386666666666667,
+          "task_accuracy": [
+            0.8461538461538461,
+            0.8512658227848101,
+            0.8283828382838284,
+            0.8283712784588442,
+            0.8193018480492813,
+            0.8833333333333333,
+            0.81195079086116,
+            0.8545953360768176,
+            0.8138075313807531,
+            0.8290155440414507
+          ],
+          "task_counts": [
+            689,
+            632,
+            606,
+            571,
+            487,
+            660,
+            569,
+            729,
+            478,
+            579
+          ],
+          "evaluation_images": 6000
+        }
+      },
+      "extra_evaluation_pass_for_raw_matrix": false,
+      "extra_nme_evaluation_pass_for_raw_matrix": false,
+      "evaluation_mode": "offline_joint_final",
+      "wall_seconds": 7526.659088075161
+    }
+  ],
+  "final_evaluation": {
+    "task": 9,
+    "seen_classes": 200,
+    "accuracy": 0.8386666666666667,
+    "task_accuracy": [
+      0.8461538461538461,
+      0.8512658227848101,
+      0.8283828382838284,
+      0.8283712784588442,
+      0.8193018480492813,
+      0.8833333333333333,
+      0.81195079086116,
+      0.8545953360768176,
+      0.8138075313807531,
+      0.8290155440414507
+    ],
+    "task_counts": [
+      689,
+      632,
+      606,
+      571,
+      487,
+      660,
+      569,
+      729,
+      478,
+      579
+    ],
+    "evaluation_images": 6000,
+    "prediction_space": "all_seen_classes_without_task_id",
+    "cnn_report": {
+      "grouped": {
+        "total": 83.87,
+        "00-19": 84.62,
+        "20-39": 85.13,
+        "40-59": 82.84,
+        "60-79": 82.84,
+        "80-99": 81.93,
+        "100-119": 88.33,
+        "120-139": 81.2,
+        "140-159": 85.46,
+        "160-179": 81.38,
+        "180-199": 82.9,
+        "old": 0,
+        "new": 83.87
+      },
+      "top1": 83.87,
+      "top5": 93.63
+    },
+    "nme_report": null,
+    "evaluation_head": "cnn",
+    "heads": {
+      "cnn": {
+        "accuracy": 0.8386666666666667,
+        "task_accuracy": [
+          0.8461538461538461,
+          0.8512658227848101,
+          0.8283828382838284,
+          0.8283712784588442,
+          0.8193018480492813,
+          0.8833333333333333,
+          0.81195079086116,
+          0.8545953360768176,
+          0.8138075313807531,
+          0.8290155440414507
+        ],
+        "task_counts": [
+          689,
+          632,
+          606,
+          571,
+          487,
+          660,
+          569,
+          729,
+          478,
+          579
+        ],
+        "evaluation_images": 6000
+      }
+    },
+    "extra_evaluation_pass_for_raw_matrix": false,
+    "extra_nme_evaluation_pass_for_raw_matrix": false,
+    "evaluation_mode": "offline_joint_final",
+    "wall_seconds": 7526.659088075161
+  },
+  "task_diagnostics": [
+    {
+      "method": "joint",
+      "evaluation_mode": "offline_joint_final",
+      "selected_classes": 200,
+      "protocol_endpoint_task": 9,
+      "protocol_task_sizes": [
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20
+      ],
+      "protocol_total_classes": 200,
+      "unique_training_images": 24000,
+      "fitting_ids_sha256": "5f60695489a2632cd7198528284f66cd57bdab39083b87b04697dc6dfbcaada7",
+      "offline_fit_count": 1,
+      "training": {
+        "optimizer": "AdamW",
+        "schedule": "cosine_per_task",
+        "epochs": 20,
+        "optimizer_state_reset_per_task": true,
+        "optimizer_updates": 7500,
+        "current_training_visits": 480000,
+        "replay_training_visits": 0,
+        "loss_first": 6.909770488739014,
+        "loss_last": 0.30221545696258545,
+        "loss_mean": 0.6308249759058158,
+        "backbone_gradient_l2_rms": 19.661103428166754,
+        "backbone_gradient_l2_max": 55.515071868896484,
+        "backbone_lr": 1e-05,
+        "head_lr": 0.001,
+        "batch_size": 64,
+        "replay_batch_size": 0
+      },
+      "backbone_changed": true,
+      "backbone_sha256_before": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+      "backbone_sha256_after": "40419c6df15be5e89d2ad4ad7c1c51fa115070e77ba8ddb58cb27058b7ad120b",
+      "raw_replay_images": 0,
+      "replay_images": 0,
+      "historical_statistics_bytes": 0,
+      "data_access": "all selected training classes jointly available before a single offline fit",
+      "evaluation_during_training": false,
+      "aia_applicable": false,
+      "forgetting_applicable": false,
+      "resources": {
+        "deployment_backbone_parameter_bytes": 343194624,
+        "deployment_ce_head_bytes": 615200,
+        "inference_backbones": 1,
+        "training_backbones": 1,
+        "replay_raw_payload_bytes": 0,
+        "historical_statistics_bytes": 0,
+        "offline_training_union_access": true
+      }
+    }
+  ],
+  "backbone_provenance": {
+    "kind": "pretrained",
+    "timm_version": "0.6.12",
+    "checkpoint_family": "augreg_in21k_ft_in1k",
+    "public_weight_url": "https://storage.googleapis.com/vit_models/augreg/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+    "weight_file_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+    "initial_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+    "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63"
+  },
+  "execution": {
+    "torch": "2.7.1+cu128",
+    "numpy": "1.26.4",
+    "device_type": "cuda",
+    "wall_seconds": 7527.062344644219,
+    "numeric_checkpoint_payload_bytes": 343809824,
+    "gpu_peak_allocated_bytes": 10654906880,
+    "resumed_completed_fit_without_retraining": false,
+    "random_stream_policy": "canonical_loader_isolated_v1"
+  }
+}

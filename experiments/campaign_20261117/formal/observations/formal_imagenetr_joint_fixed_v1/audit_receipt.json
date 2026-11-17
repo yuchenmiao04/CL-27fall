@@ -1,0 +1,99 @@
+{
+  "job": "formal_imagenetr_joint_fixed_v1",
+  "status": "complete",
+  "phase": "final",
+  "method": "joint",
+  "dataset": "imagenetr",
+  "full_training_refit": true,
+  "fresh_pretrained_start_verified": true,
+  "fixed_baseline": true,
+  "hyperparameter_search": false,
+  "seed": 1993,
+  "validated_utc": "2026-11-17T09:08:19.650572+00:00",
+  "audit_scope": "CPU checkpoint/config/data/training-log/metric consistency audit of this completed fixed formal baseline. Its disclosed Final is for reporting only, neverHPO.",
+  "original_process_terminal": true,
+  "original_pid": 25652,
+  "original_proc_start_ticks": "1789467574",
+  "completed_fits": 1,
+  "checkpoint_stage_count": 1,
+  "checkpoint_endpoint_task": 9,
+  "training_rows_in_checkpoint": 24000,
+  "output_classes": 200,
+  "epochs_verified": 20,
+  "optimizer_updates_verified": 7500,
+  "training_visits_verified": 480000,
+  "raw_replay_images": 0,
+  "final_accuracy": 0.8386666666666667,
+  "final_correct": 5032,
+  "final_evaluation_samples": 6000,
+  "aia": null,
+  "forgetting_previous": null,
+  "forgetting_including_final": null,
+  "test_metric_values_disclosed": true,
+  "test_metric_used_for_hpo": false,
+  "full_main_protocol_and_metric_consistency_validated": true,
+  "validator_source_sha256": "5a6a70d36a921c420a9647295b5f0abf9af0728cc28e8791f3e1d273eaa30fd4",
+  "validator_source": "runtime_b125dbd/scripts/summarize_campaign.py",
+  "manifest_rebuilt_from_official_prepared_data": true,
+  "data_fingerprint": "014b448f085423b32b6ca0468e7165f896460ff3e4341d1f7bcc305d96a2de76",
+  "class_order_seed1993_verified": true,
+  "ordered_training_ids_reconstructed": true,
+  "ordered_training_ids_sha256": "5f60695489a2632cd7198528284f66cd57bdab39083b87b04697dc6dfbcaada7",
+  "natural_training_ids_sha256": "059e07633981cb5103171cd568a7e9ea95e356b5e4a1a12ef339f27b70496e0a",
+  "ordered_vs_natural_hashes_are_distinct": true,
+  "ordered_ids_unique_and_cover_all_training_rows": true,
+  "pretrained_weight_file_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+  "initial_backbone_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+  "final_backbone_sha256": "40419c6df15be5e89d2ad4ad7c1c51fa115070e77ba8ddb58cb27058b7ad120b",
+  "before_hash_matches_initial_provenance_and_frozen_control": true,
+  "actual_body_weights_changed": true,
+  "all_body_and_head_tensors_finite": true,
+  "body_dtype_shape_match_initial_control": true,
+  "head_dtype": "torch.float32",
+  "backbone_gradient_positive_finite": true,
+  "rng": {
+    "keys": [
+      "python",
+      "numpy",
+      "torch",
+      "cuda"
+    ],
+    "python_numpy_cpu_torch_states_schema_validated": true,
+    "cuda_state_count": 2,
+    "cuda_states_cpu_byte_lengths": [
+      16,
+      16
+    ],
+    "cuda_payload_sha256": [
+      "e07bf088e4c2fb3bb18e0183fab34704f31e2ca5b15268f2b7c352ddad2f65d8",
+      "e07bf088e4c2fb3bb18e0183fab34704f31e2ca5b15268f2b7c352ddad2f65d8"
+    ],
+    "gpu_restore_executed": false
+  },
+  "checkpoint": {
+    "source": "formal/runs/formal_imagenetr_joint_fixed_v1/checkpoint.pt",
+    "bytes": 343874860,
+    "sha256": "531e84fb056b1f02ec999b87a1d907ff8e27a0931474545763f57dbc2849e57a"
+  },
+  "results_sha256": "09bb7ce9bf45dc90f7ed72da0115abf68fb24ef1de518876ec62d6b58c24579b",
+  "original_metadata_sha256": {
+    "config": "40419d9c86e65e80d85aa4e28aec41138d55bd2117f2a919e823c9a7dff7c885",
+    "results": "09bb7ce9bf45dc90f7ed72da0115abf68fb24ef1de518876ec62d6b58c24579b",
+    "data_manifest": "80ce1916dfd7986bbb84684a188edb7ce8efb3b2c0cb29dbf5dfe832406a0131",
+    "launch_receipt": "ad9ca33282d4f1a92a98e778a4d69e0e17d68a43077eae1f0a463379c313acdf",
+    "epoch_log": "8cb444ed49432d71670bc1670bf0eddbcf924a935e2f6c1c865194569280b9f4",
+    "checkpoint": "531e84fb056b1f02ec999b87a1d907ff8e27a0931474545763f57dbc2849e57a"
+  },
+  "runtime_source_sha256": {
+    "models/joint.py": "21b6d53d33b131297abcb47ae28b7a61fdc45344d11e523531553663f64cee80",
+    "cl27/runner.py": "fbe6ad8f839fd1ea8dbbb78ca143b084ae6768de8475bfadf1da7e5b3bd4e040",
+    "cl27/data.py": "18fae0aaa165451c0c7b8f5c06eab2fed34c99be4a31623f3d26b930a7a19230",
+    "cl27/common.py": "33b63ca2b6baef4585e677d54d9e72e6e5247efb24d997e6eeec968911e0c3bf",
+    "cl27/transport_training.py": "c5024c2bdacf76e4febdade4a6e8cb0ef4d3ae443bc7f4b114af4e37b48ad809"
+  },
+  "limitations": [
+    "Final was checked against saved stage counts/arithmetic and source output; no independent model prediction re-evaluation was run.",
+    "CUDA RNG payload completeness was checked on CPU; no GPU restoration or continuation was executed.",
+    "Joint checkpoint supports completed-fit restoration, not mid-epoch optimizer continuation."
+  ]
+}
