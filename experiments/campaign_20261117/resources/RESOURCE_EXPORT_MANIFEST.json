@@ -1,9 +1,11 @@
 {
-  "source_sha256": "433466ae43a41036985010b8f49ccfc96286ea9a653c7a8ba5f1e6daf1993dca",
-  "published_sha256": "442497cef00335c588501089d632dfb652f8cbf74f518a18eaf6e6474ab4b0f6",
+  "source_sha256": "5361315f1f7adac0057dfd5da503f2331efb191bff89129533f0173bd36efe88",
+  "published_sha256": "60182ec42e77a1f8dafd658ed516d62669ed311c83b49021b657007f06f3729d",
   "source_raw_retained_privately": true,
   "actual_values_unchanged": true,
   "operational_paths_replaced": true,
-  "complete_formal_cells_measured": 10,
-  "pending_current_cells": 2
+  "complete_formal_cells_measured": 11,
+  "pending_current_cells": 1,
+  "current_counter_source_sha256": "744b75297ad13a9f98871509d230a0b9c2fcbdad74db8972f215d23cd7536e67",
+  "current_shape_measurement_sha256": "d4b16267f03ca34014fc1a66196c10b69472f2340fd8d5dee6d7d992b2b3de3a"
 }

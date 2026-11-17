@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "runs_root": "<server_root>/campaign_20261117/formal/runs",
-  "selection_file": "<server_root>/campaign_20261117/verification/partial_summary_10_v1/PARTIAL_SELECTED_JOBS.json",
+  "selection_file": "<server_root>/campaign_20261117/verification/partial_summary_11_v1/PARTIAL_SELECTED_JOBS.json",
   "selection_policy": "explicit path for duplicates; never optimize selection against reported scores",
   "seed": 1993,
   "expected_results": 12,
-  "available_results": 10,
+  "available_results": 11,
   "metric_units": "fractions; Markdown multiplies accuracy by 100 and forgetting by 100 percentage points",
   "rows": [
     {
@@ -876,13 +876,61 @@
     {
       "dataset": "imagenetr",
       "method": "current_adapted",
-      "status": "missing",
+      "seed": 1993,
       "metrics": {
-        "final_accuracy": null,
-        "aia": null,
-        "forgetting_previous": null,
-        "forgetting_including_final": null
-      }
+        "final_accuracy": 0.803,
+        "aia": 0.848657810390036,
+        "forgetting_previous": 0.07706331055222641,
+        "forgetting_including_final": 0.07706331055222641
+      },
+      "data_permission": "20/class (4000 final)",
+      "resources": {
+        "execution": {
+          "torch": "2.7.1+cu128",
+          "numpy": "1.26.4",
+          "device_type": "cuda",
+          "random_stream_policy": "canonical_loader_isolated_v1",
+          "wall_seconds": 11611.419533275068,
+          "numeric_checkpoint_payload_bytes": 1407072808,
+          "gpu_peak_allocated_bytes": 4206531072
+        },
+        "final_task_resources": {
+          "replay_images": 4000,
+          "replay_payload_bytes": 3448915321,
+          "numeric_payload_bytes": {
+            "encoder_weights": 686807080,
+            "statistics": 5961288,
+            "readouts": 2460800,
+            "resident_anchor_cache": 24608000,
+            "optimizer_state": 687225528
+          }
+        },
+        "configured_replay": {
+          "memory_size": 4000,
+          "memory_per_class": 20,
+          "fixed_memory": true
+        }
+      },
+      "source": {
+        "directory": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_current_selected_v5",
+        "results": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_current_selected_v5/results.json",
+        "config": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_current_selected_v5/config.json",
+        "data_manifest": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_current_selected_v5/data_manifest.json",
+        "checkpoint": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_current_selected_v5/checkpoint.pt",
+        "config_fingerprint": "c3739e9296b36760081d988c5c87c16138a24ff09e251b0bba4b4c46b60f5b8a",
+        "data_fingerprint": "014b448f085423b32b6ca0468e7165f896460ff3e4341d1f7bcc305d96a2de76",
+        "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63",
+        "backbone_provenance": {
+          "kind": "pretrained",
+          "timm_version": "0.6.12",
+          "checkpoint_family": "augreg_in21k_ft_in1k",
+          "public_weight_url": "https://storage.googleapis.com/vit_models/augreg/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+          "weight_file_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+          "initial_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+          "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63"
+        }
+      },
+      "completion_receipt": "../formal/completion_receipts/formal_imagenetr_current_selected_v5.json"
     },
     {
       "dataset": "imagenetr",
@@ -1314,7 +1362,9 @@
     "imagenetr/history_transport": [
       "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_transport_selected_v3"
     ],
-    "imagenetr/current_adapted": [],
+    "imagenetr/current_adapted": [
+      "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_current_selected_v5"
+    ],
     "imagenetr/plastic_shared_basis": [
       "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_plastic_shared_selected_v5"
     ],
@@ -1327,10 +1377,10 @@
   },
   "skipped_results": [],
   "export_provenance": {
-    "raw_summary_sha256": "1e02619a0cb66a581e1d3e7b397443c90030d29477f37ef35167c5c47ac1fcf9",
-    "raw_summary_bytes": 73215,
-    "paths_policy": "server root replaced by <server_root>; unredacted JSON retained privately",
+    "raw_summary_sha256": "07b11432af11e1c56d869451b97dfb93ffe863224da0dd5caeb3a480680a6bc9",
+    "raw_summary_bytes": 75831,
+    "paths_policy": "server root replaced by <server_root>; raw JSON retained privately",
     "prebound_full_selection": "../formal/SELECTED_JOBS.json",
-    "partial_selection_reason": "Only the ten prebound runs with complete formal results; both current_adapted runs still pending. No score ranking."
+    "partial_selection_reason": "Eleven prebound complete formal runs; CIFAR current still pending. No score ranking."
   }
 }

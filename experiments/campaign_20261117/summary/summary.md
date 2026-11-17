@@ -1,6 +1,6 @@
 # Campaign main results
 
-Seed 1993; 10/12 eligible final results. Missing results are —.
+Seed 1993; 11/12 eligible final results. Missing results are —.
 Accuracy: %. Forgetting: percentage points. Joint is an offline reference; its AIA and forgetting are not applicable.
 Selections use explicit run paths when duplicates exist, never the highest reported test score.
 
@@ -21,7 +21,7 @@ Selections use explicit run paths when duplicates exist, never the highest repor
 | --- | --- | --- | --- | --- | --- |
 | shared_basis | 0 | 67.60 | 74.30 | 7.30 | 7.30 |
 | history_transport | 20/class (4000 final) | 80.70 | 86.08 | 8.18 | 8.18 |
-| current_adapted | — | — | — | — | — |
+| current_adapted | 20/class (4000 final) | 80.30 | 84.87 | 7.71 | 7.71 |
 | plastic_shared_basis | 20/class (4000 final) | 80.68 | 86.05 | 8.13 | 8.13 |
 | er | 20/class (4000 final) | 70.00 | 78.67 | 23.76 | 23.76 |
 | joint | offline / all training data | 83.87 | — | — | — |

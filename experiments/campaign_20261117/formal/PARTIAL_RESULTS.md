@@ -1,6 +1,6 @@
 # Partial formal results
 
-10 of 12 formal dataset/method cells completed and audited. Full designated training data, selected test splits and seed 1993 are used. Remaining configuration selection uses only its fixed training holdout.
+11 of 12 formal dataset/method cells completed and audited. Full designated training data, selected test splits and seed 1993 are used. All eight method/dataset configuration choices were closed using their fixed training holdouts before these formal results were reported.
 
 | Dataset | Method | Final (%) | AIA (%) | Forgetting previous (pp) |
 | --- | --- | ---: | ---: | ---: |
@@ -14,11 +14,12 @@
 | ImageNet-R | ER | 70.00 | 78.67 | 23.76 |
 | ImageNet-R | History-statistics transport | 80.70 | 86.08 | 8.18 |
 | ImageNet-R | Plastic shared predictor basis | 80.68 | 86.05 | 8.13 |
+| ImageNet-R | Fixed module library | 80.30 | 84.87 | 7.71 |
 
-Joint is an offline full-class reference reporting Final only. Frozen shared basis retains zero historical images. Replay methods use 2,000 final images on CIFAR-100 and 20/class (4,000 final) on ImageNet-R. Native CPU restoration, actual source-data membership, arrivals, resident counts and all-class finite zero-input output are checked per completed replay cell without extra training or accuracy evaluation. Model backups remain server-local.
+Joint is an offline full-class reference reporting Final only. Frozen shared basis retains zero historical images. Replay methods use 2,000 final images on CIFAR-100 and 20/class (4,000 final) on ImageNet-R. Native CPU restoration, actual source-data membership, arrivals, resident counts and all-class finite zero-input output are checked per completed replay cell without extra training or accuracy evaluation. Recent replay-model backups remain server-local; the four earlier private archives are indexed separately.
 
 HT and plastic shared basis reuse their matching fixed formal ER gradient trajectory. The ten request/body/head identities and actual sealed-cache SHA256 values are verified. Shared native CE seconds and reader process wall (`execution.wall_seconds`) are separate costs; reader-only time/memory is not independent full-method training cost. See raw execution/resource records.
 
-On CIFAR-100, plastic shared basis predicts one additional example correctly among 10,000 compared with HT. This single-seed result does not establish a clear extra benefit of the shared prior; regularization also differs. Remaining predeclared module candidates are selected from development results only.
+On CIFAR-100, plastic shared basis predicts one additional example correctly among 10,000 compared with HT. This single-seed result does not establish a clear extra benefit of the shared prior; regularization also differs. All module configurations were selected from development results only.
 
 Both forgetting definitions, stage matrices/counts, source hashes, original audit attempts and scope limits are retained in the linked JSON/receipt/observations. CPU restoration does not prove exact CUDA continuation or completion of all 12 cells.

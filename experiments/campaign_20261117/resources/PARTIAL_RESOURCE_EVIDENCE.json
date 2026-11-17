@@ -1,19 +1,18 @@
 {
-  "status": "resource_definitions_and_ten_completed_measurements",
+  "status": "resource_definitions_for_twelve_cells_with_pending_measurements",
   "scope": {
     "required_formal_cells": 12,
-    "measured_completed_cells": 10,
+    "measured_completed_cells": 11,
     "seed": 1993,
     "pending_jobs": [
-      "formal_cifar_current_selected_v5",
-      "formal_imagenetr_current_selected_v5"
+      "formal_cifar_current_selected_v5"
     ],
     "pending_policy": "No active checkpoint read; fill actual tensor counts/replay/bytes/wall/peak from completed SHA-bound metadata later. No extra experiments requested."
   },
   "evidence": {
     "canonical_completed_rows": {
       "path": "local_repository/experiments/campaign_20261117/formal/PARTIAL_RESULTS.json",
-      "sha256": "feb32ced57dea0a0c1287ce22752297336bb16c4af63e25cff3de8fcb2f31d82"
+      "sha256": "a7ba632c56df4f8e421723e0460f8fdba338938582299f18265d5b927b084728"
     },
     "server_cpu_shape_count_json": {
       "path": "/tmp/cl27-session/completed_resource_shape_counts.json",
@@ -32,25 +31,25 @@
         "path": "local_repository/models/history_transport.py",
         "sha256": "a9b32229256cca60cca90ae969df480c20f1f4455629ede69e600d14971f2824",
         "matching_archived_runtime_sources": [
-          "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_imagenetr_transport_selected_v3/runtime_source/models/history_transport.py",
-          "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_cifar_plastic_shared_selected_v5/runtime_source/models/history_transport.py",
-          "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_cifar_transport_selected_v2/runtime_source/models/history_transport.py",
-          "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_imagenetr_plastic_shared_selected_v5/runtime_source/models/history_transport.py"
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_transport_selected_v3/runtime_source/models/history_transport.py",
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_cifar_plastic_shared_selected_v5/runtime_source/models/history_transport.py",
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_cifar_transport_selected_v2/runtime_source/models/history_transport.py",
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_plastic_shared_selected_v5/runtime_source/models/history_transport.py"
         ]
       },
       {
         "path": "local_repository/models/plastic_shared_basis.py",
         "sha256": "3e3be162f368d9baf6ee07c2cb60a10947d5186c0dc5e570d61b2894f1d54dc4",
         "matching_archived_runtime_sources": [
-          "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_cifar_plastic_shared_selected_v5/runtime_source/models/plastic_shared_basis.py",
-          "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_imagenetr_plastic_shared_selected_v5/runtime_source/models/plastic_shared_basis.py"
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_cifar_plastic_shared_selected_v5/runtime_source/models/plastic_shared_basis.py",
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_plastic_shared_selected_v5/runtime_source/models/plastic_shared_basis.py"
         ]
       },
       {
         "path": "local_repository/models/er.py",
         "sha256": "5b43cdaf7ecf288dd9b0b64af16ea22b1681fce5ce212e886f00e2c13fbf356c",
         "matching_archived_runtime_sources": [
-          "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_imagenetr_er_fixed_v1/runtime_source/models/er.py"
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_er_fixed_v1/runtime_source/models/er.py"
         ]
       },
       {
@@ -61,28 +60,32 @@
       {
         "path": "local_repository/models/current_adapted.py",
         "sha256": "8cfbe15d35f4d956a665e6c553670bad296289c0ba457df07af7ab5585c0f1c1",
-        "matching_archived_runtime_sources": []
+        "matching_archived_runtime_sources": [
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_current_selected_v5/runtime_source/models/current_adapted.py"
+        ]
       },
       {
         "path": "local_repository/cl27/common.py",
         "sha256": "33b63ca2b6baef4585e677d54d9e72e6e5247efb24d997e6eeec968911e0c3bf",
         "matching_archived_runtime_sources": [
-          "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_imagenetr_transport_selected_v3/runtime_source/cl27/common.py",
-          "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_imagenetr_er_fixed_v1/runtime_source/cl27/common.py",
-          "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_cifar_plastic_shared_selected_v5/runtime_source/cl27/common.py",
-          "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_cifar_transport_selected_v2/runtime_source/cl27/common.py",
-          "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_imagenetr_plastic_shared_selected_v5/runtime_source/cl27/common.py"
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_transport_selected_v3/runtime_source/cl27/common.py",
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_current_selected_v5/runtime_source/cl27/common.py",
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_er_fixed_v1/runtime_source/cl27/common.py",
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_cifar_plastic_shared_selected_v5/runtime_source/cl27/common.py",
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_cifar_transport_selected_v2/runtime_source/cl27/common.py",
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_plastic_shared_selected_v5/runtime_source/cl27/common.py"
         ]
       },
       {
         "path": "local_repository/cl27/replay.py",
         "sha256": "c334c443a977aa656e07c381ea1a3232dedc56159d70a0717131c50e754a17a9",
         "matching_archived_runtime_sources": [
-          "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_imagenetr_transport_selected_v3/runtime_source/cl27/replay.py",
-          "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_imagenetr_er_fixed_v1/runtime_source/cl27/replay.py",
-          "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_cifar_plastic_shared_selected_v5/runtime_source/cl27/replay.py",
-          "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_cifar_transport_selected_v2/runtime_source/cl27/replay.py",
-          "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_imagenetr_plastic_shared_selected_v5/runtime_source/cl27/replay.py"
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_transport_selected_v3/runtime_source/cl27/replay.py",
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_current_selected_v5/runtime_source/cl27/replay.py",
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_er_fixed_v1/runtime_source/cl27/replay.py",
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_cifar_plastic_shared_selected_v5/runtime_source/cl27/replay.py",
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_cifar_transport_selected_v2/runtime_source/cl27/replay.py",
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_plastic_shared_selected_v5/runtime_source/cl27/replay.py"
         ]
       },
       {
@@ -99,34 +102,42 @@
         "path": "local_repository/cl27/cores/shared_basis.py",
         "sha256": "78bf3c39430dff022d61a22c90380ce57c0c3623e5c2271c653d6243c2d454a0",
         "matching_archived_runtime_sources": [
-          "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_cifar_plastic_shared_selected_v5/runtime_source/cl27/cores/shared_basis.py",
-          "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_imagenetr_plastic_shared_selected_v5/runtime_source/cl27/cores/shared_basis.py"
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_cifar_plastic_shared_selected_v5/runtime_source/cl27/cores/shared_basis.py",
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_plastic_shared_selected_v5/runtime_source/cl27/cores/shared_basis.py"
         ]
       },
       {
         "path": "local_repository/cl27/cores/transport.py",
         "sha256": "632d13b5dad439d7a4eeed0849668fc7dc103d2a838cebea861e42d85865ccd9",
         "matching_archived_runtime_sources": [
-          "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_imagenetr_transport_selected_v3/runtime_source/cl27/cores/transport.py",
-          "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_cifar_plastic_shared_selected_v5/runtime_source/cl27/cores/transport.py",
-          "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_cifar_transport_selected_v2/runtime_source/cl27/cores/transport.py",
-          "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_imagenetr_plastic_shared_selected_v5/runtime_source/cl27/cores/transport.py"
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_transport_selected_v3/runtime_source/cl27/cores/transport.py",
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_cifar_plastic_shared_selected_v5/runtime_source/cl27/cores/transport.py",
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_cifar_transport_selected_v2/runtime_source/cl27/cores/transport.py",
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_plastic_shared_selected_v5/runtime_source/cl27/cores/transport.py"
         ]
       },
       {
         "path": "local_repository/cl27/cores/plastic_shared_basis.py",
         "sha256": "57f9969ebb7f797afdbb9e23c05640462ee19e034d894a4f6815c1b405634691",
         "matching_archived_runtime_sources": [
-          "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_cifar_plastic_shared_selected_v5/runtime_source/cl27/cores/plastic_shared_basis.py",
-          "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_imagenetr_plastic_shared_selected_v5/runtime_source/cl27/cores/plastic_shared_basis.py"
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_cifar_plastic_shared_selected_v5/runtime_source/cl27/cores/plastic_shared_basis.py",
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_plastic_shared_selected_v5/runtime_source/cl27/cores/plastic_shared_basis.py"
         ]
       },
       {
         "path": "local_repository/cl27/current/engine.py",
         "sha256": "43fc2597aeaaa64f23517d598cbb62a0a18e0af1f82520bdfd58de265aa1e372",
-        "matching_archived_runtime_sources": []
+        "matching_archived_runtime_sources": [
+          "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_current_selected_v5/runtime_source/cl27/current/engine.py"
+        ]
       }
-    ]
+    ],
+    "server_current_cpu_shape_count_json": {
+      "path": "/tmp/cl27-session/current_completed_resource_shape_counts.json",
+      "sha256": "d4b16267f03ca34014fc1a66196c10b69472f2340fd8d5dee6d7d992b2b3de3a",
+      "status": "sha_bound_audited_current_checkpoint_shape_counts",
+      "completed_rows": 1
+    }
   },
   "definitions": {
     "parameter_count": "Native timm parameter-name registry matched exact completed checkpoint names/shapes. Counts use tensor.numel and actual dtype; buffers counted separately. No byte-to-parameter inference.",
@@ -146,7 +157,9 @@
     "executor_wall_seconds": "CE wrapper actual call wall including identity guards, serialization/load, state and RNG work; record mode includes native CE, replay mode does not.",
     "gpu_peak_allocated_bytes": "torch.cuda.max_memory_allocated of this process after reset before model/data creation. Excludes CUDA context, reserved/unallocated pool, other processes and CPU state. Reader peak does not measure full independent HT/PSB training peak.",
     "ce_cache_disk": "Sealed execution/recovery files, counted once by dataset donor asset; separate from algorithm replay-image budget and resident auxiliary arrays.",
-    "rng_and_optimizer": "Outer runner RNG plus method-local replay RNG are recovery state. ER/HT/PSB reset AdamW per stage and save stage boundaries; Joint saves completed fit. Current persists two AdamW states and progress; dynamic phase requires_grad is not eligibility."
+    "rng_and_optimizer": "Outer runner RNG plus method-local replay RNG are recovery state. ER/HT/PSB reset AdamW per stage and save stage boundaries; Joint saves completed fit. Current persists two AdamW states and progress; dynamic phase requires_grad is not eligibility.",
+    "current_overlap_rule": "Count main/anchor/library Parameters once; encoder_weights is their plus buffer payload, not additional storage. Current auxiliary sum excludes encoder_weights and includes statistics/readouts/resident cache/persistent optimizer tensors. Optimizer tensors are not additional neural parameters.",
+    "current_successful_work": "Actual module/backbone successful steps and episode attempts/skips; no fixed step count is required, including the two skipped CIFAR task0 episodes. Terminal cumulative encoding counters are not summed across stages."
   },
   "completed_rows": [
     {
@@ -155,7 +168,7 @@
       "method": "joint",
       "status": "completed_metadata_and_sha_bound_cpu_shapes",
       "source_runtime": null,
-      "checkpoint_source": "remote_runtime/campaign_20261117/formal/runs/formal_cifar_joint_fixed_v1/checkpoint.pt",
+      "checkpoint_source": "<server_root>/campaign_20261117/formal/runs/formal_cifar_joint_fixed_v1/checkpoint.pt",
       "terminal_and_cpu_only_confirmed": true,
       "sources": {
         "results": {
@@ -277,7 +290,7 @@
       "method": "shared_basis",
       "status": "completed_metadata_and_sha_bound_cpu_shapes",
       "source_runtime": null,
-      "checkpoint_source": "remote_runtime/campaign_20261117/formal/runs/formal_cifar_shared_selected_v7/checkpoint.pt",
+      "checkpoint_source": "<server_root>/campaign_20261117/formal/runs/formal_cifar_shared_selected_v7/checkpoint.pt",
       "terminal_and_cpu_only_confirmed": true,
       "sources": {
         "results": {
@@ -418,7 +431,7 @@
       "method": "shared_basis",
       "status": "completed_metadata_and_sha_bound_cpu_shapes",
       "source_runtime": null,
-      "checkpoint_source": "remote_runtime/campaign_20261117/formal/runs/formal_imagenetr_shared_selected_v7/checkpoint.pt",
+      "checkpoint_source": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_shared_selected_v7/checkpoint.pt",
       "terminal_and_cpu_only_confirmed": true,
       "sources": {
         "results": {
@@ -559,21 +572,21 @@
       "method": "joint",
       "status": "completed_metadata_and_sha_bound_cpu_shapes",
       "source_runtime": null,
-      "checkpoint_source": "remote_runtime/campaign_20261117/formal/runs/formal_imagenetr_joint_fixed_v1/checkpoint.pt",
+      "checkpoint_source": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_joint_fixed_v1/checkpoint.pt",
       "terminal_and_cpu_only_confirmed": true,
       "sources": {
         "results": {
-          "path": "local_user/持续学习/.experiment_private_20261117/formal_completed/formal_imagenetr_joint_fixed_v1/results.json",
+          "path": "local_workspace/.experiment_private_20261117/formal_completed/formal_imagenetr_joint_fixed_v1/results.json",
           "original_file_sha256": "09bb7ce9bf45dc90f7ed72da0115abf68fb24ef1de518876ec62d6b58c24579b",
           "bytes": 8188
         },
         "config": {
-          "path": "local_user/持续学习/.experiment_private_20261117/formal_completed/formal_imagenetr_joint_fixed_v1/config.json",
+          "path": "local_workspace/.experiment_private_20261117/formal_completed/formal_imagenetr_joint_fixed_v1/config.json",
           "original_file_sha256": "40419d9c86e65e80d85aa4e28aec41138d55bd2117f2a919e823c9a7dff7c885",
           "bytes": 1302
         },
         "data_manifest": {
-          "path": "local_user/持续学习/.experiment_private_20261117/formal_completed/formal_imagenetr_joint_fixed_v1/data_manifest.json",
+          "path": "local_workspace/.experiment_private_20261117/formal_completed/formal_imagenetr_joint_fixed_v1/data_manifest.json",
           "original_file_sha256": "80ce1916dfd7986bbb84684a188edb7ce8efb3b2c0cb29dbf5dfe832406a0131",
           "bytes": 8381
         }
@@ -677,22 +690,22 @@
       "dataset": "cifar224",
       "method": "er",
       "status": "completed_metadata_and_sha_bound_cpu_shapes",
-      "source_runtime": "remote_runtime/runtime_fixed_er_v5",
-      "checkpoint_source": "remote_runtime/campaign_20261117/formal/runs/formal_cifar_er_fixed_v1/checkpoint.pt",
+      "source_runtime": "<server_root>/runtime_fixed_er_v5",
+      "checkpoint_source": "<server_root>/campaign_20261117/formal/runs/formal_cifar_er_fixed_v1/checkpoint.pt",
       "terminal_and_cpu_only_confirmed": true,
       "sources": {
         "results": {
-          "path": "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_cifar_er_fixed_v1/formal/runs/formal_cifar_er_fixed_v1/results.json",
+          "path": "local_workspace/.experiment_private_20261117/formal_observations/formal_cifar_er_fixed_v1/formal/runs/formal_cifar_er_fixed_v1/results.json",
           "original_file_sha256": "ae1721480c7b9b13796e8b1fa80bc402793d65179076a3392f5f1088befec7a8",
           "bytes": 52633
         },
         "config": {
-          "path": "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_cifar_er_fixed_v1/formal/runs/formal_cifar_er_fixed_v1/config.json",
+          "path": "local_workspace/.experiment_private_20261117/formal_observations/formal_cifar_er_fixed_v1/formal/runs/formal_cifar_er_fixed_v1/config.json",
           "original_file_sha256": "5642ea285a4d05354b89e89b0618f36e1f96090beba00248c71a9cfa60dbd275",
           "bytes": 1222
         },
         "data_manifest": {
-          "path": "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_cifar_er_fixed_v1/formal/runs/formal_cifar_er_fixed_v1/data_manifest.json",
+          "path": "local_workspace/.experiment_private_20261117/formal_observations/formal_cifar_er_fixed_v1/formal/runs/formal_cifar_er_fixed_v1/data_manifest.json",
           "original_file_sha256": "1471599966cbc1427d69bcff8a186e0c648b22fb2be88b6de103cb469bdcb823",
           "bytes": 1785
         }
@@ -804,22 +817,22 @@
       "dataset": "cifar224",
       "method": "history_transport",
       "status": "completed_metadata_and_sha_bound_cpu_shapes",
-      "source_runtime": "remote_runtime/runtime_tuning_v1",
-      "checkpoint_source": "remote_runtime/campaign_20261117/formal/runs/formal_cifar_transport_selected_v2/checkpoint.pt",
+      "source_runtime": "<server_root>/runtime_tuning_v1",
+      "checkpoint_source": "<server_root>/campaign_20261117/formal/runs/formal_cifar_transport_selected_v2/checkpoint.pt",
       "terminal_and_cpu_only_confirmed": true,
       "sources": {
         "results": {
-          "path": "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_cifar_transport_selected_v2/formal/runs/formal_cifar_transport_selected_v2/results.json",
+          "path": "local_workspace/.experiment_private_20261117/formal_observations/formal_cifar_transport_selected_v2/formal/runs/formal_cifar_transport_selected_v2/results.json",
           "original_file_sha256": "441a308e205114116314f13286c0728f7f566a117591ecd0a8fa1cdc9bc453fa",
           "bytes": 97535
         },
         "config": {
-          "path": "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_cifar_transport_selected_v2/formal/runs/formal_cifar_transport_selected_v2/config.json",
+          "path": "local_workspace/.experiment_private_20261117/formal_observations/formal_cifar_transport_selected_v2/formal/runs/formal_cifar_transport_selected_v2/config.json",
           "original_file_sha256": "fe41863891c5a9aa1c0f9b8abc695265b74867e2bf752448da5863f229dffb41",
           "bytes": 1546
         },
         "data_manifest": {
-          "path": "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_cifar_transport_selected_v2/formal/runs/formal_cifar_transport_selected_v2/data_manifest.json",
+          "path": "local_workspace/.experiment_private_20261117/formal_observations/formal_cifar_transport_selected_v2/formal/runs/formal_cifar_transport_selected_v2/data_manifest.json",
           "original_file_sha256": "1471599966cbc1427d69bcff8a186e0c648b22fb2be88b6de103cb469bdcb823",
           "bytes": 1785
         }
@@ -1000,22 +1013,22 @@
       "dataset": "cifar224",
       "method": "plastic_shared_basis",
       "status": "completed_metadata_and_sha_bound_cpu_shapes",
-      "source_runtime": "remote_runtime/runtime_tuning_v1",
-      "checkpoint_source": "remote_runtime/campaign_20261117/formal/runs/formal_cifar_plastic_shared_selected_v5/checkpoint.pt",
+      "source_runtime": "<server_root>/runtime_tuning_v1",
+      "checkpoint_source": "<server_root>/campaign_20261117/formal/runs/formal_cifar_plastic_shared_selected_v5/checkpoint.pt",
       "terminal_and_cpu_only_confirmed": true,
       "sources": {
         "results": {
-          "path": "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_cifar_plastic_shared_selected_v5/formal/runs/formal_cifar_plastic_shared_selected_v5/results.json",
+          "path": "local_workspace/.experiment_private_20261117/formal_observations/formal_cifar_plastic_shared_selected_v5/formal/runs/formal_cifar_plastic_shared_selected_v5/results.json",
           "original_file_sha256": "5e30f8c9706da91052821452620d0d0c3be61cc66660576765fade39be66c588",
           "bytes": 121438
         },
         "config": {
-          "path": "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_cifar_plastic_shared_selected_v5/formal/runs/formal_cifar_plastic_shared_selected_v5/config.json",
+          "path": "local_workspace/.experiment_private_20261117/formal_observations/formal_cifar_plastic_shared_selected_v5/formal/runs/formal_cifar_plastic_shared_selected_v5/config.json",
           "original_file_sha256": "b9ca7bc40ca9f445cb1549ebeff50d5ef47b8514a1a5f6efce8b7e50f2d90456",
           "bytes": 1612
         },
         "data_manifest": {
-          "path": "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_cifar_plastic_shared_selected_v5/formal/runs/formal_cifar_plastic_shared_selected_v5/data_manifest.json",
+          "path": "local_workspace/.experiment_private_20261117/formal_observations/formal_cifar_plastic_shared_selected_v5/formal/runs/formal_cifar_plastic_shared_selected_v5/data_manifest.json",
           "original_file_sha256": "1471599966cbc1427d69bcff8a186e0c648b22fb2be88b6de103cb469bdcb823",
           "bytes": 1785
         }
@@ -1241,22 +1254,22 @@
       "dataset": "imagenetr",
       "method": "er",
       "status": "completed_metadata_and_sha_bound_cpu_shapes",
-      "source_runtime": "remote_runtime/runtime_fixed_er_v5",
-      "checkpoint_source": "remote_runtime/campaign_20261117/formal/runs/formal_imagenetr_er_fixed_v1/checkpoint.pt",
+      "source_runtime": "<server_root>/runtime_fixed_er_v5",
+      "checkpoint_source": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_er_fixed_v1/checkpoint.pt",
       "terminal_and_cpu_only_confirmed": true,
       "sources": {
         "results": {
-          "path": "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_imagenetr_er_fixed_v1/formal/runs/formal_imagenetr_er_fixed_v1/results.json",
+          "path": "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_er_fixed_v1/formal/runs/formal_imagenetr_er_fixed_v1/results.json",
           "original_file_sha256": "358aa81a922f12a3b81d298816b82b786d25fe2078c8eac6d3c459097c146d40",
           "bytes": 55643
         },
         "config": {
-          "path": "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_imagenetr_er_fixed_v1/formal/runs/formal_imagenetr_er_fixed_v1/config.json",
+          "path": "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_er_fixed_v1/formal/runs/formal_imagenetr_er_fixed_v1/config.json",
           "original_file_sha256": "835372adbb325d1317eed07b92b87ab8af419f4425060f6a6aabf4e34c2b1a9d",
           "bytes": 1294
         },
         "data_manifest": {
-          "path": "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_imagenetr_er_fixed_v1/formal/runs/formal_imagenetr_er_fixed_v1/data_manifest.json",
+          "path": "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_er_fixed_v1/formal/runs/formal_imagenetr_er_fixed_v1/data_manifest.json",
           "original_file_sha256": "80ce1916dfd7986bbb84684a188edb7ce8efb3b2c0cb29dbf5dfe832406a0131",
           "bytes": 8381
         }
@@ -1368,22 +1381,22 @@
       "dataset": "imagenetr",
       "method": "history_transport",
       "status": "completed_metadata_and_sha_bound_cpu_shapes",
-      "source_runtime": "remote_runtime/runtime_tuning_v1",
-      "checkpoint_source": "remote_runtime/campaign_20261117/formal/runs/formal_imagenetr_transport_selected_v3/checkpoint.pt",
+      "source_runtime": "<server_root>/runtime_tuning_v1",
+      "checkpoint_source": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_transport_selected_v3/checkpoint.pt",
       "terminal_and_cpu_only_confirmed": true,
       "sources": {
         "results": {
-          "path": "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_imagenetr_transport_selected_v3/formal/runs/formal_imagenetr_transport_selected_v3/results.json",
+          "path": "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_transport_selected_v3/formal/runs/formal_imagenetr_transport_selected_v3/results.json",
           "original_file_sha256": "51a63865b9af1a99e3fd08c29f702e6f470ecfec3acd3f66d0810d77609c0e9e",
           "bytes": 108531
         },
         "config": {
-          "path": "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_imagenetr_transport_selected_v3/formal/runs/formal_imagenetr_transport_selected_v3/config.json",
+          "path": "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_transport_selected_v3/formal/runs/formal_imagenetr_transport_selected_v3/config.json",
           "original_file_sha256": "81307ad39004631714ccab46f5698a8b18508fc2f321eed375ac06de81c5e1e9",
           "bytes": 1521
         },
         "data_manifest": {
-          "path": "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_imagenetr_transport_selected_v3/formal/runs/formal_imagenetr_transport_selected_v3/data_manifest.json",
+          "path": "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_transport_selected_v3/formal/runs/formal_imagenetr_transport_selected_v3/data_manifest.json",
           "original_file_sha256": "80ce1916dfd7986bbb84684a188edb7ce8efb3b2c0cb29dbf5dfe832406a0131",
           "bytes": 8381
         }
@@ -1564,22 +1577,22 @@
       "dataset": "imagenetr",
       "method": "plastic_shared_basis",
       "status": "completed_metadata_and_sha_bound_cpu_shapes",
-      "source_runtime": "remote_runtime/runtime_tuning_v1",
-      "checkpoint_source": "remote_runtime/campaign_20261117/formal/runs/formal_imagenetr_plastic_shared_selected_v5/checkpoint.pt",
+      "source_runtime": "<server_root>/runtime_tuning_v1",
+      "checkpoint_source": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_plastic_shared_selected_v5/checkpoint.pt",
       "terminal_and_cpu_only_confirmed": true,
       "sources": {
         "results": {
-          "path": "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_imagenetr_plastic_shared_selected_v5/formal/runs/formal_imagenetr_plastic_shared_selected_v5/results.json",
+          "path": "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_plastic_shared_selected_v5/formal/runs/formal_imagenetr_plastic_shared_selected_v5/results.json",
           "original_file_sha256": "611ef3078ab8ba3d239867ffca39797c7a8d0e9e32c162efa281e9fb01fceff6",
           "bytes": 131493
         },
         "config": {
-          "path": "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_imagenetr_plastic_shared_selected_v5/formal/runs/formal_imagenetr_plastic_shared_selected_v5/config.json",
+          "path": "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_plastic_shared_selected_v5/formal/runs/formal_imagenetr_plastic_shared_selected_v5/config.json",
           "original_file_sha256": "912c9a03d774b6ad7459c54eb897ab639dc18d6ddfa480e5078d5e89cae9ea56",
           "bytes": 1693
         },
         "data_manifest": {
-          "path": "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_imagenetr_plastic_shared_selected_v5/formal/runs/formal_imagenetr_plastic_shared_selected_v5/data_manifest.json",
+          "path": "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_plastic_shared_selected_v5/formal/runs/formal_imagenetr_plastic_shared_selected_v5/data_manifest.json",
           "original_file_sha256": "80ce1916dfd7986bbb84684a188edb7ce8efb3b2c0cb29dbf5dfe832406a0131",
           "bytes": 8381
         }
@@ -1799,11 +1812,386 @@
         "inference_backbones": 1,
         "training_backbones": 2
       }
+    },
+    {
+      "job": "formal_imagenetr_current_selected_v5",
+      "dataset": "imagenetr",
+      "method": "current_adapted",
+      "status": "completed_metadata_and_sha_bound_cpu_shapes",
+      "source_runtime": "<server_root>/runtime_bounded_v4",
+      "checkpoint_source": "<server_root>/formal_backups/campaign_20261117/formal_imagenetr_current_selected_v5/checkpoint.pt",
+      "terminal_and_cpu_only_confirmed": true,
+      "sources": {
+        "results": {
+          "path": "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_current_selected_v5/formal/runs/formal_imagenetr_current_selected_v5/results.json",
+          "original_file_sha256": "a80fda407a286acd995ff3bf1668c1c495201f1130fd9fc22ed362dfda66746c",
+          "bytes": 79309
+        },
+        "config": {
+          "path": "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_current_selected_v5/formal/runs/formal_imagenetr_current_selected_v5/config.json",
+          "original_file_sha256": "93f1d596c9d7e11546f7f64b30cf76fc47b847ff90d0acf4552cfb7a48d8b939",
+          "bytes": 1634
+        },
+        "data_manifest": {
+          "path": "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_current_selected_v5/formal/runs/formal_imagenetr_current_selected_v5/data_manifest.json",
+          "original_file_sha256": "80ce1916dfd7986bbb84684a188edb7ce8efb3b2c0cb29dbf5dfe832406a0131",
+          "bytes": 8381
+        }
+      },
+      "identities": {
+        "config_fingerprint": "c3739e9296b36760081d988c5c87c16138a24ff09e251b0bba4b4c46b60f5b8a",
+        "data_fingerprint": "014b448f085423b32b6ca0468e7165f896460ff3e4341d1f7bcc305d96a2de76",
+        "checkpoint_sha256": "a745a17777a7faf149bb8c4d1af7ca6c42caf1ac1ce318ba05d8ca3d8cc313e7",
+        "seed": 1993
+      },
+      "parameter_counts": {
+        "backbone": {
+          "numel": 85798656,
+          "bytes": 343194624,
+          "dtypes": [
+            "torch.float32"
+          ],
+          "native_parameter_names": 150
+        },
+        "ce_head": {
+          "numel": 0,
+          "bytes": 0
+        },
+        "extra_frozen_anchor": {
+          "numel": 85798656,
+          "bytes": 343194624,
+          "dtypes": [
+            "torch.float32"
+          ],
+          "native_parameter_names": 150
+        },
+        "modules": {
+          "numel": 104456,
+          "bytes": 417824,
+          "dtypes": [
+            "torch.float32"
+          ],
+          "native_parameter_names": 8
+        },
+        "buffers": {
+          "backbone_buffers": {
+            "numel": 0,
+            "bytes": 0,
+            "dtypes": [],
+            "native_buffer_names": 0
+          },
+          "extra_frozen_anchor_buffers": {
+            "numel": 0,
+            "bytes": 0,
+            "dtypes": [],
+            "native_buffer_names": 0
+          },
+          "module_buffers": {
+            "numel": 2,
+            "bytes": 8,
+            "dtypes": [
+              "torch.float32"
+            ],
+            "native_buffer_names": 2
+          }
+        },
+        "gradient_eligible_nn_numel": 85903112,
+        "training_resident_nn_numel": 171701768,
+        "active_inference_backbones": 2,
+        "training_backbones": 2,
+        "inference_nn_numel": 171701768,
+        "optimizer_eligible_families": {
+          "backbone": {
+            "numel": 85798656,
+            "bytes": 343194624,
+            "parameter_count": 150,
+            "parameter_names": [
+              "main.cls_token",
+              "main.pos_embed",
+              "main.patch_embed.proj.weight",
+              "main.patch_embed.proj.bias",
+              "main.blocks.0.norm1.weight",
+              "main.blocks.0.norm1.bias",
+              "main.blocks.0.attn.qkv.weight",
+              "main.blocks.0.attn.qkv.bias",
+              "main.blocks.0.attn.proj.weight",
+              "main.blocks.0.attn.proj.bias",
+              "main.blocks.0.norm2.weight",
+              "main.blocks.0.norm2.bias",
+              "main.blocks.0.mlp.fc1.weight",
+              "main.blocks.0.mlp.fc1.bias",
+              "main.blocks.0.mlp.fc2.weight",
+              "main.blocks.0.mlp.fc2.bias",
+              "main.blocks.1.norm1.weight",
+              "main.blocks.1.norm1.bias",
+              "main.blocks.1.attn.qkv.weight",
+              "main.blocks.1.attn.qkv.bias",
+              "main.blocks.1.attn.proj.weight",
+              "main.blocks.1.attn.proj.bias",
+              "main.blocks.1.norm2.weight",
+              "main.blocks.1.norm2.bias",
+              "main.blocks.1.mlp.fc1.weight",
+              "main.blocks.1.mlp.fc1.bias",
+              "main.blocks.1.mlp.fc2.weight",
+              "main.blocks.1.mlp.fc2.bias",
+              "main.blocks.2.norm1.weight",
+              "main.blocks.2.norm1.bias",
+              "main.blocks.2.attn.qkv.weight",
+              "main.blocks.2.attn.qkv.bias",
+              "main.blocks.2.attn.proj.weight",
+              "main.blocks.2.attn.proj.bias",
+              "main.blocks.2.norm2.weight",
+              "main.blocks.2.norm2.bias",
+              "main.blocks.2.mlp.fc1.weight",
+              "main.blocks.2.mlp.fc1.bias",
+              "main.blocks.2.mlp.fc2.weight",
+              "main.blocks.2.mlp.fc2.bias",
+              "main.blocks.3.norm1.weight",
+              "main.blocks.3.norm1.bias",
+              "main.blocks.3.attn.qkv.weight",
+              "main.blocks.3.attn.qkv.bias",
+              "main.blocks.3.attn.proj.weight",
+              "main.blocks.3.attn.proj.bias",
+              "main.blocks.3.norm2.weight",
+              "main.blocks.3.norm2.bias",
+              "main.blocks.3.mlp.fc1.weight",
+              "main.blocks.3.mlp.fc1.bias",
+              "main.blocks.3.mlp.fc2.weight",
+              "main.blocks.3.mlp.fc2.bias",
+              "main.blocks.4.norm1.weight",
+              "main.blocks.4.norm1.bias",
+              "main.blocks.4.attn.qkv.weight",
+              "main.blocks.4.attn.qkv.bias",
+              "main.blocks.4.attn.proj.weight",
+              "main.blocks.4.attn.proj.bias",
+              "main.blocks.4.norm2.weight",
+              "main.blocks.4.norm2.bias",
+              "main.blocks.4.mlp.fc1.weight",
+              "main.blocks.4.mlp.fc1.bias",
+              "main.blocks.4.mlp.fc2.weight",
+              "main.blocks.4.mlp.fc2.bias",
+              "main.blocks.5.norm1.weight",
+              "main.blocks.5.norm1.bias",
+              "main.blocks.5.attn.qkv.weight",
+              "main.blocks.5.attn.qkv.bias",
+              "main.blocks.5.attn.proj.weight",
+              "main.blocks.5.attn.proj.bias",
+              "main.blocks.5.norm2.weight",
+              "main.blocks.5.norm2.bias",
+              "main.blocks.5.mlp.fc1.weight",
+              "main.blocks.5.mlp.fc1.bias",
+              "main.blocks.5.mlp.fc2.weight",
+              "main.blocks.5.mlp.fc2.bias",
+              "main.blocks.6.norm1.weight",
+              "main.blocks.6.norm1.bias",
+              "main.blocks.6.attn.qkv.weight",
+              "main.blocks.6.attn.qkv.bias",
+              "main.blocks.6.attn.proj.weight",
+              "main.blocks.6.attn.proj.bias",
+              "main.blocks.6.norm2.weight",
+              "main.blocks.6.norm2.bias",
+              "main.blocks.6.mlp.fc1.weight",
+              "main.blocks.6.mlp.fc1.bias",
+              "main.blocks.6.mlp.fc2.weight",
+              "main.blocks.6.mlp.fc2.bias",
+              "main.blocks.7.norm1.weight",
+              "main.blocks.7.norm1.bias",
+              "main.blocks.7.attn.qkv.weight",
+              "main.blocks.7.attn.qkv.bias",
+              "main.blocks.7.attn.proj.weight",
+              "main.blocks.7.attn.proj.bias",
+              "main.blocks.7.norm2.weight",
+              "main.blocks.7.norm2.bias",
+              "main.blocks.7.mlp.fc1.weight",
+              "main.blocks.7.mlp.fc1.bias",
+              "main.blocks.7.mlp.fc2.weight",
+              "main.blocks.7.mlp.fc2.bias",
+              "main.blocks.8.norm1.weight",
+              "main.blocks.8.norm1.bias",
+              "main.blocks.8.attn.qkv.weight",
+              "main.blocks.8.attn.qkv.bias",
+              "main.blocks.8.attn.proj.weight",
+              "main.blocks.8.attn.proj.bias",
+              "main.blocks.8.norm2.weight",
+              "main.blocks.8.norm2.bias",
+              "main.blocks.8.mlp.fc1.weight",
+              "main.blocks.8.mlp.fc1.bias",
+              "main.blocks.8.mlp.fc2.weight",
+              "main.blocks.8.mlp.fc2.bias",
+              "main.blocks.9.norm1.weight",
+              "main.blocks.9.norm1.bias",
+              "main.blocks.9.attn.qkv.weight",
+              "main.blocks.9.attn.qkv.bias",
+              "main.blocks.9.attn.proj.weight",
+              "main.blocks.9.attn.proj.bias",
+              "main.blocks.9.norm2.weight",
+              "main.blocks.9.norm2.bias",
+              "main.blocks.9.mlp.fc1.weight",
+              "main.blocks.9.mlp.fc1.bias",
+              "main.blocks.9.mlp.fc2.weight",
+              "main.blocks.9.mlp.fc2.bias",
+              "main.blocks.10.norm1.weight",
+              "main.blocks.10.norm1.bias",
+              "main.blocks.10.attn.qkv.weight",
+              "main.blocks.10.attn.qkv.bias",
+              "main.blocks.10.attn.proj.weight",
+              "main.blocks.10.attn.proj.bias",
+              "main.blocks.10.norm2.weight",
+              "main.blocks.10.norm2.bias",
+              "main.blocks.10.mlp.fc1.weight",
+              "main.blocks.10.mlp.fc1.bias",
+              "main.blocks.10.mlp.fc2.weight",
+              "main.blocks.10.mlp.fc2.bias",
+              "main.blocks.11.norm1.weight",
+              "main.blocks.11.norm1.bias",
+              "main.blocks.11.attn.qkv.weight",
+              "main.blocks.11.attn.qkv.bias",
+              "main.blocks.11.attn.proj.weight",
+              "main.blocks.11.attn.proj.bias",
+              "main.blocks.11.norm2.weight",
+              "main.blocks.11.norm2.bias",
+              "main.blocks.11.mlp.fc1.weight",
+              "main.blocks.11.mlp.fc1.bias",
+              "main.blocks.11.mlp.fc2.weight",
+              "main.blocks.11.mlp.fc2.bias",
+              "main.norm.weight",
+              "main.norm.bias"
+            ],
+            "observed_min_step": 1895.0,
+            "observed_max_step": 1895.0,
+            "successful_updates": 1895
+          },
+          "modules": {
+            "numel": 104456,
+            "bytes": 417824,
+            "parameter_count": 8,
+            "parameter_names": [
+              "libraries.0.U",
+              "libraries.0.V",
+              "libraries.0.gate_weight",
+              "libraries.0.gate_bias",
+              "libraries.1.U",
+              "libraries.1.V",
+              "libraries.1.gate_weight",
+              "libraries.1.gate_bias"
+            ],
+            "observed_min_step": 5685.0,
+            "observed_max_step": 5685.0,
+            "successful_updates": 5685
+          }
+        },
+        "eligibility_source": "Actual restored native optimizer family/name bindings and finalized checkpoint tensors; dynamic final requires_grad is not eligibility."
+      },
+      "numeric_state": {
+        "reported_resident_auxiliary_numeric_bytes": 720255616,
+        "reported_source": "task_diagnostics[-1].numeric_payload_bytes, excluding encoder_weights from the auxiliary sum",
+        "current_group_payload_bytes": {
+          "encoder_weights": 686807080,
+          "statistics": 5961288,
+          "readouts": 2460800,
+          "resident_anchor_cache": 24608000,
+          "optimizer_state": 687225528
+        },
+        "checkpoint_numeric_array_groups": {
+          "G": {
+            "shape": [
+              769,
+              769
+            ],
+            "dtype": "torch.float64",
+            "numel": 591361,
+            "bytes": 4730888
+          },
+          "C": {
+            "shape": [
+              769,
+              200
+            ],
+            "dtype": "torch.float64",
+            "numel": 153800,
+            "bytes": 1230400
+          },
+          "W0": {
+            "shape": [
+              769,
+              200
+            ],
+            "dtype": "torch.float64",
+            "numel": 153800,
+            "bytes": 1230400
+          },
+          "V": {
+            "shape": [
+              769,
+              200
+            ],
+            "dtype": "torch.float64",
+            "numel": 153800,
+            "bytes": 1230400
+          }
+        },
+        "resident_anchor_cache": {
+          "rows": 4000,
+          "bytes": 24608000
+        },
+        "non_sgd_learning": "Immutable-anchor all-history ridge W0; resident/current residual readout V fitted by closed form.",
+        "overlap_rule": "encoder_weights contains both backbone families, libraries and buffers already counted as NN payload; never add it again to auxiliary bytes or sum group/total duplicates."
+      },
+      "replay": {
+        "final_images": 4000,
+        "reported_raw_payload_bytes": 3448915321,
+        "representation": "external source-image path references",
+        "identity_accounting_bytes": 64000,
+        "raw_array_bytes": null,
+        "rgb_decoded_equivalent_bytes": 3448851321,
+        "compressed_external_image_file_bytes": null,
+        "path_string_and_python_resident_bytes": null
+      },
+      "serialization": {
+        "checkpoint_file_bytes": 1408933851,
+        "numeric_checkpoint_payload_bytes": 1407072808,
+        "optimizer_state_policy": "Two AdamW states persist across tasks; epoch cosine resets learning rates per task. Counts/steps are observed successful updates, not no-skip theoretical values.",
+        "recovery_dependency": "Original runtime/config/data, pinned NPZ, raw replay source paths where applicable, both persistent AdamW states, history/readouts/resident anchor cache, owned and outer RNG. No CE trajectory replay."
+      },
+      "execution": {
+        "actual_run_wall_seconds": 11611.419533275068,
+        "sum_stage_wall_seconds": 11591.247655406594,
+        "gpu_peak_allocated_bytes": 4206531072,
+        "gpu_peak_scope": "this process PyTorch allocated-memory peak since reset; excludes other processes/reserved/context/CPU state",
+        "native_work_counters": {
+          "updates": 7580,
+          "module_updates": 5685,
+          "backbone_updates": 1895,
+          "episode_draws": 7580,
+          "skipped_episode_attempts": 0,
+          "cumulative_encoding_and_solver_counters": {
+            "canonical_anchor_images": 24000,
+            "canonical_main_images": 42000,
+            "episode_anchor_images": 855728,
+            "episode_full_prepass_images": 855728,
+            "episode_common_prepass_images": 213932,
+            "vjp_full_images": 842689,
+            "vjp_common_images": 213932,
+            "readout_solves": 17075,
+            "logical_current_presentations": 120000
+          }
+        },
+        "native_work_counters_scope": "Executed current-method work; terminal cumulative counters copied once, not summed across stages.",
+        "ce_reuse": null
+      },
+      "raw_resource_report": {
+        "encoder_weights": 686807080,
+        "statistics": 5961288,
+        "readouts": 2460800,
+        "resident_anchor_cache": 24608000,
+        "optimizer_state": 687225528
+      },
+      "raw_resource_report_kind": "current engine tensor-payload groups; encoder overlaps named NN parameter/buffer counts"
     }
   ],
   "shared_ce_assets": {
     "formal_cifar_er_fixed_v1": {
-      "source": "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_cifar_er_fixed_v1/formal/cohorts/formal_cifar_er_fixed_v1.cache_inventory.json",
+      "source": "local_workspace/.experiment_private_20261117/formal_observations/formal_cifar_er_fixed_v1/formal/cohorts/formal_cifar_er_fixed_v1.cache_inventory.json",
       "sha256": "8cf88019bbaa222e1a6cf36c9bf5ecbd62f4bf22fcb9c815eb086de550340a1f",
       "status": "closed_formal_er_cache_inventory",
       "files": 10,
@@ -1812,7 +2200,7 @@
       "files_with_source_sha256": [
         {
           "task": 0,
-          "path": "remote_runtime/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_000.pt",
+          "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_000.pt",
           "request_fingerprint": "c438bfd7550bf357d22985fd4f2fd0113a24f42d8e309b9b949b0e1d33af5ee6",
           "body_after_sha256": "ee5be64009b9d93b1026282222025873f635e0114b11dcfaeb4b6b24c4c11bc7",
           "head_after_sha256": "cc05c30b305d6662e1ec8cff92a4cef301aa67eb26c04b9969f7003b99f9a2e2",
@@ -1824,7 +2212,7 @@
         },
         {
           "task": 1,
-          "path": "remote_runtime/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_001.pt",
+          "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_001.pt",
           "request_fingerprint": "11af1450d3e3a99874dabf81bb79ce8929ec059c5cc7c2543158878d80775a76",
           "body_after_sha256": "4c276662ac17942d730eea984c32df60c62d30f21c00b86412d91f12b6092bf8",
           "head_after_sha256": "b55d92375f6a4d07c58af62698c5c236713023f3f43b3fe071ed2ef4063d1623",
@@ -1836,7 +2224,7 @@
         },
         {
           "task": 2,
-          "path": "remote_runtime/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_002.pt",
+          "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_002.pt",
           "request_fingerprint": "23391e0bf9023ba17cb61329864d93d660c879d1c0213289c8fa10a75758924f",
           "body_after_sha256": "afd40c55419c856480d3e5a94735526c4c2e3345443bd7cffb84639b4aa619e7",
           "head_after_sha256": "afb8a3f3b12f4f6f3bdcc900ec7f1c5ed183e3904342f045824f728e18ebd5fa",
@@ -1848,7 +2236,7 @@
         },
         {
           "task": 3,
-          "path": "remote_runtime/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_003.pt",
+          "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_003.pt",
           "request_fingerprint": "42a8c6047b6840d91bbd02f5090f36eb35d9fdb513579e432b4b75875055494c",
           "body_after_sha256": "5bd85b919f9c9470aa0dfd923f3a5707162eeb32aaf9d3db672f3b65063707a2",
           "head_after_sha256": "a1e3a9b0fac79a7bfa0f8874e8acfbeeb5aa72747b6c3bf79022335f8747a257",
@@ -1860,7 +2248,7 @@
         },
         {
           "task": 4,
-          "path": "remote_runtime/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_004.pt",
+          "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_004.pt",
           "request_fingerprint": "09db78968739b4a42aab2f91c9535d637f85962fdc7ad582262d3cbc23213fcc",
           "body_after_sha256": "07beb5032b17749cde99cfe0747d070a73e7abdbcd83ca2c71443b4e2c7f6652",
           "head_after_sha256": "f67f36d4a97feae1326cd5f6932ed062047690bafa73f3e2dc41c5e29da4d3e5",
@@ -1872,7 +2260,7 @@
         },
         {
           "task": 5,
-          "path": "remote_runtime/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_005.pt",
+          "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_005.pt",
           "request_fingerprint": "4bc62548e4c6e88fad53ec49693154c32437d979d90a037735ef984daf67b389",
           "body_after_sha256": "c41cdde33985c29efeafb4b2abf17e02105ffe1736e8fbde24df31263ca2f759",
           "head_after_sha256": "41523d92cc04ebf7f6b1d1c90576d3ed0caede8871c0481545a809f79fbcb6d4",
@@ -1884,7 +2272,7 @@
         },
         {
           "task": 6,
-          "path": "remote_runtime/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_006.pt",
+          "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_006.pt",
           "request_fingerprint": "a4592f8c04b201b0c5be4577434b982004469a4abf7131f2f71e58e41f4fa018",
           "body_after_sha256": "a3c1d2225c32f5f5210ce20d44f720d7357bfc5e4f38eb11f4bfceaafde8d2d5",
           "head_after_sha256": "3d2fbf550fc9141a05a8a728d3b7c40953bd7112fd7b1516db41bebf5e659080",
@@ -1896,7 +2284,7 @@
         },
         {
           "task": 7,
-          "path": "remote_runtime/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_007.pt",
+          "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_007.pt",
           "request_fingerprint": "f1726d0a3b0d44dd92848db18bdd2dcd3104bd3de125904501d2dcdcdc221e54",
           "body_after_sha256": "3d04f261bbd470246f5e3359f9bd7e0e53d1372efbbecb3ba5d2adf6fadc4779",
           "head_after_sha256": "07f6a77fdb64e0c79777844daa41c34f7a132422e954603648d984e2731fad64",
@@ -1908,7 +2296,7 @@
         },
         {
           "task": 8,
-          "path": "remote_runtime/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_008.pt",
+          "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_008.pt",
           "request_fingerprint": "c4c5139de855c25a7029403f141ac7319812a6ce29a9b482afaf8c0c580c15ae",
           "body_after_sha256": "b38fbfe5216b125926400341aa26cc584e19f2f42a5c1e8e6dfb7af833f7df1d",
           "head_after_sha256": "8bac995d9e60df190ac32d8aab8e078e1421587242a5f6200556bc4718e7e963",
@@ -1920,7 +2308,7 @@
         },
         {
           "task": 9,
-          "path": "remote_runtime/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_009.pt",
+          "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_009.pt",
           "request_fingerprint": "660bcef5ecb261efd1bfa820697aef715fca927c4a3efe36f9b4418e810b0bf3",
           "body_after_sha256": "6046e18688ea708164756383676154803d96b9226963c46cd52ced5bc27403a3",
           "head_after_sha256": "1350ab9837345dee7ddacdcbd32279d1c868cbbb742afdd20995a469282a16c8",
@@ -1934,7 +2322,7 @@
       "scope": "One execution/recovery trajectory asset per dataset; referenced by ER and its two readers, not three independent disk copies."
     },
     "formal_imagenetr_er_fixed_v1": {
-      "source": "local_user/持续学习/.experiment_private_20261117/formal_observations/formal_imagenetr_er_fixed_v1/formal/cohorts/formal_imagenetr_er_fixed_v1.cache_inventory.json",
+      "source": "local_workspace/.experiment_private_20261117/formal_observations/formal_imagenetr_er_fixed_v1/formal/cohorts/formal_imagenetr_er_fixed_v1.cache_inventory.json",
       "sha256": "8ec6c0d9486445ed8867fbb30ef39eed21d86859fdd2bc8c30d6033f12cc06d5",
       "status": "closed_formal_er_cache_inventory",
       "files": 10,
@@ -1943,7 +2331,7 @@
       "files_with_source_sha256": [
         {
           "task": 0,
-          "path": "remote_runtime/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_000.pt",
+          "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_000.pt",
           "request_fingerprint": "805bad87a0cc212603956d83cc78dd021d979e4f6750105eb15963f3597ffb69",
           "body_after_sha256": "c7bc913ce81988eded5c683e7fb1c8701a4968a52dacf69ba48672f911e7be3e",
           "head_after_sha256": "67d77800c7fe48351c6928ac8d4462004431b1334e3f00bc53ef3e23f8f35dd6",
@@ -1955,7 +2343,7 @@
         },
         {
           "task": 1,
-          "path": "remote_runtime/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_001.pt",
+          "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_001.pt",
           "request_fingerprint": "230f832ce71f72b51b14cef72c8b784d38ef3aac712f019e5091014f440dd1b2",
           "body_after_sha256": "ccfeb402138519a56cf9465b7efbc2cdb911d30a869015a241b5c94a7db32b7b",
           "head_after_sha256": "5e77fd2c809695e33d3cb2f4c07c2541597002e03c39d063946ffeb997162648",
@@ -1967,7 +2355,7 @@
         },
         {
           "task": 2,
-          "path": "remote_runtime/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_002.pt",
+          "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_002.pt",
           "request_fingerprint": "964174ec21a3f4064c2de36441002648a1c22ac74f9d8f4483e8f951d7562b95",
           "body_after_sha256": "381e8ab3f2870d43444bf0e22fac6554e894e93bdd11ad269d748670428597dc",
           "head_after_sha256": "490b88278533f26a670eb320d65b5215801dd9453bab66fea86ff9f61e7d6761",
@@ -1979,7 +2367,7 @@
         },
         {
           "task": 3,
-          "path": "remote_runtime/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_003.pt",
+          "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_003.pt",
           "request_fingerprint": "0fb2af7ace67626073a609a20910744ebe96cc88db2d9ea13b3ca6f3124eb214",
           "body_after_sha256": "d3f971883c60c93df530fc9aa43369a8b729a304ddd120dba259a526f4e0f638",
           "head_after_sha256": "3bf8160973964acc8f9dedaea687cf0699db3422157f71bd5622aced87183bdc",
@@ -1991,7 +2379,7 @@
         },
         {
           "task": 4,
-          "path": "remote_runtime/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_004.pt",
+          "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_004.pt",
           "request_fingerprint": "004cd08365ee6f620f285ba977947497de9fd850669c29ddcb3f336284e77281",
           "body_after_sha256": "6a715c04964bba27a1fe1529e29a882b8e85a1ac47074b700fe5b9632cb64365",
           "head_after_sha256": "ee9b27ab024dfbd7c4ccafb4de758c89aed1e990ed974771d3f400132fbb2797",
@@ -2003,7 +2391,7 @@
         },
         {
           "task": 5,
-          "path": "remote_runtime/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_005.pt",
+          "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_005.pt",
           "request_fingerprint": "0ee2952bb76c8ef67f78f529822e83c6893346b0ef738455e3fad7a48d4e2db4",
           "body_after_sha256": "2bb4bf00a7e8ed80acfaf983b5ce193392bebfa8fed00542f2c5b46901ac66e0",
           "head_after_sha256": "f4a1d2292ef8d938daa620cd09582f38fc461add544e7300d4952a411a44e09d",
@@ -2015,7 +2403,7 @@
         },
         {
           "task": 6,
-          "path": "remote_runtime/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_006.pt",
+          "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_006.pt",
           "request_fingerprint": "a6eaef4d3e76bb1cd956a596565b97fc09df1cb7cefac1a3f4db31fe56596bc8",
           "body_after_sha256": "d07df58b78296f847ed034fc628bbe6e5c31644ac8fab296bd8309f719c4eaa9",
           "head_after_sha256": "c4f9d749210479c5993ce65dfd9e49a914b208595499b9c8633090511be7c2a9",
@@ -2027,7 +2415,7 @@
         },
         {
           "task": 7,
-          "path": "remote_runtime/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_007.pt",
+          "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_007.pt",
           "request_fingerprint": "6562b773f55bb0b040e7934030e59d62622248be017906b2e7a23b900989874c",
           "body_after_sha256": "2636e437069d11cf9101b579bea0d39ad89ac6d224100c566cb5f37a1c47e551",
           "head_after_sha256": "c3e69474f5748aebf48ff2f5122528b970b76114e84fa9571dd4882fe04e455d",
@@ -2039,7 +2427,7 @@
         },
         {
           "task": 8,
-          "path": "remote_runtime/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_008.pt",
+          "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_008.pt",
           "request_fingerprint": "6897e4a2c371f0cc37037e8a5a03079d856928159a3258af110e5d5fe0fcc0b2",
           "body_after_sha256": "84a668d94ed799f0dde12894941962755126ca23af691752fde4008a81eb7c07",
           "head_after_sha256": "cd93b9fa57b10eb014759fc1d5faf5004262e6d051598a92efa9425dba8f1a5c",
@@ -2051,7 +2439,7 @@
         },
         {
           "task": 9,
-          "path": "remote_runtime/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_009.pt",
+          "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_009.pt",
           "request_fingerprint": "846dd260e71446765f31df99a7451a2155781206e7ea4f9173ca15a862286d72",
           "body_after_sha256": "4edf7caca0a885a7829f347ae10e65a11c8577d4f31f19a3d12f4693b4882ffc",
           "head_after_sha256": "6705f70f3e6ea0be50306c959a2b5c06c540ff171dbb7b62f5bba3a0cf7a77c6",

@@ -2,9 +2,9 @@
   "schema_version": 1,
   "status": "partial_checkpoint_index_not_campaign_completion",
   "required_cells": 12,
-  "obtained_verified_checkpoints": 10,
-  "pending_cells": 2,
-  "build_scope": "Local existing JSON/log/source evidence only; no server connection, .pt read, model export, training or git action.",
+  "obtained_verified_checkpoints": 11,
+  "pending_cells": 1,
+  "build_scope": "Local index refresh from existing sealed JSON/log/source/archive evidence for ImageNet-R current only; no server connection, .pt read, model export, training or git action. Other entries retain their previous evidence scope.",
   "selected_jobs": {
     "path": "experiments/campaign_20261117/formal/SELECTED_JOBS.json",
     "sha256": "4b1eee40de6568e6af2c5ad07b1ed8832a61ca42dcd3d58bd3dea641b68fbc33"
@@ -911,17 +911,111 @@
         "ce_cache_donor": null
       },
       "gpu_restore_or_continuation_executed": false,
-      "status": "pending_active_no_final_backup_or_audit_claim",
-      "checkpoint_sha256": null,
-      "checkpoint_bytes": null,
-      "backup": null,
-      "expected_server_local_backup": "${RUNTIME_ROOT}/formal_backups/campaign_20261117/formal_imagenetr_current_selected_v5/checkpoint.pt",
-      "runtime_snapshot": "runtime_bounded_v4",
-      "runtime_source_evidence": {
-        "path": "experiments/campaign_20261117/audit/source_correspondence_training_entries_v1.json",
-        "sha256": "76781a88cbbb943a87b8a0a16d2fcfa83cfbc361e81dccd1f085960345788f5b"
+      "status": "obtained_verified_checkpoint",
+      "checkpoint_sha256": "a745a17777a7faf149bb8c4d1af7ca6c42caf1ac1ce318ba05d8ca3d8cc313e7",
+      "checkpoint_bytes": 1408933851,
+      "backup": {
+        "kind": "verified_server_local_backup",
+        "path": "${RUNTIME_ROOT}/formal_backups/campaign_20261117/formal_imagenetr_current_selected_v5/checkpoint.pt",
+        "payload_left_server": false,
+        "verification": {
+          "path": "experiments/campaign_20261117/formal/observations/formal_imagenetr_current_selected_v5/server_backup/formal_imagenetr_current_selected_v5/verification.json",
+          "sha256": "7859f49f22696033cd0a432d322d6b78032160f9372d418bef9acde283d75c6b"
+        },
+        "original_verification_sha256": "08ff314f837d8298e341d3df030d49c0c285e1a4bc43b5af7314afcb4b4672b3",
+        "source_process_terminal": {
+          "pid": 36174,
+          "expected_ticks": "1790983363",
+          "state": "absent"
+        }
       },
-      "runtime_entry_file_sha256": {
+      "runtime_snapshot": "runtime_bounded_v4",
+      "launch_evidence": {
+        "path": "experiments/campaign_20261117/formal/observations/formal_imagenetr_current_selected_v5/formal/receipts/formal_imagenetr_current_selected_v5.json",
+        "sha256": "2181bdff3bdcd0cb2c2b1b3f2f8139dc92d0e0e0cfcadcc0e56f69670ddc3875"
+      },
+      "audit": {
+        "status": "native_cpu_checkpoint_audit_checks_passed_not_campaign_certificate",
+        "job": "audit_formal_imagenetr_current_selected_v5_v1",
+        "native_cpu_restore_executed": true,
+        "zero_input_forward_executed": true,
+        "finite_output_shape": [
+          1,
+          200
+        ],
+        "state_nodes_compared": 80737,
+        "raw_state_numerically_restored": true,
+        "original_log_sha256": "f29fb4632501ee0c98f7ee2a20bedadcba6ae6d6aeddba204e1a518b3c038e4b",
+        "auditor_sha256": "ca025b07d92cc0eeed295d1c4f6a8db9655aa45487435fecaa5c839e426f9b3b",
+        "state_loader_sha256": "696416de70cdfb5e7033cc26c93ad005eb5e20918379f4ef01fc3d76142b2d02",
+        "source_metadata_sha256": {
+          "config": "93f1d596c9d7e11546f7f64b30cf76fc47b847ff90d0acf4552cfb7a48d8b939",
+          "results": "a80fda407a286acd995ff3bf1668c1c495201f1130fd9fc22ed362dfda66746c",
+          "data_manifest": "80ce1916dfd7986bbb84684a188edb7ce8efb3b2c0cb29dbf5dfe832406a0131"
+        },
+        "public_receipt": {
+          "path": "experiments/campaign_20261117/formal/observations/formal_imagenetr_current_selected_v5/verification/receipts/audit_formal_imagenetr_current_selected_v5_v1.json",
+          "sha256": "9f53511edddf3d470e713fc10e2ee8e62f35deb78ec744e7dc14cdb7b251b904"
+        },
+        "accuracy_rerun": false,
+        "extra_training_steps": 0,
+        "cuda_rng_applied": false,
+        "final_audit_complete_field_scope": "Helper leaves final_audit_complete false because it is not a twelve-cell campaign certificate; status records actual per-checkpoint PASS."
+      },
+      "original_metadata_sha256": {
+        "results": "a80fda407a286acd995ff3bf1668c1c495201f1130fd9fc22ed362dfda66746c",
+        "config": "93f1d596c9d7e11546f7f64b30cf76fc47b847ff90d0acf4552cfb7a48d8b939",
+        "data_manifest": "80ce1916dfd7986bbb84684a188edb7ce8efb3b2c0cb29dbf5dfe832406a0131"
+      },
+      "completion_receipt": {
+        "path": "experiments/campaign_20261117/formal/completion_receipts/formal_imagenetr_current_selected_v5.json",
+        "sha256": "308ec80408341a85429d25c5cd7f4da4500c6e8b32f25da3f6bf675b5ca5e8bd"
+      },
+      "runtime_source_file_sha256": {
+        "cl27/__init__.py": "77f44223a067ed9123ca03c50fe5b4c423c6dc75afe3b47c2a291af4491e5211",
+        "utils/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "utils/toolkit.py": "1f64bb032beacb6510bf9eff1e009ad217a42c9a7fa40cd867a56e71cb4123f6",
+        "utils/data.py": "a5f1b056a244439a45c7359c4328ae378c1557078ab81cf332ebaf0a8118f87c",
+        "utils/data_manager.py": "74601c9c46d1e51ee95ee20c8a261b28325b997586bd3bf6e78a361d41289857",
+        "cl27/replay.py": "c334c443a977aa656e07c381ea1a3232dedc56159d70a0717131c50e754a17a9",
+        "models/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "models/base.py": "55e59eb4698004ae33862332731f172476be28dffafc07e85ad72013d722bcbf",
+        "cl27/common.py": "33b63ca2b6baef4585e677d54d9e72e6e5247efb24d997e6eeec968911e0c3bf",
+        "cl27/pilot_imagenetr.py": "037325bb474f1a59a6c1f4d1c0a7960423cb50b0924e903c5b86836c017bb4f5",
+        "cl27/data.py": "18fae0aaa165451c0c7b8f5c06eab2fed34c99be4a31623f3d26b930a7a19230",
+        "utils/factory.py": "8b036ee9f3fd4b471e4a91e1abeea29267f3c7949298228ead87d42901233272",
+        "cl27/current/__init__.py": "6583bfdc6053466a527279590da98319bf33fa2575b5f49f65c5142488a5d93e",
+        "cl27/current/episodes.py": "114dbb71f97a954f6bca786dd83599ca82caf2fcb273c93ab21e1500512a062f",
+        "cl27/current/readout.py": "a08cd3c7f036f589081dbb0422bd22114e8e002c2f96b122b9aab234a9c39547",
+        "cl27/current/engine.py": "43fc2597aeaaa64f23517d598cbb62a0a18e0af1f82520bdfd58de265aa1e372",
+        "models/current_adapted.py": "8cfbe15d35f4d956a665e6c553670bad296289c0ba457df07af7ab5585c0f1c1",
+        "backbone/linears.py": "d8cf24ab4cbea4c2b84afe6061cdf4276bb5b4e34c0cb2a56712b63f0b6e4505",
+        "backbone/prompt.py": "ce57c5a4aa5c9c5ab9d7eb70ae27cb5a966ac2a1d9a540b45b55dfcd46ff2b04",
+        "utils/inc_net.py": "62b178b90f2ab5262be5a35082e7d92d8faca74dae01135785bbb0454e9e52ed"
+      },
+      "runtime_source_payloads_archived": [
+        "cl27/__init__.py",
+        "utils/__init__.py",
+        "utils/toolkit.py",
+        "utils/data.py",
+        "utils/data_manager.py",
+        "cl27/replay.py",
+        "models/__init__.py",
+        "models/base.py",
+        "cl27/common.py",
+        "cl27/pilot_imagenetr.py",
+        "cl27/data.py",
+        "utils/factory.py",
+        "cl27/current/__init__.py",
+        "cl27/current/episodes.py",
+        "cl27/current/readout.py",
+        "cl27/current/engine.py",
+        "models/current_adapted.py",
+        "backbone/linears.py",
+        "backbone/prompt.py",
+        "utils/inc_net.py"
+      ],
+      "runtime_training_entry_file_sha256": {
         "main.py": "23d494c98deaf6a408664865f7d7dc1259a417531ab2d0c975dcbb02d14117ca",
         "trainer.py": "cffff7ce8249442a4540559f350dabf78dcdbe774f4d3d910090b1e61859de81",
         "cl27/runner.py": "931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e",
@@ -930,24 +1024,24 @@
         "cl27/transport_training.py": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9",
         "scripts/run_ce_cohort.py": "e0c9c4ff9667b5843eee5efe836ccc4fec31312f028ef04d0a7a7e611ac6014a"
       },
-      "launch_evidence": {
-        "path": "experiments/campaign_20261117/scheduling/initial_dispatch_v1/formal_imagenetr_current_selected_v5.json",
-        "sha256": "bb32befe32a5d5b74a1d41eb872f1d250076a80906fec135db09e0a82e059244"
+      "runtime_training_entry_evidence": {
+        "path": "experiments/campaign_20261117/audit/source_correspondence_training_entries_v1.json",
+        "sha256": "76781a88cbbb943a87b8a0a16d2fcfa83cfbc361e81dccd1f085960345788f5b"
       },
-      "process_identity": {
-        "pid": 36174,
-        "proc_start_ticks": "1790983363",
-        "scope": "Existing local launch receipt (CIF) and saved process observation (R); root reports both remain active. No server probe by this index build."
+      "source_export_manifest": {
+        "path": "experiments/campaign_20261117/formal/observations/formal_imagenetr_current_selected_v5/SOURCE_EXPORT_MANIFEST.json",
+        "sha256": "e2163b564b9da77560af29b0ace3f3b5a928dfa12ba787ff85618df39348cfa3"
       },
-      "audit": {
-        "native_cpu_restore_executed": false,
-        "zero_input_forward_executed": false,
-        "status": "pending_terminal_sha_bound_backup"
+      "public_export_manifest": {
+        "path": "experiments/campaign_20261117/formal/observations/formal_imagenetr_current_selected_v5/PUBLIC_EXPORT_MANIFEST.json",
+        "sha256": "2654a1e7be3aa6bfe8bca76b0a8232b06bfd9dfa27c0c21121b32197335707c3"
       },
-      "original_config_sha256": "1579a138db77f313d729c04063a05fb2b991164d8c25d23cf0ce2c1d14274553",
-      "original_config_sha_evidence": {
-        "path": "experiments/campaign_20261117/scheduling/initial_dispatch_v1/campaign_20261117/scheduling/selected_formal_queue_v1.json",
-        "sha256": "58cd186a1e833d09a860fa5f13cb041982d9b6c1dc411b1ac5a50ef27e195d3d"
+      "metadata_archive": {
+        "private_local_path": "${PRIVATE_WORKSPACE_ROOT}/formal_imagenetr_current_selected_v5.audited_metadata.tar.gz",
+        "server_path": "${RUNTIME_ROOT}/campaign_20261117/formal/audited_metadata/formal_imagenetr_current_selected_v5.tar.gz",
+        "sha256": "e931eb476821cbdaa0e01df4caf7528e39d174b2ef34a1e59616b0ea4806603f",
+        "bytes": 94561,
+        "weights_included": false
       }
     },
     {
@@ -1358,5 +1452,5 @@
     "Current pending checkpoints must not be opened/archived by this index while their original processes are active.",
     "Canceled model-export branch stays canceled; pending models remain server-local."
   ],
-  "private_index_sha256": "58dcdd71764369ce49d8f14d01140f935bd0d055c42bd21af23a41e995ae166e"
+  "private_index_sha256": "9977eb6cf31102b33d3013ba0880143cd16c9c3846668590ab6c7ac29079979b"
 }

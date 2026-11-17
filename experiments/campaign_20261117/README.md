@@ -2,13 +2,13 @@
 
 ## 当前状态
 
-截至2026-11-17 21:35（Asia/Shanghai），12组正式实验已完成并审核10组；CIFAR-100 与 ImageNet-R 的 `current_adapted` 仍在运行。四个候选在两个数据集上的8项调参选择均已关闭。选参只使用训练集内部固定留出集，正式运行从同一预训练起点使用完整训练集重训，正式测试成绩不用于后续选参。
+截至2026-11-17 22:15（Asia/Shanghai），12组正式实验已完成并审核11组；仅 CIFAR-100 的 `current_adapted` 仍在运行。四个候选在两个数据集上的8项调参选择均已关闭。选参只使用训练集内部固定留出集，正式运行从同一预训练起点使用完整训练集重训，正式测试成绩不用于后续选参。
 
-- [已审核的10组结果](formal/PARTIAL_RESULTS.md)与[原始指标JSON](formal/PARTIAL_RESULTS.json)；每组完成凭据见 `formal/completion_receipts/`。
+- [已审核的11组结果](formal/PARTIAL_RESULTS.md)与[原始指标JSON](formal/PARTIAL_RESULTS.json)；每组完成凭据见 `formal/completion_receipts/`。
 - [开发选择依据](development/SELECTIONS.md)与预绑定的[12组正式运行](formal/SELECTED_JOBS.json)。
 - [资源报告](resources/RESOURCE_REPORT.md)：区分训练、推理、解析统计、参考支路、共享CE及实际检查点存储。
 - [开发成本账本](resources/HPO_COST_LEDGER.md)：按实际执行进程去重，搜索成本与正式成本分别记录；未测量的中止尾部保留未知。
-- [检查点索引与恢复入口](recovery/RECOVERY.md)：按已校验文件登记备份位置、SHA、实际源码及审计覆盖，运行中的两组保留待完成。
+- [检查点索引与恢复入口](recovery/RECOVERY.md)：按已校验文件登记备份位置、SHA、实际源码及审计覆盖，尚未结束的运行保留待完成。
 - 小规模正确性验证单独保留在 `correctness/`，不计入正式完成数；历史决策中的当时状态保留。
 
 ## 固定范围

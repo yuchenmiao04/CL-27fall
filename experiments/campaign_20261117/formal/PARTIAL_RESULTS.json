@@ -1,8 +1,8 @@
 {
   "status": "partial_main_results",
   "required_cells": 12,
-  "completed_cells": 10,
-  "reported_utc": "2026-11-17T12:23:02.244897+00:00",
+  "completed_cells": 11,
+  "reported_utc": "2026-11-17T14:15:54.684637+00:00",
   "reported_at_user_request": true,
   "purpose": "Reporting completed preselected formal runs; these scores are not used to select remaining method parameters.",
   "seed": 1993,
@@ -162,6 +162,24 @@
       "verified_server_local_backup": true,
       "native_cpu_restore_passed": true,
       "formal_ce_trajectory_verified": true
+    },
+    {
+      "dataset": "imagenetr",
+      "method": "current_adapted",
+      "job": "formal_imagenetr_current_selected_v5",
+      "final_accuracy": 0.803,
+      "aia": 0.848657810390036,
+      "forgetting_previous": 0.07706331055222641,
+      "forgetting_including_final": 0.07706331055222641,
+      "results_sha256": "a80fda407a286acd995ff3bf1668c1c495201f1130fd9fc22ed362dfda66746c",
+      "complete_protocol_validation": true,
+      "completion_receipt": "completion_receipts/formal_imagenetr_current_selected_v5.json",
+      "checkpoint_sha256": "a745a17777a7faf149bb8c4d1af7ca6c42caf1ac1ce318ba05d8ca3d8cc313e7",
+      "final_correct": 4818,
+      "final_evaluation_samples": 6000,
+      "verified_server_local_backup": true,
+      "native_cpu_restore_passed": true,
+      "formal_ce_trajectory_verified": false
     }
   ]
 }
