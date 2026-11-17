@@ -1,34 +1,236 @@
 {
   "schema_version": 1,
-  "runs_root": "/Users/miaoyuchen/持续学习/CL-27fall/experiments/campaign_20261117/correctness",
-  "selection_file": null,
+  "runs_root": "<server_root>/campaign_20261117/formal/runs",
+  "selection_file": "<server_root>/campaign_20261117/verification/partial_summary_10_v1/PARTIAL_SELECTED_JOBS.json",
   "selection_policy": "explicit path for duplicates; never optimize selection against reported scores",
   "seed": 1993,
   "expected_results": 12,
-  "available_results": 0,
+  "available_results": 10,
   "metric_units": "fractions; Markdown multiplies accuracy by 100 and forgetting by 100 percentage points",
   "rows": [
     {
       "dataset": "cifar224",
       "method": "shared_basis",
-      "status": "missing",
+      "seed": 1993,
       "metrics": {
-        "final_accuracy": null,
-        "aia": null,
-        "forgetting_previous": null,
-        "forgetting_including_final": null
-      }
+        "final_accuracy": 0.8468,
+        "aia": 0.9022818650793651,
+        "forgetting_previous": 0.0601111111111111,
+        "forgetting_including_final": 0.0601111111111111
+      },
+      "data_permission": "0",
+      "resources": {
+        "execution": {
+          "torch": "2.7.1+cu128",
+          "numpy": "1.26.4",
+          "device_type": "cuda",
+          "random_stream_policy": "canonical_loader_isolated_v1",
+          "wall_seconds": 501.5849006511271,
+          "numeric_checkpoint_payload_bytes": 348927776,
+          "gpu_peak_allocated_bytes": 886778368
+        },
+        "final_task_resources": {
+          "numeric_state_bytes": 6348352,
+          "raw_replay_images": 0
+        },
+        "configured_replay": {
+          "memory_size": 0,
+          "memory_per_class": 0,
+          "fixed_memory": false
+        }
+      },
+      "source": {
+        "directory": "<server_root>/campaign_20261117/formal/runs/formal_cifar_shared_selected_v7",
+        "results": "<server_root>/campaign_20261117/formal/runs/formal_cifar_shared_selected_v7/results.json",
+        "config": "<server_root>/campaign_20261117/formal/runs/formal_cifar_shared_selected_v7/config.json",
+        "data_manifest": "<server_root>/campaign_20261117/formal/runs/formal_cifar_shared_selected_v7/data_manifest.json",
+        "checkpoint": "<server_root>/campaign_20261117/formal/runs/formal_cifar_shared_selected_v7/checkpoint.pt",
+        "config_fingerprint": "70535f206723b0c81b817ca22aa2655e55a85b05f9702ecf2cf1e479246a64e5",
+        "data_fingerprint": "98b4aa3a9e6bfd167c52eb391f6dc1b028f2fb920f8a20c8c48751282b8f7ed4",
+        "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63",
+        "backbone_provenance": {
+          "kind": "pretrained",
+          "timm_version": "0.6.12",
+          "checkpoint_family": "augreg_in21k_ft_in1k",
+          "public_weight_url": "https://storage.googleapis.com/vit_models/augreg/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+          "weight_file_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+          "initial_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+          "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63"
+        }
+      },
+      "completion_receipt": "../formal/completion_receipts/formal_cifar_shared_selected_v7.json"
     },
     {
       "dataset": "cifar224",
       "method": "history_transport",
-      "status": "missing",
+      "seed": 1993,
       "metrics": {
-        "final_accuracy": null,
-        "aia": null,
-        "forgetting_previous": null,
-        "forgetting_including_final": null
-      }
+        "final_accuracy": 0.9094,
+        "aia": 0.9500948015873016,
+        "forgetting_previous": 0.0683333333333333,
+        "forgetting_including_final": 0.0683333333333333
+      },
+      "data_permission": "2000 total",
+      "resources": {
+        "execution": {
+          "torch": "2.7.1+cu128",
+          "numpy": "1.26.4",
+          "device_type": "cuda",
+          "random_stream_policy": "canonical_loader_isolated_v1",
+          "wall_seconds": 1668.6723705753684,
+          "numeric_checkpoint_payload_bytes": 702735912,
+          "gpu_peak_allocated_bytes": 1230280704,
+          "ce_training_reuse": {
+            "version": 1,
+            "mode": "replay",
+            "execution_role": "candidate_method",
+            "trajectory_directory": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1",
+            "stages": [
+              {
+                "task": 0,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_000.pt",
+                "request_fingerprint": "c438bfd7550bf357d22985fd4f2fd0113a24f42d8e309b9b949b0e1d33af5ee6",
+                "body_after_sha256": "ee5be64009b9d93b1026282222025873f635e0114b11dcfaeb4b6b24c4c11bc7",
+                "head_after_sha256": "cc05c30b305d6662e1ec8cff92a4cef301aa67eb26c04b9969f7003b99f9a2e2",
+                "reused": true,
+                "shared_native_ce_seconds": 1006.4304704964161,
+                "executor_wall_seconds": 1.078574724495411
+              },
+              {
+                "task": 1,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_001.pt",
+                "request_fingerprint": "11af1450d3e3a99874dabf81bb79ce8929ec059c5cc7c2543158878d80775a76",
+                "body_after_sha256": "4c276662ac17942d730eea984c32df60c62d30f21c00b86412d91f12b6092bf8",
+                "head_after_sha256": "b55d92375f6a4d07c58af62698c5c236713023f3f43b3fe071ed2ef4063d1623",
+                "reused": true,
+                "shared_native_ce_seconds": 1532.478435754776,
+                "executor_wall_seconds": 1.6265314370393753
+              },
+              {
+                "task": 2,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_002.pt",
+                "request_fingerprint": "23391e0bf9023ba17cb61329864d93d660c879d1c0213289c8fa10a75758924f",
+                "body_after_sha256": "afd40c55419c856480d3e5a94735526c4c2e3345443bd7cffb84639b4aa619e7",
+                "head_after_sha256": "afb8a3f3b12f4f6f3bdcc900ec7f1c5ed183e3904342f045824f728e18ebd5fa",
+                "reused": true,
+                "shared_native_ce_seconds": 1505.9790809042752,
+                "executor_wall_seconds": 1.4645986668765545
+              },
+              {
+                "task": 3,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_003.pt",
+                "request_fingerprint": "42a8c6047b6840d91bbd02f5090f36eb35d9fdb513579e432b4b75875055494c",
+                "body_after_sha256": "5bd85b919f9c9470aa0dfd923f3a5707162eeb32aaf9d3db672f3b65063707a2",
+                "head_after_sha256": "a1e3a9b0fac79a7bfa0f8874e8acfbeeb5aa72747b6c3bf79022335f8747a257",
+                "reused": true,
+                "shared_native_ce_seconds": 1514.2859370298684,
+                "executor_wall_seconds": 1.4908272810280323
+              },
+              {
+                "task": 4,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_004.pt",
+                "request_fingerprint": "09db78968739b4a42aab2f91c9535d637f85962fdc7ad582262d3cbc23213fcc",
+                "body_after_sha256": "07beb5032b17749cde99cfe0747d070a73e7abdbcd83ca2c71443b4e2c7f6652",
+                "head_after_sha256": "f67f36d4a97feae1326cd5f6932ed062047690bafa73f3e2dc41c5e29da4d3e5",
+                "reused": true,
+                "shared_native_ce_seconds": 1495.0495608225465,
+                "executor_wall_seconds": 1.6398162692785263
+              },
+              {
+                "task": 5,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_005.pt",
+                "request_fingerprint": "4bc62548e4c6e88fad53ec49693154c32437d979d90a037735ef984daf67b389",
+                "body_after_sha256": "c41cdde33985c29efeafb4b2abf17e02105ffe1736e8fbde24df31263ca2f759",
+                "head_after_sha256": "41523d92cc04ebf7f6b1d1c90576d3ed0caede8871c0481545a809f79fbcb6d4",
+                "reused": true,
+                "shared_native_ce_seconds": 1497.7309016808867,
+                "executor_wall_seconds": 1.481029774993658
+              },
+              {
+                "task": 6,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_006.pt",
+                "request_fingerprint": "a4592f8c04b201b0c5be4577434b982004469a4abf7131f2f71e58e41f4fa018",
+                "body_after_sha256": "a3c1d2225c32f5f5210ce20d44f720d7357bfc5e4f38eb11f4bfceaafde8d2d5",
+                "head_after_sha256": "3d2fbf550fc9141a05a8a728d3b7c40953bd7112fd7b1516db41bebf5e659080",
+                "reused": true,
+                "shared_native_ce_seconds": 1532.595838330686,
+                "executor_wall_seconds": 1.2150050960481167
+              },
+              {
+                "task": 7,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_007.pt",
+                "request_fingerprint": "f1726d0a3b0d44dd92848db18bdd2dcd3104bd3de125904501d2dcdcdc221e54",
+                "body_after_sha256": "3d04f261bbd470246f5e3359f9bd7e0e53d1372efbbecb3ba5d2adf6fadc4779",
+                "head_after_sha256": "07f6a77fdb64e0c79777844daa41c34f7a132422e954603648d984e2731fad64",
+                "reused": true,
+                "shared_native_ce_seconds": 1509.151081290096,
+                "executor_wall_seconds": 1.609588697552681
+              },
+              {
+                "task": 8,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_008.pt",
+                "request_fingerprint": "c4c5139de855c25a7029403f141ac7319812a6ce29a9b482afaf8c0c580c15ae",
+                "body_after_sha256": "b38fbfe5216b125926400341aa26cc584e19f2f42a5c1e8e6dfb7af833f7df1d",
+                "head_after_sha256": "8bac995d9e60df190ac32d8aab8e078e1421587242a5f6200556bc4718e7e963",
+                "reused": true,
+                "shared_native_ce_seconds": 1528.489010822028,
+                "executor_wall_seconds": 1.2784468755126
+              },
+              {
+                "task": 9,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_009.pt",
+                "request_fingerprint": "660bcef5ecb261efd1bfa820697aef715fca927c4a3efe36f9b4418e810b0bf3",
+                "body_after_sha256": "6046e18688ea708164756383676154803d96b9226963c46cd52ced5bc27403a3",
+                "head_after_sha256": "1350ab9837345dee7ddacdcbd32279d1c868cbbb742afdd20995a469282a16c8",
+                "reused": true,
+                "shared_native_ce_seconds": 1530.8466864675283,
+                "executor_wall_seconds": 1.6132779493927956
+              }
+            ],
+            "timing_policy": "Run wall time is actual; reused CE seconds are shared driver work, not separately executed training",
+            "feature_cache": false,
+            "independent_native_initialization_and_evaluation": true
+          }
+        },
+        "final_task_resources": {
+          "replay_images": 2000,
+          "resources": {
+            "deployment_backbone_parameter_bytes": 343194624,
+            "deployment_analytic_head_bytes": 615200,
+            "training_frozen_anchor_parameter_bytes": 343194624,
+            "training_ce_head_bytes": 307600,
+            "historical_statistics_bytes": 16039064,
+            "replay_raw_payload_bytes": 6176000,
+            "inference_backbones": 1,
+            "training_backbones": 2
+          }
+        },
+        "configured_replay": {
+          "memory_size": 2000,
+          "memory_per_class": 20,
+          "fixed_memory": false
+        }
+      },
+      "source": {
+        "directory": "<server_root>/campaign_20261117/formal/runs/formal_cifar_transport_selected_v2",
+        "results": "<server_root>/campaign_20261117/formal/runs/formal_cifar_transport_selected_v2/results.json",
+        "config": "<server_root>/campaign_20261117/formal/runs/formal_cifar_transport_selected_v2/config.json",
+        "data_manifest": "<server_root>/campaign_20261117/formal/runs/formal_cifar_transport_selected_v2/data_manifest.json",
+        "checkpoint": "<server_root>/campaign_20261117/formal/runs/formal_cifar_transport_selected_v2/checkpoint.pt",
+        "config_fingerprint": "f578681700ef00bd6076a9a4a5b981329a1d8141fbf854ae5e3ad7b07998bb42",
+        "data_fingerprint": "98b4aa3a9e6bfd167c52eb391f6dc1b028f2fb920f8a20c8c48751282b8f7ed4",
+        "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63",
+        "backbone_provenance": {
+          "kind": "pretrained",
+          "timm_version": "0.6.12",
+          "checkpoint_family": "augreg_in21k_ft_in1k",
+          "public_weight_url": "https://storage.googleapis.com/vit_models/augreg/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+          "weight_file_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+          "initial_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+          "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63"
+        }
+      },
+      "completion_receipt": "../formal/completion_receipts/formal_cifar_transport_selected_v2.json"
     },
     {
       "dataset": "cifar224",
@@ -44,57 +246,632 @@
     {
       "dataset": "cifar224",
       "method": "plastic_shared_basis",
-      "status": "missing",
+      "seed": 1993,
       "metrics": {
-        "final_accuracy": null,
-        "aia": null,
-        "forgetting_previous": null,
-        "forgetting_including_final": null
-      }
+        "final_accuracy": 0.9095,
+        "aia": 0.9501664682539681,
+        "forgetting_previous": 0.06855555555555554,
+        "forgetting_including_final": 0.06855555555555554
+      },
+      "data_permission": "2000 total",
+      "resources": {
+        "execution": {
+          "torch": "2.7.1+cu128",
+          "numpy": "1.26.4",
+          "device_type": "cuda",
+          "random_stream_policy": "canonical_loader_isolated_v1",
+          "wall_seconds": 1679.6040650308132,
+          "numeric_checkpoint_payload_bytes": 708272456,
+          "gpu_peak_allocated_bytes": 1230280704,
+          "ce_training_reuse": {
+            "version": 1,
+            "mode": "replay",
+            "execution_role": "candidate_method",
+            "trajectory_directory": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1",
+            "stages": [
+              {
+                "task": 0,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_000.pt",
+                "request_fingerprint": "c438bfd7550bf357d22985fd4f2fd0113a24f42d8e309b9b949b0e1d33af5ee6",
+                "body_after_sha256": "ee5be64009b9d93b1026282222025873f635e0114b11dcfaeb4b6b24c4c11bc7",
+                "head_after_sha256": "cc05c30b305d6662e1ec8cff92a4cef301aa67eb26c04b9969f7003b99f9a2e2",
+                "reused": true,
+                "shared_native_ce_seconds": 1006.4304704964161,
+                "executor_wall_seconds": 1.0797607488930225
+              },
+              {
+                "task": 1,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_001.pt",
+                "request_fingerprint": "11af1450d3e3a99874dabf81bb79ce8929ec059c5cc7c2543158878d80775a76",
+                "body_after_sha256": "4c276662ac17942d730eea984c32df60c62d30f21c00b86412d91f12b6092bf8",
+                "head_after_sha256": "b55d92375f6a4d07c58af62698c5c236713023f3f43b3fe071ed2ef4063d1623",
+                "reused": true,
+                "shared_native_ce_seconds": 1532.478435754776,
+                "executor_wall_seconds": 1.5535376258194447
+              },
+              {
+                "task": 2,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_002.pt",
+                "request_fingerprint": "23391e0bf9023ba17cb61329864d93d660c879d1c0213289c8fa10a75758924f",
+                "body_after_sha256": "afd40c55419c856480d3e5a94735526c4c2e3345443bd7cffb84639b4aa619e7",
+                "head_after_sha256": "afb8a3f3b12f4f6f3bdcc900ec7f1c5ed183e3904342f045824f728e18ebd5fa",
+                "reused": true,
+                "shared_native_ce_seconds": 1505.9790809042752,
+                "executor_wall_seconds": 1.514216560870409
+              },
+              {
+                "task": 3,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_003.pt",
+                "request_fingerprint": "42a8c6047b6840d91bbd02f5090f36eb35d9fdb513579e432b4b75875055494c",
+                "body_after_sha256": "5bd85b919f9c9470aa0dfd923f3a5707162eeb32aaf9d3db672f3b65063707a2",
+                "head_after_sha256": "a1e3a9b0fac79a7bfa0f8874e8acfbeeb5aa72747b6c3bf79022335f8747a257",
+                "reused": true,
+                "shared_native_ce_seconds": 1514.2859370298684,
+                "executor_wall_seconds": 1.4143747799098492
+              },
+              {
+                "task": 4,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_004.pt",
+                "request_fingerprint": "09db78968739b4a42aab2f91c9535d637f85962fdc7ad582262d3cbc23213fcc",
+                "body_after_sha256": "07beb5032b17749cde99cfe0747d070a73e7abdbcd83ca2c71443b4e2c7f6652",
+                "head_after_sha256": "f67f36d4a97feae1326cd5f6932ed062047690bafa73f3e2dc41c5e29da4d3e5",
+                "reused": true,
+                "shared_native_ce_seconds": 1495.0495608225465,
+                "executor_wall_seconds": 1.459451887756586
+              },
+              {
+                "task": 5,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_005.pt",
+                "request_fingerprint": "4bc62548e4c6e88fad53ec49693154c32437d979d90a037735ef984daf67b389",
+                "body_after_sha256": "c41cdde33985c29efeafb4b2abf17e02105ffe1736e8fbde24df31263ca2f759",
+                "head_after_sha256": "41523d92cc04ebf7f6b1d1c90576d3ed0caede8871c0481545a809f79fbcb6d4",
+                "reused": true,
+                "shared_native_ce_seconds": 1497.7309016808867,
+                "executor_wall_seconds": 1.6379677765071392
+              },
+              {
+                "task": 6,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_006.pt",
+                "request_fingerprint": "a4592f8c04b201b0c5be4577434b982004469a4abf7131f2f71e58e41f4fa018",
+                "body_after_sha256": "a3c1d2225c32f5f5210ce20d44f720d7357bfc5e4f38eb11f4bfceaafde8d2d5",
+                "head_after_sha256": "3d2fbf550fc9141a05a8a728d3b7c40953bd7112fd7b1516db41bebf5e659080",
+                "reused": true,
+                "shared_native_ce_seconds": 1532.595838330686,
+                "executor_wall_seconds": 1.355221714824438
+              },
+              {
+                "task": 7,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_007.pt",
+                "request_fingerprint": "f1726d0a3b0d44dd92848db18bdd2dcd3104bd3de125904501d2dcdcdc221e54",
+                "body_after_sha256": "3d04f261bbd470246f5e3359f9bd7e0e53d1372efbbecb3ba5d2adf6fadc4779",
+                "head_after_sha256": "07f6a77fdb64e0c79777844daa41c34f7a132422e954603648d984e2731fad64",
+                "reused": true,
+                "shared_native_ce_seconds": 1509.151081290096,
+                "executor_wall_seconds": 1.4788146540522575
+              },
+              {
+                "task": 8,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_008.pt",
+                "request_fingerprint": "c4c5139de855c25a7029403f141ac7319812a6ce29a9b482afaf8c0c580c15ae",
+                "body_after_sha256": "b38fbfe5216b125926400341aa26cc584e19f2f42a5c1e8e6dfb7af833f7df1d",
+                "head_after_sha256": "8bac995d9e60df190ac32d8aab8e078e1421587242a5f6200556bc4718e7e963",
+                "reused": true,
+                "shared_native_ce_seconds": 1528.489010822028,
+                "executor_wall_seconds": 1.5525558590888977
+              },
+              {
+                "task": 9,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_009.pt",
+                "request_fingerprint": "660bcef5ecb261efd1bfa820697aef715fca927c4a3efe36f9b4418e810b0bf3",
+                "body_after_sha256": "6046e18688ea708164756383676154803d96b9226963c46cd52ced5bc27403a3",
+                "head_after_sha256": "1350ab9837345dee7ddacdcbd32279d1c868cbbb742afdd20995a469282a16c8",
+                "reused": true,
+                "shared_native_ce_seconds": 1530.8466864675283,
+                "executor_wall_seconds": 1.565383180975914
+              }
+            ],
+            "timing_policy": "Run wall time is actual; reused CE seconds are shared driver work, not separately executed training",
+            "feature_cache": false,
+            "independent_native_initialization_and_evaluation": true
+          }
+        },
+        "final_task_resources": {
+          "replay_images": 2000,
+          "resources": {
+            "deployment_backbone_parameter_bytes": 343194624,
+            "deployment_analytic_head_bytes": 615200,
+            "training_frozen_anchor_parameter_bytes": 343194624,
+            "training_ce_head_bytes": 307600,
+            "historical_statistics_bytes": 22190808,
+            "replay_raw_payload_bytes": 6176000,
+            "inference_backbones": 1,
+            "training_backbones": 2
+          }
+        },
+        "configured_replay": {
+          "memory_size": 2000,
+          "memory_per_class": 20,
+          "fixed_memory": false
+        }
+      },
+      "source": {
+        "directory": "<server_root>/campaign_20261117/formal/runs/formal_cifar_plastic_shared_selected_v5",
+        "results": "<server_root>/campaign_20261117/formal/runs/formal_cifar_plastic_shared_selected_v5/results.json",
+        "config": "<server_root>/campaign_20261117/formal/runs/formal_cifar_plastic_shared_selected_v5/config.json",
+        "data_manifest": "<server_root>/campaign_20261117/formal/runs/formal_cifar_plastic_shared_selected_v5/data_manifest.json",
+        "checkpoint": "<server_root>/campaign_20261117/formal/runs/formal_cifar_plastic_shared_selected_v5/checkpoint.pt",
+        "config_fingerprint": "4493dd599bcf9b12c8ae3b1668592cd2b685e5a674a649128fd7108e3fd79ca4",
+        "data_fingerprint": "98b4aa3a9e6bfd167c52eb391f6dc1b028f2fb920f8a20c8c48751282b8f7ed4",
+        "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63",
+        "backbone_provenance": {
+          "kind": "pretrained",
+          "timm_version": "0.6.12",
+          "checkpoint_family": "augreg_in21k_ft_in1k",
+          "public_weight_url": "https://storage.googleapis.com/vit_models/augreg/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+          "weight_file_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+          "initial_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+          "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63"
+        }
+      },
+      "completion_receipt": "../formal/completion_receipts/formal_cifar_plastic_shared_selected_v5.json"
     },
     {
       "dataset": "cifar224",
       "method": "er",
-      "status": "missing",
+      "seed": 1993,
       "metrics": {
-        "final_accuracy": null,
-        "aia": null,
-        "forgetting_previous": null,
-        "forgetting_including_final": null
-      }
+        "final_accuracy": 0.8142,
+        "aia": 0.913201111111111,
+        "forgetting_previous": 0.18866666666666665,
+        "forgetting_including_final": 0.18866666666666665
+      },
+      "data_permission": "2000 total",
+      "resources": {
+        "execution": {
+          "torch": "2.7.1+cu128",
+          "numpy": "1.26.4",
+          "device_type": "cuda",
+          "random_stream_policy": "canonical_loader_isolated_v1",
+          "wall_seconds": 15147.143342468888,
+          "numeric_checkpoint_payload_bytes": 343502224,
+          "gpu_peak_allocated_bytes": 19818544128,
+          "ce_training_reuse": {
+            "version": 1,
+            "mode": "record",
+            "execution_role": "fixed_baseline",
+            "trajectory_directory": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1",
+            "stages": [
+              {
+                "task": 0,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_000.pt",
+                "request_fingerprint": "c438bfd7550bf357d22985fd4f2fd0113a24f42d8e309b9b949b0e1d33af5ee6",
+                "body_after_sha256": "ee5be64009b9d93b1026282222025873f635e0114b11dcfaeb4b6b24c4c11bc7",
+                "head_after_sha256": "cc05c30b305d6662e1ec8cff92a4cef301aa67eb26c04b9969f7003b99f9a2e2",
+                "reused": false,
+                "shared_native_ce_seconds": 1006.4304704964161,
+                "executor_wall_seconds": 1007.5836382396519
+              },
+              {
+                "task": 1,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_001.pt",
+                "request_fingerprint": "11af1450d3e3a99874dabf81bb79ce8929ec059c5cc7c2543158878d80775a76",
+                "body_after_sha256": "4c276662ac17942d730eea984c32df60c62d30f21c00b86412d91f12b6092bf8",
+                "head_after_sha256": "b55d92375f6a4d07c58af62698c5c236713023f3f43b3fe071ed2ef4063d1623",
+                "reused": false,
+                "shared_native_ce_seconds": 1532.478435754776,
+                "executor_wall_seconds": 1533.6552338600159
+              },
+              {
+                "task": 2,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_002.pt",
+                "request_fingerprint": "23391e0bf9023ba17cb61329864d93d660c879d1c0213289c8fa10a75758924f",
+                "body_after_sha256": "afd40c55419c856480d3e5a94735526c4c2e3345443bd7cffb84639b4aa619e7",
+                "head_after_sha256": "afb8a3f3b12f4f6f3bdcc900ec7f1c5ed183e3904342f045824f728e18ebd5fa",
+                "reused": false,
+                "shared_native_ce_seconds": 1505.9790809042752,
+                "executor_wall_seconds": 1507.114132322371
+              },
+              {
+                "task": 3,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_003.pt",
+                "request_fingerprint": "42a8c6047b6840d91bbd02f5090f36eb35d9fdb513579e432b4b75875055494c",
+                "body_after_sha256": "5bd85b919f9c9470aa0dfd923f3a5707162eeb32aaf9d3db672f3b65063707a2",
+                "head_after_sha256": "a1e3a9b0fac79a7bfa0f8874e8acfbeeb5aa72747b6c3bf79022335f8747a257",
+                "reused": false,
+                "shared_native_ce_seconds": 1514.2859370298684,
+                "executor_wall_seconds": 1515.3952890262008
+              },
+              {
+                "task": 4,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_004.pt",
+                "request_fingerprint": "09db78968739b4a42aab2f91c9535d637f85962fdc7ad582262d3cbc23213fcc",
+                "body_after_sha256": "07beb5032b17749cde99cfe0747d070a73e7abdbcd83ca2c71443b4e2c7f6652",
+                "head_after_sha256": "f67f36d4a97feae1326cd5f6932ed062047690bafa73f3e2dc41c5e29da4d3e5",
+                "reused": false,
+                "shared_native_ce_seconds": 1495.0495608225465,
+                "executor_wall_seconds": 1496.173521053046
+              },
+              {
+                "task": 5,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_005.pt",
+                "request_fingerprint": "4bc62548e4c6e88fad53ec49693154c32437d979d90a037735ef984daf67b389",
+                "body_after_sha256": "c41cdde33985c29efeafb4b2abf17e02105ffe1736e8fbde24df31263ca2f759",
+                "head_after_sha256": "41523d92cc04ebf7f6b1d1c90576d3ed0caede8871c0481545a809f79fbcb6d4",
+                "reused": false,
+                "shared_native_ce_seconds": 1497.7309016808867,
+                "executor_wall_seconds": 1498.8628863207996
+              },
+              {
+                "task": 6,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_006.pt",
+                "request_fingerprint": "a4592f8c04b201b0c5be4577434b982004469a4abf7131f2f71e58e41f4fa018",
+                "body_after_sha256": "a3c1d2225c32f5f5210ce20d44f720d7357bfc5e4f38eb11f4bfceaafde8d2d5",
+                "head_after_sha256": "3d2fbf550fc9141a05a8a728d3b7c40953bd7112fd7b1516db41bebf5e659080",
+                "reused": false,
+                "shared_native_ce_seconds": 1532.595838330686,
+                "executor_wall_seconds": 1533.7181877158582
+              },
+              {
+                "task": 7,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_007.pt",
+                "request_fingerprint": "f1726d0a3b0d44dd92848db18bdd2dcd3104bd3de125904501d2dcdcdc221e54",
+                "body_after_sha256": "3d04f261bbd470246f5e3359f9bd7e0e53d1372efbbecb3ba5d2adf6fadc4779",
+                "head_after_sha256": "07f6a77fdb64e0c79777844daa41c34f7a132422e954603648d984e2731fad64",
+                "reused": false,
+                "shared_native_ce_seconds": 1509.151081290096,
+                "executor_wall_seconds": 1510.2705500759184
+              },
+              {
+                "task": 8,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_008.pt",
+                "request_fingerprint": "c4c5139de855c25a7029403f141ac7319812a6ce29a9b482afaf8c0c580c15ae",
+                "body_after_sha256": "b38fbfe5216b125926400341aa26cc584e19f2f42a5c1e8e6dfb7af833f7df1d",
+                "head_after_sha256": "8bac995d9e60df190ac32d8aab8e078e1421587242a5f6200556bc4718e7e963",
+                "reused": false,
+                "shared_native_ce_seconds": 1528.489010822028,
+                "executor_wall_seconds": 1529.5862287543714
+              },
+              {
+                "task": 9,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/cifar_fixed_er_v1/stage_009.pt",
+                "request_fingerprint": "660bcef5ecb261efd1bfa820697aef715fca927c4a3efe36f9b4418e810b0bf3",
+                "body_after_sha256": "6046e18688ea708164756383676154803d96b9226963c46cd52ced5bc27403a3",
+                "head_after_sha256": "1350ab9837345dee7ddacdcbd32279d1c868cbbb742afdd20995a469282a16c8",
+                "reused": false,
+                "shared_native_ce_seconds": 1530.8466864675283,
+                "executor_wall_seconds": 1532.0036193616688
+              }
+            ],
+            "timing_policy": "Run wall time is actual; reused CE seconds are shared driver work, not separately executed training",
+            "feature_cache": false,
+            "independent_native_initialization_and_evaluation": true
+          }
+        },
+        "final_task_resources": {
+          "replay_images": 2000,
+          "resources": {
+            "deployment_backbone_parameter_bytes": 343194624,
+            "deployment_ce_head_bytes": 307600,
+            "training_frozen_anchor_parameter_bytes": 0,
+            "historical_statistics_bytes": 0,
+            "replay_raw_payload_bytes": 6176000,
+            "inference_backbones": 1,
+            "training_backbones": 1
+          }
+        },
+        "configured_replay": {
+          "memory_size": 2000,
+          "memory_per_class": 20,
+          "fixed_memory": false
+        }
+      },
+      "source": {
+        "directory": "<server_root>/campaign_20261117/formal/runs/formal_cifar_er_fixed_v1",
+        "results": "<server_root>/campaign_20261117/formal/runs/formal_cifar_er_fixed_v1/results.json",
+        "config": "<server_root>/campaign_20261117/formal/runs/formal_cifar_er_fixed_v1/config.json",
+        "data_manifest": "<server_root>/campaign_20261117/formal/runs/formal_cifar_er_fixed_v1/data_manifest.json",
+        "checkpoint": "<server_root>/campaign_20261117/formal/runs/formal_cifar_er_fixed_v1/checkpoint.pt",
+        "config_fingerprint": "542a19a2eea76272c3ab6f2224cbb0c94de6958f889b4a775628880b60c03558",
+        "data_fingerprint": "98b4aa3a9e6bfd167c52eb391f6dc1b028f2fb920f8a20c8c48751282b8f7ed4",
+        "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63",
+        "backbone_provenance": {
+          "kind": "pretrained",
+          "timm_version": "0.6.12",
+          "checkpoint_family": "augreg_in21k_ft_in1k",
+          "public_weight_url": "https://storage.googleapis.com/vit_models/augreg/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+          "weight_file_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+          "initial_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+          "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63"
+        }
+      },
+      "completion_receipt": "../formal/completion_receipts/formal_cifar_er_fixed_v1.json"
     },
     {
       "dataset": "cifar224",
       "method": "joint",
-      "status": "missing",
+      "seed": 1993,
       "metrics": {
-        "final_accuracy": null,
+        "final_accuracy": 0.9348,
         "aia": null,
         "forgetting_previous": null,
         "forgetting_including_final": null
-      }
+      },
+      "data_permission": "offline / all training data",
+      "resources": {
+        "execution": {
+          "torch": "2.7.1+cu128",
+          "numpy": "1.26.4",
+          "device_type": "cuda",
+          "wall_seconds": 4394.107252586633,
+          "numeric_checkpoint_payload_bytes": 343502224,
+          "gpu_peak_allocated_bytes": 10653676032,
+          "resumed_completed_fit_without_retraining": false,
+          "random_stream_policy": "canonical_loader_isolated_v1"
+        },
+        "final_task_resources": {
+          "raw_replay_images": 0,
+          "replay_images": 0,
+          "historical_statistics_bytes": 0,
+          "resources": {
+            "deployment_backbone_parameter_bytes": 343194624,
+            "deployment_ce_head_bytes": 307600,
+            "inference_backbones": 1,
+            "training_backbones": 1,
+            "replay_raw_payload_bytes": 0,
+            "historical_statistics_bytes": 0,
+            "offline_training_union_access": true
+          }
+        },
+        "configured_replay": {
+          "memory_size": 0,
+          "memory_per_class": 0,
+          "fixed_memory": false
+        }
+      },
+      "source": {
+        "directory": "<server_root>/campaign_20261117/formal/runs/formal_cifar_joint_fixed_v1",
+        "results": "<server_root>/campaign_20261117/formal/runs/formal_cifar_joint_fixed_v1/results.json",
+        "config": "<server_root>/campaign_20261117/formal/runs/formal_cifar_joint_fixed_v1/config.json",
+        "data_manifest": "<server_root>/campaign_20261117/formal/runs/formal_cifar_joint_fixed_v1/data_manifest.json",
+        "checkpoint": "<server_root>/campaign_20261117/formal/runs/formal_cifar_joint_fixed_v1/checkpoint.pt",
+        "config_fingerprint": "e52233e672c16270ba26266f35c03ee7e3771f3757299c8358af448c366ae9f5",
+        "data_fingerprint": "98b4aa3a9e6bfd167c52eb391f6dc1b028f2fb920f8a20c8c48751282b8f7ed4",
+        "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63",
+        "backbone_provenance": {
+          "kind": "pretrained",
+          "timm_version": "0.6.12",
+          "checkpoint_family": "augreg_in21k_ft_in1k",
+          "public_weight_url": "https://storage.googleapis.com/vit_models/augreg/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+          "weight_file_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+          "initial_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+          "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63"
+        }
+      },
+      "completion_receipt": "../formal/completion_receipts/formal_cifar_joint_fixed_v1.json"
     },
     {
       "dataset": "imagenetr",
       "method": "shared_basis",
-      "status": "missing",
+      "seed": 1993,
       "metrics": {
-        "final_accuracy": null,
-        "aia": null,
-        "forgetting_previous": null,
-        "forgetting_including_final": null
-      }
+        "final_accuracy": 0.676,
+        "aia": 0.7429803975744957,
+        "forgetting_previous": 0.07302881245713565,
+        "forgetting_including_final": 0.07302881245713565
+      },
+      "data_permission": "0",
+      "resources": {
+        "execution": {
+          "torch": "2.7.1+cu128",
+          "numpy": "1.26.4",
+          "device_type": "cuda",
+          "random_stream_policy": "canonical_loader_isolated_v1",
+          "wall_seconds": 542.7936912104487,
+          "numeric_checkpoint_payload_bytes": 349542976,
+          "gpu_peak_allocated_bytes": 886803968
+        },
+        "final_task_resources": {
+          "numeric_state_bytes": 7578752,
+          "raw_replay_images": 0
+        },
+        "configured_replay": {
+          "memory_size": 0,
+          "memory_per_class": 0,
+          "fixed_memory": false
+        }
+      },
+      "source": {
+        "directory": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_shared_selected_v7",
+        "results": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_shared_selected_v7/results.json",
+        "config": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_shared_selected_v7/config.json",
+        "data_manifest": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_shared_selected_v7/data_manifest.json",
+        "checkpoint": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_shared_selected_v7/checkpoint.pt",
+        "config_fingerprint": "c38d65ad56088adda7c78313e766d27b1cd4a77b0c1a91f4177457eec30121a0",
+        "data_fingerprint": "014b448f085423b32b6ca0468e7165f896460ff3e4341d1f7bcc305d96a2de76",
+        "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63",
+        "backbone_provenance": {
+          "kind": "pretrained",
+          "timm_version": "0.6.12",
+          "checkpoint_family": "augreg_in21k_ft_in1k",
+          "public_weight_url": "https://storage.googleapis.com/vit_models/augreg/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+          "weight_file_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+          "initial_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+          "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63"
+        }
+      },
+      "completion_receipt": "../formal/completion_receipts/formal_imagenetr_shared_selected_v7.json"
     },
     {
       "dataset": "imagenetr",
       "method": "history_transport",
-      "status": "missing",
+      "seed": 1993,
       "metrics": {
-        "final_accuracy": null,
-        "aia": null,
-        "forgetting_previous": null,
-        "forgetting_including_final": null
-      }
+        "final_accuracy": 0.807,
+        "aia": 0.8607820596332807,
+        "forgetting_previous": 0.08184323245955222,
+        "forgetting_including_final": 0.08184323245955222
+      },
+      "data_permission": "20/class (4000 final)",
+      "resources": {
+        "execution": {
+          "torch": "2.7.1+cu128",
+          "numpy": "1.26.4",
+          "device_type": "cuda",
+          "random_stream_policy": "canonical_loader_isolated_v1",
+          "wall_seconds": 1273.7345543764532,
+          "numeric_checkpoint_payload_bytes": 704889912,
+          "gpu_peak_allocated_bytes": 1230614016,
+          "ce_training_reuse": {
+            "version": 1,
+            "mode": "replay",
+            "execution_role": "candidate_method",
+            "trajectory_directory": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1",
+            "stages": [
+              {
+                "task": 0,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_000.pt",
+                "request_fingerprint": "805bad87a0cc212603956d83cc78dd021d979e4f6750105eb15963f3597ffb69",
+                "body_after_sha256": "c7bc913ce81988eded5c683e7fb1c8701a4968a52dacf69ba48672f911e7be3e",
+                "head_after_sha256": "67d77800c7fe48351c6928ac8d4462004431b1334e3f00bc53ef3e23f8f35dd6",
+                "reused": true,
+                "shared_native_ce_seconds": 513.8422395698726,
+                "executor_wall_seconds": 1.4185633957386017
+              },
+              {
+                "task": 1,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_001.pt",
+                "request_fingerprint": "230f832ce71f72b51b14cef72c8b784d38ef3aac712f019e5091014f440dd1b2",
+                "body_after_sha256": "ccfeb402138519a56cf9465b7efbc2cdb911d30a869015a241b5c94a7db32b7b",
+                "head_after_sha256": "5e77fd2c809695e33d3cb2f4c07c2541597002e03c39d063946ffeb997162648",
+                "reused": true,
+                "shared_native_ce_seconds": 850.8189991116524,
+                "executor_wall_seconds": 1.3333528824150562
+              },
+              {
+                "task": 2,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_002.pt",
+                "request_fingerprint": "964174ec21a3f4064c2de36441002648a1c22ac74f9d8f4483e8f951d7562b95",
+                "body_after_sha256": "381e8ab3f2870d43444bf0e22fac6554e894e93bdd11ad269d748670428597dc",
+                "head_after_sha256": "490b88278533f26a670eb320d65b5215801dd9453bab66fea86ff9f61e7d6761",
+                "reused": true,
+                "shared_native_ce_seconds": 959.6455697640777,
+                "executor_wall_seconds": 1.1203006319701672
+              },
+              {
+                "task": 3,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_003.pt",
+                "request_fingerprint": "0fb2af7ace67626073a609a20910744ebe96cc88db2d9ea13b3ca6f3124eb214",
+                "body_after_sha256": "d3f971883c60c93df530fc9aa43369a8b729a304ddd120dba259a526f4e0f638",
+                "head_after_sha256": "3bf8160973964acc8f9dedaea687cf0699db3422157f71bd5622aced87183bdc",
+                "reused": true,
+                "shared_native_ce_seconds": 932.4503972120583,
+                "executor_wall_seconds": 1.2160403802990913
+              },
+              {
+                "task": 4,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_004.pt",
+                "request_fingerprint": "004cd08365ee6f620f285ba977947497de9fd850669c29ddcb3f336284e77281",
+                "body_after_sha256": "6a715c04964bba27a1fe1529e29a882b8e85a1ac47074b700fe5b9632cb64365",
+                "head_after_sha256": "ee9b27ab024dfbd7c4ccafb4de758c89aed1e990ed974771d3f400132fbb2797",
+                "reused": true,
+                "shared_native_ce_seconds": 882.4767485484481,
+                "executor_wall_seconds": 1.257013201713562
+              },
+              {
+                "task": 5,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_005.pt",
+                "request_fingerprint": "0ee2952bb76c8ef67f78f529822e83c6893346b0ef738455e3fad7a48d4e2db4",
+                "body_after_sha256": "2bb4bf00a7e8ed80acfaf983b5ce193392bebfa8fed00542f2c5b46901ac66e0",
+                "head_after_sha256": "f4a1d2292ef8d938daa620cd09582f38fc461add544e7300d4952a411a44e09d",
+                "reused": true,
+                "shared_native_ce_seconds": 1100.739054709673,
+                "executor_wall_seconds": 1.4125214144587517
+              },
+              {
+                "task": 6,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_006.pt",
+                "request_fingerprint": "a6eaef4d3e76bb1cd956a596565b97fc09df1cb7cefac1a3f4db31fe56596bc8",
+                "body_after_sha256": "d07df58b78296f847ed034fc628bbe6e5c31644ac8fab296bd8309f719c4eaa9",
+                "head_after_sha256": "c4f9d749210479c5993ce65dfd9e49a914b208595499b9c8633090511be7c2a9",
+                "reused": true,
+                "shared_native_ce_seconds": 884.9217579551041,
+                "executor_wall_seconds": 1.3238377384841442
+              },
+              {
+                "task": 7,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_007.pt",
+                "request_fingerprint": "6562b773f55bb0b040e7934030e59d62622248be017906b2e7a23b900989874c",
+                "body_after_sha256": "2636e437069d11cf9101b579bea0d39ad89ac6d224100c566cb5f37a1c47e551",
+                "head_after_sha256": "c3e69474f5748aebf48ff2f5122528b970b76114e84fa9571dd4882fe04e455d",
+                "reused": true,
+                "shared_native_ce_seconds": 1152.9892436638474,
+                "executor_wall_seconds": 1.4801101461052895
+              },
+              {
+                "task": 8,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_008.pt",
+                "request_fingerprint": "6897e4a2c371f0cc37037e8a5a03079d856928159a3258af110e5d5fe0fcc0b2",
+                "body_after_sha256": "84a668d94ed799f0dde12894941962755126ca23af691752fde4008a81eb7c07",
+                "head_after_sha256": "cd93b9fa57b10eb014759fc1d5faf5004262e6d051598a92efa9425dba8f1a5c",
+                "reused": true,
+                "shared_native_ce_seconds": 809.4336462169886,
+                "executor_wall_seconds": 1.4375454522669315
+              },
+              {
+                "task": 9,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_009.pt",
+                "request_fingerprint": "846dd260e71446765f31df99a7451a2155781206e7ea4f9173ca15a862286d72",
+                "body_after_sha256": "4edf7caca0a885a7829f347ae10e65a11c8577d4f31f19a3d12f4693b4882ffc",
+                "head_after_sha256": "6705f70f3e6ea0be50306c959a2b5c06c540ff171dbb7b62f5bba3a0cf7a77c6",
+                "reused": true,
+                "shared_native_ce_seconds": 942.616738345474,
+                "executor_wall_seconds": 1.48068480566144
+              }
+            ],
+            "timing_policy": "Run wall time is actual; reused CE seconds are shared driver work, not separately executed training",
+            "feature_cache": false,
+            "independent_native_initialization_and_evaluation": true
+          }
+        },
+        "final_task_resources": {
+          "replay_images": 4000,
+          "resources": {
+            "deployment_backbone_parameter_bytes": 343194624,
+            "deployment_analytic_head_bytes": 1230400,
+            "training_frozen_anchor_parameter_bytes": 343194624,
+            "training_ce_head_bytes": 615200,
+            "historical_statistics_bytes": 17885464,
+            "replay_raw_payload_bytes": 3613566457,
+            "inference_backbones": 1,
+            "training_backbones": 2
+          }
+        },
+        "configured_replay": {
+          "memory_size": 4000,
+          "memory_per_class": 20,
+          "fixed_memory": true
+        }
+      },
+      "source": {
+        "directory": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_transport_selected_v3",
+        "results": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_transport_selected_v3/results.json",
+        "config": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_transport_selected_v3/config.json",
+        "data_manifest": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_transport_selected_v3/data_manifest.json",
+        "checkpoint": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_transport_selected_v3/checkpoint.pt",
+        "config_fingerprint": "6c5b62d4a21c5a0410781a3832df7f4facbfb1992e008ae9f6ee8b18eb6db4d0",
+        "data_fingerprint": "014b448f085423b32b6ca0468e7165f896460ff3e4341d1f7bcc305d96a2de76",
+        "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63",
+        "backbone_provenance": {
+          "kind": "pretrained",
+          "timm_version": "0.6.12",
+          "checkpoint_family": "augreg_in21k_ft_in1k",
+          "public_weight_url": "https://storage.googleapis.com/vit_models/augreg/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+          "weight_file_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+          "initial_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+          "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63"
+        }
+      },
+      "completion_receipt": "../formal/completion_receipts/formal_imagenetr_transport_selected_v3.json"
     },
     {
       "dataset": "imagenetr",
@@ -110,103 +887,450 @@
     {
       "dataset": "imagenetr",
       "method": "plastic_shared_basis",
-      "status": "missing",
+      "seed": 1993,
       "metrics": {
-        "final_accuracy": null,
-        "aia": null,
-        "forgetting_previous": null,
-        "forgetting_including_final": null
-      }
+        "final_accuracy": 0.8068333333333333,
+        "aia": 0.860492736494787,
+        "forgetting_previous": 0.08129710233382363,
+        "forgetting_including_final": 0.08129710233382363
+      },
+      "data_permission": "20/class (4000 final)",
+      "resources": {
+        "execution": {
+          "torch": "2.7.1+cu128",
+          "numpy": "1.26.4",
+          "device_type": "cuda",
+          "random_stream_policy": "canonical_loader_isolated_v1",
+          "wall_seconds": 1293.2732544839382,
+          "numeric_checkpoint_payload_bytes": 711041656,
+          "gpu_peak_allocated_bytes": 1230614016,
+          "ce_training_reuse": {
+            "version": 1,
+            "mode": "replay",
+            "execution_role": "candidate_method",
+            "trajectory_directory": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1",
+            "stages": [
+              {
+                "task": 0,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_000.pt",
+                "request_fingerprint": "805bad87a0cc212603956d83cc78dd021d979e4f6750105eb15963f3597ffb69",
+                "body_after_sha256": "c7bc913ce81988eded5c683e7fb1c8701a4968a52dacf69ba48672f911e7be3e",
+                "head_after_sha256": "67d77800c7fe48351c6928ac8d4462004431b1334e3f00bc53ef3e23f8f35dd6",
+                "reused": true,
+                "shared_native_ce_seconds": 513.8422395698726,
+                "executor_wall_seconds": 1.3007300719618797
+              },
+              {
+                "task": 1,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_001.pt",
+                "request_fingerprint": "230f832ce71f72b51b14cef72c8b784d38ef3aac712f019e5091014f440dd1b2",
+                "body_after_sha256": "ccfeb402138519a56cf9465b7efbc2cdb911d30a869015a241b5c94a7db32b7b",
+                "head_after_sha256": "5e77fd2c809695e33d3cb2f4c07c2541597002e03c39d063946ffeb997162648",
+                "reused": true,
+                "shared_native_ce_seconds": 850.8189991116524,
+                "executor_wall_seconds": 1.206622626632452
+              },
+              {
+                "task": 2,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_002.pt",
+                "request_fingerprint": "964174ec21a3f4064c2de36441002648a1c22ac74f9d8f4483e8f951d7562b95",
+                "body_after_sha256": "381e8ab3f2870d43444bf0e22fac6554e894e93bdd11ad269d748670428597dc",
+                "head_after_sha256": "490b88278533f26a670eb320d65b5215801dd9453bab66fea86ff9f61e7d6761",
+                "reused": true,
+                "shared_native_ce_seconds": 959.6455697640777,
+                "executor_wall_seconds": 1.325877569615841
+              },
+              {
+                "task": 3,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_003.pt",
+                "request_fingerprint": "0fb2af7ace67626073a609a20910744ebe96cc88db2d9ea13b3ca6f3124eb214",
+                "body_after_sha256": "d3f971883c60c93df530fc9aa43369a8b729a304ddd120dba259a526f4e0f638",
+                "head_after_sha256": "3bf8160973964acc8f9dedaea687cf0699db3422157f71bd5622aced87183bdc",
+                "reused": true,
+                "shared_native_ce_seconds": 932.4503972120583,
+                "executor_wall_seconds": 1.168526280671358
+              },
+              {
+                "task": 4,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_004.pt",
+                "request_fingerprint": "004cd08365ee6f620f285ba977947497de9fd850669c29ddcb3f336284e77281",
+                "body_after_sha256": "6a715c04964bba27a1fe1529e29a882b8e85a1ac47074b700fe5b9632cb64365",
+                "head_after_sha256": "ee9b27ab024dfbd7c4ccafb4de758c89aed1e990ed974771d3f400132fbb2797",
+                "reused": true,
+                "shared_native_ce_seconds": 882.4767485484481,
+                "executor_wall_seconds": 1.276706550270319
+              },
+              {
+                "task": 5,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_005.pt",
+                "request_fingerprint": "0ee2952bb76c8ef67f78f529822e83c6893346b0ef738455e3fad7a48d4e2db4",
+                "body_after_sha256": "2bb4bf00a7e8ed80acfaf983b5ce193392bebfa8fed00542f2c5b46901ac66e0",
+                "head_after_sha256": "f4a1d2292ef8d938daa620cd09582f38fc461add544e7300d4952a411a44e09d",
+                "reused": true,
+                "shared_native_ce_seconds": 1100.739054709673,
+                "executor_wall_seconds": 1.300073228776455
+              },
+              {
+                "task": 6,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_006.pt",
+                "request_fingerprint": "a6eaef4d3e76bb1cd956a596565b97fc09df1cb7cefac1a3f4db31fe56596bc8",
+                "body_after_sha256": "d07df58b78296f847ed034fc628bbe6e5c31644ac8fab296bd8309f719c4eaa9",
+                "head_after_sha256": "c4f9d749210479c5993ce65dfd9e49a914b208595499b9c8633090511be7c2a9",
+                "reused": true,
+                "shared_native_ce_seconds": 884.9217579551041,
+                "executor_wall_seconds": 1.3280804045498371
+              },
+              {
+                "task": 7,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_007.pt",
+                "request_fingerprint": "6562b773f55bb0b040e7934030e59d62622248be017906b2e7a23b900989874c",
+                "body_after_sha256": "2636e437069d11cf9101b579bea0d39ad89ac6d224100c566cb5f37a1c47e551",
+                "head_after_sha256": "c3e69474f5748aebf48ff2f5122528b970b76114e84fa9571dd4882fe04e455d",
+                "reused": true,
+                "shared_native_ce_seconds": 1152.9892436638474,
+                "executor_wall_seconds": 1.3680704236030579
+              },
+              {
+                "task": 8,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_008.pt",
+                "request_fingerprint": "6897e4a2c371f0cc37037e8a5a03079d856928159a3258af110e5d5fe0fcc0b2",
+                "body_after_sha256": "84a668d94ed799f0dde12894941962755126ca23af691752fde4008a81eb7c07",
+                "head_after_sha256": "cd93b9fa57b10eb014759fc1d5faf5004262e6d051598a92efa9425dba8f1a5c",
+                "reused": true,
+                "shared_native_ce_seconds": 809.4336462169886,
+                "executor_wall_seconds": 1.3079937025904655
+              },
+              {
+                "task": 9,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_009.pt",
+                "request_fingerprint": "846dd260e71446765f31df99a7451a2155781206e7ea4f9173ca15a862286d72",
+                "body_after_sha256": "4edf7caca0a885a7829f347ae10e65a11c8577d4f31f19a3d12f4693b4882ffc",
+                "head_after_sha256": "6705f70f3e6ea0be50306c959a2b5c06c540ff171dbb7b62f5bba3a0cf7a77c6",
+                "reused": true,
+                "shared_native_ce_seconds": 942.616738345474,
+                "executor_wall_seconds": 1.4791443012654781
+              }
+            ],
+            "timing_policy": "Run wall time is actual; reused CE seconds are shared driver work, not separately executed training",
+            "feature_cache": false,
+            "independent_native_initialization_and_evaluation": true
+          }
+        },
+        "final_task_resources": {
+          "replay_images": 4000,
+          "resources": {
+            "deployment_backbone_parameter_bytes": 343194624,
+            "deployment_analytic_head_bytes": 1230400,
+            "training_frozen_anchor_parameter_bytes": 343194624,
+            "training_ce_head_bytes": 615200,
+            "historical_statistics_bytes": 25267608,
+            "replay_raw_payload_bytes": 3613566457,
+            "inference_backbones": 1,
+            "training_backbones": 2
+          }
+        },
+        "configured_replay": {
+          "memory_size": 4000,
+          "memory_per_class": 20,
+          "fixed_memory": true
+        }
+      },
+      "source": {
+        "directory": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_plastic_shared_selected_v5",
+        "results": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_plastic_shared_selected_v5/results.json",
+        "config": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_plastic_shared_selected_v5/config.json",
+        "data_manifest": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_plastic_shared_selected_v5/data_manifest.json",
+        "checkpoint": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_plastic_shared_selected_v5/checkpoint.pt",
+        "config_fingerprint": "8c2e8dbebf010f9ca34786806b27543d02548e5427f4fc433022d063dedec1de",
+        "data_fingerprint": "014b448f085423b32b6ca0468e7165f896460ff3e4341d1f7bcc305d96a2de76",
+        "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63",
+        "backbone_provenance": {
+          "kind": "pretrained",
+          "timm_version": "0.6.12",
+          "checkpoint_family": "augreg_in21k_ft_in1k",
+          "public_weight_url": "https://storage.googleapis.com/vit_models/augreg/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+          "weight_file_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+          "initial_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+          "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63"
+        }
+      },
+      "completion_receipt": "../formal/completion_receipts/formal_imagenetr_plastic_shared_selected_v5.json"
     },
     {
       "dataset": "imagenetr",
       "method": "er",
-      "status": "missing",
+      "seed": 1993,
       "metrics": {
-        "final_accuracy": null,
-        "aia": null,
-        "forgetting_previous": null,
-        "forgetting_including_final": null
-      }
+        "final_accuracy": 0.7,
+        "aia": 0.7866717489191675,
+        "forgetting_previous": 0.23764485260105456,
+        "forgetting_including_final": 0.23764485260105456
+      },
+      "data_permission": "20/class (4000 final)",
+      "resources": {
+        "execution": {
+          "torch": "2.7.1+cu128",
+          "numpy": "1.26.4",
+          "device_type": "cuda",
+          "random_stream_policy": "canonical_loader_isolated_v1",
+          "wall_seconds": 9525.853062234819,
+          "numeric_checkpoint_payload_bytes": 343809824,
+          "gpu_peak_allocated_bytes": 19824891904,
+          "ce_training_reuse": {
+            "version": 1,
+            "mode": "record",
+            "execution_role": "fixed_baseline",
+            "trajectory_directory": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1",
+            "stages": [
+              {
+                "task": 0,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_000.pt",
+                "request_fingerprint": "805bad87a0cc212603956d83cc78dd021d979e4f6750105eb15963f3597ffb69",
+                "body_after_sha256": "c7bc913ce81988eded5c683e7fb1c8701a4968a52dacf69ba48672f911e7be3e",
+                "head_after_sha256": "67d77800c7fe48351c6928ac8d4462004431b1334e3f00bc53ef3e23f8f35dd6",
+                "reused": false,
+                "shared_native_ce_seconds": 513.8422395698726,
+                "executor_wall_seconds": 515.1153755411506
+              },
+              {
+                "task": 1,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_001.pt",
+                "request_fingerprint": "230f832ce71f72b51b14cef72c8b784d38ef3aac712f019e5091014f440dd1b2",
+                "body_after_sha256": "ccfeb402138519a56cf9465b7efbc2cdb911d30a869015a241b5c94a7db32b7b",
+                "head_after_sha256": "5e77fd2c809695e33d3cb2f4c07c2541597002e03c39d063946ffeb997162648",
+                "reused": false,
+                "shared_native_ce_seconds": 850.8189991116524,
+                "executor_wall_seconds": 852.0615691840649
+              },
+              {
+                "task": 2,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_002.pt",
+                "request_fingerprint": "964174ec21a3f4064c2de36441002648a1c22ac74f9d8f4483e8f951d7562b95",
+                "body_after_sha256": "381e8ab3f2870d43444bf0e22fac6554e894e93bdd11ad269d748670428597dc",
+                "head_after_sha256": "490b88278533f26a670eb320d65b5215801dd9453bab66fea86ff9f61e7d6761",
+                "reused": false,
+                "shared_native_ce_seconds": 959.6455697640777,
+                "executor_wall_seconds": 960.7970625013113
+              },
+              {
+                "task": 3,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_003.pt",
+                "request_fingerprint": "0fb2af7ace67626073a609a20910744ebe96cc88db2d9ea13b3ca6f3124eb214",
+                "body_after_sha256": "d3f971883c60c93df530fc9aa43369a8b729a304ddd120dba259a526f4e0f638",
+                "head_after_sha256": "3bf8160973964acc8f9dedaea687cf0699db3422157f71bd5622aced87183bdc",
+                "reused": false,
+                "shared_native_ce_seconds": 932.4503972120583,
+                "executor_wall_seconds": 933.639324080199
+              },
+              {
+                "task": 4,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_004.pt",
+                "request_fingerprint": "004cd08365ee6f620f285ba977947497de9fd850669c29ddcb3f336284e77281",
+                "body_after_sha256": "6a715c04964bba27a1fe1529e29a882b8e85a1ac47074b700fe5b9632cb64365",
+                "head_after_sha256": "ee9b27ab024dfbd7c4ccafb4de758c89aed1e990ed974771d3f400132fbb2797",
+                "reused": false,
+                "shared_native_ce_seconds": 882.4767485484481,
+                "executor_wall_seconds": 883.6883284896612
+              },
+              {
+                "task": 5,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_005.pt",
+                "request_fingerprint": "0ee2952bb76c8ef67f78f529822e83c6893346b0ef738455e3fad7a48d4e2db4",
+                "body_after_sha256": "2bb4bf00a7e8ed80acfaf983b5ce193392bebfa8fed00542f2c5b46901ac66e0",
+                "head_after_sha256": "f4a1d2292ef8d938daa620cd09582f38fc461add544e7300d4952a411a44e09d",
+                "reused": false,
+                "shared_native_ce_seconds": 1100.739054709673,
+                "executor_wall_seconds": 1102.033136896789
+              },
+              {
+                "task": 6,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_006.pt",
+                "request_fingerprint": "a6eaef4d3e76bb1cd956a596565b97fc09df1cb7cefac1a3f4db31fe56596bc8",
+                "body_after_sha256": "d07df58b78296f847ed034fc628bbe6e5c31644ac8fab296bd8309f719c4eaa9",
+                "head_after_sha256": "c4f9d749210479c5993ce65dfd9e49a914b208595499b9c8633090511be7c2a9",
+                "reused": false,
+                "shared_native_ce_seconds": 884.9217579551041,
+                "executor_wall_seconds": 886.2315064966679
+              },
+              {
+                "task": 7,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_007.pt",
+                "request_fingerprint": "6562b773f55bb0b040e7934030e59d62622248be017906b2e7a23b900989874c",
+                "body_after_sha256": "2636e437069d11cf9101b579bea0d39ad89ac6d224100c566cb5f37a1c47e551",
+                "head_after_sha256": "c3e69474f5748aebf48ff2f5122528b970b76114e84fa9571dd4882fe04e455d",
+                "reused": false,
+                "shared_native_ce_seconds": 1152.9892436638474,
+                "executor_wall_seconds": 1154.3468568250537
+              },
+              {
+                "task": 8,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_008.pt",
+                "request_fingerprint": "6897e4a2c371f0cc37037e8a5a03079d856928159a3258af110e5d5fe0fcc0b2",
+                "body_after_sha256": "84a668d94ed799f0dde12894941962755126ca23af691752fde4008a81eb7c07",
+                "head_after_sha256": "cd93b9fa57b10eb014759fc1d5faf5004262e6d051598a92efa9425dba8f1a5c",
+                "reused": false,
+                "shared_native_ce_seconds": 809.4336462169886,
+                "executor_wall_seconds": 810.7971913330257
+              },
+              {
+                "task": 9,
+                "path": "<server_root>/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1/stage_009.pt",
+                "request_fingerprint": "846dd260e71446765f31df99a7451a2155781206e7ea4f9173ca15a862286d72",
+                "body_after_sha256": "4edf7caca0a885a7829f347ae10e65a11c8577d4f31f19a3d12f4693b4882ffc",
+                "head_after_sha256": "6705f70f3e6ea0be50306c959a2b5c06c540ff171dbb7b62f5bba3a0cf7a77c6",
+                "reused": false,
+                "shared_native_ce_seconds": 942.616738345474,
+                "executor_wall_seconds": 944.0370617993176
+              }
+            ],
+            "timing_policy": "Run wall time is actual; reused CE seconds are shared driver work, not separately executed training",
+            "feature_cache": false,
+            "independent_native_initialization_and_evaluation": true
+          }
+        },
+        "final_task_resources": {
+          "replay_images": 4000,
+          "resources": {
+            "deployment_backbone_parameter_bytes": 343194624,
+            "deployment_ce_head_bytes": 615200,
+            "training_frozen_anchor_parameter_bytes": 0,
+            "historical_statistics_bytes": 0,
+            "replay_raw_payload_bytes": 3613566457,
+            "inference_backbones": 1,
+            "training_backbones": 1
+          }
+        },
+        "configured_replay": {
+          "memory_size": 4000,
+          "memory_per_class": 20,
+          "fixed_memory": true
+        }
+      },
+      "source": {
+        "directory": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_er_fixed_v1",
+        "results": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_er_fixed_v1/results.json",
+        "config": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_er_fixed_v1/config.json",
+        "data_manifest": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_er_fixed_v1/data_manifest.json",
+        "checkpoint": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_er_fixed_v1/checkpoint.pt",
+        "config_fingerprint": "c86c8d465001295d06f7b2c12ec5caa71d2566a1a92c34f19c465e0cdb74a9cf",
+        "data_fingerprint": "014b448f085423b32b6ca0468e7165f896460ff3e4341d1f7bcc305d96a2de76",
+        "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63",
+        "backbone_provenance": {
+          "kind": "pretrained",
+          "timm_version": "0.6.12",
+          "checkpoint_family": "augreg_in21k_ft_in1k",
+          "public_weight_url": "https://storage.googleapis.com/vit_models/augreg/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+          "weight_file_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+          "initial_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+          "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63"
+        }
+      },
+      "completion_receipt": "../formal/completion_receipts/formal_imagenetr_er_fixed_v1.json"
     },
     {
       "dataset": "imagenetr",
       "method": "joint",
-      "status": "missing",
+      "seed": 1993,
       "metrics": {
-        "final_accuracy": null,
+        "final_accuracy": 0.8386666666666667,
         "aia": null,
         "forgetting_previous": null,
         "forgetting_including_final": null
-      }
+      },
+      "data_permission": "offline / all training data",
+      "resources": {
+        "execution": {
+          "torch": "2.7.1+cu128",
+          "numpy": "1.26.4",
+          "device_type": "cuda",
+          "wall_seconds": 7527.062344644219,
+          "numeric_checkpoint_payload_bytes": 343809824,
+          "gpu_peak_allocated_bytes": 10654906880,
+          "resumed_completed_fit_without_retraining": false,
+          "random_stream_policy": "canonical_loader_isolated_v1"
+        },
+        "final_task_resources": {
+          "raw_replay_images": 0,
+          "replay_images": 0,
+          "historical_statistics_bytes": 0,
+          "resources": {
+            "deployment_backbone_parameter_bytes": 343194624,
+            "deployment_ce_head_bytes": 615200,
+            "inference_backbones": 1,
+            "training_backbones": 1,
+            "replay_raw_payload_bytes": 0,
+            "historical_statistics_bytes": 0,
+            "offline_training_union_access": true
+          }
+        },
+        "configured_replay": {
+          "memory_size": 0,
+          "memory_per_class": 0,
+          "fixed_memory": false
+        }
+      },
+      "source": {
+        "directory": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_joint_fixed_v1",
+        "results": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_joint_fixed_v1/results.json",
+        "config": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_joint_fixed_v1/config.json",
+        "data_manifest": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_joint_fixed_v1/data_manifest.json",
+        "checkpoint": "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_joint_fixed_v1/checkpoint.pt",
+        "config_fingerprint": "59dca26158db0c97eb26ca4f6cb743e6f05535ec5936f46af8c393781ae744ef",
+        "data_fingerprint": "014b448f085423b32b6ca0468e7165f896460ff3e4341d1f7bcc305d96a2de76",
+        "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63",
+        "backbone_provenance": {
+          "kind": "pretrained",
+          "timm_version": "0.6.12",
+          "checkpoint_family": "augreg_in21k_ft_in1k",
+          "public_weight_url": "https://storage.googleapis.com/vit_models/augreg/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+          "weight_file_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+          "initial_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+          "upstream_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63"
+        }
+      },
+      "completion_receipt": "../formal/completion_receipts/formal_imagenetr_joint_fixed_v1.json"
     }
   ],
   "eligible_candidates": {
-    "cifar224/shared_basis": [],
-    "cifar224/history_transport": [],
+    "cifar224/shared_basis": [
+      "<server_root>/campaign_20261117/formal/runs/formal_cifar_shared_selected_v7"
+    ],
+    "cifar224/history_transport": [
+      "<server_root>/campaign_20261117/formal/runs/formal_cifar_transport_selected_v2"
+    ],
     "cifar224/current_adapted": [],
-    "cifar224/plastic_shared_basis": [],
-    "cifar224/er": [],
-    "cifar224/joint": [],
-    "imagenetr/shared_basis": [],
-    "imagenetr/history_transport": [],
+    "cifar224/plastic_shared_basis": [
+      "<server_root>/campaign_20261117/formal/runs/formal_cifar_plastic_shared_selected_v5"
+    ],
+    "cifar224/er": [
+      "<server_root>/campaign_20261117/formal/runs/formal_cifar_er_fixed_v1"
+    ],
+    "cifar224/joint": [
+      "<server_root>/campaign_20261117/formal/runs/formal_cifar_joint_fixed_v1"
+    ],
+    "imagenetr/shared_basis": [
+      "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_shared_selected_v7"
+    ],
+    "imagenetr/history_transport": [
+      "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_transport_selected_v3"
+    ],
     "imagenetr/current_adapted": [],
-    "imagenetr/plastic_shared_basis": [],
-    "imagenetr/er": [],
-    "imagenetr/joint": []
+    "imagenetr/plastic_shared_basis": [
+      "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_plastic_shared_selected_v5"
+    ],
+    "imagenetr/er": [
+      "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_er_fixed_v1"
+    ],
+    "imagenetr/joint": [
+      "<server_root>/campaign_20261117/formal/runs/formal_imagenetr_joint_fixed_v1"
+    ]
   },
-  "skipped_results": [
-    {
-      "path": "/Users/miaoyuchen/持续学习/CL-27fall/experiments/campaign_20261117/correctness/gpu_check_0/history_transport/results.json",
-      "reason": "not complete final-phase output"
-    },
-    {
-      "path": "/Users/miaoyuchen/持续学习/CL-27fall/experiments/campaign_20261117/correctness/gpu_check_0/plastic_shared_basis/results.json",
-      "reason": "not complete final-phase output"
-    },
-    {
-      "path": "/Users/miaoyuchen/持续学习/CL-27fall/experiments/campaign_20261117/correctness/gpu_check_0/shared_basis/results.json",
-      "reason": "not complete final-phase output"
-    },
-    {
-      "path": "/Users/miaoyuchen/持续学习/CL-27fall/experiments/campaign_20261117/correctness/gpu_check_1/current_adapted/results.json",
-      "reason": "not complete final-phase output"
-    },
-    {
-      "path": "/Users/miaoyuchen/持续学习/CL-27fall/experiments/campaign_20261117/correctness/gpu_check_1/er/results.json",
-      "reason": "not complete final-phase output"
-    },
-    {
-      "path": "/Users/miaoyuchen/持续学习/CL-27fall/experiments/campaign_20261117/correctness/gpu_check_1/joint/results.json",
-      "reason": "not complete final-phase output"
-    },
-    {
-      "path": "/Users/miaoyuchen/持续学习/CL-27fall/experiments/campaign_20261117/correctness/gpu_check_optimized_current/current_adapted/results.json",
-      "reason": "not complete final-phase output"
-    },
-    {
-      "path": "/Users/miaoyuchen/持续学习/CL-27fall/experiments/campaign_20261117/correctness/imagenetr_mechanics/current_adapted/results.json",
-      "reason": "not complete final-phase output"
-    },
-    {
-      "path": "/Users/miaoyuchen/持续学习/CL-27fall/experiments/campaign_20261117/correctness/imagenetr_mechanics/er/results.json",
-      "reason": "not complete final-phase output"
-    },
-    {
-      "path": "/Users/miaoyuchen/持续学习/CL-27fall/experiments/campaign_20261117/correctness/imagenetr_mechanics/history_transport/results.json",
-      "reason": "not complete final-phase output"
-    },
-    {
-      "path": "/Users/miaoyuchen/持续学习/CL-27fall/experiments/campaign_20261117/correctness/imagenetr_mechanics/joint/results.json",
-      "reason": "not complete final-phase output"
-    },
-    {
-      "path": "/Users/miaoyuchen/持续学习/CL-27fall/experiments/campaign_20261117/correctness/imagenetr_mechanics/plastic_shared_basis/results.json",
-      "reason": "not complete final-phase output"
-    },
-    {
-      "path": "/Users/miaoyuchen/持续学习/CL-27fall/experiments/campaign_20261117/correctness/imagenetr_mechanics/shared_basis/results.json",
-      "reason": "not complete final-phase output"
-    }
-  ]
+  "skipped_results": [],
+  "export_provenance": {
+    "raw_summary_sha256": "1e02619a0cb66a581e1d3e7b397443c90030d29477f37ef35167c5c47ac1fcf9",
+    "raw_summary_bytes": 73215,
+    "paths_policy": "server root replaced by <server_root>; unredacted JSON retained privately",
+    "prebound_full_selection": "../formal/SELECTED_JOBS.json",
+    "partial_selection_reason": "Only the ten prebound runs with complete formal results; both current_adapted runs still pending. No score ranking."
+  }
 }

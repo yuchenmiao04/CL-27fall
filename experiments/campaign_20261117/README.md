@@ -2,7 +2,12 @@
 
 ## 当前状态
 
-服务器环境、两个数据集、预训练权重及小规模正确性验证均已准备完成。正式 12 组实验尚未开始；已有小规模正确性验证不计入主实验结果。用户已确认训练集内部固定留出集选参、完整训练集重训、正式测试集只用于最终报告；随后向 Agent B 交接代码审查；最新要求已恢复实验，不等待 B。后续状态以运行日志和正式结果文件为证据。
+截至2026-11-17 21:35（Asia/Shanghai），12组正式实验已完成并审核10组；CIFAR-100 与 ImageNet-R 的 `current_adapted` 仍在运行。四个候选在两个数据集上的8项调参选择均已关闭。选参只使用训练集内部固定留出集，正式运行从同一预训练起点使用完整训练集重训，正式测试成绩不用于后续选参。
+
+- [已审核的10组结果](formal/PARTIAL_RESULTS.md)与[原始指标JSON](formal/PARTIAL_RESULTS.json)；每组完成凭据见 `formal/completion_receipts/`。
+- [开发选择依据](development/SELECTIONS.md)与预绑定的[12组正式运行](formal/SELECTED_JOBS.json)。
+- [资源报告](resources/RESOURCE_REPORT.md)：区分训练、推理、解析统计、参考支路、共享CE及实际检查点存储。
+- 小规模正确性验证单独保留在 `correctness/`，不计入正式完成数；历史决策中的当时状态保留。
 
 ## 固定范围
 
@@ -17,7 +22,7 @@
 ## 正式结果汇总
 
 ```sh
-python scripts/summarize_campaign.py --runs-root runs/campaign_20261117 --output-dir experiments/campaign_20261117/summary
+python scripts/summarize_campaign.py --runs-root /path/to/campaign_20261117/formal/runs --selection experiments/campaign_20261117/formal/SELECTED_JOBS.json --output-dir experiments/campaign_20261117/summary
 ```
 
 工具只接受对应配置为 seed 1993、`phase=final` 且结果 `status=complete` 的已完成运行；增量方法必须有完整十阶段矩阵与样本计数，Joint 必须是全部类别的一次离线拟合。开发、smoke、validation-only、partial 结果不会计为正式完成。目录名为 `scripts`、`smoke`、`validation`、`validation_only`、`development` 或 `dev` 的下级结果也排除。结果目录需要保留同级 `config.json` 和 `results.json`。
@@ -59,4 +64,4 @@ python scripts/summarize_campaign.py --runs-root runs/campaign_20261117 --output
 - `correctness/pytest_postfix.txt`：服务器新环境上的 204 项测试通过。
 - `correctness/capacity_gpu_{0,1}.json`：两张卡的 FP32/TF32 关闭容量检查通过；单个可塑 ViT＋CE 头，逻辑 batch 64 约 0.226–0.228 秒/步、峰值分配 9.74 GiB；batch 128 约 0.455–0.462 秒/步、峰值分配 18.14 GiB。纯 GPU 合成数据测量不含加载、双支路、模块或统计求解，不能直接视为端到端速度或完整实验 ETA。
 
-这些记录均不替代正式十阶段实验；正式完成数仍为 0/12。HPO 来源已经确认，实验已恢复。首轮在两张卡上分别运行 ER 两阶段20 epochs 与固定模块库两阶段5 epochs 诊断；训练配置与事前调整理由位于 development/。这些开发试验不计入正式结果，也不是等预算性能比较。
+这些准备记录不替代正式十阶段实验。正式完成数见本页开头及逐组完成凭据；早期 ER 两阶段20 epochs 与固定模块库两阶段5 epochs 属于开发诊断，不计入正式结果，也不是等预算性能比较。

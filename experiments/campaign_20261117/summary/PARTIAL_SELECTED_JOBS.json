@@ -1,0 +1,16 @@
+{
+  "cifar224": {
+    "shared_basis": "formal_cifar_shared_selected_v7",
+    "history_transport": "formal_cifar_transport_selected_v2",
+    "plastic_shared_basis": "formal_cifar_plastic_shared_selected_v5",
+    "er": "formal_cifar_er_fixed_v1",
+    "joint": "formal_cifar_joint_fixed_v1"
+  },
+  "imagenetr": {
+    "shared_basis": "formal_imagenetr_shared_selected_v7",
+    "history_transport": "formal_imagenetr_transport_selected_v3",
+    "plastic_shared_basis": "formal_imagenetr_plastic_shared_selected_v5",
+    "er": "formal_imagenetr_er_fixed_v1",
+    "joint": "formal_imagenetr_joint_fixed_v1"
+  }
+}

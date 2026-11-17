@@ -1,6 +1,6 @@
 # CL-27fall
 
-在固定版本 LAMDA-PILOT 中接入四个类别增量学习候选方法，并提供 ER 与离线 Joint 两个基础对照。当前交付范围是实现与小规模正确性验证，尚未运行完整 CIFAR-100 / ImageNet-R 实验，不包含性能提升结论。
+在固定版本 LAMDA-PILOT 中接入四个类别增量学习候选方法，并提供 ER 与离线 Joint 两个基础对照。2026-11-17 的正式实验已完成并审核 10/12 组，两组固定模块库实验仍在运行。当前结果见[正式结果](experiments/campaign_20261117/formal/PARTIAL_RESULTS.md)，最终配置及选择依据见[开发记录](experiments/campaign_20261117/development/SELECTIONS.md)。小规模正确性验证与完整性能实验分开保存。
 
 | 方法名 | 学习对象 | 历史信息 | 骨干更新 |
 | --- | --- | --- | --- |
@@ -28,7 +28,7 @@
 
 ## 环境
 
-历史环境使用 Python 3.10、PyTorch 2.0.1、torchvision 0.15.2、timm 0.6.12。不建议在 Python 3.12 中直接安装旧版 timm，其其他模型定义存在 dataclass 兼容问题。CUDA 环境应安装相同版本且匹配 CUDA 的 PyTorch 构建。
+历史环境使用 Python 3.10、PyTorch 2.0.1、torchvision 0.15.2、timm 0.6.12。2026-11-17 实际服务器为 Python 3.10、torch 2.7.1+cu128、torchvision 0.22.1+cu128、timm 0.6.12，完整版本见[执行环境](experiments/campaign_20261117/environment.freeze.txt)。不建议在 Python 3.12 中直接安装旧版 timm，其其他模型定义存在 dataclass 兼容问题。
 
 ```bash
 python3.10 -m venv .venv
@@ -69,7 +69,7 @@ python scripts/verify_pretrained.py \
 
 ## 正式配置
 
-正式配置在 `exps/pilot_figure2/`，本轮不启动。ER 与使用回放的候选采用 CIFAR-100 10×10 类、固定总回放容量2000；ImageNet-R 10×20 类、每类20张。冻结共享基实际旧图像量为0；Joint 一次访问全部训练类并集，只报 Final。统一使用历史 timm 的 IN21K→IN1K ViT-B/16、seed1993，测试不给任务编号。
+初始配置模板在 `exps/pilot_figure2/`；本轮实际采用的配置、源码身份及审核记录见[主实验目录](experiments/campaign_20261117/README.md)。ER 与使用回放的候选采用 CIFAR-100 10×10 类、固定总回放容量2000；ImageNet-R 10×20 类、每类20张。冻结共享基实际旧图像量为0；Joint 一次访问全部训练类并集，只报 Final。统一使用历史 timm 的 IN21K→IN1K ViT-B/16、seed1993，测试不给任务编号。
 
 设置 `data_root` 后才可运行。CIFAR 根目录包含官方 `cifar-100-python/train` 和 `test`；ImageNet-R 使用 PILOT 准备后 `train/<class>/...`、`test/<class>/...`，不能任意重新划分后仍声称是原论文协议。
 
