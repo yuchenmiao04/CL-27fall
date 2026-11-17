@@ -1,0 +1,1362 @@
+{
+  "schema_version": 1,
+  "status": "partial_checkpoint_index_not_campaign_completion",
+  "required_cells": 12,
+  "obtained_verified_checkpoints": 10,
+  "pending_cells": 2,
+  "build_scope": "Local existing JSON/log/source evidence only; no server connection, .pt read, model export, training or git action.",
+  "selected_jobs": {
+    "path": "experiments/campaign_20261117/formal/SELECTED_JOBS.json",
+    "sha256": "4b1eee40de6568e6af2c5ad07b1ed8832a61ca42dcd3d58bd3dea641b68fbc33"
+  },
+  "entries": [
+    {
+      "job": "formal_cifar_shared_selected_v7",
+      "dataset": "cifar224",
+      "method": "shared_basis",
+      "seed": 1993,
+      "selected_config": {
+        "path": "experiments/campaign_20261117/formal/configs/formal_cifar_shared_selected_v7.json",
+        "sha256": "3ff5e4ea651c16f3af68f9274f8c0507cdbca3af2a292c9123d163c39931469f"
+      },
+      "source_config_implementation_commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+      "source_policy": "Preserved executed-snapshot evidence; current repository HEAD is never substituted.",
+      "source_run_checkpoint": "${RUNTIME_ROOT}/campaign_20261117/formal/runs/formal_cifar_shared_selected_v7/checkpoint.pt",
+      "dependencies": {
+        "pretrained_npz_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+        "initial_backbone_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+        "data": {
+          "train_source_sha256": "735e79b04f092ca3d2e6d07f368c0a7d70d48c48d28865950cc24454cf45129b",
+          "evaluation_source_sha256": "4b67687d9933c4db8f0831104447f15b93774f4f464bd0516f0f0f2ac83b7864",
+          "data_fingerprint": "98b4aa3a9e6bfd167c52eb391f6dc1b028f2fb920f8a20c8c48751282b8f7ed4"
+        },
+        "external_image_paths_required": false,
+        "ce_cache_donor": null
+      },
+      "gpu_restore_or_continuation_executed": false,
+      "status": "obtained_verified_checkpoint",
+      "checkpoint_sha256": "1b298fbb052c01fef00c2797fe803e1f7164dfc33decd09a132483cac7b4df88",
+      "checkpoint_bytes": 351687530,
+      "original_metadata_sha256": {
+        "results": "f8e11b2c6ea4e1b085846aafdfa9bd5562fc5254656cd6a15d9aa4b700694020",
+        "config": "8a51962f08bc0bb8f12f3f01e1da59321566e2ea282e1abe01d74d69aa3f9eaf",
+        "data_manifest": "1471599966cbc1427d69bcff8a186e0c648b22fb2be88b6de103cb469bdcb823"
+      },
+      "completion_receipt": {
+        "path": "experiments/campaign_20261117/formal/completion_receipts/formal_cifar_shared_selected_v7.json",
+        "sha256": "32b9e7f83ca6bb5500cbe9279bd000911c8825cb861ef7fb617c020eed43da05"
+      },
+      "backup": {
+        "kind": "existing_private_workspace_archive",
+        "path": "${PRIVATE_WORKSPACE_ROOT}/formal_checkpoints/formal_cifar_shared_selected_v7/checkpoint.pt",
+        "manifest": {
+          "path": "${PRIVATE_WORKSPACE_ROOT}/formal_checkpoints/manifest.json",
+          "sha256": "08b0fdf68b8ccca3b7f778b57588b0777e99f9e8894c1248b4110939124fa1fc"
+        },
+        "verification": {
+          "path": "${PRIVATE_WORKSPACE_ROOT}/formal_checkpoints/verification.json",
+          "sha256": "81eb39f7ce23b24fc6ae16839a3719e43a2c454a6679c21aaec58697a27a2125"
+        },
+        "payload_download_policy": "Existing four archives retained; no new model download is part of this recovery entry."
+      },
+      "runtime_snapshot": "runtime_tuning_v1",
+      "runtime_binding_scope": "Local dispatch specification and inspected snapshot hashes",
+      "runtime_source_evidence": {
+        "path": "experiments/campaign_20261117/correctness/runtime_source_identity_20261117.json",
+        "sha256": "b9c19afeab8d8020522370ee072ea78be48da050655356d66359cae632d6b891"
+      },
+      "runtime_source_file_sha256": {
+        "cl27/current/engine.py": "431bcdfb38de9337143dc55ccd71b2115bd09ae1741b336d58e8dff601f4a52a",
+        "cl27/common.py": "33b63ca2b6baef4585e677d54d9e72e6e5247efb24d997e6eeec968911e0c3bf",
+        "cl27/cores/shared_basis.py": "78bf3c39430dff022d61a22c90380ce57c0c3623e5c2271c653d6243c2d454a0",
+        "cl27/runner.py": "931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e"
+      },
+      "audit": {
+        "status": "legacy_protocol_matrix_checkpoint_schema_and_identity_checks",
+        "native_cpu_restore_executed": false,
+        "zero_input_forward_executed": false,
+        "coverage": [
+          "formal protocol and metric/matrix consistency",
+          "checkpoint schema/full row counts",
+          "NPZ/frozen backbone identity where applicable",
+          "file size/SHA"
+        ],
+        "schema_probe_evidence": {
+          "path": "experiments/campaign_20261117/audit/FINAL_CHECKPOINT_AUDIT_PLAN.json",
+          "sha256": "38f7859765187157441efd00c9e03fcecce7b13e8ee2b5717203957e2b26c5a6"
+        }
+      }
+    },
+    {
+      "job": "formal_cifar_transport_selected_v2",
+      "dataset": "cifar224",
+      "method": "history_transport",
+      "seed": 1993,
+      "selected_config": {
+        "path": "experiments/campaign_20261117/formal/configs/formal_cifar_transport_selected_v2.json",
+        "sha256": "2abbb32878c63eb7fec7e3bcc4aa6c1447b0cb89dff8200ff127591faf63f668"
+      },
+      "source_config_implementation_commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+      "source_policy": "Preserved executed-snapshot evidence; current repository HEAD is never substituted.",
+      "source_run_checkpoint": "${RUNTIME_ROOT}/campaign_20261117/formal/runs/formal_cifar_transport_selected_v2/checkpoint.pt",
+      "dependencies": {
+        "pretrained_npz_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+        "initial_backbone_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+        "data": {
+          "train_source_sha256": "735e79b04f092ca3d2e6d07f368c0a7d70d48c48d28865950cc24454cf45129b",
+          "evaluation_source_sha256": "4b67687d9933c4db8f0831104447f15b93774f4f464bd0516f0f0f2ac83b7864",
+          "data_fingerprint": "98b4aa3a9e6bfd167c52eb391f6dc1b028f2fb920f8a20c8c48751282b8f7ed4"
+        },
+        "external_image_paths_required": false,
+        "ce_cache_donor": "formal_cifar_er_fixed_v1",
+        "ce_cache_inventory": {
+          "path": "experiments/campaign_20261117/formal/observations/formal_cifar_transport_selected_v2/formal/cohorts/formal_cifar_er_fixed_v1.cache_inventory.json",
+          "sha256": "24f697c133618ff89c307bbc3f9ed3d8309f7104be07f756f9be016d3994281c"
+        }
+      },
+      "gpu_restore_or_continuation_executed": false,
+      "status": "obtained_verified_checkpoint",
+      "checkpoint_sha256": "333345b4de76e3e213401ee5c1452a91ab5fba4693e05dd1eca02d14fb375c4a",
+      "checkpoint_bytes": 719793282,
+      "original_metadata_sha256": {
+        "results": "441a308e205114116314f13286c0728f7f566a117591ecd0a8fa1cdc9bc453fa",
+        "config": "fe41863891c5a9aa1c0f9b8abc695265b74867e2bf752448da5863f229dffb41",
+        "data_manifest": "1471599966cbc1427d69bcff8a186e0c648b22fb2be88b6de103cb469bdcb823"
+      },
+      "completion_receipt": {
+        "path": "experiments/campaign_20261117/formal/completion_receipts/formal_cifar_transport_selected_v2.json",
+        "sha256": "3db0e6bf382cad82352d4ce85abd11f6422f70bf475016174fd8f138fbacb7b2"
+      },
+      "runtime_snapshot": "runtime_tuning_v1",
+      "launch_evidence": {
+        "path": "experiments/campaign_20261117/formal/observations/formal_cifar_transport_selected_v2/formal/receipts/formal_cifar_transport_selected_v2.json",
+        "sha256": "96801550917d3f490f97132fc6186b96772654b3b67eb087ffd0c8baa008058f"
+      },
+      "runtime_source_file_sha256": {
+        "cl27/__init__.py": "77f44223a067ed9123ca03c50fe5b4c423c6dc75afe3b47c2a291af4491e5211",
+        "utils/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "utils/toolkit.py": "1f64bb032beacb6510bf9eff1e009ad217a42c9a7fa40cd867a56e71cb4123f6",
+        "utils/data.py": "a5f1b056a244439a45c7359c4328ae378c1557078ab81cf332ebaf0a8118f87c",
+        "utils/data_manager.py": "74601c9c46d1e51ee95ee20c8a261b28325b997586bd3bf6e78a361d41289857",
+        "cl27/replay.py": "c334c443a977aa656e07c381ea1a3232dedc56159d70a0717131c50e754a17a9",
+        "models/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "models/base.py": "55e59eb4698004ae33862332731f172476be28dffafc07e85ad72013d722bcbf",
+        "cl27/common.py": "33b63ca2b6baef4585e677d54d9e72e6e5247efb24d997e6eeec968911e0c3bf",
+        "cl27/pilot_imagenetr.py": "037325bb474f1a59a6c1f4d1c0a7960423cb50b0924e903c5b86836c017bb4f5",
+        "cl27/data.py": "18fae0aaa165451c0c7b8f5c06eab2fed34c99be4a31623f3d26b930a7a19230",
+        "utils/factory.py": "8b036ee9f3fd4b471e4a91e1abeea29267f3c7949298228ead87d42901233272",
+        "cl27/cores/__init__.py": "8e080541adf8a76f2aca0b6e8ba95858f46edf4848ae8da80fc93a3abbe13912",
+        "cl27/cores/transport.py": "632d13b5dad439d7a4eeed0849668fc7dc103d2a838cebea861e42d85865ccd9",
+        "cl27/transport_training.py": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9",
+        "models/history_transport.py": "a9b32229256cca60cca90ae969df480c20f1f4455629ede69e600d14971f2824",
+        "backbone/linears.py": "d8cf24ab4cbea4c2b84afe6061cdf4276bb5b4e34c0cb2a56712b63f0b6e4505",
+        "backbone/prompt.py": "ce57c5a4aa5c9c5ab9d7eb70ae27cb5a966ac2a1d9a540b45b55dfcd46ff2b04",
+        "utils/inc_net.py": "62b178b90f2ab5262be5a35082e7d92d8faca74dae01135785bbb0454e9e52ed"
+      },
+      "runtime_source_payloads_archived": [
+        "cl27/__init__.py",
+        "utils/__init__.py",
+        "utils/toolkit.py",
+        "utils/data.py",
+        "utils/data_manager.py",
+        "cl27/replay.py",
+        "models/__init__.py",
+        "models/base.py",
+        "cl27/common.py",
+        "cl27/pilot_imagenetr.py",
+        "cl27/data.py",
+        "utils/factory.py",
+        "cl27/cores/__init__.py",
+        "cl27/cores/transport.py",
+        "cl27/transport_training.py",
+        "models/history_transport.py",
+        "backbone/linears.py",
+        "backbone/prompt.py",
+        "utils/inc_net.py"
+      ],
+      "runtime_training_entry_file_sha256": {
+        "main.py": "23d494c98deaf6a408664865f7d7dc1259a417531ab2d0c975dcbb02d14117ca",
+        "trainer.py": "cffff7ce8249442a4540559f350dabf78dcdbe774f4d3d910090b1e61859de81",
+        "cl27/runner.py": "931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e",
+        "cl27/ce_trajectory.py": "371c8f4876059c1ca740d6efed80c00b525a2265a55a45e926dc958d9d6be14a",
+        "cl27/supervised.py": "895b0962cbf7e3b77ad53675490290d211ac9983c3dc65ba61bd9e8a594dda7a",
+        "cl27/transport_training.py": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9",
+        "scripts/run_ce_cohort.py": "e0c9c4ff9667b5843eee5efe836ccc4fec31312f028ef04d0a7a7e611ac6014a"
+      },
+      "runtime_training_entry_evidence": {
+        "path": "experiments/campaign_20261117/audit/source_correspondence_training_entries_v1.json",
+        "sha256": "76781a88cbbb943a87b8a0a16d2fcfa83cfbc361e81dccd1f085960345788f5b"
+      },
+      "source_export_manifest": {
+        "path": "experiments/campaign_20261117/formal/observations/formal_cifar_transport_selected_v2/SOURCE_EXPORT_MANIFEST.json",
+        "sha256": "d846bda51229c5f89d7f03f0d3d473143c97acbcdd210e31fd1fa986f53ec5ac"
+      },
+      "public_export_manifest": {
+        "path": "experiments/campaign_20261117/formal/observations/formal_cifar_transport_selected_v2/PUBLIC_EXPORT_MANIFEST.json",
+        "sha256": "4bdcf7461ccda43773d2847a9541aa0770ce17c3ccd59357b4c14ef067247aeb"
+      },
+      "backup": {
+        "kind": "verified_server_local_backup",
+        "path": "${RUNTIME_ROOT}/formal_backups/campaign_20261117/formal_cifar_transport_selected_v2/checkpoint.pt",
+        "payload_left_server": false,
+        "verification": {
+          "path": "experiments/campaign_20261117/formal/observations/formal_cifar_transport_selected_v2/server_backup/formal_cifar_transport_selected_v2/verification.json",
+          "sha256": "002c8bffd798162d15b388017d829283a148793c6ead57b8cfa0e94110e33434"
+        },
+        "original_verification_sha256": "c95d21e65b4a17f0898f2565da541cff0bac545ea9988e1122696b75cf0fe7af",
+        "source_process_terminal": {
+          "pid": 36164,
+          "expected_ticks": "1790983328",
+          "state": "absent"
+        }
+      },
+      "audit": {
+        "status": "native_cpu_checkpoint_audit_checks_passed_not_campaign_certificate",
+        "job": "audit_formal_cifar_transport_selected_v2_v1",
+        "native_cpu_restore_executed": true,
+        "zero_input_forward_executed": true,
+        "finite_output_shape": [
+          1,
+          100
+        ],
+        "state_nodes_compared": 30854,
+        "raw_state_numerically_restored": true,
+        "original_log_sha256": "6fed5279db552b604120e36f230d9205f51e34b4d237f6f8f633b9e925562e1c",
+        "auditor_sha256": "ca025b07d92cc0eeed295d1c4f6a8db9655aa45487435fecaa5c839e426f9b3b",
+        "state_loader_sha256": "696416de70cdfb5e7033cc26c93ad005eb5e20918379f4ef01fc3d76142b2d02",
+        "source_metadata_sha256": {
+          "config": "fe41863891c5a9aa1c0f9b8abc695265b74867e2bf752448da5863f229dffb41",
+          "results": "441a308e205114116314f13286c0728f7f566a117591ecd0a8fa1cdc9bc453fa",
+          "data_manifest": "1471599966cbc1427d69bcff8a186e0c648b22fb2be88b6de103cb469bdcb823"
+        },
+        "public_receipt": {
+          "path": "experiments/campaign_20261117/formal/observations/formal_cifar_transport_selected_v2/verification/receipts/audit_formal_cifar_transport_selected_v2_v1.json",
+          "sha256": "10885c3a7180264b378b692280531b1f179ba6a17e486aef81d4d18fee2e9038"
+        },
+        "accuracy_rerun": false,
+        "extra_training_steps": 0,
+        "cuda_rng_applied": false,
+        "final_audit_complete_field_scope": "Helper leaves final_audit_complete false because it is not a twelve-cell campaign certificate; status records actual per-checkpoint PASS."
+      }
+    },
+    {
+      "job": "formal_cifar_current_selected_v5",
+      "dataset": "cifar224",
+      "method": "current_adapted",
+      "seed": 1993,
+      "selected_config": {
+        "path": "experiments/campaign_20261117/formal/configs/formal_cifar_current_selected_v5.json",
+        "sha256": "84e569809d6d84f4cff610c6328d05a6a8ff353c4ef8d3a8798b8d3db5d761ae"
+      },
+      "source_config_implementation_commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+      "source_policy": "Preserved executed-snapshot evidence; current repository HEAD is never substituted.",
+      "source_run_checkpoint": "${RUNTIME_ROOT}/campaign_20261117/formal/runs/formal_cifar_current_selected_v5/checkpoint.pt",
+      "dependencies": {
+        "pretrained_npz_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+        "initial_backbone_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+        "data": {
+          "train_source_sha256": "735e79b04f092ca3d2e6d07f368c0a7d70d48c48d28865950cc24454cf45129b",
+          "evaluation_source_sha256": "4b67687d9933c4db8f0831104447f15b93774f4f464bd0516f0f0f2ac83b7864",
+          "data_fingerprint": "98b4aa3a9e6bfd167c52eb391f6dc1b028f2fb920f8a20c8c48751282b8f7ed4"
+        },
+        "external_image_paths_required": false,
+        "ce_cache_donor": null
+      },
+      "gpu_restore_or_continuation_executed": false,
+      "status": "pending_active_no_final_backup_or_audit_claim",
+      "checkpoint_sha256": null,
+      "checkpoint_bytes": null,
+      "backup": null,
+      "expected_server_local_backup": "${RUNTIME_ROOT}/formal_backups/campaign_20261117/formal_cifar_current_selected_v5/checkpoint.pt",
+      "runtime_snapshot": "runtime_bounded_v4",
+      "runtime_source_evidence": {
+        "path": "experiments/campaign_20261117/audit/source_correspondence_training_entries_v1.json",
+        "sha256": "76781a88cbbb943a87b8a0a16d2fcfa83cfbc361e81dccd1f085960345788f5b"
+      },
+      "runtime_entry_file_sha256": {
+        "main.py": "23d494c98deaf6a408664865f7d7dc1259a417531ab2d0c975dcbb02d14117ca",
+        "trainer.py": "cffff7ce8249442a4540559f350dabf78dcdbe774f4d3d910090b1e61859de81",
+        "cl27/runner.py": "931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e",
+        "cl27/ce_trajectory.py": "371c8f4876059c1ca740d6efed80c00b525a2265a55a45e926dc958d9d6be14a",
+        "cl27/supervised.py": "895b0962cbf7e3b77ad53675490290d211ac9983c3dc65ba61bd9e8a594dda7a",
+        "cl27/transport_training.py": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9",
+        "scripts/run_ce_cohort.py": "e0c9c4ff9667b5843eee5efe836ccc4fec31312f028ef04d0a7a7e611ac6014a"
+      },
+      "launch_evidence": {
+        "path": "experiments/campaign_20261117/development/selection_evidence/cifar_current_v5/campaign_20261117/formal/receipts/formal_cifar_current_selected_v5.json",
+        "sha256": "b1d3218cab79df4eb3663812284e3032367ffd361d5b0259aa1318ae50d6bc3e"
+      },
+      "process_identity": {
+        "pid": 39054,
+        "proc_start_ticks": "1791452139",
+        "scope": "Existing local launch receipt (CIF) and saved process observation (R); root reports both remain active. No server probe by this index build."
+      },
+      "audit": {
+        "native_cpu_restore_executed": false,
+        "zero_input_forward_executed": false,
+        "status": "pending_terminal_sha_bound_backup"
+      },
+      "original_config_sha256": "f0ff4c7296918d4b3d1428cbaabd2c16a424c19de948d0608bb8ba46675b2a16",
+      "original_config_sha_evidence": {
+        "path": "experiments/campaign_20261117/development/selection_evidence/cifar_current_v5/campaign_20261117/formal/receipts/formal_cifar_current_selected_v5.json",
+        "sha256": "b1d3218cab79df4eb3663812284e3032367ffd361d5b0259aa1318ae50d6bc3e"
+      }
+    },
+    {
+      "job": "formal_cifar_plastic_shared_selected_v5",
+      "dataset": "cifar224",
+      "method": "plastic_shared_basis",
+      "seed": 1993,
+      "selected_config": {
+        "path": "experiments/campaign_20261117/formal/configs/formal_cifar_plastic_shared_selected_v5.json",
+        "sha256": "12f47a960459085c50372401c553790d08ca4e6dd1e378cc40903dddeaf7ec6a"
+      },
+      "source_config_implementation_commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+      "source_policy": "Preserved executed-snapshot evidence; current repository HEAD is never substituted.",
+      "source_run_checkpoint": "${RUNTIME_ROOT}/campaign_20261117/formal/runs/formal_cifar_plastic_shared_selected_v5/checkpoint.pt",
+      "dependencies": {
+        "pretrained_npz_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+        "initial_backbone_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+        "data": {
+          "train_source_sha256": "735e79b04f092ca3d2e6d07f368c0a7d70d48c48d28865950cc24454cf45129b",
+          "evaluation_source_sha256": "4b67687d9933c4db8f0831104447f15b93774f4f464bd0516f0f0f2ac83b7864",
+          "data_fingerprint": "98b4aa3a9e6bfd167c52eb391f6dc1b028f2fb920f8a20c8c48751282b8f7ed4"
+        },
+        "external_image_paths_required": false,
+        "ce_cache_donor": "formal_cifar_er_fixed_v1",
+        "ce_cache_inventory": {
+          "path": "experiments/campaign_20261117/formal/observations/formal_cifar_plastic_shared_selected_v5/formal/cohorts/formal_cifar_er_fixed_v1.cache_inventory.json",
+          "sha256": "24f697c133618ff89c307bbc3f9ed3d8309f7104be07f756f9be016d3994281c"
+        }
+      },
+      "gpu_restore_or_continuation_executed": false,
+      "status": "obtained_verified_checkpoint",
+      "checkpoint_sha256": "1e11132f1705e32e27fefdd4281bfcad5a348a0eb916ece66595b3579081abe2",
+      "checkpoint_bytes": 727971202,
+      "original_metadata_sha256": {
+        "results": "5e30f8c9706da91052821452620d0d0c3be61cc66660576765fade39be66c588",
+        "config": "b9ca7bc40ca9f445cb1549ebeff50d5ef47b8514a1a5f6efce8b7e50f2d90456",
+        "data_manifest": "1471599966cbc1427d69bcff8a186e0c648b22fb2be88b6de103cb469bdcb823"
+      },
+      "completion_receipt": {
+        "path": "experiments/campaign_20261117/formal/completion_receipts/formal_cifar_plastic_shared_selected_v5.json",
+        "sha256": "b7a4ea2e592e25888fec24ac942e78fae7837b9c7876798617abd72cc5775b6a"
+      },
+      "runtime_snapshot": "runtime_tuning_v1",
+      "launch_evidence": {
+        "path": "experiments/campaign_20261117/formal/observations/formal_cifar_plastic_shared_selected_v5/formal/receipts/formal_cifar_plastic_shared_selected_v5.json",
+        "sha256": "e581d0b7e72e3f15a374d1be6e14046406740d41a68d799b577db4f7f4e0cbd5"
+      },
+      "runtime_source_file_sha256": {
+        "cl27/__init__.py": "77f44223a067ed9123ca03c50fe5b4c423c6dc75afe3b47c2a291af4491e5211",
+        "utils/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "utils/toolkit.py": "1f64bb032beacb6510bf9eff1e009ad217a42c9a7fa40cd867a56e71cb4123f6",
+        "utils/data.py": "a5f1b056a244439a45c7359c4328ae378c1557078ab81cf332ebaf0a8118f87c",
+        "utils/data_manager.py": "74601c9c46d1e51ee95ee20c8a261b28325b997586bd3bf6e78a361d41289857",
+        "cl27/replay.py": "c334c443a977aa656e07c381ea1a3232dedc56159d70a0717131c50e754a17a9",
+        "models/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "models/base.py": "55e59eb4698004ae33862332731f172476be28dffafc07e85ad72013d722bcbf",
+        "cl27/common.py": "33b63ca2b6baef4585e677d54d9e72e6e5247efb24d997e6eeec968911e0c3bf",
+        "cl27/pilot_imagenetr.py": "037325bb474f1a59a6c1f4d1c0a7960423cb50b0924e903c5b86836c017bb4f5",
+        "cl27/data.py": "18fae0aaa165451c0c7b8f5c06eab2fed34c99be4a31623f3d26b930a7a19230",
+        "utils/factory.py": "8b036ee9f3fd4b471e4a91e1abeea29267f3c7949298228ead87d42901233272",
+        "cl27/cores/__init__.py": "8e080541adf8a76f2aca0b6e8ba95858f46edf4848ae8da80fc93a3abbe13912",
+        "cl27/cores/shared_basis.py": "78bf3c39430dff022d61a22c90380ce57c0c3623e5c2271c653d6243c2d454a0",
+        "cl27/cores/transport.py": "632d13b5dad439d7a4eeed0849668fc7dc103d2a838cebea861e42d85865ccd9",
+        "cl27/cores/plastic_shared_basis.py": "57f9969ebb7f797afdbb9e23c05640462ee19e034d894a4f6815c1b405634691",
+        "cl27/transport_training.py": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9",
+        "models/history_transport.py": "a9b32229256cca60cca90ae969df480c20f1f4455629ede69e600d14971f2824",
+        "models/plastic_shared_basis.py": "3e3be162f368d9baf6ee07c2cb60a10947d5186c0dc5e570d61b2894f1d54dc4",
+        "backbone/linears.py": "d8cf24ab4cbea4c2b84afe6061cdf4276bb5b4e34c0cb2a56712b63f0b6e4505",
+        "backbone/prompt.py": "ce57c5a4aa5c9c5ab9d7eb70ae27cb5a966ac2a1d9a540b45b55dfcd46ff2b04",
+        "utils/inc_net.py": "62b178b90f2ab5262be5a35082e7d92d8faca74dae01135785bbb0454e9e52ed"
+      },
+      "runtime_source_payloads_archived": [
+        "cl27/__init__.py",
+        "utils/__init__.py",
+        "utils/toolkit.py",
+        "utils/data.py",
+        "utils/data_manager.py",
+        "cl27/replay.py",
+        "models/__init__.py",
+        "models/base.py",
+        "cl27/common.py",
+        "cl27/pilot_imagenetr.py",
+        "cl27/data.py",
+        "utils/factory.py",
+        "cl27/cores/__init__.py",
+        "cl27/cores/shared_basis.py",
+        "cl27/cores/transport.py",
+        "cl27/cores/plastic_shared_basis.py",
+        "cl27/transport_training.py",
+        "models/history_transport.py",
+        "models/plastic_shared_basis.py",
+        "backbone/linears.py",
+        "backbone/prompt.py",
+        "utils/inc_net.py"
+      ],
+      "runtime_training_entry_file_sha256": {
+        "main.py": "23d494c98deaf6a408664865f7d7dc1259a417531ab2d0c975dcbb02d14117ca",
+        "trainer.py": "cffff7ce8249442a4540559f350dabf78dcdbe774f4d3d910090b1e61859de81",
+        "cl27/runner.py": "931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e",
+        "cl27/ce_trajectory.py": "371c8f4876059c1ca740d6efed80c00b525a2265a55a45e926dc958d9d6be14a",
+        "cl27/supervised.py": "895b0962cbf7e3b77ad53675490290d211ac9983c3dc65ba61bd9e8a594dda7a",
+        "cl27/transport_training.py": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9",
+        "scripts/run_ce_cohort.py": "e0c9c4ff9667b5843eee5efe836ccc4fec31312f028ef04d0a7a7e611ac6014a"
+      },
+      "runtime_training_entry_evidence": {
+        "path": "experiments/campaign_20261117/audit/source_correspondence_training_entries_v1.json",
+        "sha256": "76781a88cbbb943a87b8a0a16d2fcfa83cfbc361e81dccd1f085960345788f5b"
+      },
+      "source_export_manifest": {
+        "path": "experiments/campaign_20261117/formal/observations/formal_cifar_plastic_shared_selected_v5/SOURCE_EXPORT_MANIFEST.json",
+        "sha256": "47eda22772eede403d9568748f0d3330aa3808b3618380fb5f958b00e996e210"
+      },
+      "public_export_manifest": {
+        "path": "experiments/campaign_20261117/formal/observations/formal_cifar_plastic_shared_selected_v5/PUBLIC_EXPORT_MANIFEST.json",
+        "sha256": "f4ec59d4d308d9e48831ed84811998da5fcd963bdb44f1597c083baef2f2b004"
+      },
+      "backup": {
+        "kind": "verified_server_local_backup",
+        "path": "${RUNTIME_ROOT}/formal_backups/campaign_20261117/formal_cifar_plastic_shared_selected_v5/checkpoint.pt",
+        "payload_left_server": false,
+        "verification": {
+          "path": "experiments/campaign_20261117/formal/observations/formal_cifar_plastic_shared_selected_v5/server_backup/formal_cifar_plastic_shared_selected_v5/verification.json",
+          "sha256": "173facf80ab07a478d767ca65301ffad4c6c6ed11cdb603f2d1e334d579bc537"
+        },
+        "original_verification_sha256": "55b05a8c480fd74fc410cf60c3a18dae2294a859e4a5cbb6d35cdd961b56ff67",
+        "source_process_terminal": {
+          "pid": 36169,
+          "expected_ticks": "1790983345",
+          "state": "absent"
+        }
+      },
+      "audit": {
+        "status": "native_cpu_checkpoint_audit_checks_passed_not_campaign_certificate",
+        "job": "audit_formal_cifar_plastic_shared_selected_v5_v1",
+        "native_cpu_restore_executed": true,
+        "zero_input_forward_executed": true,
+        "finite_output_shape": [
+          1,
+          100
+        ],
+        "state_nodes_compared": 31846,
+        "raw_state_numerically_restored": true,
+        "original_log_sha256": "f1f2328da898d80c5144f1b7d8e590eebbbe2789dd5e496b7ef2906fe92c257e",
+        "auditor_sha256": "ca025b07d92cc0eeed295d1c4f6a8db9655aa45487435fecaa5c839e426f9b3b",
+        "state_loader_sha256": "696416de70cdfb5e7033cc26c93ad005eb5e20918379f4ef01fc3d76142b2d02",
+        "source_metadata_sha256": {
+          "config": "b9ca7bc40ca9f445cb1549ebeff50d5ef47b8514a1a5f6efce8b7e50f2d90456",
+          "results": "5e30f8c9706da91052821452620d0d0c3be61cc66660576765fade39be66c588",
+          "data_manifest": "1471599966cbc1427d69bcff8a186e0c648b22fb2be88b6de103cb469bdcb823"
+        },
+        "public_receipt": {
+          "path": "experiments/campaign_20261117/formal/observations/formal_cifar_plastic_shared_selected_v5/verification/receipts/audit_formal_cifar_plastic_shared_selected_v5_v1.json",
+          "sha256": "83a5307a82ebfd323ca0d80b4845a0afe1ff5f977cd2994f9eed850ce19340c7"
+        },
+        "accuracy_rerun": false,
+        "extra_training_steps": 0,
+        "cuda_rng_applied": false,
+        "final_audit_complete_field_scope": "Helper leaves final_audit_complete false because it is not a twelve-cell campaign certificate; status records actual per-checkpoint PASS."
+      }
+    },
+    {
+      "job": "formal_cifar_er_fixed_v1",
+      "dataset": "cifar224",
+      "method": "er",
+      "seed": 1993,
+      "selected_config": {
+        "path": "experiments/campaign_20261117/formal/configs/formal_cifar_er_fixed_v1.json",
+        "sha256": "b08a4d5f257030bf9906d79f79061ab7aa2434cd44510d55323e654005188860"
+      },
+      "source_config_implementation_commit": null,
+      "source_policy": "Preserved executed-snapshot evidence; current repository HEAD is never substituted.",
+      "source_run_checkpoint": "${RUNTIME_ROOT}/campaign_20261117/formal/runs/formal_cifar_er_fixed_v1/checkpoint.pt",
+      "dependencies": {
+        "pretrained_npz_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+        "initial_backbone_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+        "data": {
+          "train_source_sha256": "735e79b04f092ca3d2e6d07f368c0a7d70d48c48d28865950cc24454cf45129b",
+          "evaluation_source_sha256": "4b67687d9933c4db8f0831104447f15b93774f4f464bd0516f0f0f2ac83b7864",
+          "data_fingerprint": "98b4aa3a9e6bfd167c52eb391f6dc1b028f2fb920f8a20c8c48751282b8f7ed4"
+        },
+        "external_image_paths_required": false,
+        "ce_cache_donor": "formal_cifar_er_fixed_v1",
+        "ce_cache_inventory": {
+          "path": "experiments/campaign_20261117/formal/observations/formal_cifar_er_fixed_v1/formal/cohorts/formal_cifar_er_fixed_v1.cache_inventory.json",
+          "sha256": "24f697c133618ff89c307bbc3f9ed3d8309f7104be07f756f9be016d3994281c"
+        }
+      },
+      "gpu_restore_or_continuation_executed": false,
+      "status": "obtained_verified_checkpoint",
+      "checkpoint_sha256": "71bd38161d5b4db6ff0767e38d2548f86c67bf5b77e1456836c3131e08e3fee8",
+      "checkpoint_bytes": 352738924,
+      "original_metadata_sha256": {
+        "results": "ae1721480c7b9b13796e8b1fa80bc402793d65179076a3392f5f1088befec7a8",
+        "config": "5642ea285a4d05354b89e89b0618f36e1f96090beba00248c71a9cfa60dbd275",
+        "data_manifest": "1471599966cbc1427d69bcff8a186e0c648b22fb2be88b6de103cb469bdcb823"
+      },
+      "completion_receipt": {
+        "path": "experiments/campaign_20261117/formal/completion_receipts/formal_cifar_er_fixed_v1.json",
+        "sha256": "a58980cd6adbaa89140e9b728538140384df05d229ebffe75990648536e6be1d"
+      },
+      "runtime_snapshot": "runtime_fixed_er_v5",
+      "launch_evidence": {
+        "path": "experiments/campaign_20261117/formal/observations/formal_cifar_er_fixed_v1/formal/receipts/formal_cifar_er_fixed_v1.json",
+        "sha256": "18a9c99c75d3f8e59456857a9d0cfd90561a3c6a809af9b6ef3a3b19620b36ad"
+      },
+      "runtime_source_file_sha256": {
+        "cl27/__init__.py": "77f44223a067ed9123ca03c50fe5b4c423c6dc75afe3b47c2a291af4491e5211",
+        "utils/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "utils/toolkit.py": "1f64bb032beacb6510bf9eff1e009ad217a42c9a7fa40cd867a56e71cb4123f6",
+        "utils/data.py": "a5f1b056a244439a45c7359c4328ae378c1557078ab81cf332ebaf0a8118f87c",
+        "utils/data_manager.py": "74601c9c46d1e51ee95ee20c8a261b28325b997586bd3bf6e78a361d41289857",
+        "cl27/replay.py": "c334c443a977aa656e07c381ea1a3232dedc56159d70a0717131c50e754a17a9",
+        "models/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "models/base.py": "55e59eb4698004ae33862332731f172476be28dffafc07e85ad72013d722bcbf",
+        "cl27/common.py": "33b63ca2b6baef4585e677d54d9e72e6e5247efb24d997e6eeec968911e0c3bf",
+        "cl27/pilot_imagenetr.py": "037325bb474f1a59a6c1f4d1c0a7960423cb50b0924e903c5b86836c017bb4f5",
+        "cl27/data.py": "18fae0aaa165451c0c7b8f5c06eab2fed34c99be4a31623f3d26b930a7a19230",
+        "utils/factory.py": "8b036ee9f3fd4b471e4a91e1abeea29267f3c7949298228ead87d42901233272",
+        "cl27/supervised.py": "895b0962cbf7e3b77ad53675490290d211ac9983c3dc65ba61bd9e8a594dda7a",
+        "cl27/transport_training.py": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9",
+        "models/er.py": "5b43cdaf7ecf288dd9b0b64af16ea22b1681fce5ce212e886f00e2c13fbf356c",
+        "backbone/linears.py": "d8cf24ab4cbea4c2b84afe6061cdf4276bb5b4e34c0cb2a56712b63f0b6e4505",
+        "backbone/prompt.py": "ce57c5a4aa5c9c5ab9d7eb70ae27cb5a966ac2a1d9a540b45b55dfcd46ff2b04",
+        "utils/inc_net.py": "62b178b90f2ab5262be5a35082e7d92d8faca74dae01135785bbb0454e9e52ed"
+      },
+      "runtime_source_payloads_archived": [],
+      "runtime_training_entry_file_sha256": {
+        "main.py": "23d494c98deaf6a408664865f7d7dc1259a417531ab2d0c975dcbb02d14117ca",
+        "trainer.py": "cffff7ce8249442a4540559f350dabf78dcdbe774f4d3d910090b1e61859de81",
+        "cl27/runner.py": "931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e",
+        "cl27/ce_trajectory.py": "371c8f4876059c1ca740d6efed80c00b525a2265a55a45e926dc958d9d6be14a",
+        "cl27/supervised.py": "895b0962cbf7e3b77ad53675490290d211ac9983c3dc65ba61bd9e8a594dda7a",
+        "cl27/transport_training.py": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9",
+        "scripts/run_fixed_er_record.py": "60e95c5577e792605c8b1d9421e276e02efaf87ea04c4a6945c58b56cb1ad1b3",
+        "scripts/run_ce_cohort.py": "e0c9c4ff9667b5843eee5efe836ccc4fec31312f028ef04d0a7a7e611ac6014a"
+      },
+      "runtime_training_entry_evidence": {
+        "path": "experiments/campaign_20261117/audit/source_correspondence_training_entries_v1.json",
+        "sha256": "76781a88cbbb943a87b8a0a16d2fcfa83cfbc361e81dccd1f085960345788f5b"
+      },
+      "source_export_manifest": null,
+      "public_export_manifest": {
+        "path": "experiments/campaign_20261117/formal/observations/formal_cifar_er_fixed_v1/EXPORT_MANIFEST.json",
+        "sha256": "e329c3eb72183f26b744b311cd46b95c416601e394c18852531d248f686c4211"
+      },
+      "backup": {
+        "kind": "verified_server_local_backup",
+        "path": "${ROOT_BACKUP_ROOT}/campaign_20261117/formal_cifar_er_fixed_v1/checkpoint.pt",
+        "payload_left_server": false,
+        "verification": {
+          "path": "experiments/campaign_20261117/formal/observations/formal_cifar_er_fixed_v1/server_backup/formal_cifar_er_fixed_v1/verification.json",
+          "sha256": "308ebe8c7e8e5cbd30e248583b01630c327c271f17c0720020f2dbe4cb35a893"
+        },
+        "original_verification_sha256": "0e5db00696c1f6b00ac443cfefbf833ce117ef7efd6ed714b1134a54c51be207",
+        "source_process_terminal": {
+          "pid": 25654,
+          "expected_ticks": "1789467579",
+          "state": "absent"
+        }
+      },
+      "audit": {
+        "status": "native_cpu_checkpoint_audit_checks_passed_not_campaign_certificate",
+        "job": "audit_formal_cifar_er_fixed_v1_v2",
+        "native_cpu_restore_executed": true,
+        "zero_input_forward_executed": true,
+        "finite_output_shape": [
+          1,
+          100
+        ],
+        "state_nodes_compared": 26830,
+        "raw_state_numerically_restored": true,
+        "original_log_sha256": "d015d1c5dfb7493fea2b84665d98bd5818c920195b7114350e1d7c7510ae1489",
+        "auditor_sha256": "ca025b07d92cc0eeed295d1c4f6a8db9655aa45487435fecaa5c839e426f9b3b",
+        "state_loader_sha256": "696416de70cdfb5e7033cc26c93ad005eb5e20918379f4ef01fc3d76142b2d02",
+        "source_metadata_sha256": {
+          "config": "5642ea285a4d05354b89e89b0618f36e1f96090beba00248c71a9cfa60dbd275",
+          "results": "ae1721480c7b9b13796e8b1fa80bc402793d65179076a3392f5f1088befec7a8",
+          "data_manifest": "1471599966cbc1427d69bcff8a186e0c648b22fb2be88b6de103cb469bdcb823"
+        },
+        "public_receipt": {
+          "path": "experiments/campaign_20261117/formal/observations/formal_cifar_er_fixed_v1/verification/receipts/audit_formal_cifar_er_fixed_v1_v2.json",
+          "sha256": "a7e6cb6dce827f6fe66001192292ee614c289aba62b4fe7e0fe670bd256ec86a"
+        },
+        "accuracy_rerun": false,
+        "extra_training_steps": 0,
+        "cuda_rng_applied": false,
+        "final_audit_complete_field_scope": "Helper leaves final_audit_complete false because it is not a twelve-cell campaign certificate; status records actual per-checkpoint PASS."
+      }
+    },
+    {
+      "job": "formal_cifar_joint_fixed_v1",
+      "dataset": "cifar224",
+      "method": "joint",
+      "seed": 1993,
+      "selected_config": {
+        "path": "experiments/campaign_20261117/formal/configs/formal_cifar_joint_fixed_v1.json",
+        "sha256": "aa2736f171a4bb37db2d2bf3e531fd69b4bae4db8a88751c7f3a47ddd935e942"
+      },
+      "source_config_implementation_commit": "b125dbd0361ba1dc5a7e532804c768459023ac96",
+      "source_policy": "Preserved executed-snapshot evidence; current repository HEAD is never substituted.",
+      "source_run_checkpoint": "${RUNTIME_ROOT}/campaign_20261117/formal/runs/formal_cifar_joint_fixed_v1/checkpoint.pt",
+      "dependencies": {
+        "pretrained_npz_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+        "initial_backbone_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+        "data": {
+          "train_source_sha256": "735e79b04f092ca3d2e6d07f368c0a7d70d48c48d28865950cc24454cf45129b",
+          "evaluation_source_sha256": "4b67687d9933c4db8f0831104447f15b93774f4f464bd0516f0f0f2ac83b7864",
+          "data_fingerprint": "98b4aa3a9e6bfd167c52eb391f6dc1b028f2fb920f8a20c8c48751282b8f7ed4"
+        },
+        "external_image_paths_required": false,
+        "ce_cache_donor": null
+      },
+      "gpu_restore_or_continuation_executed": false,
+      "status": "obtained_verified_checkpoint",
+      "checkpoint_sha256": "4140bc5c9470bb29f90e58f08890ed3ca8829496da23dd08ff488a2007dec210",
+      "checkpoint_bytes": 343567212,
+      "original_metadata_sha256": {
+        "results": "6625bbcda3a8a352594b6e5b0d04d617dff318f8439d6514553e7a827ef8a523",
+        "config": "f27e2ee47f335ce1510c83bd9d26a484d58dfd8d019a93cd53e4b6ea09746a89",
+        "data_manifest": "1471599966cbc1427d69bcff8a186e0c648b22fb2be88b6de103cb469bdcb823"
+      },
+      "completion_receipt": {
+        "path": "experiments/campaign_20261117/formal/completion_receipts/formal_cifar_joint_fixed_v1.json",
+        "sha256": "809316d2fa51029694e1e3708c805d5802cc92f5a3e1be5d1611bd332e4c0525"
+      },
+      "backup": {
+        "kind": "existing_private_workspace_archive",
+        "path": "${PRIVATE_WORKSPACE_ROOT}/formal_checkpoints/formal_cifar_joint_fixed_v1/checkpoint.pt",
+        "manifest": {
+          "path": "${PRIVATE_WORKSPACE_ROOT}/formal_checkpoints/manifest.json",
+          "sha256": "08b0fdf68b8ccca3b7f778b57588b0777e99f9e8894c1248b4110939124fa1fc"
+        },
+        "verification": {
+          "path": "${PRIVATE_WORKSPACE_ROOT}/formal_checkpoints/verification.json",
+          "sha256": "81eb39f7ce23b24fc6ae16839a3719e43a2c454a6679c21aaec58697a27a2125"
+        },
+        "payload_download_policy": "Existing four archives retained; no new model download is part of this recovery entry."
+      },
+      "runtime_snapshot": null,
+      "runtime_binding_scope": "Original config commit retained; no local launch cwd receipt in this evidence set.",
+      "runtime_source_evidence": null,
+      "runtime_source_file_sha256": {},
+      "audit": {
+        "status": "legacy_protocol_matrix_checkpoint_schema_and_identity_checks",
+        "native_cpu_restore_executed": false,
+        "zero_input_forward_executed": false,
+        "coverage": [
+          "formal protocol and metric/matrix consistency",
+          "checkpoint schema/full row counts",
+          "NPZ/frozen backbone identity where applicable",
+          "file size/SHA"
+        ],
+        "schema_probe_evidence": {
+          "path": "experiments/campaign_20261117/audit/FINAL_CHECKPOINT_AUDIT_PLAN.json",
+          "sha256": "38f7859765187157441efd00c9e03fcecce7b13e8ee2b5717203957e2b26c5a6"
+        }
+      }
+    },
+    {
+      "job": "formal_imagenetr_shared_selected_v7",
+      "dataset": "imagenetr",
+      "method": "shared_basis",
+      "seed": 1993,
+      "selected_config": {
+        "path": "experiments/campaign_20261117/formal/configs/formal_imagenetr_shared_selected_v7.json",
+        "sha256": "58921e66aea1ea577ff2e7d1150b029bb6c2626f97262f5bd93724cc98b02a93"
+      },
+      "source_config_implementation_commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+      "source_policy": "Preserved executed-snapshot evidence; current repository HEAD is never substituted.",
+      "source_run_checkpoint": "${RUNTIME_ROOT}/campaign_20261117/formal/runs/formal_imagenetr_shared_selected_v7/checkpoint.pt",
+      "dependencies": {
+        "pretrained_npz_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+        "initial_backbone_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+        "data": {
+          "train_source_sha256": "925706d3908e5ebe55c5a18565f5699786074013cee3f1fcd525095836b19035",
+          "evaluation_source_sha256": "ff2d41d250c2223126e3749d0b9eaed8d926e1f5f06725a11b4a8a312652eba2",
+          "data_fingerprint": "014b448f085423b32b6ca0468e7165f896460ff3e4341d1f7bcc305d96a2de76"
+        },
+        "external_image_paths_required": false,
+        "ce_cache_donor": null
+      },
+      "gpu_restore_or_continuation_executed": false,
+      "status": "obtained_verified_checkpoint",
+      "checkpoint_sha256": "ec502dc530ad179f4207ecbef688093d868d534a03122c00756e25c3fca7fd12",
+      "checkpoint_bytes": 352713194,
+      "original_metadata_sha256": {
+        "results": "d711573701fa2ad4746260b5e7d3ba9e333083d7f69766ba4c32935aa9d92802",
+        "config": "d52afc78b65e47871c83206abd8e1d7208b07d8e62bed1fdf8bdd0339bd086e8",
+        "data_manifest": "80ce1916dfd7986bbb84684a188edb7ce8efb3b2c0cb29dbf5dfe832406a0131"
+      },
+      "completion_receipt": {
+        "path": "experiments/campaign_20261117/formal/completion_receipts/formal_imagenetr_shared_selected_v7.json",
+        "sha256": "9dea83e1767123bbc5b9cd225211edaa8e1771b94b850ab7ce0b1b3bb0330882"
+      },
+      "backup": {
+        "kind": "existing_private_workspace_archive",
+        "path": "${PRIVATE_WORKSPACE_ROOT}/formal_checkpoints/formal_imagenetr_shared_selected_v7/checkpoint.pt",
+        "manifest": {
+          "path": "${PRIVATE_WORKSPACE_ROOT}/formal_checkpoints/manifest.json",
+          "sha256": "08b0fdf68b8ccca3b7f778b57588b0777e99f9e8894c1248b4110939124fa1fc"
+        },
+        "verification": {
+          "path": "${PRIVATE_WORKSPACE_ROOT}/formal_checkpoints/verification.json",
+          "sha256": "81eb39f7ce23b24fc6ae16839a3719e43a2c454a6679c21aaec58697a27a2125"
+        },
+        "payload_download_policy": "Existing four archives retained; no new model download is part of this recovery entry."
+      },
+      "runtime_snapshot": "runtime_tuning_v1",
+      "runtime_binding_scope": "Local dispatch specification and inspected snapshot hashes",
+      "runtime_source_evidence": {
+        "path": "experiments/campaign_20261117/correctness/runtime_source_identity_20261117.json",
+        "sha256": "b9c19afeab8d8020522370ee072ea78be48da050655356d66359cae632d6b891"
+      },
+      "runtime_source_file_sha256": {
+        "cl27/current/engine.py": "431bcdfb38de9337143dc55ccd71b2115bd09ae1741b336d58e8dff601f4a52a",
+        "cl27/common.py": "33b63ca2b6baef4585e677d54d9e72e6e5247efb24d997e6eeec968911e0c3bf",
+        "cl27/cores/shared_basis.py": "78bf3c39430dff022d61a22c90380ce57c0c3623e5c2271c653d6243c2d454a0",
+        "cl27/runner.py": "931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e"
+      },
+      "audit": {
+        "status": "legacy_protocol_matrix_checkpoint_schema_and_identity_checks",
+        "native_cpu_restore_executed": false,
+        "zero_input_forward_executed": false,
+        "coverage": [
+          "formal protocol and metric/matrix consistency",
+          "checkpoint schema/full row counts",
+          "NPZ/frozen backbone identity where applicable",
+          "file size/SHA"
+        ],
+        "schema_probe_evidence": {
+          "path": "experiments/campaign_20261117/audit/FINAL_CHECKPOINT_AUDIT_PLAN.json",
+          "sha256": "38f7859765187157441efd00c9e03fcecce7b13e8ee2b5717203957e2b26c5a6"
+        }
+      }
+    },
+    {
+      "job": "formal_imagenetr_transport_selected_v3",
+      "dataset": "imagenetr",
+      "method": "history_transport",
+      "seed": 1993,
+      "selected_config": {
+        "path": "experiments/campaign_20261117/formal/configs/formal_imagenetr_transport_selected_v3.json",
+        "sha256": "162da85612a7f13a97180c7b7b4c9b12011ca8efceb99b78a4c9993a04e327e6"
+      },
+      "source_config_implementation_commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+      "source_policy": "Preserved executed-snapshot evidence; current repository HEAD is never substituted.",
+      "source_run_checkpoint": "${RUNTIME_ROOT}/campaign_20261117/formal/runs/formal_imagenetr_transport_selected_v3/checkpoint.pt",
+      "dependencies": {
+        "pretrained_npz_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+        "initial_backbone_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+        "data": {
+          "train_source_sha256": "925706d3908e5ebe55c5a18565f5699786074013cee3f1fcd525095836b19035",
+          "evaluation_source_sha256": "ff2d41d250c2223126e3749d0b9eaed8d926e1f5f06725a11b4a8a312652eba2",
+          "data_fingerprint": "014b448f085423b32b6ca0468e7165f896460ff3e4341d1f7bcc305d96a2de76"
+        },
+        "external_image_paths_required": true,
+        "ce_cache_donor": "formal_imagenetr_er_fixed_v1",
+        "ce_cache_inventory": {
+          "path": "experiments/campaign_20261117/formal/observations/formal_imagenetr_transport_selected_v3/formal/cohorts/formal_imagenetr_er_fixed_v1.cache_inventory.json",
+          "sha256": "b2ffc8dba5d011ecc213c2ad2735ea06cce1426b44f8b3243d4e52576c02abc4"
+        }
+      },
+      "gpu_restore_or_continuation_executed": false,
+      "status": "obtained_verified_checkpoint",
+      "checkpoint_sha256": "c24b44f387054bb8fcdfeb1d9a0f44dc30633fbffb5d7691c68ec82602c50d3a",
+      "checkpoint_bytes": 714430018,
+      "original_metadata_sha256": {
+        "results": "51a63865b9af1a99e3fd08c29f702e6f470ecfec3acd3f66d0810d77609c0e9e",
+        "config": "81307ad39004631714ccab46f5698a8b18508fc2f321eed375ac06de81c5e1e9",
+        "data_manifest": "80ce1916dfd7986bbb84684a188edb7ce8efb3b2c0cb29dbf5dfe832406a0131"
+      },
+      "completion_receipt": {
+        "path": "experiments/campaign_20261117/formal/completion_receipts/formal_imagenetr_transport_selected_v3.json",
+        "sha256": "3a5095406ca5c29603dfd46d4eb5cb933a5ae719a44c9b1186716f4e610c98ca"
+      },
+      "runtime_snapshot": "runtime_tuning_v1",
+      "launch_evidence": {
+        "path": "experiments/campaign_20261117/formal/observations/formal_imagenetr_transport_selected_v3/formal/receipts/formal_imagenetr_transport_selected_v3.json",
+        "sha256": "f72b6d794c566dddbac2b81cd4e11f3b1881fe0bb2991553f7ba586002120956"
+      },
+      "runtime_source_file_sha256": {
+        "cl27/__init__.py": "77f44223a067ed9123ca03c50fe5b4c423c6dc75afe3b47c2a291af4491e5211",
+        "utils/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "utils/toolkit.py": "1f64bb032beacb6510bf9eff1e009ad217a42c9a7fa40cd867a56e71cb4123f6",
+        "utils/data.py": "a5f1b056a244439a45c7359c4328ae378c1557078ab81cf332ebaf0a8118f87c",
+        "utils/data_manager.py": "74601c9c46d1e51ee95ee20c8a261b28325b997586bd3bf6e78a361d41289857",
+        "cl27/replay.py": "c334c443a977aa656e07c381ea1a3232dedc56159d70a0717131c50e754a17a9",
+        "models/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "models/base.py": "55e59eb4698004ae33862332731f172476be28dffafc07e85ad72013d722bcbf",
+        "cl27/common.py": "33b63ca2b6baef4585e677d54d9e72e6e5247efb24d997e6eeec968911e0c3bf",
+        "cl27/pilot_imagenetr.py": "037325bb474f1a59a6c1f4d1c0a7960423cb50b0924e903c5b86836c017bb4f5",
+        "cl27/data.py": "18fae0aaa165451c0c7b8f5c06eab2fed34c99be4a31623f3d26b930a7a19230",
+        "utils/factory.py": "8b036ee9f3fd4b471e4a91e1abeea29267f3c7949298228ead87d42901233272",
+        "cl27/cores/__init__.py": "8e080541adf8a76f2aca0b6e8ba95858f46edf4848ae8da80fc93a3abbe13912",
+        "cl27/cores/transport.py": "632d13b5dad439d7a4eeed0849668fc7dc103d2a838cebea861e42d85865ccd9",
+        "cl27/transport_training.py": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9",
+        "models/history_transport.py": "a9b32229256cca60cca90ae969df480c20f1f4455629ede69e600d14971f2824",
+        "backbone/linears.py": "d8cf24ab4cbea4c2b84afe6061cdf4276bb5b4e34c0cb2a56712b63f0b6e4505",
+        "backbone/prompt.py": "ce57c5a4aa5c9c5ab9d7eb70ae27cb5a966ac2a1d9a540b45b55dfcd46ff2b04",
+        "utils/inc_net.py": "62b178b90f2ab5262be5a35082e7d92d8faca74dae01135785bbb0454e9e52ed"
+      },
+      "runtime_source_payloads_archived": [
+        "cl27/__init__.py",
+        "utils/__init__.py",
+        "utils/toolkit.py",
+        "utils/data.py",
+        "utils/data_manager.py",
+        "cl27/replay.py",
+        "models/__init__.py",
+        "models/base.py",
+        "cl27/common.py",
+        "cl27/pilot_imagenetr.py",
+        "cl27/data.py",
+        "utils/factory.py",
+        "cl27/cores/__init__.py",
+        "cl27/cores/transport.py",
+        "cl27/transport_training.py",
+        "models/history_transport.py",
+        "backbone/linears.py",
+        "backbone/prompt.py",
+        "utils/inc_net.py"
+      ],
+      "runtime_training_entry_file_sha256": {
+        "main.py": "23d494c98deaf6a408664865f7d7dc1259a417531ab2d0c975dcbb02d14117ca",
+        "trainer.py": "cffff7ce8249442a4540559f350dabf78dcdbe774f4d3d910090b1e61859de81",
+        "cl27/runner.py": "931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e",
+        "cl27/ce_trajectory.py": "371c8f4876059c1ca740d6efed80c00b525a2265a55a45e926dc958d9d6be14a",
+        "cl27/supervised.py": "895b0962cbf7e3b77ad53675490290d211ac9983c3dc65ba61bd9e8a594dda7a",
+        "cl27/transport_training.py": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9",
+        "scripts/run_ce_cohort.py": "e0c9c4ff9667b5843eee5efe836ccc4fec31312f028ef04d0a7a7e611ac6014a"
+      },
+      "runtime_training_entry_evidence": {
+        "path": "experiments/campaign_20261117/audit/source_correspondence_training_entries_v1.json",
+        "sha256": "76781a88cbbb943a87b8a0a16d2fcfa83cfbc361e81dccd1f085960345788f5b"
+      },
+      "source_export_manifest": {
+        "path": "experiments/campaign_20261117/formal/observations/formal_imagenetr_transport_selected_v3/SOURCE_EXPORT_MANIFEST.json",
+        "sha256": "4d0608c71507e9642f9b9cdc603e4ab15a56a0663d6dce5f2272568cb78a7a3c"
+      },
+      "public_export_manifest": {
+        "path": "experiments/campaign_20261117/formal/observations/formal_imagenetr_transport_selected_v3/PUBLIC_EXPORT_MANIFEST.json",
+        "sha256": "bf241aff18cc02525c45f26574ddb98d5580332e7aa09a4077ea279cfcbc5df2"
+      },
+      "backup": {
+        "kind": "verified_server_local_backup",
+        "path": "${RUNTIME_ROOT}/formal_backups/campaign_20261117/formal_imagenetr_transport_selected_v3/checkpoint.pt",
+        "payload_left_server": false,
+        "verification": {
+          "path": "experiments/campaign_20261117/formal/observations/formal_imagenetr_transport_selected_v3/server_backup/formal_imagenetr_transport_selected_v3/verification.json",
+          "sha256": "74a0971d38a3cded3d5b17ee5d4f518f8ce020409959a6dbbaf7b1f3aea44ae9"
+        },
+        "original_verification_sha256": "af11c2bed6b462c52b1fe2e2ad1162290ea6ad07e5b88050ebbe540a31febe67",
+        "source_process_terminal": {
+          "pid": 37895,
+          "expected_ticks": "1791262075",
+          "state": "absent"
+        }
+      },
+      "audit": {
+        "status": "native_cpu_checkpoint_audit_checks_passed_not_campaign_certificate",
+        "job": "audit_formal_imagenetr_transport_selected_v3_v1",
+        "native_cpu_restore_executed": true,
+        "zero_input_forward_executed": true,
+        "finite_output_shape": [
+          1,
+          200
+        ],
+        "state_nodes_compared": 24244,
+        "raw_state_numerically_restored": true,
+        "original_log_sha256": "278afce85062fd52eddffa6a0dce2eade982031a552b539f114fd9c077ef6f9d",
+        "auditor_sha256": "ca025b07d92cc0eeed295d1c4f6a8db9655aa45487435fecaa5c839e426f9b3b",
+        "state_loader_sha256": "696416de70cdfb5e7033cc26c93ad005eb5e20918379f4ef01fc3d76142b2d02",
+        "source_metadata_sha256": {
+          "config": "81307ad39004631714ccab46f5698a8b18508fc2f321eed375ac06de81c5e1e9",
+          "results": "51a63865b9af1a99e3fd08c29f702e6f470ecfec3acd3f66d0810d77609c0e9e",
+          "data_manifest": "80ce1916dfd7986bbb84684a188edb7ce8efb3b2c0cb29dbf5dfe832406a0131"
+        },
+        "public_receipt": {
+          "path": "experiments/campaign_20261117/formal/observations/formal_imagenetr_transport_selected_v3/verification/receipts/audit_formal_imagenetr_transport_selected_v3_v1.json",
+          "sha256": "bafd261c938391f989b6017869bca563e0f0d59069c9ab4a74280274c42c5e8d"
+        },
+        "accuracy_rerun": false,
+        "extra_training_steps": 0,
+        "cuda_rng_applied": false,
+        "final_audit_complete_field_scope": "Helper leaves final_audit_complete false because it is not a twelve-cell campaign certificate; status records actual per-checkpoint PASS."
+      }
+    },
+    {
+      "job": "formal_imagenetr_current_selected_v5",
+      "dataset": "imagenetr",
+      "method": "current_adapted",
+      "seed": 1993,
+      "selected_config": {
+        "path": "experiments/campaign_20261117/formal/configs/formal_imagenetr_current_selected_v5.json",
+        "sha256": "16e64abcf41e9af2a225b9c666d8472a5bc48d7780ee14acf05282c9a93bca63"
+      },
+      "source_config_implementation_commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+      "source_policy": "Preserved executed-snapshot evidence; current repository HEAD is never substituted.",
+      "source_run_checkpoint": "${RUNTIME_ROOT}/campaign_20261117/formal/runs/formal_imagenetr_current_selected_v5/checkpoint.pt",
+      "dependencies": {
+        "pretrained_npz_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+        "initial_backbone_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+        "data": {
+          "train_source_sha256": "925706d3908e5ebe55c5a18565f5699786074013cee3f1fcd525095836b19035",
+          "evaluation_source_sha256": "ff2d41d250c2223126e3749d0b9eaed8d926e1f5f06725a11b4a8a312652eba2",
+          "data_fingerprint": "014b448f085423b32b6ca0468e7165f896460ff3e4341d1f7bcc305d96a2de76"
+        },
+        "external_image_paths_required": true,
+        "ce_cache_donor": null
+      },
+      "gpu_restore_or_continuation_executed": false,
+      "status": "pending_active_no_final_backup_or_audit_claim",
+      "checkpoint_sha256": null,
+      "checkpoint_bytes": null,
+      "backup": null,
+      "expected_server_local_backup": "${RUNTIME_ROOT}/formal_backups/campaign_20261117/formal_imagenetr_current_selected_v5/checkpoint.pt",
+      "runtime_snapshot": "runtime_bounded_v4",
+      "runtime_source_evidence": {
+        "path": "experiments/campaign_20261117/audit/source_correspondence_training_entries_v1.json",
+        "sha256": "76781a88cbbb943a87b8a0a16d2fcfa83cfbc361e81dccd1f085960345788f5b"
+      },
+      "runtime_entry_file_sha256": {
+        "main.py": "23d494c98deaf6a408664865f7d7dc1259a417531ab2d0c975dcbb02d14117ca",
+        "trainer.py": "cffff7ce8249442a4540559f350dabf78dcdbe774f4d3d910090b1e61859de81",
+        "cl27/runner.py": "931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e",
+        "cl27/ce_trajectory.py": "371c8f4876059c1ca740d6efed80c00b525a2265a55a45e926dc958d9d6be14a",
+        "cl27/supervised.py": "895b0962cbf7e3b77ad53675490290d211ac9983c3dc65ba61bd9e8a594dda7a",
+        "cl27/transport_training.py": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9",
+        "scripts/run_ce_cohort.py": "e0c9c4ff9667b5843eee5efe836ccc4fec31312f028ef04d0a7a7e611ac6014a"
+      },
+      "launch_evidence": {
+        "path": "experiments/campaign_20261117/scheduling/initial_dispatch_v1/formal_imagenetr_current_selected_v5.json",
+        "sha256": "bb32befe32a5d5b74a1d41eb872f1d250076a80906fec135db09e0a82e059244"
+      },
+      "process_identity": {
+        "pid": 36174,
+        "proc_start_ticks": "1790983363",
+        "scope": "Existing local launch receipt (CIF) and saved process observation (R); root reports both remain active. No server probe by this index build."
+      },
+      "audit": {
+        "native_cpu_restore_executed": false,
+        "zero_input_forward_executed": false,
+        "status": "pending_terminal_sha_bound_backup"
+      },
+      "original_config_sha256": "1579a138db77f313d729c04063a05fb2b991164d8c25d23cf0ce2c1d14274553",
+      "original_config_sha_evidence": {
+        "path": "experiments/campaign_20261117/scheduling/initial_dispatch_v1/campaign_20261117/scheduling/selected_formal_queue_v1.json",
+        "sha256": "58cd186a1e833d09a860fa5f13cb041982d9b6c1dc411b1ac5a50ef27e195d3d"
+      }
+    },
+    {
+      "job": "formal_imagenetr_plastic_shared_selected_v5",
+      "dataset": "imagenetr",
+      "method": "plastic_shared_basis",
+      "seed": 1993,
+      "selected_config": {
+        "path": "experiments/campaign_20261117/formal/configs/formal_imagenetr_plastic_shared_selected_v5.json",
+        "sha256": "0eb4a603bdd788f5435cbad9f5116a50aadbe91170bda3f1da99fbb07ddfa7f1"
+      },
+      "source_config_implementation_commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+      "source_policy": "Preserved executed-snapshot evidence; current repository HEAD is never substituted.",
+      "source_run_checkpoint": "${RUNTIME_ROOT}/campaign_20261117/formal/runs/formal_imagenetr_plastic_shared_selected_v5/checkpoint.pt",
+      "dependencies": {
+        "pretrained_npz_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+        "initial_backbone_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+        "data": {
+          "train_source_sha256": "925706d3908e5ebe55c5a18565f5699786074013cee3f1fcd525095836b19035",
+          "evaluation_source_sha256": "ff2d41d250c2223126e3749d0b9eaed8d926e1f5f06725a11b4a8a312652eba2",
+          "data_fingerprint": "014b448f085423b32b6ca0468e7165f896460ff3e4341d1f7bcc305d96a2de76"
+        },
+        "external_image_paths_required": true,
+        "ce_cache_donor": "formal_imagenetr_er_fixed_v1",
+        "ce_cache_inventory": {
+          "path": "experiments/campaign_20261117/formal/observations/formal_imagenetr_plastic_shared_selected_v5/formal/cohorts/formal_imagenetr_er_fixed_v1.cache_inventory.json",
+          "sha256": "b2ffc8dba5d011ecc213c2ad2735ea06cce1426b44f8b3243d4e52576c02abc4"
+        }
+      },
+      "gpu_restore_or_continuation_executed": false,
+      "status": "obtained_verified_checkpoint",
+      "checkpoint_sha256": "2d20633df13a58716805510adce4c423ee9714a95ae40d25d9ba7c7c444097b2",
+      "checkpoint_bytes": 723788162,
+      "original_metadata_sha256": {
+        "results": "611ef3078ab8ba3d239867ffca39797c7a8d0e9e32c162efa281e9fb01fceff6",
+        "config": "912c9a03d774b6ad7459c54eb897ab639dc18d6ddfa480e5078d5e89cae9ea56",
+        "data_manifest": "80ce1916dfd7986bbb84684a188edb7ce8efb3b2c0cb29dbf5dfe832406a0131"
+      },
+      "completion_receipt": {
+        "path": "experiments/campaign_20261117/formal/completion_receipts/formal_imagenetr_plastic_shared_selected_v5.json",
+        "sha256": "07f62fb8bef383b965b8fe8737756cccd2e8aa30f3ca9a439af1a2c6083bd661"
+      },
+      "runtime_snapshot": "runtime_tuning_v1",
+      "launch_evidence": {
+        "path": "experiments/campaign_20261117/formal/observations/formal_imagenetr_plastic_shared_selected_v5/formal/receipts/formal_imagenetr_plastic_shared_selected_v5.json",
+        "sha256": "798fce72001074e2fe4dd089977e5890ab6fedbf1cb8f340c80ab5a9cbc1ef7b"
+      },
+      "runtime_source_file_sha256": {
+        "cl27/__init__.py": "77f44223a067ed9123ca03c50fe5b4c423c6dc75afe3b47c2a291af4491e5211",
+        "utils/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "utils/toolkit.py": "1f64bb032beacb6510bf9eff1e009ad217a42c9a7fa40cd867a56e71cb4123f6",
+        "utils/data.py": "a5f1b056a244439a45c7359c4328ae378c1557078ab81cf332ebaf0a8118f87c",
+        "utils/data_manager.py": "74601c9c46d1e51ee95ee20c8a261b28325b997586bd3bf6e78a361d41289857",
+        "cl27/replay.py": "c334c443a977aa656e07c381ea1a3232dedc56159d70a0717131c50e754a17a9",
+        "models/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "models/base.py": "55e59eb4698004ae33862332731f172476be28dffafc07e85ad72013d722bcbf",
+        "cl27/common.py": "33b63ca2b6baef4585e677d54d9e72e6e5247efb24d997e6eeec968911e0c3bf",
+        "cl27/pilot_imagenetr.py": "037325bb474f1a59a6c1f4d1c0a7960423cb50b0924e903c5b86836c017bb4f5",
+        "cl27/data.py": "18fae0aaa165451c0c7b8f5c06eab2fed34c99be4a31623f3d26b930a7a19230",
+        "utils/factory.py": "8b036ee9f3fd4b471e4a91e1abeea29267f3c7949298228ead87d42901233272",
+        "cl27/cores/__init__.py": "8e080541adf8a76f2aca0b6e8ba95858f46edf4848ae8da80fc93a3abbe13912",
+        "cl27/cores/shared_basis.py": "78bf3c39430dff022d61a22c90380ce57c0c3623e5c2271c653d6243c2d454a0",
+        "cl27/cores/transport.py": "632d13b5dad439d7a4eeed0849668fc7dc103d2a838cebea861e42d85865ccd9",
+        "cl27/cores/plastic_shared_basis.py": "57f9969ebb7f797afdbb9e23c05640462ee19e034d894a4f6815c1b405634691",
+        "cl27/transport_training.py": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9",
+        "models/history_transport.py": "a9b32229256cca60cca90ae969df480c20f1f4455629ede69e600d14971f2824",
+        "models/plastic_shared_basis.py": "3e3be162f368d9baf6ee07c2cb60a10947d5186c0dc5e570d61b2894f1d54dc4",
+        "backbone/linears.py": "d8cf24ab4cbea4c2b84afe6061cdf4276bb5b4e34c0cb2a56712b63f0b6e4505",
+        "backbone/prompt.py": "ce57c5a4aa5c9c5ab9d7eb70ae27cb5a966ac2a1d9a540b45b55dfcd46ff2b04",
+        "utils/inc_net.py": "62b178b90f2ab5262be5a35082e7d92d8faca74dae01135785bbb0454e9e52ed"
+      },
+      "runtime_source_payloads_archived": [
+        "cl27/__init__.py",
+        "utils/__init__.py",
+        "utils/toolkit.py",
+        "utils/data.py",
+        "utils/data_manager.py",
+        "cl27/replay.py",
+        "models/__init__.py",
+        "models/base.py",
+        "cl27/common.py",
+        "cl27/pilot_imagenetr.py",
+        "cl27/data.py",
+        "utils/factory.py",
+        "cl27/cores/__init__.py",
+        "cl27/cores/shared_basis.py",
+        "cl27/cores/transport.py",
+        "cl27/cores/plastic_shared_basis.py",
+        "cl27/transport_training.py",
+        "models/history_transport.py",
+        "models/plastic_shared_basis.py",
+        "backbone/linears.py",
+        "backbone/prompt.py",
+        "utils/inc_net.py"
+      ],
+      "runtime_training_entry_file_sha256": {
+        "main.py": "23d494c98deaf6a408664865f7d7dc1259a417531ab2d0c975dcbb02d14117ca",
+        "trainer.py": "cffff7ce8249442a4540559f350dabf78dcdbe774f4d3d910090b1e61859de81",
+        "cl27/runner.py": "931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e",
+        "cl27/ce_trajectory.py": "371c8f4876059c1ca740d6efed80c00b525a2265a55a45e926dc958d9d6be14a",
+        "cl27/supervised.py": "895b0962cbf7e3b77ad53675490290d211ac9983c3dc65ba61bd9e8a594dda7a",
+        "cl27/transport_training.py": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9",
+        "scripts/run_ce_cohort.py": "e0c9c4ff9667b5843eee5efe836ccc4fec31312f028ef04d0a7a7e611ac6014a"
+      },
+      "runtime_training_entry_evidence": {
+        "path": "experiments/campaign_20261117/audit/source_correspondence_training_entries_v1.json",
+        "sha256": "76781a88cbbb943a87b8a0a16d2fcfa83cfbc361e81dccd1f085960345788f5b"
+      },
+      "source_export_manifest": {
+        "path": "experiments/campaign_20261117/formal/observations/formal_imagenetr_plastic_shared_selected_v5/SOURCE_EXPORT_MANIFEST.json",
+        "sha256": "80747e6fe7244e8473d8e25fdb6a835f302091c927f2a6a913179f5911e77a60"
+      },
+      "public_export_manifest": {
+        "path": "experiments/campaign_20261117/formal/observations/formal_imagenetr_plastic_shared_selected_v5/PUBLIC_EXPORT_MANIFEST.json",
+        "sha256": "acfef9f56d7dc0dad774de2f1269866992a8bf4fc3d552b71d47474daef76531"
+      },
+      "backup": {
+        "kind": "verified_server_local_backup",
+        "path": "${RUNTIME_ROOT}/formal_backups/campaign_20261117/formal_imagenetr_plastic_shared_selected_v5/checkpoint.pt",
+        "payload_left_server": false,
+        "verification": {
+          "path": "experiments/campaign_20261117/formal/observations/formal_imagenetr_plastic_shared_selected_v5/server_backup/formal_imagenetr_plastic_shared_selected_v5/verification.json",
+          "sha256": "575f7c4bf9460cf405f86f6190c84692ce179e3dacc602af71d75c8abb1d5f1a"
+        },
+        "original_verification_sha256": "e68bae11be0adef4797a44c67aac891748b0c8b06630918b773b7d58c4951008",
+        "source_process_terminal": {
+          "pid": 37900,
+          "expected_ticks": "1791262091",
+          "state": "absent"
+        }
+      },
+      "audit": {
+        "status": "native_cpu_checkpoint_audit_checks_passed_not_campaign_certificate",
+        "job": "audit_formal_imagenetr_plastic_shared_selected_v5_v1",
+        "native_cpu_restore_executed": true,
+        "zero_input_forward_executed": true,
+        "finite_output_shape": [
+          1,
+          200
+        ],
+        "state_nodes_compared": 25488,
+        "raw_state_numerically_restored": true,
+        "original_log_sha256": "4747253b51a4c4b6ae645ceae8f7e2d5a93831e418276f7e5381a67e9dc00998",
+        "auditor_sha256": "ca025b07d92cc0eeed295d1c4f6a8db9655aa45487435fecaa5c839e426f9b3b",
+        "state_loader_sha256": "696416de70cdfb5e7033cc26c93ad005eb5e20918379f4ef01fc3d76142b2d02",
+        "source_metadata_sha256": {
+          "config": "912c9a03d774b6ad7459c54eb897ab639dc18d6ddfa480e5078d5e89cae9ea56",
+          "results": "611ef3078ab8ba3d239867ffca39797c7a8d0e9e32c162efa281e9fb01fceff6",
+          "data_manifest": "80ce1916dfd7986bbb84684a188edb7ce8efb3b2c0cb29dbf5dfe832406a0131"
+        },
+        "public_receipt": {
+          "path": "experiments/campaign_20261117/formal/observations/formal_imagenetr_plastic_shared_selected_v5/verification/receipts/audit_formal_imagenetr_plastic_shared_selected_v5_v1.json",
+          "sha256": "7ca1c2ae3337c595260b987a3c7df9d57814bf19d8b42fdbe4b57b6d3492e411"
+        },
+        "accuracy_rerun": false,
+        "extra_training_steps": 0,
+        "cuda_rng_applied": false,
+        "final_audit_complete_field_scope": "Helper leaves final_audit_complete false because it is not a twelve-cell campaign certificate; status records actual per-checkpoint PASS."
+      }
+    },
+    {
+      "job": "formal_imagenetr_er_fixed_v1",
+      "dataset": "imagenetr",
+      "method": "er",
+      "seed": 1993,
+      "selected_config": {
+        "path": "experiments/campaign_20261117/formal/configs/formal_imagenetr_er_fixed_v1.json",
+        "sha256": "f73bfcc3cbba28fe6c8a9553a0628177c565587269823eabd76dfabf8960cf88"
+      },
+      "source_config_implementation_commit": null,
+      "source_policy": "Preserved executed-snapshot evidence; current repository HEAD is never substituted.",
+      "source_run_checkpoint": "${RUNTIME_ROOT}/campaign_20261117/formal/runs/formal_imagenetr_er_fixed_v1/checkpoint.pt",
+      "dependencies": {
+        "pretrained_npz_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+        "initial_backbone_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+        "data": {
+          "train_source_sha256": "925706d3908e5ebe55c5a18565f5699786074013cee3f1fcd525095836b19035",
+          "evaluation_source_sha256": "ff2d41d250c2223126e3749d0b9eaed8d926e1f5f06725a11b4a8a312652eba2",
+          "data_fingerprint": "014b448f085423b32b6ca0468e7165f896460ff3e4341d1f7bcc305d96a2de76"
+        },
+        "external_image_paths_required": true,
+        "ce_cache_donor": "formal_imagenetr_er_fixed_v1",
+        "ce_cache_inventory": {
+          "path": "experiments/campaign_20261117/formal/observations/formal_imagenetr_er_fixed_v1/formal/cohorts/formal_imagenetr_er_fixed_v1.cache_inventory.json",
+          "sha256": "b2ffc8dba5d011ecc213c2ad2735ea06cce1426b44f8b3243d4e52576c02abc4"
+        }
+      },
+      "gpu_restore_or_continuation_executed": false,
+      "status": "obtained_verified_checkpoint",
+      "checkpoint_sha256": "238b00f19af6198d4e1f81d44400e0e1e0373cc887f531d4e97e396ec298267d",
+      "checkpoint_bytes": 344356460,
+      "original_metadata_sha256": {
+        "results": "358aa81a922f12a3b81d298816b82b786d25fe2078c8eac6d3c459097c146d40",
+        "config": "835372adbb325d1317eed07b92b87ab8af419f4425060f6a6aabf4e34c2b1a9d",
+        "data_manifest": "80ce1916dfd7986bbb84684a188edb7ce8efb3b2c0cb29dbf5dfe832406a0131"
+      },
+      "completion_receipt": {
+        "path": "experiments/campaign_20261117/formal/completion_receipts/formal_imagenetr_er_fixed_v1.json",
+        "sha256": "ec8f84e644b416a9e852050b89cf1e47cafeb4d1725f16f5c833629991837df3"
+      },
+      "runtime_snapshot": "runtime_fixed_er_v5",
+      "launch_evidence": {
+        "path": "experiments/campaign_20261117/formal/observations/formal_imagenetr_er_fixed_v1/formal/receipts/formal_imagenetr_er_fixed_v1.json",
+        "sha256": "63727f49b4fbddb11526848e8a0a2d7882d70eb6fb0d588318eaf3bca45b8863"
+      },
+      "runtime_source_file_sha256": {
+        "cl27/__init__.py": "77f44223a067ed9123ca03c50fe5b4c423c6dc75afe3b47c2a291af4491e5211",
+        "utils/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "utils/toolkit.py": "1f64bb032beacb6510bf9eff1e009ad217a42c9a7fa40cd867a56e71cb4123f6",
+        "utils/data.py": "a5f1b056a244439a45c7359c4328ae378c1557078ab81cf332ebaf0a8118f87c",
+        "utils/data_manager.py": "74601c9c46d1e51ee95ee20c8a261b28325b997586bd3bf6e78a361d41289857",
+        "cl27/replay.py": "c334c443a977aa656e07c381ea1a3232dedc56159d70a0717131c50e754a17a9",
+        "models/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "models/base.py": "55e59eb4698004ae33862332731f172476be28dffafc07e85ad72013d722bcbf",
+        "cl27/common.py": "33b63ca2b6baef4585e677d54d9e72e6e5247efb24d997e6eeec968911e0c3bf",
+        "cl27/pilot_imagenetr.py": "037325bb474f1a59a6c1f4d1c0a7960423cb50b0924e903c5b86836c017bb4f5",
+        "cl27/data.py": "18fae0aaa165451c0c7b8f5c06eab2fed34c99be4a31623f3d26b930a7a19230",
+        "utils/factory.py": "8b036ee9f3fd4b471e4a91e1abeea29267f3c7949298228ead87d42901233272",
+        "cl27/supervised.py": "895b0962cbf7e3b77ad53675490290d211ac9983c3dc65ba61bd9e8a594dda7a",
+        "cl27/transport_training.py": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9",
+        "models/er.py": "5b43cdaf7ecf288dd9b0b64af16ea22b1681fce5ce212e886f00e2c13fbf356c",
+        "backbone/linears.py": "d8cf24ab4cbea4c2b84afe6061cdf4276bb5b4e34c0cb2a56712b63f0b6e4505",
+        "backbone/prompt.py": "ce57c5a4aa5c9c5ab9d7eb70ae27cb5a966ac2a1d9a540b45b55dfcd46ff2b04",
+        "utils/inc_net.py": "62b178b90f2ab5262be5a35082e7d92d8faca74dae01135785bbb0454e9e52ed"
+      },
+      "runtime_source_payloads_archived": [
+        "cl27/__init__.py",
+        "utils/__init__.py",
+        "utils/toolkit.py",
+        "utils/data.py",
+        "utils/data_manager.py",
+        "cl27/replay.py",
+        "models/__init__.py",
+        "models/base.py",
+        "cl27/common.py",
+        "cl27/pilot_imagenetr.py",
+        "cl27/data.py",
+        "utils/factory.py",
+        "cl27/supervised.py",
+        "cl27/transport_training.py",
+        "models/er.py",
+        "backbone/linears.py",
+        "backbone/prompt.py",
+        "utils/inc_net.py"
+      ],
+      "runtime_training_entry_file_sha256": {
+        "main.py": "23d494c98deaf6a408664865f7d7dc1259a417531ab2d0c975dcbb02d14117ca",
+        "trainer.py": "cffff7ce8249442a4540559f350dabf78dcdbe774f4d3d910090b1e61859de81",
+        "cl27/runner.py": "931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e",
+        "cl27/ce_trajectory.py": "371c8f4876059c1ca740d6efed80c00b525a2265a55a45e926dc958d9d6be14a",
+        "cl27/supervised.py": "895b0962cbf7e3b77ad53675490290d211ac9983c3dc65ba61bd9e8a594dda7a",
+        "cl27/transport_training.py": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9",
+        "scripts/run_fixed_er_record.py": "60e95c5577e792605c8b1d9421e276e02efaf87ea04c4a6945c58b56cb1ad1b3",
+        "scripts/run_ce_cohort.py": "e0c9c4ff9667b5843eee5efe836ccc4fec31312f028ef04d0a7a7e611ac6014a"
+      },
+      "runtime_training_entry_evidence": {
+        "path": "experiments/campaign_20261117/audit/source_correspondence_training_entries_v1.json",
+        "sha256": "76781a88cbbb943a87b8a0a16d2fcfa83cfbc361e81dccd1f085960345788f5b"
+      },
+      "source_export_manifest": {
+        "path": "experiments/campaign_20261117/formal/observations/formal_imagenetr_er_fixed_v1/SOURCE_EXPORT_MANIFEST.json",
+        "sha256": "243c5d691065b0cafeb3b2df42a4800e0996b72cb979c347e4883a5821f64767"
+      },
+      "public_export_manifest": {
+        "path": "experiments/campaign_20261117/formal/observations/formal_imagenetr_er_fixed_v1/PUBLIC_EXPORT_MANIFEST.json",
+        "sha256": "922cd3aea24a007063ad9fa3d39909947680e293bf44733e5b7297f3c49c5ae2"
+      },
+      "backup": {
+        "kind": "verified_server_local_backup",
+        "path": "${ROOT_BACKUP_ROOT}/campaign_20261117/formal_imagenetr_er_fixed_v1/checkpoint.pt",
+        "payload_left_server": false,
+        "verification": {
+          "path": "experiments/campaign_20261117/formal/observations/formal_imagenetr_er_fixed_v1/server_backup/formal_imagenetr_er_fixed_v1/verification.json",
+          "sha256": "d4bf4be157eef2a6314f81a276798e290a7be816d6bb9daed8cce198a71c43b4"
+        },
+        "original_verification_sha256": "20466fb02beb0eebe4a8e6de9e94f6850d135c646ba4fe44262a9449689ed7ea",
+        "source_process_terminal": {
+          "pid": 32112,
+          "expected_ticks": "1790308172",
+          "state": "absent"
+        }
+      },
+      "audit": {
+        "status": "native_cpu_checkpoint_audit_checks_passed_not_campaign_certificate",
+        "job": "audit_formal_imagenetr_er_fixed_v1_v1",
+        "native_cpu_restore_executed": true,
+        "zero_input_forward_executed": true,
+        "finite_output_shape": [
+          1,
+          200
+        ],
+        "state_nodes_compared": 18930,
+        "raw_state_numerically_restored": true,
+        "original_log_sha256": "18b471740ac717a4f9ce4b35ffe13d919989adfbdb22d520b14f44f513e06ba0",
+        "auditor_sha256": "ca025b07d92cc0eeed295d1c4f6a8db9655aa45487435fecaa5c839e426f9b3b",
+        "state_loader_sha256": "696416de70cdfb5e7033cc26c93ad005eb5e20918379f4ef01fc3d76142b2d02",
+        "source_metadata_sha256": {
+          "config": "835372adbb325d1317eed07b92b87ab8af419f4425060f6a6aabf4e34c2b1a9d",
+          "results": "358aa81a922f12a3b81d298816b82b786d25fe2078c8eac6d3c459097c146d40",
+          "data_manifest": "80ce1916dfd7986bbb84684a188edb7ce8efb3b2c0cb29dbf5dfe832406a0131"
+        },
+        "public_receipt": {
+          "path": "experiments/campaign_20261117/formal/observations/formal_imagenetr_er_fixed_v1/verification/receipts/audit_formal_imagenetr_er_fixed_v1_v1.json",
+          "sha256": "e081c1d646cd63c536924c33172e1d1d56183fa39c9e845b7e13c4368351f87c"
+        },
+        "accuracy_rerun": false,
+        "extra_training_steps": 0,
+        "cuda_rng_applied": false,
+        "final_audit_complete_field_scope": "Helper leaves final_audit_complete false because it is not a twelve-cell campaign certificate; status records actual per-checkpoint PASS."
+      }
+    },
+    {
+      "job": "formal_imagenetr_joint_fixed_v1",
+      "dataset": "imagenetr",
+      "method": "joint",
+      "seed": 1993,
+      "selected_config": {
+        "path": "experiments/campaign_20261117/formal/configs/formal_imagenetr_joint_fixed_v1.json",
+        "sha256": "da46727d1429df243695d9fdaf3853f714558ef0b73ddc3e4adb6f2543164fa3"
+      },
+      "source_config_implementation_commit": null,
+      "source_policy": "Preserved executed-snapshot evidence; current repository HEAD is never substituted.",
+      "source_run_checkpoint": "${RUNTIME_ROOT}/campaign_20261117/formal/runs/formal_imagenetr_joint_fixed_v1/checkpoint.pt",
+      "dependencies": {
+        "pretrained_npz_sha256": "ac104c0df8158c46754510e50495536fa6de9647e572e38b5659dc54f260b124",
+        "initial_backbone_state_sha256": "1ece119a218036ffacbd3b576e1eb00a483915c88b21d81980c5e4e4a52e66e9",
+        "data": {
+          "train_source_sha256": "925706d3908e5ebe55c5a18565f5699786074013cee3f1fcd525095836b19035",
+          "evaluation_source_sha256": "ff2d41d250c2223126e3749d0b9eaed8d926e1f5f06725a11b4a8a312652eba2",
+          "data_fingerprint": "014b448f085423b32b6ca0468e7165f896460ff3e4341d1f7bcc305d96a2de76"
+        },
+        "external_image_paths_required": false,
+        "ce_cache_donor": null
+      },
+      "gpu_restore_or_continuation_executed": false,
+      "status": "obtained_verified_checkpoint",
+      "checkpoint_sha256": "531e84fb056b1f02ec999b87a1d907ff8e27a0931474545763f57dbc2849e57a",
+      "checkpoint_bytes": 343874860,
+      "original_metadata_sha256": {
+        "results": "09bb7ce9bf45dc90f7ed72da0115abf68fb24ef1de518876ec62d6b58c24579b",
+        "config": "40419d9c86e65e80d85aa4e28aec41138d55bd2117f2a919e823c9a7dff7c885",
+        "data_manifest": "80ce1916dfd7986bbb84684a188edb7ce8efb3b2c0cb29dbf5dfe832406a0131"
+      },
+      "completion_receipt": {
+        "path": "experiments/campaign_20261117/formal/completion_receipts/formal_imagenetr_joint_fixed_v1.json",
+        "sha256": "6e45fd932196a293c81b8023459e7a7c6f30fc0664b5271fb40b9305b5d511f3"
+      },
+      "backup": {
+        "kind": "existing_private_workspace_archive",
+        "path": "${PRIVATE_WORKSPACE_ROOT}/formal_checkpoints/formal_imagenetr_joint_fixed_v1/checkpoint.pt",
+        "manifest": {
+          "path": "${PRIVATE_WORKSPACE_ROOT}/formal_checkpoints/manifest.json",
+          "sha256": "08b0fdf68b8ccca3b7f778b57588b0777e99f9e8894c1248b4110939124fa1fc"
+        },
+        "verification": {
+          "path": "${PRIVATE_WORKSPACE_ROOT}/formal_checkpoints/formal_imagenetr_joint_fixed_v1/verification.json",
+          "sha256": "5fe6cce79d74ccd72f6c740b475aa79f1cf680d044f6f8aeff24fe9599ab1bb0"
+        },
+        "payload_download_policy": "Existing four archives retained; no new model download is part of this recovery entry."
+      },
+      "runtime_snapshot": "runtime_b125dbd",
+      "launch_evidence": {
+        "path": "${PRIVATE_WORKSPACE_ROOT}/formal_completed/formal_imagenetr_joint_fixed_v1/launch_receipt.json",
+        "sha256": "ad9ca33282d4f1a92a98e778a4d69e0e17d68a43077eae1f0a463379c313acdf"
+      },
+      "runtime_source_file_sha256": {
+        "models/joint.py": "21b6d53d33b131297abcb47ae28b7a61fdc45344d11e523531553663f64cee80",
+        "cl27/runner.py": "fbe6ad8f839fd1ea8dbbb78ca143b084ae6768de8475bfadf1da7e5b3bd4e040",
+        "cl27/data.py": "18fae0aaa165451c0c7b8f5c06eab2fed34c99be4a31623f3d26b930a7a19230",
+        "cl27/common.py": "33b63ca2b6baef4585e677d54d9e72e6e5247efb24d997e6eeec968911e0c3bf",
+        "cl27/transport_training.py": "c5024c2bdacf76e4febdade4a6e8cb0ef4d3ae443bc7f4b114af4e37b48ad809"
+      },
+      "audit": {
+        "status": "completed_joint_cpu_structure_data_rng_and_metric_consistency_audit",
+        "native_cpu_restore_executed": false,
+        "zero_input_forward_executed": false,
+        "coverage": [
+          "checkpoint/config/data/metric closure",
+          "actual finite body/head tensors",
+          "NPZ initial identity",
+          "RNG payload schema",
+          "full union rows and IDs"
+        ],
+        "evidence": {
+          "path": "experiments/campaign_20261117/formal/observations/formal_imagenetr_joint_fixed_v1/audit_receipt.json",
+          "sha256": "6e45fd932196a293c81b8023459e7a7c6f30fc0664b5271fb40b9305b5d511f3"
+        }
+      }
+    }
+  ],
+  "environment": {
+    "torch": "2.7.1+cu128",
+    "numpy": "1.26.4",
+    "timm": "0.6.12",
+    "pretrained_npz_relative_path": "torch/hub/checkpoints/B_16-i21k-300ep-lr_0.001-aug_medium1-wd_0.1-do_0.0-sd_0.0--imagenet2012-steps_20k-lr_0.01-res_224.npz",
+    "upstream_pilot_commit": "7a6e904c5bc5cb7a4e1823b3434020be27469b63"
+  },
+  "path_roots": {
+    "RUNTIME_ROOT": "Existing server runtime/data root, supplied locally; no endpoint in this index.",
+    "ROOT_BACKUP_ROOT": "Existing separate root-partition formal backup root.",
+    "PRIVATE_WORKSPACE_ROOT": "Existing private workspace archive root."
+  },
+  "limits": [
+    "Existing evidence is indexed, not re-audited by opening model payloads.",
+    "No entry certifies GPU RNG restoration, GPU continuation, or independent accuracy rerun.",
+    "Original runtime/config/data/source hashes govern restoration; configuration commit strings alone are not a replacement for actual source evidence.",
+    "ImageNet-R replay stores external image references; checkpoint alone is not a self-contained dataset archive.",
+    "Current pending checkpoints must not be opened/archived by this index while their original processes are active.",
+    "Canceled model-export branch stays canceled; pending models remain server-local."
+  ],
+  "private_index_sha256": "58dcdd71764369ce49d8f14d01140f935bd0d055c42bd21af23a41e995ae166e"
+}
