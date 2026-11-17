@@ -59,7 +59,10 @@ def get_model(model_name, args):
     elif name == 'duct':
         from models.duct import Learner
     elif name == 'tuna':
-        from models.tuna import Learner
+        if args.get("cl27_protocol") == "pilot_figure2":
+            from models.tuna_protocol import Learner
+        else:
+            from models.tuna import Learner
     else:
         assert 0
     return Learner(args)

@@ -1,0 +1,64 @@
+{
+  "model_name": "current_adapted",
+  "cl27_protocol": "pilot_figure2",
+  "dataset": "cifar224",
+  "phase": "final",
+  "prefix": "followup_current_epochs20",
+  "seed": [
+    1993
+  ],
+  "device": [
+    0
+  ],
+  "shuffle": true,
+  "init_cls": 10,
+  "increment": 10,
+  "backbone_type": "vit_base_patch16_224",
+  "pretrained": true,
+  "memory_size": 2000,
+  "memory_per_class": 20,
+  "fixed_memory": false,
+  "replay_selection": "herding",
+  "data_root": "${RUNTIME_ROOT}/data/cifar100",
+  "download": false,
+  "epochs": 20,
+  "batch_size": 64,
+  "replay_batch_size": 64,
+  "backbone_lr": 1e-05,
+  "head_lr": 0.001,
+  "module_lr": 0.0001,
+  "weight_decay": 0.0001,
+  "feature_normalization": "l2",
+  "feature_batch_size": 16,
+  "eval_batch_size": 64,
+  "num_workers": 0,
+  "cpu_threads": 4,
+  "save_checkpoints": true,
+  "output_dir": "${CAMPAIGN_ROOT}/formal/runs/formal_cifar_current_epochs20_v1",
+  "module_layers": [
+    7,
+    9
+  ],
+  "modules_per_layer": 4,
+  "module_rank": 8,
+  "outer_updates": 2,
+  "base_ridge": 0.01,
+  "residual_ridge": 0.01,
+  "temperature": 10.0,
+  "support_shots": [
+    1,
+    5
+  ],
+  "background_shots": 5,
+  "target_classes": 5,
+  "query_per_class": 2,
+  "evaluation_head": "cnn",
+  "validation_only": false,
+  "episode_replay_batch_size": 64,
+  "schedule": [
+    "modules",
+    "backbone"
+  ],
+  "comparison_variant": "epochs20",
+  "reference_5epoch_source_commit": "bb028d926565e6db86d4b4e716406c57392a1617"
+}

@@ -73,7 +73,14 @@ def validate_protocol(args):
     width = 10 if args["dataset"] == "cifar224" else 20
     if (args["init_cls"], args["increment"]) != (width, width):
         raise ValueError("Main comparison has ten equal stages")
-    if args.get("model_name") in CHECKPOINT_METHODS and args.get(
+    if args.get("model_name") == "tuna":
+        if args.get("backbone_type") != "vit_base_patch16_224_tuna":
+            raise ValueError("Protocol TUNA uses the same IN21K->IN1K checkpoint")
+        if args.get("memory_size", 0) or args.get("memory_per_class", 0):
+            raise ValueError("Native TUNA uses no historical image replay")
+        if args.get("pretrained") is not True:
+            raise ValueError("Protocol TUNA requires the pinned pretrained model")
+    elif args.get("model_name") in CHECKPOINT_METHODS and args.get(
         "backbone_type"
     ) not in {
         "vit_base_patch16_224",

@@ -21,7 +21,7 @@ NEW_METHODS = {
     "current_adapted",
     "plastic_shared_basis",
 }
-BASELINE_METHODS = {"er", "joint"}
+BASELINE_METHODS = {"er", "joint", "tuna"}
 CHECKPOINT_METHODS = NEW_METHODS | BASELINE_METHODS
 
 

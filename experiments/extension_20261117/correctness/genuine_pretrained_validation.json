@@ -1,0 +1,78 @@
+{
+  "kind": "implementation_correctness_only",
+  "performance_claim": false,
+  "checks": [
+    {
+      "dataset": "cifar224",
+      "stages": 2,
+      "seen_classes": 20,
+      "use_orth": false,
+      "decay": false,
+      "image_epochs": 1,
+      "classifier_alignment_epochs": 1,
+      "max_train_examples_per_class": 64,
+      "validation_fraction": 0.02,
+      "official_test_read": false,
+      "arrivals": [
+        640,
+        640
+      ],
+      "main_steps": [
+        40,
+        40
+      ],
+      "ca_backward_calls": [
+        0,
+        20
+      ],
+      "original_body_unchanged": true,
+      "zero_image_memory": true,
+      "one_raw_eval_per_stage": true,
+      "checkpoint_written": true,
+      "source_process_terminal": true,
+      "gpu_peak_allocated_bytes": 1848558592,
+      "wall_seconds": 18.868982799351215,
+      "source_metadata_sha256": {
+        "config": "ab3f28d3be3fc12fdfec51b8b3dcdc9cb2c89040cd3f7f5092221b631c4a3d04",
+        "results": "74a68022745db0b637f7ccecaed0b4086a0bed887d411675d6f7bb122c6252de",
+        "data_manifest": "d10437e6877d39e3ce0ef6fe920610744eda03c6fd0d917c02d00182aa550e0e"
+      }
+    },
+    {
+      "dataset": "imagenetr",
+      "stages": 2,
+      "seen_classes": 40,
+      "use_orth": true,
+      "decay": true,
+      "image_epochs": 1,
+      "classifier_alignment_epochs": 1,
+      "max_train_examples_per_class": 64,
+      "validation_fraction": 0.02,
+      "official_test_read": false,
+      "arrivals": [
+        1267,
+        1238
+      ],
+      "main_steps": [
+        40,
+        39
+      ],
+      "ca_backward_calls": [
+        0,
+        40
+      ],
+      "original_body_unchanged": true,
+      "zero_image_memory": true,
+      "one_raw_eval_per_stage": true,
+      "checkpoint_written": true,
+      "source_process_terminal": true,
+      "gpu_peak_allocated_bytes": 3283557888,
+      "wall_seconds": 36.86770237982273,
+      "source_metadata_sha256": {
+        "config": "d825867b9e8b877a472541b74c6efd3436c7f2b09bc91b0802a66c3743268a68",
+        "results": "167af6276f7e9b87c3543f7e35c4cd3687ff98c7a7c4a0ab26fe40cb003c5684",
+        "data_manifest": "a3f784c5ee847e9f627fe45e665aa44e125ba053f404b2790c0b2f51e22bd703"
+      }
+    }
+  ]
+}

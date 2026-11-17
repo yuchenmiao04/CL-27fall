@@ -1,0 +1,44 @@
+{
+  "scope": "Correctness checks only; no formal performance claims.",
+  "local_environment": "Python3.10.11,PyTorch2.0.1,timm0.6.12,CPU",
+  "test_groups": [
+    {
+      "files": [
+        "tests/test_tuna_protocol.py",
+        "tests/test_baseline_integration.py",
+        "tests/test_cl27_integration.py"
+      ],
+      "passed": 53
+    },
+    {
+      "files": [
+        "tests/test_followup_queue.py",
+        "tests/test_current_frozen_prefix.py",
+        "tests/test_current_episode_replay.py"
+      ],
+      "passed": 61
+    },
+    {
+      "files": [
+        "tests/test_followup_audit.py"
+      ],
+      "passed": 32
+    }
+  ],
+  "current_epochs20_fixture": {
+    "synthetic": true,
+    "tasks": 3,
+    "epochs_per_task": 20,
+    "official_test_read": false,
+    "performance_claim": false,
+    "epoch_counters_verified": true
+  },
+  "native_source_and_recipe_guards": "Verified by prepare_followup_campaign.source_inventory and check_template for all four templates.",
+  "file_sha256": {
+    "models/tuna_protocol.py": "e9098f2626eeda0f54d8310f1e9b8aebbf60732733473ccc702faa1a380bced3",
+    "tests/test_tuna_protocol.py": "b28d66a113ef16ac874ca22e7c44c56e8f11714a4fe75ebaa2e3a9d530e3a71a",
+    "scripts/run_followup_queue.py": "e912c04ee2acec1304f7a87c29fe0f97c59b18d745cfc071766bf74328027b36",
+    "scripts/audit_followup_campaign.py": "b5acafd26bb1c31a924329309f8d7df651bb4fabab28eed5fc8264afd6de64a6",
+    "tests/test_followup_audit.py": "eb191e512a784bb740e4c1a0f6a101fd173169f7ed3ba47b1fdef934ca2fca84"
+  }
+}
