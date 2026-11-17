@@ -324,6 +324,169 @@ def finite_scan(value, np, torch, counts=None):
     return counts
 
 
+def numeric_payload_bytes(value, seen=None):
+    """Count tensor/NumPy payload, once per object, excluding Python overhead."""
+    import numpy as np
+    import torch
+    seen = set() if seen is None else seen
+    if isinstance(value, (torch.Tensor, np.ndarray, np.generic)):
+        if id(value) in seen:
+            return 0
+        seen.add(id(value))
+        if isinstance(value, torch.Tensor):
+            return int(value.numel() * value.element_size())
+        if isinstance(value, np.ndarray) and value.dtype.hasobject:
+            return sum(numeric_payload_bytes(item, seen) for item in value.flat)
+        return int(value.nbytes)
+    if isinstance(value, dict):
+        return sum(numeric_payload_bytes(child, seen) for child in value.values())
+    if isinstance(value, (list, tuple)):
+        return sum(numeric_payload_bytes(child, seen) for child in value)
+    return 0
+
+
+def neural_resources(network, classify):
+    """Partition registered neural tensors, preserving requires_grad meaning."""
+    parts = {}
+    def part(name):
+        label = classify(name)
+        need(isinstance(label, str) and bool(label), 'Neural tensor has no resource component: ' + name)
+        return parts.setdefault(label, dict(parameters=0, parameter_bytes=0,
+                                            gradient_eligible_parameters=0,
+                                            gradient_eligible_parameter_bytes=0,
+                                            registered_buffer_bytes=0))
+    for name, parameter in network.named_parameters():
+        row = part(name)
+        count, size = int(parameter.numel()), int(parameter.numel() * parameter.element_size())
+        row['parameters'] += count
+        row['parameter_bytes'] += size
+        if parameter.requires_grad:
+            row['gradient_eligible_parameters'] += count
+            row['gradient_eligible_parameter_bytes'] += size
+    for name, buffer in network.named_buffers():
+        part(name)['registered_buffer_bytes'] += int(buffer.numel() * buffer.element_size())
+    totals = {key: sum(row[key] for row in parts.values()) for key in
+              ('parameters', 'parameter_bytes', 'gradient_eligible_parameters',
+               'gradient_eligible_parameter_bytes', 'registered_buffer_bytes')}
+    need(totals['parameters'] == sum(p.numel() for p in network.parameters()), 'NN parameter partition differs')
+    return dict(resident_nn_parameters=totals['parameters'],
+                resident_nn_parameter_bytes=totals['parameter_bytes'],
+                gradient_eligible_nn_parameters=totals['gradient_eligible_parameters'],
+                gradient_eligible_nn_parameter_bytes=totals['gradient_eligible_parameter_bytes'],
+                registered_nn_buffer_bytes=totals['registered_buffer_bytes'],
+                components=parts, component_partition_verified=True,
+                gradient_eligibility_scope='requires_grad at the restored task boundary; not observed gradient updates',
+                byte_scope='Logical tensor payload of unique registered Parameter/buffer objects; no activations, Python overhead, or allocator/peak-memory claim')
+
+
+def replay_resources(memory):
+    """Separate in-checkpoint RGB arrays from externally referenced images."""
+    import numpy as np
+    from PIL import Image
+    inline, path_bytes, file_bytes, decoded, paths = 0, 0, 0, 0, 0
+    for record in memory.records:
+        if isinstance(record.image, np.ndarray):
+            inline += int(record.image.nbytes)
+            decoded += int(record.image.nbytes)
+        else:
+            path = Path(record.image)
+            paths += 1
+            path_bytes += len(str(record.image).encode('utf-8'))
+            file_bytes += path.stat().st_size
+            with Image.open(path) as image:
+                decoded += image.width * image.height * 3
+    count = len(memory.records)
+    return dict(images=count, inline_rgb_array_bytes=inline, referenced_images=paths,
+                referenced_encoded_image_file_bytes=file_bytes,
+                image_path_utf8_bytes=path_bytes, image_id_label_int64_payload_bytes=16 * count,
+                decoded_rgb_plus_id_label_payload_bytes=decoded + 16 * count,
+                scope='Referenced source-file bytes and decoded RGB payload are separate quantities, not additional in-RAM image copies; metadata/container overhead excluded')
+
+
+def restored_resources(model, method):
+    """Measure the restored native objects without changing model or RNG state."""
+    need(method in {'current_adapted', 'tuna'}, 'Unknown resource-accounting method')
+    network = model._network
+    if method == 'current_adapted':
+        def classify(name):
+            for prefix, label in (
+                ('engine.encoder.main.', 'predictive_backbone'),
+                ('engine.encoder.anchor.', 'frozen_anchor'),
+                ('engine.encoder.libraries.', 'module_libraries'),
+            ):
+                if name.startswith(prefix):
+                    return label
+            raise ValueError('Unclassified current neural resource: ' + name)
+        engine = model.core
+        neural = neural_resources(network, classify)
+        libraries = engine.encoder.libraries
+        architecture = dict(library_positions=list(engine.encoder.positions),
+                            library_count=len(libraries),
+                            experts_per_library=[int(lib.count) for lib in libraries],
+                            expert_ranks=[int(lib.V.shape[-2]) for lib in libraries],
+                            learned_expert_count=sum(int(lib.count) for lib in libraries),
+                            fixed_null_options=len(libraries))
+        optimizer_rows = {}
+        for name, optimizer in engine.optimizers.items():
+            parameters = [p for group in optimizer.param_groups for p in group['params']]
+            optimizer_rows[name] = dict(state_tensor_bytes=numeric_payload_bytes(optimizer.state),
+                                        parameter_groups=len(optimizer.param_groups),
+                                        bound_parameter_objects=len({id(p) for p in parameters}),
+                                        bound_parameter_elements=sum(p.numel() for p in {id(p): p for p in parameters}.values()),
+                                        state_entries=len(optimizer.state))
+        optimizer = dict(persisted_optimizer_count=len(optimizer_rows),
+                         persisted_optimizer_state_tensor_bytes=sum(row['state_tensor_bytes'] for row in optimizer_rows.values()),
+                         per_optimizer=optimizer_rows,
+                         scope='Actual restored optimizer state tensors, excluding parameter weights and Python hyperparameter/container overhead')
+        auxiliary = dict(frozen_anchor_statistics_bytes=numeric_payload_bytes(
+                             (engine.statistics.G, engine.statistics.C)),
+                         analytic_readout_bytes=numeric_payload_bytes((engine.W0, engine.V)),
+                         resident_anchor_feature_cache_bytes=numeric_payload_bytes(engine.memory_base),
+                         private_torch_rng_state_bytes=numeric_payload_bytes(
+                             (engine.rng.get_state(), engine.kind_rng.get_state())))
+        replay = replay_resources(model.memory)
+    else:
+        def classify(name):
+            for prefix, label in (
+                ('backbone.cur_adapter.', 'current_adapters'),
+                ('backbone.adapter_list.', 'historical_adapters'),
+                ('backbone.merged_adapter.', 'merged_adapters'),
+                ('backbone.head.', 'native_backbone_heads'),
+                ('backbone.head_dist.', 'native_backbone_heads'),
+                ('fc.', 'class_predictor_heads'),
+                ('backbone.', 'original_backbone_body'),
+            ):
+                if name.startswith(prefix):
+                    return label
+            raise ValueError('Unclassified TUNA neural resource: ' + name)
+        backbone = network.backbone
+        neural = neural_resources(network, classify)
+        architecture = dict(current_adapter_layers=len(backbone.cur_adapter),
+                            historical_adapter_sets=len(backbone.adapter_list),
+                            historical_adapter_layers_per_set=[len(group) for group in backbone.adapter_list],
+                            historical_adapter_layers=sum(len(group) for group in backbone.adapter_list),
+                            merged_adapter_layers=len(backbone.merged_adapter),
+                            class_predictor_heads=len(network.fc.heads))
+        optimizer = dict(persisted_optimizer_count=0, persisted_optimizer_state_tensor_bytes=0,
+                         per_optimizer={},
+                         scope='Native TUNA does not retain its main/CA optimizers across task boundaries; zero persisted state is not a training peak-memory measurement')
+        auxiliary = dict(class_mean_bytes=numeric_payload_bytes(model.cls_mean),
+                         class_covariance_bytes=numeric_payload_bytes(model.cls_cov),
+                         historical_class_statistics_bytes=numeric_payload_bytes((model.cls_mean, model.cls_cov)),
+                         training_arrival_id_bytes=numeric_payload_bytes(model._arrived_ids),
+                         native_prefix_state_bytes=numeric_payload_bytes({
+                             key: getattr(backbone, key) for key in
+                             ('down_weight_sum', 'down_bias_sum', 'up_weight_sum', 'up_bias_sum')}))
+        replay = dict(images=int(model.exemplar_size), inline_rgb_array_bytes=0,
+                      referenced_images=0, referenced_encoded_image_file_bytes=0,
+                      image_path_utf8_bytes=0, image_id_label_int64_payload_bytes=0,
+                      decoded_rgb_plus_id_label_payload_bytes=0)
+        need(replay['images'] == 0, 'Unexpected TUNA replay in resource audit')
+    return dict(schema_version=1, method=method, neural_network=neural,
+                architecture=architecture, optimizer=optimizer, auxiliary=auxiliary, replay=replay,
+                measurement_scope='Measured from actual CPU-restored completed-task objects; logical tensor payloads and source-image sizes, not matched compute, training FLOPs, wall time, or peak resident memory')
+
+
 def native_restore(admission, checkpoint, comparator_path):
     """Instantiate the exact method on CPU and compare every persisted leaf."""
     os.environ['CUDA_VISIBLE_DEVICES'] = ''
@@ -457,6 +620,7 @@ def native_restore(admission, checkpoint, comparator_path):
         source_guard(repo, admission['source_inventory'])
         need(all(admission['source_inventory'].get(name) == digest for name, digest in imported.items()),
              'Imported native source was absent from the prebound inventory')
+    resources = restored_resources(model, cfg['model_name'])
     return dict(native_cpu_restore_executed=True, **comparison,
                 actual_training_rows=int(expected_counts.sum()), actual_seen_classes=seen,
                 source_data_manifest_rebuilt=True, source_training_arrivals_verified=True,
@@ -468,6 +632,7 @@ def native_restore(admission, checkpoint, comparator_path):
                 saved_cuda_rng_payload_lengths=None if rng['cuda'] is None else [v.numel() for v in rng['cuda']],
                 cuda_rng_applied=False, extra_training_steps=0, accuracy_evaluation_performed=False,
                 finite_scan=finite_counts,
+                restored_resources=resources,
                 runtime_source_files_sha256=imported,
                 state_comparator_sha256=sha(comparator_path), pretrained_npz_sha256=WEIGHT_SHA)
 

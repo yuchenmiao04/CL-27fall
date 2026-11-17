@@ -7,15 +7,18 @@ accuracy. There is no hyperparameter search in this extension.
 
 ## Fixed job assignment
 
-| Physical GPU | First job | Following job |
+| Host partition | Physical GPU | Job |
 | --- | --- | --- |
-| 0 | `formal_cifar_current_epochs20_v1` | `formal_cifar_tuna_native_v1` |
-| 1 | `formal_imagenetr_current_epochs20_v1` | `formal_imagenetr_tuna_native_v1` |
+| `current20`: original two RTX 5090 GPUs | 0 | `formal_cifar_current_epochs20_v1` |
+| `current20`: original two RTX 5090 GPUs | 1 | `formal_imagenetr_current_epochs20_v1` |
+| `tuna`: added two RTX 4090 D GPUs | 0 | `formal_cifar_tuna_native_v1` |
+| `tuna`: added two RTX 4090 D GPUs | 1 | `formal_imagenetr_tuna_native_v1` |
 
-Both longer fixed-library jobs start first, one independent process per GPU.
-Each TUNA job starts only after its same-card predecessor has both terminated
-and produced a complete ten-stage result. No job shares a GPU with another
-training process. Unknown GPU occupants block admission on that card.
+Each job uses one independent GPU. The user authorized the added server so the
+TUNA jobs can run concurrently with the fixed-library jobs. The original
+fixed-library workers continue unchanged; their controller is adoption-only.
+Unknown GPU occupants block admission. The original sequential dispatcher is
+not used for this partitioned execution.
 
 ## Common protocol
 
@@ -103,12 +106,22 @@ and a new campaign directory.
   --campaign-root /absolute/runtime/campaigns/extension_fresh \
   --source-commit ACTUAL_COMMIT
 
-/absolute/env/bin/python /absolute/repo/scripts/run_followup_queue.py \
-  --manifest /absolute/runtime/campaigns/extension_fresh/manifest.json --plan
+/absolute/env/bin/python /absolute/control/run_followup_partition.py \
+  --manifest /absolute/runtime/campaigns/extension_fresh/manifest.json \
+  --partition current20 --plan
 
-/absolute/env/bin/python /absolute/repo/scripts/run_followup_queue.py \
-  --manifest /absolute/runtime/campaigns/extension_fresh/manifest.json --execute
+/absolute/env/bin/python /absolute/control/run_followup_partition.py \
+  --manifest /absolute/runtime/campaigns/extension_fresh/manifest.json \
+  --partition current20 --execute
 ```
+
+The `current20` partition requires both original launch receipts and never
+launches a replacement. On the added host, use the identical complete prepared
+manifest, configurations, source paths, Python path, data paths and weight
+cache, then run the same controller with `--partition tuna`. It independently
+admits only the two TUNA jobs. Deploy the standalone controller outside the
+immutable training source. It imports and hash-checks the original
+manifest-bound queue and preparation modules.
 
 Preparation never trains, never overwrites an existing campaign, and retains a
 virtualenv Python path without resolving it to the base interpreter. Its
@@ -133,14 +146,14 @@ large model download to the local Mac.
 
 ## Ownership, recovery, and completion
 
-- A nonblocking exclusive lock permits one active dispatcher per campaign.
+- A nonblocking exclusive lock permits one active dispatcher per host campaign.
   Default execution is `--plan`, which reads state without creating logs,
   launch intents, receipts, locks, or completion seals.
 - Before spawning, an exclusive launch-intent file is durably written. Each
   detached child's receipt records PID, Linux process start ticks, exact
   command, working directory, GPU, environment, config hash, and execution
   source-inventory hash.
-- A restarted dispatcher adopts matching receipts. It never launches another
+- A restarted partition dispatcher adopts matching receipts. It never launches another
   copy merely because a remote observation timed out. An unresolved intent,
   unreceipted output/log, mismatched identity, or recorded failure requires
   operator review and blocks automatic admission. There are no retries or
@@ -148,7 +161,7 @@ large model download to the local Mac.
 - A matching, nonterminal PID with an empty command line remains reserved;
   Linux can clear argv during shutdown. A complete result JSON alone does not
   release the GPU. Terminal or absent original processes must additionally
-  have valid complete artifacts before the next job starts.
+  have valid complete artifacts before being sealed as complete.
 - Completion requires ten ordered stages, the complete final 100-/200-class
   evaluation, the expected 10,000/6,000 final evaluation images, the exact saved
   formal configuration, a data manifest, and a final checkpoint. A partial
@@ -156,6 +169,10 @@ large model download to the local Mac.
 - Original evidence is not deleted. Completion seals bind result, configuration,
   and data-manifest hashes. The queue does not infer method quality from test
   accuracy and does not select a replacement for the original 5-epoch row.
+- Formal checkpoint backup and native CPU restore run on the host that owns
+  each job. Partition audits reopen those files locally. The global merge binds
+  both remote audit hashes and revalidates their exported metadata and metrics;
+  it does not claim that model files were reopened on the local Mac.
 
 ## Runtime estimate and local checks
 

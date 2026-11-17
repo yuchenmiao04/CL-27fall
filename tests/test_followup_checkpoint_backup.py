@@ -5,12 +5,16 @@ import copy
 import hashlib
 import json
 from pathlib import Path
+from types import SimpleNamespace
 
+import numpy as np
 import pytest
 import torch
+from torch import nn
 
 from scripts import backup_followup_checkpoint as backup
 from scripts import compare_checkpoint_state as comparator
+from cl27.current.engine import ResidualLibrary
 
 REPO = Path(__file__).resolve().parents[1]
 JOB = 'formal_cifar_current_epochs20_v1'
@@ -214,3 +218,117 @@ def test_validation_receipt_is_explicit_and_never_becomes_formal_evidence(fixtur
     assert result['validation_only'] is True and result['formal_checkpoint_evidence'] is False
     with pytest.raises(ValueError, match='Formal backup requires'):
         backup.admit(None, 'two_stage_validation', run_dir=fixture['run_dir'])
+
+
+def test_current_restored_resource_counts_are_partitioned_without_state_changes():
+    engine = nn.Module()
+    encoder = nn.Module()
+    encoder.main = nn.Linear(2, 2, bias=False)
+    encoder.anchor = nn.Linear(2, 2, bias=False).double().requires_grad_(False)
+    encoder.libraries = nn.ModuleList([ResidualLibrary(width=2, rank=1, count=2)])
+    encoder.positions = (0,)
+    engine.encoder = encoder
+    engine.statistics = SimpleNamespace(G=torch.zeros(3, 3, dtype=torch.float64),
+                                       C=torch.zeros(3, 2, dtype=torch.float64))
+    engine.W0, engine.V = (torch.zeros(3, 2, dtype=torch.float64) for _ in range(2))
+    engine.memory_base = {1: torch.ones(3, dtype=torch.float64), 2: torch.ones(3, dtype=torch.float64)}
+    engine.rng = torch.Generator().manual_seed(7)
+    engine.kind_rng = torch.Generator().manual_seed(11)
+    engine.optimizers = dict(modules=torch.optim.AdamW(encoder.libraries.parameters()),
+                             backbone=torch.optim.AdamW(encoder.main.parameters()))
+    for optimizer in engine.optimizers.values():
+        for group in optimizer.param_groups:
+            for parameter in group['params']:
+                optimizer.state[parameter] = dict(step=torch.tensor(3.), exp_avg=torch.zeros_like(parameter),
+                                                   exp_avg_sq=torch.ones_like(parameter))
+    network = nn.Module()
+    network.engine = engine
+    memory = SimpleNamespace(records=[SimpleNamespace(image=np.zeros((2, 2, 3), dtype=np.uint8)) for _ in range(2)])
+    model = SimpleNamespace(_network=network, core=engine, memory=memory)
+    before = copy.deepcopy((network.state_dict(), {k: v.state_dict() for k, v in engine.optimizers.items()},
+                            engine.rng.get_state(), engine.kind_rng.get_state()))
+    measured = backup.restored_resources(model, 'current_adapted')
+    neural = measured['neural_network']
+    assert neural['resident_nn_parameters'] == 22
+    assert neural['resident_nn_parameter_bytes'] == 104
+    assert neural['gradient_eligible_nn_parameters'] == 18
+    assert neural['gradient_eligible_nn_parameter_bytes'] == 72
+    assert neural['registered_nn_buffer_bytes'] == 4
+    assert {k: v['parameters'] for k, v in neural['components'].items()} == dict(
+        predictive_backbone=4, frozen_anchor=4, module_libraries=14)
+    assert measured['architecture'] == dict(library_positions=[0], library_count=1,
+                                            experts_per_library=[2], expert_ranks=[1],
+                                            learned_expert_count=2, fixed_null_options=1)
+    assert measured['optimizer']['persisted_optimizer_state_tensor_bytes'] == 164
+    assert measured['optimizer']['per_optimizer']['modules']['state_tensor_bytes'] == 128
+    assert measured['optimizer']['per_optimizer']['backbone']['state_tensor_bytes'] == 36
+    assert measured['auxiliary']['frozen_anchor_statistics_bytes'] == 120
+    assert measured['auxiliary']['analytic_readout_bytes'] == 96
+    assert measured['auxiliary']['resident_anchor_feature_cache_bytes'] == 48
+    assert measured['replay']['images'] == 2 and measured['replay']['inline_rgb_array_bytes'] == 24
+    assert measured['replay']['decoded_rgb_plus_id_label_payload_bytes'] == 56
+    after = (network.state_dict(), {k: v.state_dict() for k, v in engine.optimizers.items()},
+             engine.rng.get_state(), engine.kind_rng.get_state())
+    comparison = comparator.Comparison()
+    comparison.walk(before, after)
+    assert comparison.differences == []
+
+
+def test_tuna_restored_resources_include_all_adapter_sets_and_both_head_types():
+    backbone = nn.Module()
+    backbone.body = nn.Linear(2, 2, bias=False).requires_grad_(False)
+    backbone.register_buffer('body_buffer', torch.zeros(2, dtype=torch.float64))
+    backbone.head = nn.Linear(2, 3)
+    backbone.cur_adapter = nn.ModuleList([nn.Linear(2, 1, bias=False) for _ in range(2)])
+    backbone.adapter_list = nn.ModuleList([copy.deepcopy(backbone.cur_adapter) for _ in range(3)])
+    backbone.adapter_list[0].requires_grad_(False)
+    backbone.merged_adapter = copy.deepcopy(backbone.cur_adapter)
+    for key in ('down_weight_sum', 'down_bias_sum', 'up_weight_sum', 'up_bias_sum'):
+        setattr(backbone, key, [])
+    network = nn.Module()
+    network.backbone = backbone
+    network.fc = nn.Module()
+    network.fc.heads = nn.ModuleList([nn.Linear(2, 2, bias=False) for _ in range(2)])
+    model = SimpleNamespace(_network=network, exemplar_size=0,
+                            cls_mean={i: torch.zeros(2) for i in range(2)},
+                            cls_cov={i: torch.zeros(2, 2) for i in range(2)},
+                            _arrived_ids=[np.arange(4, dtype=np.int64)])
+    measured = backup.restored_resources(model, 'tuna')
+    neural = measured['neural_network']
+    assert neural['resident_nn_parameters'] == 41 and neural['resident_nn_parameter_bytes'] == 164
+    assert neural['gradient_eligible_nn_parameters'] == 33
+    assert neural['gradient_eligible_nn_parameter_bytes'] == 132
+    assert neural['registered_nn_buffer_bytes'] == 16
+    assert {k: v['parameters'] for k, v in neural['components'].items()} == dict(
+        original_backbone_body=4, native_backbone_heads=9, current_adapters=4,
+        historical_adapters=12, merged_adapters=4, class_predictor_heads=8)
+    assert measured['architecture'] == dict(current_adapter_layers=2, historical_adapter_sets=3,
+                                            historical_adapter_layers_per_set=[2, 2, 2], historical_adapter_layers=6,
+                                            merged_adapter_layers=2, class_predictor_heads=2)
+    assert measured['auxiliary']['class_mean_bytes'] == 16
+    assert measured['auxiliary']['class_covariance_bytes'] == 32
+    assert measured['auxiliary']['historical_class_statistics_bytes'] == 48
+    assert measured['auxiliary']['training_arrival_id_bytes'] == 32
+    assert measured['optimizer']['persisted_optimizer_count'] == 0
+    assert measured['optimizer']['persisted_optimizer_state_tensor_bytes'] == 0
+    assert measured['replay']['images'] == 0
+
+
+def test_replay_resources_distinguish_encoded_paths_from_inline_or_decoded_bytes(tmp_path):
+    from PIL import Image
+    path = tmp_path / 'image.png'
+    Image.fromarray(np.zeros((3, 4, 3), dtype=np.uint8)).save(path)
+    memory = SimpleNamespace(records=[SimpleNamespace(image=str(path))])
+    measured = backup.replay_resources(memory)
+    assert measured['images'] == measured['referenced_images'] == 1
+    assert measured['inline_rgb_array_bytes'] == 0
+    assert measured['referenced_encoded_image_file_bytes'] == path.stat().st_size
+    assert measured['image_path_utf8_bytes'] == len(str(path).encode('utf-8'))
+    assert measured['decoded_rgb_plus_id_label_payload_bytes'] == 3 * 4 * 3 + 16
+
+
+def test_numeric_payload_count_deduplicates_objects_and_ignores_python_metadata():
+    value = torch.ones(3, dtype=torch.float64)
+    array = np.zeros(2, dtype=np.int16)
+    assert backup.numeric_payload_bytes(dict(one=value, alias=value, array=array,
+                                             metadata=[123456, 'not tensor bytes', 2.5])) == 28

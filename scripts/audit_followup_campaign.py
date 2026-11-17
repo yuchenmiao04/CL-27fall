@@ -1,18 +1,22 @@
 #!/usr/bin/env python3
 """Audit the four predeclared follow-ups without selecting runs by test score.
 
-Only the standard library is used. Run this on the server containing the
-immutable executed source and checkpoint files. ``--allow-incomplete`` permits
-progress tables, but never converts missing checkpoint/restore evidence into a
-completed audit. The original twelve results are not modified or reselected.
+Only the standard library is used. Local audits run on the server containing
+the immutable source and checkpoints. A partition merge instead rechecks exact
+metadata exports and the two SHA-bound host-local proofs, without reopening
+remote model files. ``--allow-incomplete`` never turns missing checkpoint proof
+into completion. The original twelve results are not modified or reselected.
 """
 from __future__ import annotations
 
 import argparse
+import csv
 import hashlib
 import json
 import math
 from pathlib import Path
+import re
+import subprocess
 import sys
 
 if __package__:
@@ -29,6 +33,12 @@ RNG_POLICY = "canonical_loader_isolated_v1"
 TUNA_RNG_POLICY = "native_tuna_loaders_and_one_raw_eval_v1"
 METRICS = ("final_accuracy", "aia", "forgetting_previous",
            "forgetting_including_final")
+PARTITIONS = {
+    "all": tuple(job for job, *_ in JOBS),
+    "current20": tuple(job for job, _, _, method in JOBS if method == "current_adapted"),
+    "tuna": tuple(job for job, _, _, method in JOBS if method == "tuna"),
+}
+RUNTIME_ID_RULE = "sha256(canonical JSON of boot_id and sorted GPU UUIDs)"
 # Counts are from the already verified full selected PILOT data, seed1993.
 # Checking these, in addition to the complete manifest fingerprint, prevents a
 # self-consistent but truncated or differently weighted accuracy matrix passing.
@@ -103,6 +113,64 @@ def normalized_prepared(config):
     need(config.get("seed") == [1993], "Prepared seed must be the single seed [1993]")
     config["seed"] = 1993
     return config
+
+
+def host_identity(alias, fingerprint):
+    need(isinstance(alias, str) and re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,63}", alias),
+         "Partition audits require a nonsensitive host alias")
+    need(isinstance(fingerprint, str)
+         and re.fullmatch(r"SHA256:[A-Za-z0-9+/]{43}=?", fingerprint),
+         "Partition audits require the inspected SHA256 host-key fingerprint")
+    return {"alias": alias, "host_key_fingerprint": fingerprint}
+
+
+def runtime_identity():
+    """Identify the physical runtime without publishing boot IDs or GPU UUIDs."""
+    boot_id = Path("/proc/sys/kernel/random/boot_id").read_text().strip()
+    need(bool(re.fullmatch(r"[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}", boot_id)),
+         "Cannot identify the live host boot")
+    text = subprocess.check_output(
+        ["nvidia-smi", "--query-gpu=uuid,name", "--format=csv,noheader"], text=True)
+    rows = [[part.strip() for part in row] for row in csv.reader(text.splitlines()) if row]
+    need(len(rows) == 2 and all(len(row) == 2 and row[0].startswith("GPU-") and row[1] for row in rows)
+         and len({row[0] for row in rows}) == 2, "Cannot identify the two physical GPUs")
+    encoded = json.dumps({"boot_id": boot_id, "gpu_uuids": sorted(row[0] for row in rows)},
+                         sort_keys=True, separators=(",", ":")).encode()
+    return {"fingerprint_sha256": hashlib.sha256(encoded).hexdigest(),
+            "gpu_models": sorted(row[1] for row in rows), "rule": RUNTIME_ID_RULE}
+
+
+def validate_runtime_identity(value):
+    need(isinstance(value, dict) and set(value) == {"fingerprint_sha256", "gpu_models", "rule"}
+         and value.get("rule") == RUNTIME_ID_RULE
+         and isinstance(value.get("fingerprint_sha256"), str)
+         and re.fullmatch(r"[0-9a-f]{64}", value["fingerprint_sha256"])
+         and isinstance(value.get("gpu_models"), list) and len(value["gpu_models"]) == 2
+         and all(isinstance(name, str) and name and not any(c in name for c in "\r\n\0")
+                 for name in value["gpu_models"]), "Partition runtime identity is incomplete or exposes raw identifiers")
+    return value
+
+
+def metadata_export(path):
+    data = Path(path).read_bytes()
+    return {"sha256": hashlib.sha256(data).hexdigest(), "text": data.decode("utf-8")}
+
+
+def load_metadata_export(exports, name, expected_sha):
+    need(isinstance(exports, dict), "Missing exact metadata exports")
+    record = exports.get(name, {})
+    need(isinstance(record, dict), "Invalid metadata export: " + name)
+    text = record.get("text")
+    need(isinstance(text, str), "Missing exact metadata export: " + name)
+    try:
+        digest = hashlib.sha256(text.encode("utf-8")).hexdigest()
+        value = json.loads(text, parse_constant=lambda s: (_ for _ in ()).throw(ValueError(s)))
+    except (ValueError, UnicodeError) as error:
+        raise AuditError("Invalid metadata export: " + name) from error
+    need(digest == record.get("sha256") == expected_sha,
+         "Metadata export SHA differs: " + name)
+    need(isinstance(value, dict), "Metadata export must contain a JSON object: " + name)
+    return value
 
 
 def validate_prepared_manifest(path):
@@ -300,11 +368,16 @@ def validate_records(prepared, saved, result, data, sources):
     return metrics, resources
 
 
-def validate_checkpoint_evidence(path, entry, run):
+def validate_checkpoint_evidence(path, entry, run, *, sources, manifest_sha256):
     evidence = read(path)
     checkpoint = run / "checkpoint.pt"
     need(checkpoint.is_file(), "Final server-local checkpoint is missing")
     need(evidence.get("job") == entry["job"], "Checkpoint evidence job differs")
+    need(evidence.get("validation_only") is False
+         and evidence.get("formal_checkpoint_evidence") is True,
+         "Validation-only evidence cannot finalize a formal checkpoint")
+    need(evidence.get("source_manifest_sha256") == manifest_sha256,
+         "Checkpoint evidence prepared-manifest binding differs")
     size, digest = checkpoint.stat().st_size, sha(checkpoint)
     need(type(evidence.get("checkpoint_bytes")) is int and evidence["checkpoint_bytes"] == size
          and evidence.get("checkpoint_sha256") == digest and evidence.get("backup_sha256") == digest,
@@ -314,19 +387,86 @@ def validate_checkpoint_evidence(path, entry, run):
     required = {"config": sha(run / "config.json"), "results": sha(run / "results.json"),
                 "data_manifest": sha(run / "data_manifest.json")}
     need(evidence.get("source_metadata_sha256") == required, "Checkpoint audit metadata binding differs")
+
+    # A previously successful copy is not proof that its backup still exists.
+    # Reopen the actual server-local model and report at final audit time.
+    backup_name, report_name = (evidence.get(name) for name in
+                                ("backup_checkpoint_path", "restore_report_path"))
+    need(isinstance(backup_name, str) and isinstance(report_name, str),
+         "Missing server-local backup or restore-report path")
+    backup, report_path = Path(backup_name), Path(report_name)
+    need(backup.is_absolute() and backup.is_file()
+         and not backup.samefile(checkpoint), "Separate server-local backup is missing")
+    need(backup.stat().st_size == size and sha(backup) == digest,
+         "Actual server-local backup bytes differ")
+    need(report_path.is_absolute() and report_path.is_file(),
+         "Native restore report file is missing")
+    report_digest = sha(report_path)
+    need(evidence.get("restore_report_sha256") == report_digest,
+         "Native restore report file SHA differs")
+    report = read(report_path)
+    need(report == evidence.get("restore_report") and sha(report_path) == report_digest,
+         "Embedded and server-local native restore reports differ")
+    need(report.get("native_cpu_restore_executed") is True
+         and report.get("exact_typed_bitwise_comparison") is True
+         and report.get("ignored_paths") == [],
+         "Native CPU exact comparison is incomplete or ignored learner fields")
+    integer(report.get("compared_nodes"), "Compared native learner nodes", minimum=1)
+    semantic = report.get("reference_semantic_sha256")
+    need(isinstance(semantic, str) and len(semantic) == 64
+         and all(character in "0123456789abcdef" for character in semantic)
+         and report.get("restored_semantic_sha256") == semantic,
+         "Native restored learner semantic digest differs")
+    config = read(run / "config.json")
+    spec = DATA[config["dataset"]]
+    need(report.get("actual_training_rows") == sum(spec["train_tasks"])
+         and report.get("actual_seen_classes") == spec["classes"]
+         and report.get("source_data_manifest_rebuilt") is True
+         and report.get("source_training_arrivals_verified") is True,
+         "Native restored full-data endpoint is not verified")
+    need(report.get("global_rng_payloads_validated_on_cpu") is True
+         and report.get("cuda_rng_applied") is False
+         and type(report.get("extra_training_steps")) is int
+         and report["extra_training_steps"] == 0
+         and report.get("accuracy_evaluation_performed") is False
+         and report.get("pretrained_npz_sha256") == NPZ_SHA,
+         "Native restore execution or pretrained identity differs")
+    imported = report.get("runtime_source_files_sha256")
+    wrapper = "models/" + ("tuna_protocol" if config["model_name"] == "tuna" else "current_adapted") + ".py"
+    need(isinstance(imported, dict) and wrapper in imported
+         and all(name in sources and sources[name] == value
+                 for name, value in imported.items()),
+         "Native restore imported source differs from the prepared snapshot")
+    if config["model_name"] == "tuna":
+        need(report.get("persisted_mode_map_compared") is True,
+             "Native TUNA persisted module modes are not verified")
     return {"checkpoint_sha256": digest, "checkpoint_bytes": size,
             "backup_sha256": evidence["backup_sha256"], "native_restore_verified": True,
             "source_process_terminal_verified": True, "evidence_sha256": sha(path),
-            "evidence_path": str(path)}
+            "evidence_path": str(path), "actual_backup_rehashed": True,
+            "backup_checkpoint_path": str(backup), "restore_report_path": str(report_path),
+            "restore_report_sha256": report_digest, "compared_nodes": report["compared_nodes"],
+            "reference_semantic_sha256": semantic, "restored_semantic_sha256": semantic,
+            "formal_checkpoint_evidence": True, "source_manifest_sha256": manifest_sha256}
 
 
-def audit_campaign(manifest_path, evidence_root=None, *, allow_incomplete=False):
+def audit_campaign(manifest_path, evidence_root=None, *, allow_incomplete=False,
+                   partition="all", host_alias=None, host_key_fingerprint=None):
+    need(partition in PARTITIONS, "Unknown local audit partition")
+    host = (host_identity(host_alias, host_key_fingerprint)
+            if partition != "all" or host_alias is not None or host_key_fingerprint is not None else None)
+    if host is not None:
+        host["runtime_identity"] = validate_runtime_identity(runtime_identity())
+    selected = PARTITIONS[partition]
     manifest_path = Path(manifest_path).resolve()
     manifest, configs = validate_prepared_manifest(manifest_path)
+    manifest_digest = sha(manifest_path)
     evidence_root = Path(evidence_root or (manifest_path.parent / "checkpoint_evidence"))
     rows = []
     for entry in manifest["jobs"]:
         job, run = entry["job"], Path(entry["output_dir"])
+        if job not in selected:
+            continue
         row = {"job": job, "dataset": entry["dataset"], "method": entry["method"],
                "comparison_variant": entry["comparison_variant"], "seed": 1993,
                "status": "pending", "metrics": dict.fromkeys(METRICS)}
@@ -342,26 +482,175 @@ def audit_campaign(manifest_path, evidence_root=None, *, allow_incomplete=False)
                                "data_fingerprint": data["fingerprint"],
                                "prepared_config_sha256": entry["config"]["sha256"],
                                "config_fingerprint": result["config_fingerprint"]})
+            if partition != "all":
+                row["metadata_exports"] = {
+                    name: metadata_export(file) for name, file in (
+                        ("prepared_config", entry["config"]["path"]),
+                        ("config", run / "config.json"), ("results", result_path),
+                        ("data_manifest", run / "data_manifest.json"))}
             evidence_path = evidence_root / (job + ".json")
             if evidence_path.exists():
-                row["checkpoint_audit"] = validate_checkpoint_evidence(evidence_path, entry, run)
+                row["checkpoint_audit"] = validate_checkpoint_evidence(
+                    evidence_path, entry, run, sources=manifest["source_files_sha256"],
+                    manifest_sha256=manifest_digest)
                 row["status"] = "verified_complete"
         elif (run / "progress.json").exists():
             progress = read(run / "progress.json")
             row.update(status="incomplete", completed_stage_records=len(progress.get("stages", [])))
         rows.append(row)
     complete = sum(row["status"] == "verified_complete" for row in rows)
-    need(allow_incomplete or complete == 4, "Follow-up audit incomplete: " + str(complete) + "/4 verified endpoints; use --allow-incomplete for progress only")
+    expected = len(selected)
+    need(allow_incomplete or complete == expected,
+         "Follow-up audit incomplete: " + str(complete) + "/" + str(expected)
+         + " verified endpoints; use --allow-incomplete for progress only")
     return {
-        "schema_version": 1, "status": "verified_complete" if complete == 4 else "incomplete",
-        "expected_results": 4, "verified_results": complete,
+        "schema_version": 1, "status": "verified_complete" if complete == expected else "incomplete",
+        "partition": partition, "partition_jobs": list(selected), "host": host,
+        "external_jobs": [job for job in PARTITIONS["all"] if job not in selected],
+        "external_job_status": "assigned_to_other_partition",
+        "global_expected_results": 4, "expected_results": expected, "verified_results": complete,
         "metrics_verified_results": sum(row["metrics"]["final_accuracy"] is not None for row in rows),
         "seed": 1993, "selection_policy": "The four prepared job identities only; never highest test score.",
-        "manifest_sha256": sha(manifest_path), "source_commit": manifest.get("source_commit"),
+        "manifest_sha256": manifest_digest, "source_commit": manifest.get("source_commit"),
         "source_files_sha256": manifest["source_files_sha256"], "upstream_commit": UPSTREAM,
         "metric_units": "Fractions; Markdown uses percent accuracy and percentage-point forgetting.",
         "audit_scope": "Prepared scientific recipe/source/weights, full data identity, unrounded ten-stage records, measured resources and SHA-bound server-local backup/native-restore evidence.",
         "auditor_sha256": sha(Path(__file__)), "rows": rows,
+    }
+
+
+def merge_partition_summaries(manifest_path, summary_paths, *, expected_summary_sha256):
+    """Combine two host-local proofs using exact metadata, never remote models."""
+    need(len(summary_paths) == 2, "Global merge requires two partition reports")
+    need(isinstance(expected_summary_sha256, (list, tuple)) and len(expected_summary_sha256) == 2
+         and all(isinstance(value, str) and re.fullmatch(r"[0-9a-f]{64}", value)
+                 for value in expected_summary_sha256),
+         "Global merge requires the two server-captured partition report SHAs")
+    manifest_path = Path(manifest_path).resolve()
+    manifest, manifest_digest = read(manifest_path), sha(manifest_path)
+    entries = manifest.get("jobs", [])
+    expected = {job: (gpu, dataset, method) for job, gpu, dataset, method in JOBS}
+    need(manifest.get("version") == 1 and isinstance(entries, list) and len(entries) == 4
+         and all(isinstance(entry, dict) for entry in entries)
+         and {entry.get("job") for entry in entries} == set(expected),
+         "Global manifest must bind the four exact job identities")
+    source_commit, sources = manifest.get("source_commit"), manifest.get("source_files_sha256")
+    need(isinstance(source_commit, str) and re.fullmatch(r"[0-9a-f]{40}", source_commit)
+         and isinstance(sources, dict) and bool(sources)
+         and manifest.get("pretrained_npz", {}).get("sha256") == NPZ_SHA,
+         "Global manifest source or pretrained identity is incomplete")
+    by_job = {entry["job"]: entry for entry in entries}
+    for job, entry in by_job.items():
+        need((entry.get("gpu"), entry.get("dataset"), entry.get("method")) == expected[job],
+             "Global manifest job assignment differs: " + job)
+    auditor_digest = sha(Path(__file__))
+    combined, proofs, groups, aliases, runtimes = {}, [], set(), set(), set()
+    for path, expected_report_digest in zip(summary_paths, expected_summary_sha256):
+        path = Path(path).resolve()
+        report_digest = sha(path)
+        need(report_digest == expected_report_digest,
+             "Partition report differs from its server-captured SHA")
+        summary = read(path)
+        need(sha(path) == report_digest, "Partition report changed during merge")
+        group = summary.get("partition")
+        need(group in {"current20", "tuna"} and group not in groups,
+             "Global merge requires one current20 and one tuna partition")
+        groups.add(group)
+        jobs = PARTITIONS[group]
+        need(summary.get("status") == "verified_complete"
+             and summary.get("expected_results") == summary.get("verified_results")
+             == summary.get("metrics_verified_results") == 2
+             and summary.get("global_expected_results") == 4,
+             "Partition is not locally verified complete")
+        need(summary.get("partition_jobs") == list(jobs)
+             and summary.get("external_jobs") == [job for job in PARTITIONS["all"] if job not in jobs]
+             and summary.get("external_job_status") == "assigned_to_other_partition",
+             "Partition coverage or external-job declaration differs")
+        host = summary.get("host", {})
+        need(isinstance(host, dict), "Partition host identity is missing")
+        runtime = validate_runtime_identity(host.get("runtime_identity"))
+        host = {**host_identity(host.get("alias"), host.get("host_key_fingerprint")),
+                "runtime_identity": runtime}
+        need(host["alias"] not in aliases, "Partition host aliases must be distinct")
+        aliases.add(host["alias"])
+        need(runtime["fingerprint_sha256"] not in runtimes,
+             "Partitions must have distinct physical runtime fingerprints")
+        runtimes.add(runtime["fingerprint_sha256"])
+        need(summary.get("manifest_sha256") == manifest_digest
+             and summary.get("source_commit") == source_commit
+             and summary.get("source_files_sha256") == sources
+             and summary.get("upstream_commit") == UPSTREAM
+             and summary.get("auditor_sha256") == auditor_digest
+             and summary.get("seed") == 1993,
+             "Partition manifest/source/auditor/scientific identity differs")
+        rows = summary.get("rows", [])
+        need(isinstance(rows, list) and len(rows) == 2
+             and all(isinstance(row, dict) for row in rows)
+             and {row.get("job") for row in rows} == set(jobs),
+             "Partition rows overlap or omit assigned jobs")
+        proof = {"partition": group, "host": host, "jobs": list(jobs),
+                 "summary_path": str(path), "summary_sha256": report_digest,
+                 "server_captured_summary_sha256": expected_report_digest,
+                 "auditor_sha256": auditor_digest, "manifest_sha256": manifest_digest}
+        proofs.append(proof)
+        for row in rows:
+            job = row["job"]
+            entry = by_job[job]
+            need(job not in combined and row.get("status") == "verified_complete"
+                 and (row.get("dataset"), row.get("method"), row.get("comparison_variant"), row.get("seed"))
+                 == (entry["dataset"], entry["method"], entry["comparison_variant"], 1993),
+                 "Partition row is not its unique verified assignment")
+            source, exports = row.get("source", {}), row.get("metadata_exports")
+            need(isinstance(source, dict), "Partition source metadata is missing")
+            prepared = load_metadata_export(exports, "prepared_config", entry["config"]["sha256"])
+            saved = load_metadata_export(exports, "config", source.get("config_sha256"))
+            result = load_metadata_export(exports, "results", source.get("results_sha256"))
+            data = load_metadata_export(exports, "data_manifest", source.get("data_manifest_sha256"))
+            need(prepared.get("output_dir") == entry["output_dir"]
+                 and prepared.get("device") == [entry["gpu"]]
+                 and source.get("prepared_config_sha256") == entry["config"]["sha256"]
+                 and source.get("data_fingerprint") == data.get("fingerprint")
+                 and source.get("config_fingerprint") == result.get("config_fingerprint"),
+                 "Partition metadata binding differs from the global manifest")
+            metrics, resources = validate_records(prepared, saved, result, data, sources)
+            for metric in METRICS:
+                same(scalar(row.get("metrics", {}).get(metric), "Partition " + metric), metrics[metric], metric)
+            need(row.get("resources") == resources, "Partition resource export differs from its raw records")
+            checkpoint = row.get("checkpoint_audit", {})
+            need(isinstance(checkpoint, dict), "Partition local checkpoint proof is missing")
+            need(all(checkpoint.get(name) is True for name in
+                     ("native_restore_verified", "source_process_terminal_verified",
+                      "actual_backup_rehashed", "formal_checkpoint_evidence"))
+                 and checkpoint.get("source_manifest_sha256") == manifest_digest,
+                 "Partition lacks its strict local checkpoint proof")
+            for name in ("checkpoint_sha256", "backup_sha256", "evidence_sha256",
+                         "restore_report_sha256", "reference_semantic_sha256", "restored_semantic_sha256"):
+                need(isinstance(checkpoint.get(name), str)
+                     and re.fullmatch(r"[0-9a-f]{64}", checkpoint[name]),
+                     "Missing partition checkpoint proof digest: " + name)
+            need(checkpoint["checkpoint_sha256"] == checkpoint["backup_sha256"]
+                 and checkpoint["reference_semantic_sha256"] == checkpoint["restored_semantic_sha256"],
+                 "Partition checkpoint or native semantic equality differs")
+            integer(checkpoint.get("checkpoint_bytes"), "Partition checkpoint bytes", minimum=1)
+            integer(checkpoint.get("compared_nodes"), "Partition compared native nodes", minimum=1)
+            need(all(isinstance(checkpoint.get(name), str) and Path(checkpoint[name]).is_absolute()
+                     for name in ("evidence_path", "backup_checkpoint_path", "restore_report_path")),
+                 "Partition checkpoint proof paths are incomplete")
+            combined[job] = {**row, "partition_proof": proof,
+                             "checkpoint_verification_scope": "Strictly verified on the recorded partition host; not reopened by this metadata merge."}
+    need(groups == {"current20", "tuna"} and set(combined) == set(expected),
+         "Global merge must cover all four nonoverlapping jobs")
+    return {
+        "schema_version": 1, "status": "verified_complete", "partition": "merged",
+        "partition_jobs": list(PARTITIONS["all"]), "external_jobs": [],
+        "global_expected_results": 4, "expected_results": 4, "verified_results": 4,
+        "metrics_verified_results": 4, "seed": 1993, "manifest_sha256": manifest_digest,
+        "source_commit": source_commit, "source_files_sha256": sources, "upstream_commit": UPSTREAM,
+        "selection_policy": "The four prepared job identities only; never highest test score.",
+        "metric_units": "Fractions; Markdown uses percent accuracy and percentage-point forgetting.",
+        "audit_scope": "Two strict host-local checkpoint audits plus SHA-bound exact metadata; metrics/resources recomputed from exports. Remote model files are not reopened or copied by this merge.",
+        "remote_checkpoints_reopened_by_merge": False, "partition_reports": proofs,
+        "auditor_sha256": auditor_digest, "rows": [combined[job] for job in PARTITIONS["all"]],
     }
 
 
@@ -390,9 +679,15 @@ def add_base_summary(summary, base_path):
 
 def markdown(summary):
     lines = ["# Additional formal experiments", "",
-             f"Seed 1993; {summary['verified_results']}/4 fully verified follow-up results.",
+             f"Seed 1993; {summary['verified_results']}/{summary['expected_results']} fully verified follow-up results.",
              "Accuracy: %. Forgetting: percentage points. Pending checkpoint evidence does not constitute a completed audit.",
              "The fixed-library 20-epoch rows are additional budget variants; the original 5-epoch results remain separate.", ""]
+    if summary.get("partition", "all") != "all":
+        lines += ["Audit partition: `" + summary["partition"] + "`.", ""]
+    if summary.get("external_jobs"):
+        lines += ["Jobs assigned to the other host partition: " + ", ".join(summary["external_jobs"]) + ".", ""]
+    if summary.get("partition") == "merged":
+        lines += ["Checkpoint files were verified on their recorded hosts. This merge rechecks exported metadata and does not reopen remote model files.", ""]
     for dataset, spec in DATA.items():
         lines += ["## " + spec["title"], "", "| Method | Variant | Final | AIA | F_previous | F_including_final | Audit status |",
                   "| --- | --- | ---: | ---: | ---: | ---: | --- |"]
@@ -413,11 +708,31 @@ def main():
     parser.add_argument("--manifest", type=Path, required=True)
     parser.add_argument("--checkpoint-evidence-root", type=Path)
     parser.add_argument("--allow-incomplete", action="store_true")
+    parser.add_argument("--partition", choices=tuple(PARTITIONS), default="all")
+    parser.add_argument("--host-alias")
+    parser.add_argument("--host-key-fingerprint")
+    parser.add_argument("--merge-partition-summaries", type=Path, nargs=2, metavar=("CURRENT20", "TUNA"))
+    parser.add_argument("--partition-summary-sha256", nargs=2, metavar=("CURRENT20_SHA", "TUNA_SHA"))
     parser.add_argument("--base-summary", type=Path, help="Optional completed original twelve-row summary to preserve alongside the four additions")
     parser.add_argument("--output-dir", type=Path)
     args = parser.parse_args()
     try:
-        summary = audit_campaign(args.manifest, args.checkpoint_evidence_root, allow_incomplete=args.allow_incomplete)
+        if args.merge_partition_summaries:
+            need(args.partition == "all" and not args.allow_incomplete
+                 and args.checkpoint_evidence_root is None and args.host_alias is None
+                 and args.host_key_fingerprint is None,
+                 "Merge requires complete partition reports; local-host options belong to their audits")
+            need(args.partition_summary_sha256 is not None,
+                 "Merge requires --partition-summary-sha256 captured on the two servers")
+            summary = merge_partition_summaries(
+                args.manifest, args.merge_partition_summaries,
+                expected_summary_sha256=args.partition_summary_sha256)
+        else:
+            need(args.partition_summary_sha256 is None,
+                 "Partition report SHAs are supplied only for a global merge")
+            summary = audit_campaign(args.manifest, args.checkpoint_evidence_root,
+                                     allow_incomplete=args.allow_incomplete, partition=args.partition,
+                                     host_alias=args.host_alias, host_key_fingerprint=args.host_key_fingerprint)
         if args.base_summary:
             summary = add_base_summary(summary, args.base_summary)
         output = args.output_dir or args.manifest.parent / "summary"

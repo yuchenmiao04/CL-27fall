@@ -22,11 +22,17 @@
       "files": [
         "tests/test_followup_audit.py"
       ],
-      "passed": 32
+      "passed": 99
     },
     {
       "files": [
         "tests/test_followup_checkpoint_backup.py"
+      ],
+      "passed": 13
+    },
+    {
+      "files": [
+        "tests/test_followup_partition.py"
       ],
       "passed": 9
     }
@@ -44,10 +50,12 @@
     "models/tuna_protocol.py": "e9098f2626eeda0f54d8310f1e9b8aebbf60732733473ccc702faa1a380bced3",
     "tests/test_tuna_protocol.py": "b28d66a113ef16ac874ca22e7c44c56e8f11714a4fe75ebaa2e3a9d530e3a71a",
     "scripts/run_followup_queue.py": "e912c04ee2acec1304f7a87c29fe0f97c59b18d745cfc071766bf74328027b36",
-    "scripts/audit_followup_campaign.py": "b5acafd26bb1c31a924329309f8d7df651bb4fabab28eed5fc8264afd6de64a6",
-    "tests/test_followup_audit.py": "eb191e512a784bb740e4c1a0f6a101fd173169f7ed3ba47b1fdef934ca2fca84",
-    "scripts/backup_followup_checkpoint.py": "9c95e9abfa22ea057d002642a4719a757176f3a4393ac2fcbc8fe89e089f7cbc",
-    "tests/test_followup_checkpoint_backup.py": "3a57e925584824f69517af831cd8653359e6240d4b0318ffcee9e9918a882968"
+    "scripts/audit_followup_campaign.py": "c1aa9e354efc12b0e5fe5fba8fa78d2c3ee05580a013d9bb6d40fcdb62c7d219",
+    "tests/test_followup_audit.py": "b6d3ce00a5f4a9c16a004b2a0074329b787a6389e9ac8dafc0f3e92e676c4a69",
+    "scripts/backup_followup_checkpoint.py": "1c9c2ae6b3133023bc6dea7640b9fabc19ec6194ec61f88e7599f3b37a9c441f",
+    "tests/test_followup_checkpoint_backup.py": "28ba6aeeeba378a5b7cf301402dc4a12489cbfd2f1260aca43bf3b5ef59a7d29",
+    "scripts/run_followup_partition.py": "db4ad0684f375443c200f087c84a8ca04b4e41731e3e3481acfd9b1645b00782",
+    "tests/test_followup_partition.py": "89335a4890c35b7091351e8a726d9577b7b69a8914ba0c843ee31f2f4b0e695c"
   },
   "genuine_pretrained_native_restore": {
     "cifar224": {
@@ -61,5 +69,6 @@
     "server_local_backups": true,
     "extra_training_steps": 0,
     "formal_performance_claim": false
-  }
+  },
+  "postprocessing_scope": "Strict physical backup/report verification, restored resource accounting, and two-host partition merge; immutable training source and recipes unchanged."
 }

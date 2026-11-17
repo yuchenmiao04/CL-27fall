@@ -12,15 +12,22 @@ The plan and complete method recipes are in [PLAN.md](PLAN.md).
 
 ## Execution
 
-The new server has two RTX 5090 GPUs. Two independent fixed-library runs started
-at approximately 2026-11-17 16:31 UTC. GPU 0 runs CIFAR-100, followed by TUNA on
-CIFAR-100; GPU 1 runs ImageNet-R, followed by TUNA on ImageNet-R. The dispatcher
-requires the original process to terminate and its ten-stage result to be
-complete before admitting the next job. A timeout never triggers a replacement.
+The fixed-library runs started on two RTX 5090 GPUs at approximately
+2026-11-17 16:31 UTC. A second server with two RTX 4090 D GPUs is assigned the
+two TUNA runs, one per GPU. The user authorized this four-GPU partition; TUNA
+can start independently of the fixed-library runs after deployment checks.
 
-The prepared manifest binds the expanded configurations, source hashes, exact
-cached weights, runtime environment, commands, and output locations. Training
-uses an immutable source directory. Checkpoints remain on the server.
+`run_followup_partition.py --partition current20` adopts only the two original
+fixed-library workers and never restarts them. The `tuna` partition launches
+only the two TUNA jobs on the added server. The previous sequential dispatcher
+was stopped without stopping either original training process. A timeout never
+triggers a replacement worker.
+
+The complete four-job manifest and its expanded configurations are identical
+on both servers. It binds source hashes, exact cached weights, runtime
+environment, commands, and output locations. Training uses immutable source
+directories. Checkpoints and their backup copies remain on their respective
+servers.
 
 ## Correctness evidence
 
@@ -43,11 +50,19 @@ rebuilds the data identity, restores the native learner on CPU, checks every
 persisted learner field, and binds the evidence to source and metadata hashes.
 It does not apply CUDA RNG snapshots or transfer models to another machine.
 
-Then run `scripts/audit_followup_campaign.py` with the manifest and checkpoint
-evidence directory. It recomputes Final, AIA, and both forgetting definitions
-from the complete stage matrices and sample counts. Passing result metrics
-alone are insufficient for a completed audit. The optional `--base-summary`
-argument imports the original twelve results unchanged and retains separate
-5-epoch and 20-epoch fixed-library rows.
+Run `scripts/audit_followup_campaign.py` on each host with its partition,
+manifest, checkpoint evidence, host alias and pinned SSH-key fingerprint. The
+auditor independently derives a runtime identity from the boot ID and GPU
+UUIDs, exporting only their hash and GPU model names. It reopens the actual
+backup and native-restore report files, verifies their hashes, and recomputes
+Final, AIA and both forgetting definitions from complete stage matrices and
+sample counts. Passing metrics alone are insufficient for a completed audit.
+
+Merge the two partition summaries using their SHA-256 values captured on the
+servers. The merge verifies complementary job sets, common manifest/source
+identity, distinct server runtime identities, and exact metadata exports. It
+recomputes the metrics without downloading or reopening remote model files.
+The optional `--base-summary` imports the original twelve results unchanged,
+retaining separate 5-epoch and 20-epoch fixed-library rows.
 
 Formal results will be published only after those checks pass.

@@ -12,6 +12,17 @@ from scripts import audit_followup_campaign as audit
 
 
 REPO = Path(__file__).resolve().parents[1]
+MANIFEST_SHA = "a" * 64
+CHECKPOINT_SOURCES = {
+    name: hashlib.sha256(name.encode()).hexdigest()
+    for name in ("models/current_adapted.py", "models/tuna_protocol.py")
+}
+HOST_KEY = "SHA256:" + "A" * 43
+
+
+def fake_runtime(marker):
+    return {"fingerprint_sha256": marker * 64,
+            "gpu_models": ["NVIDIA GeForce RTX 5090"] * 2, "rule": audit.RUNTIME_ID_RULE}
 
 
 def write(path, value):
@@ -152,23 +163,59 @@ def test_tuna_algorithm_execution_contract(mutation, match):
         audit.validate_records(prepared, saved, result, data, sources)
 
 
-def checkpoint_fixture(tmp_path):
-    job, prepared, saved, result, data, sources = fixture()
+def checkpoint_fixture(tmp_path, dataset="cifar224", method="current_adapted"):
+    job, prepared, saved, result, data, sources = fixture(dataset, method)
     run = tmp_path / job
     for name, value in (("config.json", saved), ("results.json", result), ("data_manifest.json", data)):
         write(run / name, value)
     (run / "checkpoint.pt").write_bytes(b"server-local-test-payload")
     digest = audit.sha(run / "checkpoint.pt")
+    backup = tmp_path / "backups" / job / "checkpoint.pt"
+    backup.parent.mkdir(parents=True)
+    backup.write_bytes((run / "checkpoint.pt").read_bytes())
+    wrapper = "models/" + ("tuna_protocol" if method == "tuna" else "current_adapted") + ".py"
+    report = {"native_cpu_restore_executed": True, "exact_typed_bitwise_comparison": True,
+              "compared_nodes": 10, "ignored_paths": [],
+              "reference_semantic_sha256": "b" * 64, "restored_semantic_sha256": "b" * 64,
+              "actual_training_rows": sum(audit.DATA[dataset]["train_tasks"]),
+              "actual_seen_classes": audit.DATA[dataset]["classes"],
+              "source_data_manifest_rebuilt": True, "source_training_arrivals_verified": True,
+              "global_rng_payloads_validated_on_cpu": True, "cuda_rng_applied": False,
+              "extra_training_steps": 0, "accuracy_evaluation_performed": False,
+              "pretrained_npz_sha256": audit.NPZ_SHA,
+              "runtime_source_files_sha256": {wrapper: CHECKPOINT_SOURCES[wrapper]},
+              "persisted_mode_map_compared": method == "tuna"}
+    report_path = backup.parent / "native_restore.json"
+    write(report_path, report)
     evidence = {"job": job, "checkpoint_sha256": digest,
                 "checkpoint_bytes": (run / "checkpoint.pt").stat().st_size,
                 "backup_sha256": digest, "native_restore_verified": True,
+                "validation_only": False, "formal_checkpoint_evidence": True,
+                "source_manifest_sha256": MANIFEST_SHA,
                 "source_process_terminal_verified": True,
+                "backup_checkpoint_path": str(backup),
+                "restore_report_path": str(report_path),
+                "restore_report_sha256": audit.sha(report_path), "restore_report": report,
                 "source_metadata_sha256": {"config": audit.sha(run / "config.json"),
                                            "results": audit.sha(run / "results.json"),
                                            "data_manifest": audit.sha(run / "data_manifest.json")}}
     evidence_path = tmp_path / "evidence" / (job + ".json")
     write(evidence_path, evidence)
     return job, run, evidence_path, evidence
+
+
+def check_checkpoint(job, run, path):
+    return audit.validate_checkpoint_evidence(
+        path, {"job": job}, run, sources=CHECKPOINT_SOURCES,
+        manifest_sha256=MANIFEST_SHA)
+
+
+def rebind_restore_report(path, evidence, report):
+    report_path = Path(evidence["restore_report_path"])
+    write(report_path, report)
+    evidence["restore_report"] = report
+    evidence["restore_report_sha256"] = audit.sha(report_path)
+    write(path, evidence)
 
 
 @pytest.mark.parametrize("field,value,match", [
@@ -179,11 +226,11 @@ def checkpoint_fixture(tmp_path):
 ])
 def test_checkpoint_claim_requires_all_independent_evidence(tmp_path, field, value, match):
     job, run, path, evidence = checkpoint_fixture(tmp_path)
-    audit.validate_checkpoint_evidence(path, {"job": job}, run)
+    check_checkpoint(job, run, path)
     evidence[field] = value
     write(path, evidence)
     with pytest.raises(audit.AuditError, match=match):
-        audit.validate_checkpoint_evidence(path, {"job": job}, run)
+        check_checkpoint(job, run, path)
 
 
 def test_checkpoint_evidence_binds_current_result_bytes(tmp_path):
@@ -191,7 +238,116 @@ def test_checkpoint_evidence_binds_current_result_bytes(tmp_path):
     with (run / "results.json").open("a") as stream:
         stream.write("\n")
     with pytest.raises(audit.AuditError, match="metadata binding"):
-        audit.validate_checkpoint_evidence(path, {"job": job}, run)
+        check_checkpoint(job, run, path)
+
+
+@pytest.mark.parametrize("dataset", ["cifar224", "imagenetr"])
+@pytest.mark.parametrize("method", ["current_adapted", "tuna"])
+def test_checkpoint_closure_reopens_real_backup_and_report(tmp_path, dataset, method):
+    job, run, path, evidence = checkpoint_fixture(tmp_path, dataset, method)
+    result = check_checkpoint(job, run, path)
+    assert result["actual_backup_rehashed"] is True
+    assert result["formal_checkpoint_evidence"] is True
+    assert result["restore_report_sha256"] == audit.sha(Path(evidence["restore_report_path"]))
+    assert result["reference_semantic_sha256"] == result["restored_semantic_sha256"]
+
+
+@pytest.mark.parametrize("field,value,match", [
+    ("validation_only", True, "Validation-only"),
+    ("formal_checkpoint_evidence", False, "Validation-only"),
+    ("source_manifest_sha256", "0" * 64, "prepared-manifest binding"),
+])
+def test_checkpoint_rejects_nonformal_or_unbound_evidence(tmp_path, field, value, match):
+    job, run, path, evidence = checkpoint_fixture(tmp_path)
+    evidence[field] = value
+    write(path, evidence)
+    with pytest.raises(audit.AuditError, match=match):
+        check_checkpoint(job, run, path)
+
+
+@pytest.mark.parametrize("target,operation,match", [
+    ("backup_checkpoint_path", "remove", "backup is missing"),
+    ("backup_checkpoint_path", "tamper", "backup bytes differ"),
+    ("restore_report_path", "remove", "report file is missing"),
+    ("restore_report_path", "tamper", "report file SHA differs"),
+])
+def test_prior_green_evidence_cannot_hide_missing_or_tampered_server_files(
+    tmp_path, target, operation, match,
+):
+    job, run, path, evidence = checkpoint_fixture(tmp_path)
+    recorded = Path(evidence[target])
+    if operation == "remove":
+        recorded.unlink()
+    else:
+        with recorded.open("ab") as stream:
+            stream.write(b"\n")
+    with pytest.raises(audit.AuditError, match=match):
+        check_checkpoint(job, run, path)
+
+
+def test_source_checkpoint_cannot_be_its_own_backup(tmp_path):
+    job, run, path, evidence = checkpoint_fixture(tmp_path)
+    evidence["backup_checkpoint_path"] = str(run / "checkpoint.pt")
+    write(path, evidence)
+    with pytest.raises(audit.AuditError, match="Separate server-local backup"):
+        check_checkpoint(job, run, path)
+
+
+def test_embedded_restore_report_cannot_diverge_from_its_file(tmp_path):
+    job, run, path, evidence = checkpoint_fixture(tmp_path)
+    evidence["restore_report"]["compared_nodes"] += 1
+    write(path, evidence)
+    with pytest.raises(audit.AuditError, match="Embedded and server-local"):
+        check_checkpoint(job, run, path)
+
+
+@pytest.mark.parametrize("field,value,match", [
+    ("native_cpu_restore_executed", False, "CPU exact comparison"),
+    ("exact_typed_bitwise_comparison", False, "CPU exact comparison"),
+    ("ignored_paths", ["learner.core.optimizer"], "ignored learner fields"),
+    ("compared_nodes", 0, "Compared native learner nodes"),
+    ("restored_semantic_sha256", "0" * 64, "semantic digest"),
+    ("reference_semantic_sha256", None, "semantic digest"),
+    ("actual_training_rows", 100, "full-data endpoint"),
+    ("actual_seen_classes", 10, "full-data endpoint"),
+    ("source_data_manifest_rebuilt", False, "full-data endpoint"),
+    ("source_training_arrivals_verified", False, "full-data endpoint"),
+    ("global_rng_payloads_validated_on_cpu", False, "restore execution"),
+    ("cuda_rng_applied", True, "restore execution"),
+    ("extra_training_steps", 1, "restore execution"),
+    ("extra_training_steps", False, "restore execution"),
+    ("accuracy_evaluation_performed", True, "restore execution"),
+    ("pretrained_npz_sha256", "0" * 64, "restore execution"),
+    ("runtime_source_files_sha256", {"models/current_adapted.py": "0" * 64}, "imported source"),
+    ("runtime_source_files_sha256", {}, "imported source"),
+])
+def test_rebound_report_still_requires_executed_exact_full_native_restore(
+    tmp_path, field, value, match,
+):
+    job, run, path, evidence = checkpoint_fixture(tmp_path)
+    report = copy.deepcopy(evidence["restore_report"])
+    report[field] = value
+    rebind_restore_report(path, evidence, report)
+    with pytest.raises(audit.AuditError, match=match):
+        check_checkpoint(job, run, path)
+
+
+def test_unknown_imported_source_cannot_match_absent_mapping_value(tmp_path):
+    job, run, path, evidence = checkpoint_fixture(tmp_path)
+    report = copy.deepcopy(evidence["restore_report"])
+    report["runtime_source_files_sha256"]["outside/unknown.py"] = None
+    rebind_restore_report(path, evidence, report)
+    with pytest.raises(audit.AuditError, match="imported source"):
+        check_checkpoint(job, run, path)
+
+
+def test_tuna_restore_must_compare_its_persisted_modes(tmp_path):
+    job, run, path, evidence = checkpoint_fixture(tmp_path, method="tuna")
+    report = copy.deepcopy(evidence["restore_report"])
+    report["persisted_mode_map_compared"] = False
+    rebind_restore_report(path, evidence, report)
+    with pytest.raises(audit.AuditError, match="persisted module modes"):
+        check_checkpoint(job, run, path)
 
 
 def test_metrics_only_progress_never_counts_as_completed_checkpoint_audit(tmp_path, monkeypatch):
@@ -216,6 +372,270 @@ def test_metrics_only_progress_never_counts_as_completed_checkpoint_audit(tmp_pa
     assert all(r["status"] == "metrics_verified_checkpoint_evidence_pending" for r in summary["rows"])
     with pytest.raises(audit.AuditError, match="0/4"):
         audit.audit_campaign(path)
+
+
+def completed_campaign_fixture(tmp_path, monkeypatch):
+    entries, configs, evidence_rows = [], {}, []
+    sources = dict(CHECKPOINT_SOURCES)
+    for dataset in audit.DATA:
+        for method in ("current_adapted", "tuna"):
+            job, run, _, evidence = checkpoint_fixture(tmp_path / (dataset + method), dataset, method)
+            _, prepared, _, _, _, native_sources = fixture(dataset, method)
+            prepared["output_dir"] = str(run)
+            prepared_path = tmp_path / "prepared_configs" / (job + ".json")
+            write(prepared_path, prepared)
+            saved = audit.read(run / "config.json")
+            saved["output_dir"] = str(run)
+            write(run / "config.json", saved)
+            evidence["source_metadata_sha256"]["config"] = audit.sha(run / "config.json")
+            gpu = 0 if dataset == "cifar224" else 1
+            entries.append({"job": job, "dataset": dataset, "method": method,
+                            "gpu": gpu,
+                            "comparison_variant": prepared["comparison_variant"], "output_dir": str(run),
+                            "config": {"path": str(prepared_path), "sha256": audit.sha(prepared_path)}})
+            configs[job] = prepared
+            sources.update(native_sources)
+            evidence_rows.append((job, evidence))
+    manifest = {"version": 1, "jobs": entries, "source_files_sha256": sources,
+                "source_commit": "b" * 40, "pretrained_npz": {"sha256": audit.NPZ_SHA}}
+    path = tmp_path / "manifest.json"
+    write(path, manifest)
+    evidence_root = tmp_path / "final_evidence"
+    for job, evidence in evidence_rows:
+        evidence["source_manifest_sha256"] = audit.sha(path)
+        write(evidence_root / (job + ".json"), evidence)
+    monkeypatch.setattr(audit, "validate_prepared_manifest", lambda p: (manifest, configs))
+    return path, evidence_root, evidence_rows
+
+
+def test_all_four_final_rows_require_and_accept_actual_backup_closure(tmp_path, monkeypatch):
+    path, evidence_root, _ = completed_campaign_fixture(tmp_path, monkeypatch)
+    summary = audit.audit_campaign(path, evidence_root)
+    assert summary["verified_results"] == summary["metrics_verified_results"] == 4
+    assert summary["status"] == "verified_complete"
+    assert all(row["checkpoint_audit"]["actual_backup_rehashed"] is True for row in summary["rows"])
+
+
+@pytest.mark.parametrize("malformation", ["missing_backup", "not_executed"])
+def test_allow_incomplete_never_turns_malformed_present_closure_green(
+    tmp_path, monkeypatch, malformation,
+):
+    path, evidence_root, rows = completed_campaign_fixture(tmp_path, monkeypatch)
+    job, evidence = rows[0]
+    evidence_path = evidence_root / (job + ".json")
+    if malformation == "missing_backup":
+        Path(evidence["backup_checkpoint_path"]).unlink()
+    else:
+        report = copy.deepcopy(evidence["restore_report"])
+        report["native_cpu_restore_executed"] = False
+        rebind_restore_report(evidence_path, evidence, report)
+    with pytest.raises(audit.AuditError, match="backup is missing|CPU exact comparison"):
+        audit.audit_campaign(path, evidence_root, allow_incomplete=True)
+
+
+@pytest.mark.parametrize("partition", ["current20", "tuna"])
+def test_partition_audits_exactly_its_two_local_jobs(tmp_path, monkeypatch, partition):
+    path, evidence_root, _ = completed_campaign_fixture(tmp_path, monkeypatch)
+    monkeypatch.setattr(audit, "runtime_identity", lambda: fake_runtime("1"))
+    summary = audit.audit_campaign(path, evidence_root, partition=partition,
+                                   host_alias=partition + "-host", host_key_fingerprint=HOST_KEY)
+    assert summary["expected_results"] == summary["verified_results"] == 2
+    assert summary["global_expected_results"] == 4
+    assert summary["partition_jobs"] == list(audit.PARTITIONS[partition])
+    assert {row["job"] for row in summary["rows"]} == set(audit.PARTITIONS[partition])
+    assert set(summary["external_jobs"]) == set(audit.PARTITIONS["all"]) - set(audit.PARTITIONS[partition])
+    assert summary["external_job_status"] == "assigned_to_other_partition"
+    assert all(set(row["metadata_exports"]) == {"prepared_config", "config", "results", "data_manifest"}
+               for row in summary["rows"])
+    assert summary["host"]["runtime_identity"]["fingerprint_sha256"] == "1" * 64
+
+
+@pytest.mark.parametrize("alias,fingerprint", [(None, None), ("host", None), (None, HOST_KEY), ("host", "invalid")])
+def test_partition_requires_inspected_host_identity(tmp_path, monkeypatch, alias, fingerprint):
+    path, evidence_root, _ = completed_campaign_fixture(tmp_path, monkeypatch)
+    with pytest.raises(audit.AuditError, match="host alias|host-key fingerprint"):
+        audit.audit_campaign(path, evidence_root, partition="current20",
+                             host_alias=alias, host_key_fingerprint=fingerprint)
+
+
+def test_excluded_host_jobs_are_external_even_when_their_outputs_are_absent(tmp_path, monkeypatch):
+    path, evidence_root, _ = completed_campaign_fixture(tmp_path, monkeypatch)
+    manifest = audit.read(path)
+    for entry in manifest["jobs"]:
+        if entry["method"] == "tuna":
+            for file in Path(entry["output_dir"]).iterdir():
+                file.unlink()
+    monkeypatch.setattr(audit, "runtime_identity", lambda: fake_runtime("1"))
+    summary = audit.audit_campaign(path, evidence_root, partition="current20",
+                                   host_alias="current-host", host_key_fingerprint=HOST_KEY)
+    assert summary["status"] == "verified_complete" and len(summary["external_jobs"]) == 2
+
+
+def test_partition_progress_counts_only_its_pending_local_proof(tmp_path, monkeypatch):
+    path, evidence_root, _ = completed_campaign_fixture(tmp_path, monkeypatch)
+    (evidence_root / (audit.PARTITIONS["current20"][0] + ".json")).unlink()
+    monkeypatch.setattr(audit, "runtime_identity", lambda: fake_runtime("1"))
+    summary = audit.audit_campaign(path, evidence_root, partition="current20", allow_incomplete=True,
+                                   host_alias="current-host", host_key_fingerprint=HOST_KEY)
+    assert summary["status"] == "incomplete" and summary["verified_results"] == 1
+    assert summary["metrics_verified_results"] == summary["expected_results"] == 2
+    assert len(summary["external_jobs"]) == 2
+
+
+def partition_reports_fixture(tmp_path, monkeypatch):
+    manifest_path, evidence_root, _ = completed_campaign_fixture(tmp_path, monkeypatch)
+    paths = []
+    for group, marker in (("current20", "1"), ("tuna", "2")):
+        monkeypatch.setattr(audit, "runtime_identity", lambda m=marker: fake_runtime(m))
+        summary = audit.audit_campaign(manifest_path, evidence_root, partition=group,
+                                       host_alias=group + "-host", host_key_fingerprint=HOST_KEY)
+        path = tmp_path / (group + "_partition.json")
+        write(path, summary)
+        paths.append(path)
+    return manifest_path, paths
+
+
+def merge_reports(manifest_path, paths):
+    return audit.merge_partition_summaries(
+        manifest_path, paths, expected_summary_sha256=[audit.sha(path) for path in paths])
+
+
+def test_global_merge_recomputes_four_rows_without_opening_remote_models(tmp_path, monkeypatch):
+    manifest, paths = partition_reports_fixture(tmp_path, monkeypatch)
+    actual_sha = audit.sha
+    def metadata_only_sha(path):
+        assert Path(path).suffix != ".pt", "Global merge must not reopen model files"
+        return actual_sha(path)
+    monkeypatch.setattr(audit, "sha", metadata_only_sha)
+    merged = merge_reports(manifest, paths)
+    assert merged["verified_results"] == merged["metrics_verified_results"] == 4
+    assert merged["partition"] == "merged" and merged["external_jobs"] == []
+    assert len(merged["partition_reports"]) == 2
+    assert merged["remote_checkpoints_reopened_by_merge"] is False
+    assert {row["job"] for row in merged["rows"]} == set(audit.PARTITIONS["all"])
+    # AutoDL images can share one SSH host key. The live runtime hashes distinguish them.
+    assert len({proof["host"]["host_key_fingerprint"] for proof in merged["partition_reports"]}) == 1
+    assert len({proof["host"]["runtime_identity"]["fingerprint_sha256"]
+                for proof in merged["partition_reports"]}) == 2
+    assert all(proof["summary_sha256"] == proof["server_captured_summary_sha256"]
+               for proof in merged["partition_reports"])
+
+
+def test_global_merge_requires_server_captured_report_digest(tmp_path, monkeypatch):
+    manifest, paths = partition_reports_fixture(tmp_path, monkeypatch)
+    original_digests = [audit.sha(path) for path in paths]
+    with paths[0].open("a") as stream:
+        stream.write("\n")
+    with pytest.raises(audit.AuditError, match="server-captured SHA"):
+        audit.merge_partition_summaries(manifest, paths, expected_summary_sha256=original_digests)
+
+
+@pytest.mark.parametrize("digests", [None, [], ["0" * 64], ["G" * 64, "0" * 64]])
+def test_global_merge_rejects_missing_or_invalid_expected_report_digests(tmp_path, monkeypatch, digests):
+    manifest, paths = partition_reports_fixture(tmp_path, monkeypatch)
+    with pytest.raises(audit.AuditError, match="server-captured partition report SHAs"):
+        audit.merge_partition_summaries(manifest, paths, expected_summary_sha256=digests)
+
+
+def test_global_merge_scientific_recipe_is_bound_to_full_manifest_bytes(tmp_path, monkeypatch):
+    manifest, paths = partition_reports_fixture(tmp_path, monkeypatch)
+    summary = audit.read(paths[0])
+    row = summary["rows"][0]
+    export = row["metadata_exports"]["prepared_config"]
+    prepared = json.loads(export["text"])
+    prepared["module_lr"] *= 2
+    export["text"] = json.dumps(prepared)
+    export["sha256"] = hashlib.sha256(export["text"].encode()).hexdigest()
+    row["source"]["prepared_config_sha256"] = export["sha256"]
+    write(paths[0], summary)
+    with pytest.raises(audit.AuditError, match="Metadata export SHA differs: prepared_config"):
+        merge_reports(manifest, paths)
+
+
+@pytest.mark.parametrize("mutation,match", [
+    (lambda s: s.__setitem__("status", "incomplete"), "locally verified complete"),
+    (lambda s: s.__setitem__("manifest_sha256", "0" * 64), "scientific identity"),
+    (lambda s: s.__setitem__("source_commit", "0" * 40), "scientific identity"),
+    (lambda s: s.__setitem__("auditor_sha256", "0" * 64), "scientific identity"),
+    (lambda s: s["source_files_sha256"].__setitem__("models/tuna.py", "0" * 64), "scientific identity"),
+    (lambda s: s["rows"][0].__setitem__("job", s["rows"][1]["job"]), "overlap or omit"),
+    (lambda s: s.__setitem__("external_jobs", []), "external-job declaration"),
+    (lambda s: s["rows"][0]["metrics"].__setitem__("aia", 0.99), "aia differs"),
+    (lambda s: s["rows"][0]["checkpoint_audit"].__setitem__("actual_backup_rehashed", False), "strict local checkpoint proof"),
+    (lambda s: s["rows"][0]["metadata_exports"]["results"].__setitem__("text", "{}"), "Metadata export SHA"),
+])
+def test_global_merge_rejects_incomplete_or_unbound_partition_exports(tmp_path, monkeypatch, mutation, match):
+    manifest, paths = partition_reports_fixture(tmp_path, monkeypatch)
+    summary = audit.read(paths[0])
+    mutation(summary)
+    write(paths[0], summary)
+    with pytest.raises(audit.AuditError, match=match):
+        merge_reports(manifest, paths)
+
+
+def test_global_merge_requires_complementary_groups(tmp_path, monkeypatch):
+    manifest, paths = partition_reports_fixture(tmp_path, monkeypatch)
+    with pytest.raises(audit.AuditError, match="one current20 and one tuna"):
+        merge_reports(manifest, [paths[0], paths[0]])
+
+
+@pytest.mark.parametrize("field,value,match", [
+    ("alias", "current20-host", "host aliases must be distinct"),
+    ("runtime_identity", fake_runtime("1"), "distinct physical runtime"),
+])
+def test_global_merge_cannot_attribute_two_partitions_to_one_runtime(tmp_path, monkeypatch, field, value, match):
+    manifest, paths = partition_reports_fixture(tmp_path, monkeypatch)
+    summary = audit.read(paths[1])
+    summary["host"][field] = value
+    write(paths[1], summary)
+    with pytest.raises(audit.AuditError, match=match):
+        merge_reports(manifest, paths)
+
+
+def test_runtime_fingerprint_hides_identifiers_and_is_order_invariant(monkeypatch):
+    boot_id = "12345678-1234-1234-1234-123456789abc"
+    original_read = Path.read_text
+    def read_boot(path, *args, **kwargs):
+        return boot_id if path == Path("/proc/sys/kernel/random/boot_id") else original_read(path, *args, **kwargs)
+    monkeypatch.setattr(Path, "read_text", read_boot)
+    monkeypatch.setattr(audit.subprocess, "check_output", lambda *a, **kw: "GPU-private-A, RTX 5090\nGPU-private-B, RTX 5080\n")
+    first = audit.runtime_identity()
+    monkeypatch.setattr(audit.subprocess, "check_output", lambda *a, **kw: "GPU-private-B, RTX 5080\nGPU-private-A, RTX 5090\n")
+    assert audit.runtime_identity() == first
+    assert audit.validate_runtime_identity(first) == first
+    assert "GPU-private" not in json.dumps(first) and boot_id not in json.dumps(first)
+    monkeypatch.setattr(audit.subprocess, "check_output", lambda *a, **kw: "GPU-private-A, RTX 5090\nGPU-private-C, RTX 5080\n")
+    assert audit.runtime_identity()["fingerprint_sha256"] != first["fingerprint_sha256"]
+    monkeypatch.setattr(audit.subprocess, "check_output", lambda *a, **kw: "GPU-private-A, RTX 5090\nGPU-private-B, RTX 5080\n")
+    boot_id = "87654321-1234-1234-1234-123456789abc"
+    assert audit.runtime_identity()["fingerprint_sha256"] != first["fingerprint_sha256"]
+
+
+def test_partition_runtime_record_cannot_publish_raw_identifiers():
+    with pytest.raises(audit.AuditError, match="exposes raw identifiers"):
+        audit.validate_runtime_identity({**fake_runtime("1"), "boot_id": "raw-private-id"})
+
+
+def test_merge_cli_writes_two_eight_row_tables_and_preserves_original_twelve(tmp_path, monkeypatch):
+    manifest, paths = partition_reports_fixture(tmp_path, monkeypatch)
+    base = REPO / "experiments/campaign_20261117/summary/summary.json"
+    output = tmp_path / "merged_delivery"
+    monkeypatch.setattr(audit.sys, "argv", [
+        "audit_followup_campaign.py", "--manifest", str(manifest),
+        "--merge-partition-summaries", *(str(path) for path in paths),
+        "--partition-summary-sha256", *(audit.sha(path) for path in paths),
+        "--base-summary", str(base), "--output-dir", str(output)])
+    assert audit.main() == 0
+    result = audit.read(output / "summary.json")
+    assert result["verified_results"] == 4 and len(result["combined_rows"]) == 16
+    assert all(sum(row["dataset"] == dataset for row in result["combined_rows"]) == 8 for dataset in audit.DATA)
+    original = audit.read(base)["rows"]
+    assert [{k: v for k, v in row.items() if k not in {"comparison_variant", "imported_previous_campaign"}}
+            for row in result["combined_rows"][:12]] == original
+    for dataset in audit.DATA:
+        assert {row["comparison_variant"] for row in result["combined_rows"]
+                if row["dataset"] == dataset and row["method"] == "current_adapted"} == {"epochs5", "epochs20"}
+    assert "does not reopen remote model files" in (output / "summary.md").read_text()
 
 
 def test_optional_original_summary_keeps_all_twelve_rows_and_current5(tmp_path):
