@@ -14,3 +14,14 @@ Dispatcher source SHA256: `e091e0cabb2d01a10ec0414cba961d5ba3a3a811c2df674e8ffc0
 Queue source SHA256: `494b68fc6916b4c2149e3e678042b643a29b24d09d9acc27985b68b3786d0d18`.
 
 The initial evidence export preserves raw source hashes and separately records hashes after operational path replacement. Original bytes are retained privately. Shared CE training cost must be reported separately from each reader's executor time and memory; a reader-only measurement is not an independent full-method training cost.
+
+## Reviewed continuation after the first controller stopped
+
+At 11:25 UTC, v1 stopped with `Original process command differs`. The old failure omitted the offending PID and observed command, so the exact cause cannot be established from it. At the subsequent direct check, the original CF reader PIDs had terminated with complete ten-stage results; all four still-running training processes matched their original PID/start ticks/commands. No training was restarted. The two R readers had never been launched.
+
+The observer now treats a known same-start-ticks nonterminal process with an empty cmdline as still live and reserved until actual termination. It does not release VRAM or pass a dependency on that observation. A nonempty different command still fails, now with identifying evidence. This guards a plausible process-shutdown window without asserting that it was proven to cause the old failure. Eighty CPU tests pass.
+
+A new queue/state contains only the two unstarted R readers, with their original config/spec hashes. The real plan returned `waiting_dependency` for both, and the new operational PID was verified live with no failure file. GPU1 may remain blocked by the independently running R module; the new queue only dispatches on GPU0. Old failure/log/receipt evidence is preserved under `recovery_v2/`.
+
+V2 source SHA256: `fcda7ae5ef4e9a4588431ede2e0f4b6f5b89c8d023f36773331133c0034f9749`.
+V2 queue SHA256: `81e6a90cf5b38d15e8b1b96a187ca03f53bda95750e8ccb3dfd03831db6ef856`.

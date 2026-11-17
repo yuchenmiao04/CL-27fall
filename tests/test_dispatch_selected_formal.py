@@ -649,6 +649,68 @@ def test_external_saved_run_device_is_checked_before_it_appears_in_nvml(f):
     assert not f.calls
 
 
+@pytest.mark.parametrize("state", ["R", "S"])
+def test_same_starttick_empty_cmd_keeps_er_dependency_and_future_budget_reserved(f, state):
+    entry, identity = f.live_external(EXTERNALS[0], state=state)
+    f.probes[identity["pid"]]["cmd"] = []
+    receipt_before = Path(entry["receipt"]["path"]).read_bytes()
+    before = files(f.root)
+    d = f.dispatcher()
+
+    report = d.plan()
+    assert report[JOBS[0]] == report[JOBS[1]] == report[JOBS[4]] == "waiting_dependency"
+    assert d.headroom(f.snapshot)[1] == 32000 - 24576 - 1024
+    assert files(f.root) == before
+    assert not f.calls
+
+    # A complete result/cache and an empty cmdline are not terminal evidence.
+    # Only the next observation that the original PID is absent releases it.
+    del f.probes[identity["pid"]]
+    report = d.plan()
+    assert report[JOBS[0]] == report[JOBS[1]] == report[JOBS[4]] == "ready"
+    assert d.headroom(f.snapshot)[1] == 32000 - 1024
+    assert Path(entry["receipt"]["path"]).read_bytes() == receipt_before
+    assert files(f.root) == before
+    assert not f.calls
+
+
+def test_completed_owned_reader_with_empty_cmd_stays_reserved_until_actual_absence(f, monkeypatch):
+    monkeypatch.setattr(dispatch.os, "kill", lambda *args: pytest.fail("Observer must not kill a process"))
+    f.value["jobs"] = [f.value["jobs"][0]]
+    f.write_queue()
+    d = f.dispatcher()
+    with d.lock():
+        assert d.cycle(True)[JOBS[0]] == "running"
+        owned = d.owned[JOBS[0]]["identity"]
+        receipt_before = f.receipt(JOBS[0]).read_bytes()
+        save(Path(d.jobs[JOBS[0]]["config_data"]["output_dir"]) / "results.json", f.result("history_transport"))
+        f.probes[owned["pid"]].update(state="S", cmd=[])
+
+        assert d.plan()[JOBS[0]] == "running"
+        assert JOBS[0] in d.owned and JOBS[0] not in d.finished
+        assert d.headroom(f.snapshot)[1] == 32000 - 4096 - 1024
+
+        del f.probes[owned["pid"]]
+        assert d.plan()[JOBS[0]] == "complete"
+        assert JOBS[0] not in d.owned and JOBS[0] in d.finished
+        assert d.headroom(f.snapshot)[1] == 32000 - 1024
+        assert f.receipt(JOBS[0]).read_bytes() == receipt_before
+    assert len(f.calls) == 1
+
+
+def test_nonempty_wrong_command_still_fails_with_locatable_process_diagnostics(f):
+    _, identity = f.live_external(EXTERNALS[0])
+    f.probes[identity["pid"]]["cmd"] = ["unexpected_worker_command", "--wrong-job"]
+    with pytest.raises(ValueError) as caught:
+        f.dispatcher().plan()
+    message = str(caught.value)
+    assert str(identity["pid"]) in message
+    assert "unexpected_worker_command" in message
+    assert "external.py" in message
+    assert "cmd" in message and "state" in message
+    assert not f.calls
+
+
 def fake_nvml_module(monkeypatch, used_bytes, *, unavailable=None, define_constant=False):
     module = types.ModuleType("pynvml")
     calls = {"init": 0, "shutdown": 0}

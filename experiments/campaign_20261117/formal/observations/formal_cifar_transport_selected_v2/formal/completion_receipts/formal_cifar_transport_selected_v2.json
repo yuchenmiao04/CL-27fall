@@ -1,0 +1,68 @@
+{
+  "status": "audited_complete_formal_run",
+  "job": "formal_cifar_transport_selected_v2",
+  "dataset": "cifar224",
+  "method": "history_transport",
+  "seed": 1993,
+  "completed_utc": "2026-11-17T11:36:07.563927+00:00",
+  "metrics": {
+    "final_accuracy": 0.9094,
+    "aia": 0.9500948015873016,
+    "forgetting_previous": 0.0683333333333333,
+    "forgetting_including_final": 0.0683333333333333
+  },
+  "full_training_rows": 50000,
+  "final_evaluation_samples": 10000,
+  "final_replay_rows": 2000,
+  "results_sha256": "441a308e205114116314f13286c0728f7f566a117591ecd0a8fa1cdc9bc453fa",
+  "checkpoint_sha256": "333345b4de76e3e213401ee5c1452a91ab5fba4693e05dd1eca02d14fb375c4a",
+  "checkpoint_bytes": 719793282,
+  "backup_location": "remote_runtime/formal_backups/campaign_20261117/formal_cifar_transport_selected_v2/checkpoint.pt",
+  "backup_payload_left_server": false,
+  "original_processes_terminal": {
+    "formal_cifar_transport_selected_v2": {
+      "pid": 36164,
+      "expected_ticks": "1790983328",
+      "state": "absent"
+    },
+    "audit_formal_cifar_transport_selected_v2_v1": {
+      "pid": 37398,
+      "expected_ticks": "1791190045",
+      "state": "absent"
+    }
+  },
+  "cpu_audit_job": "audit_formal_cifar_transport_selected_v2_v1",
+  "cpu_audit_json_sha256": "6fed5279db552b604120e36f230d9205f51e34b4d237f6f8f633b9e925562e1c",
+  "validator_source_sha256": "fc49f07d6bacdcd8e71c6d38eba66cf4ca9187f4252a3187e180cde189026f9b",
+  "cache_reuse_verification": {
+    "donor": "formal_cifar_er_fixed_v1",
+    "stages": 10,
+    "reader_reused": true,
+    "actual_payload_hashes_verified": true,
+    "shared_native_ce_seconds": 14653.037003599107,
+    "inventory_sha256": "8cf88019bbaa222e1a6cf36c9bf5ecbd62f4bf22fcb9c815eb086de550340a1f"
+  },
+  "scope": "This one formal cell only; not a twelve-cell campaign certificate; no extra training, GPU continuation or accuracy rerun.",
+  "source_process_terminal": {
+    "pid": 36164,
+    "expected_ticks": "1790983328",
+    "state": "absent"
+  },
+  "audit_process_terminal": {
+    "pid": 37398,
+    "expected_ticks": "1791190045",
+    "state": "absent"
+  },
+  "final_correct": 9094,
+  "cpu_audit": {
+    "job": "audit_formal_cifar_transport_selected_v2_v1",
+    "log_sha256": "6fed5279db552b604120e36f230d9205f51e34b4d237f6f8f633b9e925562e1c",
+    "auditor_sha256": "ca025b07d92cc0eeed295d1c4f6a8db9655aa45487435fecaa5c839e426f9b3b",
+    "native_cpu_restore": true,
+    "compared_state_nodes": 30854,
+    "actual_source_data_and_replay_verified": true,
+    "no_extra_training_or_accuracy_evaluation": true,
+    "cuda_rng_payloads_retained_not_applied": true
+  },
+  "cache_inventory_sha256": "8cf88019bbaa222e1a6cf36c9bf5ecbd62f4bf22fcb9c815eb086de550340a1f"
+}

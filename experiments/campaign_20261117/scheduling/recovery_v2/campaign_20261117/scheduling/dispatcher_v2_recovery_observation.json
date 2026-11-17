@@ -1,0 +1,17 @@
+{
+  "observed_utc": "2026-11-17T11:40:24.012869+00:00",
+  "v2_pid": 37518,
+  "v2_start_ticks": "1791203347",
+  "v2_command_identity_verified": true,
+  "v2_no_failure_file": true,
+  "last_v2_event": {
+    "observed_unix": 1794915263.6166868,
+    "jobs": {
+      "formal_imagenetr_transport_selected_v3": "waiting_dependency",
+      "formal_imagenetr_plastic_shared_selected_v5": "waiting_dependency"
+    }
+  },
+  "old_controller_absent": true,
+  "existing_training_was_not_restarted": true,
+  "cause_boundary": "The old failure did not record the offending PID/cmd, so empty-cmd process shutdown is a plausible protected case rather than an established retrospective cause."
+}

@@ -1,0 +1,68 @@
+{
+  "status": "audited_complete_formal_run",
+  "job": "formal_cifar_plastic_shared_selected_v5",
+  "dataset": "cifar224",
+  "method": "plastic_shared_basis",
+  "seed": 1993,
+  "completed_utc": "2026-11-17T11:36:18.092358+00:00",
+  "metrics": {
+    "final_accuracy": 0.9095,
+    "aia": 0.9501664682539681,
+    "forgetting_previous": 0.06855555555555554,
+    "forgetting_including_final": 0.06855555555555554
+  },
+  "full_training_rows": 50000,
+  "final_evaluation_samples": 10000,
+  "final_replay_rows": 2000,
+  "results_sha256": "5e30f8c9706da91052821452620d0d0c3be61cc66660576765fade39be66c588",
+  "checkpoint_sha256": "1e11132f1705e32e27fefdd4281bfcad5a348a0eb916ece66595b3579081abe2",
+  "checkpoint_bytes": 727971202,
+  "backup_location": "remote_runtime/formal_backups/campaign_20261117/formal_cifar_plastic_shared_selected_v5/checkpoint.pt",
+  "backup_payload_left_server": false,
+  "original_processes_terminal": {
+    "formal_cifar_plastic_shared_selected_v5": {
+      "pid": 36169,
+      "expected_ticks": "1790983345",
+      "state": "absent"
+    },
+    "audit_formal_cifar_plastic_shared_selected_v5_v1": {
+      "pid": 37399,
+      "expected_ticks": "1791190045",
+      "state": "absent"
+    }
+  },
+  "cpu_audit_job": "audit_formal_cifar_plastic_shared_selected_v5_v1",
+  "cpu_audit_json_sha256": "f1f2328da898d80c5144f1b7d8e590eebbbe2789dd5e496b7ef2906fe92c257e",
+  "validator_source_sha256": "fc49f07d6bacdcd8e71c6d38eba66cf4ca9187f4252a3187e180cde189026f9b",
+  "cache_reuse_verification": {
+    "donor": "formal_cifar_er_fixed_v1",
+    "stages": 10,
+    "reader_reused": true,
+    "actual_payload_hashes_verified": true,
+    "shared_native_ce_seconds": 14653.037003599107,
+    "inventory_sha256": "8cf88019bbaa222e1a6cf36c9bf5ecbd62f4bf22fcb9c815eb086de550340a1f"
+  },
+  "scope": "This one formal cell only; not a twelve-cell campaign certificate; no extra training, GPU continuation or accuracy rerun.",
+  "source_process_terminal": {
+    "pid": 36169,
+    "expected_ticks": "1790983345",
+    "state": "absent"
+  },
+  "audit_process_terminal": {
+    "pid": 37399,
+    "expected_ticks": "1791190045",
+    "state": "absent"
+  },
+  "final_correct": 9095,
+  "cpu_audit": {
+    "job": "audit_formal_cifar_plastic_shared_selected_v5_v1",
+    "log_sha256": "f1f2328da898d80c5144f1b7d8e590eebbbe2789dd5e496b7ef2906fe92c257e",
+    "auditor_sha256": "ca025b07d92cc0eeed295d1c4f6a8db9655aa45487435fecaa5c839e426f9b3b",
+    "native_cpu_restore": true,
+    "compared_state_nodes": 31846,
+    "actual_source_data_and_replay_verified": true,
+    "no_extra_training_or_accuracy_evaluation": true,
+    "cuda_rng_payloads_retained_not_applied": true
+  },
+  "cache_inventory_sha256": "8cf88019bbaa222e1a6cf36c9bf5ecbd62f4bf22fcb9c815eb086de550340a1f"
+}

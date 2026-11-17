@@ -1,0 +1,27 @@
+{
+  "jobs": [
+    {
+      "name": "selected_formal_dispatcher_v2",
+      "area": "verification",
+      "cwd": "remote_runtime",
+      "command": [
+        "remote_python",
+        "remote_runtime/dispatch_selected_formal_v2.py",
+        "--queue",
+        "remote_runtime/campaign_20261117/scheduling/selected_formal_queue_v2.json",
+        "--execute"
+      ],
+      "metadata": {
+        "execution_role": "operational_admission_control",
+        "formal_result_cell": false,
+        "approved_queue_sha256": "81e6a90cf5b38d15e8b1b96a187ca03f53bda95750e8ccb3dfd03831db6ef856",
+        "dispatcher_sha256": "fcda7ae5ef4e9a4588431ede2e0f4b6f5b89c8d023f36773331133c0034f9749",
+        "scope": "Only the two R readers never started by v1; all prior training remains untouched.",
+        "prior_controller_original_pid": 34947,
+        "prior_controller_absent_verified": true,
+        "real_plan_both_waiting_dependency_verified": true,
+        "never_kill_or_restart_training": true
+      }
+    }
+  ]
+}

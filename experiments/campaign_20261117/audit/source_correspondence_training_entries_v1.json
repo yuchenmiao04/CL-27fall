@@ -1,0 +1,780 @@
+{
+  "schema_version": 1,
+  "status": "read_only_hash_correspondence_complete",
+  "checked_utc": "2026-11-17T11:16:49.790676+00:00",
+  "remote_inventory_utc": "2026-11-17T11:16:19.538721+00:00",
+  "remote_hash_inventory_sha256": "8647f6fb438161d04b81e002650a4819f36c38be9c6ae2a6d078231c6e5409e9",
+  "git_references": {
+    "target_7455d7a": "7455d7a4066ff8dda9327ba05301dec024bf5ae9",
+    "historical_d5c998": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+    "historical_bb028": "bb028d926565e6db86d4b4e716406c57392a1617"
+  },
+  "scope": "The eight explicitly requested entry/execution files in each executed snapshot only. No source payload, model or weight was downloaded. No equivalence is inferred from a mismatch. Audit-helper/state-loader utilities are not training algorithms and are outside this inventory.",
+  "summary": [
+    {
+      "snapshot": "runtime_fixed_er_v5",
+      "requested_files": 8,
+      "present": 8,
+      "exact_target_matches": 8,
+      "historical_only": 0,
+      "unmatched": 0,
+      "absent_non_applicable": []
+    },
+    {
+      "snapshot": "runtime_tuning_v1",
+      "requested_files": 8,
+      "present": 7,
+      "exact_target_matches": 7,
+      "historical_only": 0,
+      "unmatched": 0,
+      "absent_non_applicable": [
+        "scripts/run_fixed_er_record.py"
+      ]
+    },
+    {
+      "snapshot": "runtime_bounded_v4",
+      "requested_files": 8,
+      "present": 7,
+      "exact_target_matches": 7,
+      "historical_only": 0,
+      "unmatched": 0,
+      "absent_non_applicable": [
+        "scripts/run_fixed_er_record.py"
+      ]
+    }
+  ],
+  "files": [
+    {
+      "snapshot": "runtime_fixed_er_v5",
+      "file": "main.py",
+      "exists": true,
+      "sha256": "23d494c98deaf6a408664865f7d7dc1259a417531ab2d0c975dcbb02d14117ca",
+      "bytes": 729,
+      "stable_during_read": true,
+      "reference_files": {
+        "target_7455d7a": {
+          "commit": "7455d7a4066ff8dda9327ba05301dec024bf5ae9",
+          "exists": true,
+          "sha256": "23d494c98deaf6a408664865f7d7dc1259a417531ab2d0c975dcbb02d14117ca"
+        },
+        "historical_d5c998": {
+          "commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+          "exists": true,
+          "sha256": "23d494c98deaf6a408664865f7d7dc1259a417531ab2d0c975dcbb02d14117ca"
+        },
+        "historical_bb028": {
+          "commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+          "exists": true,
+          "sha256": "23d494c98deaf6a408664865f7d7dc1259a417531ab2d0c975dcbb02d14117ca"
+        }
+      },
+      "exact_matching_references": [
+        "target_7455d7a",
+        "historical_d5c998",
+        "historical_bb028"
+      ],
+      "classification": "exact_target_repository_file"
+    },
+    {
+      "snapshot": "runtime_fixed_er_v5",
+      "file": "trainer.py",
+      "exists": true,
+      "sha256": "cffff7ce8249442a4540559f350dabf78dcdbe774f4d3d910090b1e61859de81",
+      "bytes": 6756,
+      "stable_during_read": true,
+      "reference_files": {
+        "target_7455d7a": {
+          "commit": "7455d7a4066ff8dda9327ba05301dec024bf5ae9",
+          "exists": true,
+          "sha256": "cffff7ce8249442a4540559f350dabf78dcdbe774f4d3d910090b1e61859de81"
+        },
+        "historical_d5c998": {
+          "commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+          "exists": true,
+          "sha256": "cffff7ce8249442a4540559f350dabf78dcdbe774f4d3d910090b1e61859de81"
+        },
+        "historical_bb028": {
+          "commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+          "exists": true,
+          "sha256": "cffff7ce8249442a4540559f350dabf78dcdbe774f4d3d910090b1e61859de81"
+        }
+      },
+      "exact_matching_references": [
+        "target_7455d7a",
+        "historical_d5c998",
+        "historical_bb028"
+      ],
+      "classification": "exact_target_repository_file"
+    },
+    {
+      "snapshot": "runtime_fixed_er_v5",
+      "file": "cl27/runner.py",
+      "exists": true,
+      "sha256": "931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e",
+      "bytes": 17702,
+      "stable_during_read": true,
+      "reference_files": {
+        "target_7455d7a": {
+          "commit": "7455d7a4066ff8dda9327ba05301dec024bf5ae9",
+          "exists": true,
+          "sha256": "931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e"
+        },
+        "historical_d5c998": {
+          "commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+          "exists": true,
+          "sha256": "931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e"
+        },
+        "historical_bb028": {
+          "commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+          "exists": true,
+          "sha256": "931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e"
+        }
+      },
+      "exact_matching_references": [
+        "target_7455d7a",
+        "historical_d5c998",
+        "historical_bb028"
+      ],
+      "classification": "exact_target_repository_file"
+    },
+    {
+      "snapshot": "runtime_fixed_er_v5",
+      "file": "cl27/ce_trajectory.py",
+      "exists": true,
+      "sha256": "371c8f4876059c1ca740d6efed80c00b525a2265a55a45e926dc958d9d6be14a",
+      "bytes": 14157,
+      "stable_during_read": true,
+      "reference_files": {
+        "target_7455d7a": {
+          "commit": "7455d7a4066ff8dda9327ba05301dec024bf5ae9",
+          "exists": true,
+          "sha256": "371c8f4876059c1ca740d6efed80c00b525a2265a55a45e926dc958d9d6be14a"
+        },
+        "historical_d5c998": {
+          "commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+          "exists": true,
+          "sha256": "371c8f4876059c1ca740d6efed80c00b525a2265a55a45e926dc958d9d6be14a"
+        },
+        "historical_bb028": {
+          "commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+          "exists": true,
+          "sha256": "371c8f4876059c1ca740d6efed80c00b525a2265a55a45e926dc958d9d6be14a"
+        }
+      },
+      "exact_matching_references": [
+        "target_7455d7a",
+        "historical_d5c998",
+        "historical_bb028"
+      ],
+      "classification": "exact_target_repository_file"
+    },
+    {
+      "snapshot": "runtime_fixed_er_v5",
+      "file": "cl27/supervised.py",
+      "exists": true,
+      "sha256": "895b0962cbf7e3b77ad53675490290d211ac9983c3dc65ba61bd9e8a594dda7a",
+      "bytes": 709,
+      "stable_during_read": true,
+      "reference_files": {
+        "target_7455d7a": {
+          "commit": "7455d7a4066ff8dda9327ba05301dec024bf5ae9",
+          "exists": true,
+          "sha256": "895b0962cbf7e3b77ad53675490290d211ac9983c3dc65ba61bd9e8a594dda7a"
+        },
+        "historical_d5c998": {
+          "commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+          "exists": true,
+          "sha256": "895b0962cbf7e3b77ad53675490290d211ac9983c3dc65ba61bd9e8a594dda7a"
+        },
+        "historical_bb028": {
+          "commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+          "exists": true,
+          "sha256": "895b0962cbf7e3b77ad53675490290d211ac9983c3dc65ba61bd9e8a594dda7a"
+        }
+      },
+      "exact_matching_references": [
+        "target_7455d7a",
+        "historical_d5c998",
+        "historical_bb028"
+      ],
+      "classification": "exact_target_repository_file"
+    },
+    {
+      "snapshot": "runtime_fixed_er_v5",
+      "file": "cl27/transport_training.py",
+      "exists": true,
+      "sha256": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9",
+      "bytes": 6070,
+      "stable_during_read": true,
+      "reference_files": {
+        "target_7455d7a": {
+          "commit": "7455d7a4066ff8dda9327ba05301dec024bf5ae9",
+          "exists": true,
+          "sha256": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9"
+        },
+        "historical_d5c998": {
+          "commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+          "exists": true,
+          "sha256": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9"
+        },
+        "historical_bb028": {
+          "commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+          "exists": true,
+          "sha256": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9"
+        }
+      },
+      "exact_matching_references": [
+        "target_7455d7a",
+        "historical_d5c998",
+        "historical_bb028"
+      ],
+      "classification": "exact_target_repository_file"
+    },
+    {
+      "snapshot": "runtime_fixed_er_v5",
+      "file": "scripts/run_fixed_er_record.py",
+      "exists": true,
+      "sha256": "60e95c5577e792605c8b1d9421e276e02efaf87ea04c4a6945c58b56cb1ad1b3",
+      "bytes": 3352,
+      "stable_during_read": true,
+      "reference_files": {
+        "target_7455d7a": {
+          "commit": "7455d7a4066ff8dda9327ba05301dec024bf5ae9",
+          "exists": true,
+          "sha256": "60e95c5577e792605c8b1d9421e276e02efaf87ea04c4a6945c58b56cb1ad1b3"
+        },
+        "historical_d5c998": {
+          "commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+          "exists": false,
+          "sha256": null
+        },
+        "historical_bb028": {
+          "commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+          "exists": true,
+          "sha256": "60e95c5577e792605c8b1d9421e276e02efaf87ea04c4a6945c58b56cb1ad1b3"
+        }
+      },
+      "exact_matching_references": [
+        "target_7455d7a",
+        "historical_bb028"
+      ],
+      "classification": "exact_target_repository_file"
+    },
+    {
+      "snapshot": "runtime_fixed_er_v5",
+      "file": "scripts/run_ce_cohort.py",
+      "exists": true,
+      "sha256": "e0c9c4ff9667b5843eee5efe836ccc4fec31312f028ef04d0a7a7e611ac6014a",
+      "bytes": 3900,
+      "stable_during_read": true,
+      "reference_files": {
+        "target_7455d7a": {
+          "commit": "7455d7a4066ff8dda9327ba05301dec024bf5ae9",
+          "exists": true,
+          "sha256": "e0c9c4ff9667b5843eee5efe836ccc4fec31312f028ef04d0a7a7e611ac6014a"
+        },
+        "historical_d5c998": {
+          "commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+          "exists": true,
+          "sha256": "e0c9c4ff9667b5843eee5efe836ccc4fec31312f028ef04d0a7a7e611ac6014a"
+        },
+        "historical_bb028": {
+          "commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+          "exists": true,
+          "sha256": "e0c9c4ff9667b5843eee5efe836ccc4fec31312f028ef04d0a7a7e611ac6014a"
+        }
+      },
+      "exact_matching_references": [
+        "target_7455d7a",
+        "historical_d5c998",
+        "historical_bb028"
+      ],
+      "classification": "exact_target_repository_file"
+    },
+    {
+      "snapshot": "runtime_tuning_v1",
+      "file": "main.py",
+      "exists": true,
+      "sha256": "23d494c98deaf6a408664865f7d7dc1259a417531ab2d0c975dcbb02d14117ca",
+      "bytes": 729,
+      "stable_during_read": true,
+      "reference_files": {
+        "target_7455d7a": {
+          "commit": "7455d7a4066ff8dda9327ba05301dec024bf5ae9",
+          "exists": true,
+          "sha256": "23d494c98deaf6a408664865f7d7dc1259a417531ab2d0c975dcbb02d14117ca"
+        },
+        "historical_d5c998": {
+          "commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+          "exists": true,
+          "sha256": "23d494c98deaf6a408664865f7d7dc1259a417531ab2d0c975dcbb02d14117ca"
+        },
+        "historical_bb028": {
+          "commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+          "exists": true,
+          "sha256": "23d494c98deaf6a408664865f7d7dc1259a417531ab2d0c975dcbb02d14117ca"
+        }
+      },
+      "exact_matching_references": [
+        "target_7455d7a",
+        "historical_d5c998",
+        "historical_bb028"
+      ],
+      "classification": "exact_target_repository_file"
+    },
+    {
+      "snapshot": "runtime_tuning_v1",
+      "file": "trainer.py",
+      "exists": true,
+      "sha256": "cffff7ce8249442a4540559f350dabf78dcdbe774f4d3d910090b1e61859de81",
+      "bytes": 6756,
+      "stable_during_read": true,
+      "reference_files": {
+        "target_7455d7a": {
+          "commit": "7455d7a4066ff8dda9327ba05301dec024bf5ae9",
+          "exists": true,
+          "sha256": "cffff7ce8249442a4540559f350dabf78dcdbe774f4d3d910090b1e61859de81"
+        },
+        "historical_d5c998": {
+          "commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+          "exists": true,
+          "sha256": "cffff7ce8249442a4540559f350dabf78dcdbe774f4d3d910090b1e61859de81"
+        },
+        "historical_bb028": {
+          "commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+          "exists": true,
+          "sha256": "cffff7ce8249442a4540559f350dabf78dcdbe774f4d3d910090b1e61859de81"
+        }
+      },
+      "exact_matching_references": [
+        "target_7455d7a",
+        "historical_d5c998",
+        "historical_bb028"
+      ],
+      "classification": "exact_target_repository_file"
+    },
+    {
+      "snapshot": "runtime_tuning_v1",
+      "file": "cl27/runner.py",
+      "exists": true,
+      "sha256": "931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e",
+      "bytes": 17702,
+      "stable_during_read": true,
+      "reference_files": {
+        "target_7455d7a": {
+          "commit": "7455d7a4066ff8dda9327ba05301dec024bf5ae9",
+          "exists": true,
+          "sha256": "931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e"
+        },
+        "historical_d5c998": {
+          "commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+          "exists": true,
+          "sha256": "931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e"
+        },
+        "historical_bb028": {
+          "commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+          "exists": true,
+          "sha256": "931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e"
+        }
+      },
+      "exact_matching_references": [
+        "target_7455d7a",
+        "historical_d5c998",
+        "historical_bb028"
+      ],
+      "classification": "exact_target_repository_file"
+    },
+    {
+      "snapshot": "runtime_tuning_v1",
+      "file": "cl27/ce_trajectory.py",
+      "exists": true,
+      "sha256": "371c8f4876059c1ca740d6efed80c00b525a2265a55a45e926dc958d9d6be14a",
+      "bytes": 14157,
+      "stable_during_read": true,
+      "reference_files": {
+        "target_7455d7a": {
+          "commit": "7455d7a4066ff8dda9327ba05301dec024bf5ae9",
+          "exists": true,
+          "sha256": "371c8f4876059c1ca740d6efed80c00b525a2265a55a45e926dc958d9d6be14a"
+        },
+        "historical_d5c998": {
+          "commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+          "exists": true,
+          "sha256": "371c8f4876059c1ca740d6efed80c00b525a2265a55a45e926dc958d9d6be14a"
+        },
+        "historical_bb028": {
+          "commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+          "exists": true,
+          "sha256": "371c8f4876059c1ca740d6efed80c00b525a2265a55a45e926dc958d9d6be14a"
+        }
+      },
+      "exact_matching_references": [
+        "target_7455d7a",
+        "historical_d5c998",
+        "historical_bb028"
+      ],
+      "classification": "exact_target_repository_file"
+    },
+    {
+      "snapshot": "runtime_tuning_v1",
+      "file": "cl27/supervised.py",
+      "exists": true,
+      "sha256": "895b0962cbf7e3b77ad53675490290d211ac9983c3dc65ba61bd9e8a594dda7a",
+      "bytes": 709,
+      "stable_during_read": true,
+      "reference_files": {
+        "target_7455d7a": {
+          "commit": "7455d7a4066ff8dda9327ba05301dec024bf5ae9",
+          "exists": true,
+          "sha256": "895b0962cbf7e3b77ad53675490290d211ac9983c3dc65ba61bd9e8a594dda7a"
+        },
+        "historical_d5c998": {
+          "commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+          "exists": true,
+          "sha256": "895b0962cbf7e3b77ad53675490290d211ac9983c3dc65ba61bd9e8a594dda7a"
+        },
+        "historical_bb028": {
+          "commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+          "exists": true,
+          "sha256": "895b0962cbf7e3b77ad53675490290d211ac9983c3dc65ba61bd9e8a594dda7a"
+        }
+      },
+      "exact_matching_references": [
+        "target_7455d7a",
+        "historical_d5c998",
+        "historical_bb028"
+      ],
+      "classification": "exact_target_repository_file"
+    },
+    {
+      "snapshot": "runtime_tuning_v1",
+      "file": "cl27/transport_training.py",
+      "exists": true,
+      "sha256": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9",
+      "bytes": 6070,
+      "stable_during_read": true,
+      "reference_files": {
+        "target_7455d7a": {
+          "commit": "7455d7a4066ff8dda9327ba05301dec024bf5ae9",
+          "exists": true,
+          "sha256": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9"
+        },
+        "historical_d5c998": {
+          "commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+          "exists": true,
+          "sha256": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9"
+        },
+        "historical_bb028": {
+          "commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+          "exists": true,
+          "sha256": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9"
+        }
+      },
+      "exact_matching_references": [
+        "target_7455d7a",
+        "historical_d5c998",
+        "historical_bb028"
+      ],
+      "classification": "exact_target_repository_file"
+    },
+    {
+      "snapshot": "runtime_tuning_v1",
+      "file": "scripts/run_fixed_er_record.py",
+      "exists": false,
+      "status": "absent_non_applicable_in_this_snapshot",
+      "reference_files": {
+        "target_7455d7a": {
+          "commit": "7455d7a4066ff8dda9327ba05301dec024bf5ae9",
+          "exists": true,
+          "sha256": "60e95c5577e792605c8b1d9421e276e02efaf87ea04c4a6945c58b56cb1ad1b3"
+        },
+        "historical_d5c998": {
+          "commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+          "exists": false,
+          "sha256": null
+        },
+        "historical_bb028": {
+          "commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+          "exists": true,
+          "sha256": "60e95c5577e792605c8b1d9421e276e02efaf87ea04c4a6945c58b56cb1ad1b3"
+        }
+      },
+      "exact_matching_references": [],
+      "classification": "absent_non_applicable_in_this_snapshot"
+    },
+    {
+      "snapshot": "runtime_tuning_v1",
+      "file": "scripts/run_ce_cohort.py",
+      "exists": true,
+      "sha256": "e0c9c4ff9667b5843eee5efe836ccc4fec31312f028ef04d0a7a7e611ac6014a",
+      "bytes": 3900,
+      "stable_during_read": true,
+      "reference_files": {
+        "target_7455d7a": {
+          "commit": "7455d7a4066ff8dda9327ba05301dec024bf5ae9",
+          "exists": true,
+          "sha256": "e0c9c4ff9667b5843eee5efe836ccc4fec31312f028ef04d0a7a7e611ac6014a"
+        },
+        "historical_d5c998": {
+          "commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+          "exists": true,
+          "sha256": "e0c9c4ff9667b5843eee5efe836ccc4fec31312f028ef04d0a7a7e611ac6014a"
+        },
+        "historical_bb028": {
+          "commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+          "exists": true,
+          "sha256": "e0c9c4ff9667b5843eee5efe836ccc4fec31312f028ef04d0a7a7e611ac6014a"
+        }
+      },
+      "exact_matching_references": [
+        "target_7455d7a",
+        "historical_d5c998",
+        "historical_bb028"
+      ],
+      "classification": "exact_target_repository_file"
+    },
+    {
+      "snapshot": "runtime_bounded_v4",
+      "file": "main.py",
+      "exists": true,
+      "sha256": "23d494c98deaf6a408664865f7d7dc1259a417531ab2d0c975dcbb02d14117ca",
+      "bytes": 729,
+      "stable_during_read": true,
+      "reference_files": {
+        "target_7455d7a": {
+          "commit": "7455d7a4066ff8dda9327ba05301dec024bf5ae9",
+          "exists": true,
+          "sha256": "23d494c98deaf6a408664865f7d7dc1259a417531ab2d0c975dcbb02d14117ca"
+        },
+        "historical_d5c998": {
+          "commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+          "exists": true,
+          "sha256": "23d494c98deaf6a408664865f7d7dc1259a417531ab2d0c975dcbb02d14117ca"
+        },
+        "historical_bb028": {
+          "commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+          "exists": true,
+          "sha256": "23d494c98deaf6a408664865f7d7dc1259a417531ab2d0c975dcbb02d14117ca"
+        }
+      },
+      "exact_matching_references": [
+        "target_7455d7a",
+        "historical_d5c998",
+        "historical_bb028"
+      ],
+      "classification": "exact_target_repository_file"
+    },
+    {
+      "snapshot": "runtime_bounded_v4",
+      "file": "trainer.py",
+      "exists": true,
+      "sha256": "cffff7ce8249442a4540559f350dabf78dcdbe774f4d3d910090b1e61859de81",
+      "bytes": 6756,
+      "stable_during_read": true,
+      "reference_files": {
+        "target_7455d7a": {
+          "commit": "7455d7a4066ff8dda9327ba05301dec024bf5ae9",
+          "exists": true,
+          "sha256": "cffff7ce8249442a4540559f350dabf78dcdbe774f4d3d910090b1e61859de81"
+        },
+        "historical_d5c998": {
+          "commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+          "exists": true,
+          "sha256": "cffff7ce8249442a4540559f350dabf78dcdbe774f4d3d910090b1e61859de81"
+        },
+        "historical_bb028": {
+          "commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+          "exists": true,
+          "sha256": "cffff7ce8249442a4540559f350dabf78dcdbe774f4d3d910090b1e61859de81"
+        }
+      },
+      "exact_matching_references": [
+        "target_7455d7a",
+        "historical_d5c998",
+        "historical_bb028"
+      ],
+      "classification": "exact_target_repository_file"
+    },
+    {
+      "snapshot": "runtime_bounded_v4",
+      "file": "cl27/runner.py",
+      "exists": true,
+      "sha256": "931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e",
+      "bytes": 17702,
+      "stable_during_read": true,
+      "reference_files": {
+        "target_7455d7a": {
+          "commit": "7455d7a4066ff8dda9327ba05301dec024bf5ae9",
+          "exists": true,
+          "sha256": "931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e"
+        },
+        "historical_d5c998": {
+          "commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+          "exists": true,
+          "sha256": "931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e"
+        },
+        "historical_bb028": {
+          "commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+          "exists": true,
+          "sha256": "931f4556072fd762e40827a418566126fff682210cb24cb3248c6efcf39a0e4e"
+        }
+      },
+      "exact_matching_references": [
+        "target_7455d7a",
+        "historical_d5c998",
+        "historical_bb028"
+      ],
+      "classification": "exact_target_repository_file"
+    },
+    {
+      "snapshot": "runtime_bounded_v4",
+      "file": "cl27/ce_trajectory.py",
+      "exists": true,
+      "sha256": "371c8f4876059c1ca740d6efed80c00b525a2265a55a45e926dc958d9d6be14a",
+      "bytes": 14157,
+      "stable_during_read": true,
+      "reference_files": {
+        "target_7455d7a": {
+          "commit": "7455d7a4066ff8dda9327ba05301dec024bf5ae9",
+          "exists": true,
+          "sha256": "371c8f4876059c1ca740d6efed80c00b525a2265a55a45e926dc958d9d6be14a"
+        },
+        "historical_d5c998": {
+          "commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+          "exists": true,
+          "sha256": "371c8f4876059c1ca740d6efed80c00b525a2265a55a45e926dc958d9d6be14a"
+        },
+        "historical_bb028": {
+          "commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+          "exists": true,
+          "sha256": "371c8f4876059c1ca740d6efed80c00b525a2265a55a45e926dc958d9d6be14a"
+        }
+      },
+      "exact_matching_references": [
+        "target_7455d7a",
+        "historical_d5c998",
+        "historical_bb028"
+      ],
+      "classification": "exact_target_repository_file"
+    },
+    {
+      "snapshot": "runtime_bounded_v4",
+      "file": "cl27/supervised.py",
+      "exists": true,
+      "sha256": "895b0962cbf7e3b77ad53675490290d211ac9983c3dc65ba61bd9e8a594dda7a",
+      "bytes": 709,
+      "stable_during_read": true,
+      "reference_files": {
+        "target_7455d7a": {
+          "commit": "7455d7a4066ff8dda9327ba05301dec024bf5ae9",
+          "exists": true,
+          "sha256": "895b0962cbf7e3b77ad53675490290d211ac9983c3dc65ba61bd9e8a594dda7a"
+        },
+        "historical_d5c998": {
+          "commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+          "exists": true,
+          "sha256": "895b0962cbf7e3b77ad53675490290d211ac9983c3dc65ba61bd9e8a594dda7a"
+        },
+        "historical_bb028": {
+          "commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+          "exists": true,
+          "sha256": "895b0962cbf7e3b77ad53675490290d211ac9983c3dc65ba61bd9e8a594dda7a"
+        }
+      },
+      "exact_matching_references": [
+        "target_7455d7a",
+        "historical_d5c998",
+        "historical_bb028"
+      ],
+      "classification": "exact_target_repository_file"
+    },
+    {
+      "snapshot": "runtime_bounded_v4",
+      "file": "cl27/transport_training.py",
+      "exists": true,
+      "sha256": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9",
+      "bytes": 6070,
+      "stable_during_read": true,
+      "reference_files": {
+        "target_7455d7a": {
+          "commit": "7455d7a4066ff8dda9327ba05301dec024bf5ae9",
+          "exists": true,
+          "sha256": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9"
+        },
+        "historical_d5c998": {
+          "commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+          "exists": true,
+          "sha256": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9"
+        },
+        "historical_bb028": {
+          "commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+          "exists": true,
+          "sha256": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9"
+        }
+      },
+      "exact_matching_references": [
+        "target_7455d7a",
+        "historical_d5c998",
+        "historical_bb028"
+      ],
+      "classification": "exact_target_repository_file"
+    },
+    {
+      "snapshot": "runtime_bounded_v4",
+      "file": "scripts/run_fixed_er_record.py",
+      "exists": false,
+      "status": "absent_non_applicable_in_this_snapshot",
+      "reference_files": {
+        "target_7455d7a": {
+          "commit": "7455d7a4066ff8dda9327ba05301dec024bf5ae9",
+          "exists": true,
+          "sha256": "60e95c5577e792605c8b1d9421e276e02efaf87ea04c4a6945c58b56cb1ad1b3"
+        },
+        "historical_d5c998": {
+          "commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+          "exists": false,
+          "sha256": null
+        },
+        "historical_bb028": {
+          "commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+          "exists": true,
+          "sha256": "60e95c5577e792605c8b1d9421e276e02efaf87ea04c4a6945c58b56cb1ad1b3"
+        }
+      },
+      "exact_matching_references": [],
+      "classification": "absent_non_applicable_in_this_snapshot"
+    },
+    {
+      "snapshot": "runtime_bounded_v4",
+      "file": "scripts/run_ce_cohort.py",
+      "exists": true,
+      "sha256": "e0c9c4ff9667b5843eee5efe836ccc4fec31312f028ef04d0a7a7e611ac6014a",
+      "bytes": 3900,
+      "stable_during_read": true,
+      "reference_files": {
+        "target_7455d7a": {
+          "commit": "7455d7a4066ff8dda9327ba05301dec024bf5ae9",
+          "exists": true,
+          "sha256": "e0c9c4ff9667b5843eee5efe836ccc4fec31312f028ef04d0a7a7e611ac6014a"
+        },
+        "historical_d5c998": {
+          "commit": "d5c998a8bbcb0c8887a037d2093d48c5b64d2c28",
+          "exists": true,
+          "sha256": "e0c9c4ff9667b5843eee5efe836ccc4fec31312f028ef04d0a7a7e611ac6014a"
+        },
+        "historical_bb028": {
+          "commit": "bb028d926565e6db86d4b4e716406c57392a1617",
+          "exists": true,
+          "sha256": "e0c9c4ff9667b5843eee5efe836ccc4fec31312f028ef04d0a7a7e611ac6014a"
+        }
+      },
+      "exact_matching_references": [
+        "target_7455d7a",
+        "historical_d5c998",
+        "historical_bb028"
+      ],
+      "classification": "exact_target_repository_file"
+    }
+  ],
+  "source_binding_limit": "These file hashes bind the current observed snapshot bytes to the named Git versions. Receipts and prior immutable-source records separately establish which snapshot each actual job executed; this is not a training replay or a score audit."
+}

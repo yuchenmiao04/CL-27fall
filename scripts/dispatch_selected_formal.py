@@ -88,7 +88,8 @@ def probe_process(pid):
         args = [x.decode() for x in (path / "cmdline").read_bytes().split(b"\0") if x]
         latest = (path / "stat").read_text()
         after = latest[latest.rfind(")") + 2:].split()
-        check(fields[19] == after[19], "PID changed during process observation")
+        check(fields[19] == after[19], f"PID changed during process observation: pid={pid} "
+              f"before_startticks={fields[19]} after_startticks={after[19]} state={after[0]} observed_cmd={args!r}")
         fields = after
         return dict(state=fields[0], startticks=int(fields[19]),
                     cmd=args,
@@ -220,11 +221,18 @@ class Dispatcher:
         info = self.probe(identity["pid"])
         if info is None:
             return False
-        check(info["startticks"] == int(identity["proc_start_ticks"]), "Original PID was reused")
+        details = (f"pid={identity['pid']} expected_startticks={identity['proc_start_ticks']} "
+                   f"observed_startticks={info['startticks']} state={info['state']} "
+                   f"expected_cmd={expected!r} observed_cmd={info['cmd']!r} exit_code={info.get('exit_code')!r}")
+        check(info["startticks"] == int(identity["proc_start_ticks"]), "Original PID was reused: " + details)
         if info["state"] in DEAD:
-            check(info.get("exit_code") == 0, "Original process exited nonzero")
+            check(info.get("exit_code") == 0, "Original process exited nonzero: " + details)
             return False
-        check(info["cmd"] == expected, "Original process command differs")
+        # A same-identity process can clear argv before reaching a dead state.
+        # Keep its full reservation and block dependants until actual terminal.
+        if info["cmd"] == []:
+            return True
+        check(info["cmd"] == expected, "Original process command differs: " + details)
         return True
 
     def complete(self, path, method):

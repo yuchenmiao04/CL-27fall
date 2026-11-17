@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "status": "all_audited_imported_native_sources_match_current_HEAD_and_worktree",
+  "checked_utc": "2026-11-17T11:14:23.486062+00:00",
+  "formal_job": "formal_cifar_er_fixed_v1",
+  "audit_log": {
+    "private_relative_path": ".experiment_private_20261117/formal_observations/formal_cifar_er_fixed_v1/verification/logs/audit_formal_cifar_er_fixed_v1_v2.log",
+    "sha256": "d015d1c5dfb7493fea2b84665d98bd5818c920195b7114350e1d7c7510ae1489",
+    "audit_status": "native_cpu_checkpoint_audit_checks_passed_not_campaign_certificate",
+    "executed_model_source_root": "remote_runtime/runtime_fixed_er_v5"
+  },
+  "repository_HEAD": "7455d7a4066ff8dda9327ba05301dec024bf5ae9",
+  "comparison_scope": "Only model/data/native dependency Python files actually listed by the completed native CPU audit. Package/import dependencies are included as provenance, not all claimed to be active ER algorithm components.",
+  "source_count": 18,
+  "matching_count": 18,
+  "mismatches": [],
+  "missing": [],
+  "files": [
+    {
+      "path": "backbone/linears.py",
+      "audited_runtime_sha256": "d8cf24ab4cbea4c2b84afe6061cdf4276bb5b4e34c0cb2a56712b63f0b6e4505",
+      "current_repo_HEAD_sha256": "d8cf24ab4cbea4c2b84afe6061cdf4276bb5b4e34c0cb2a56712b63f0b6e4505",
+      "current_worktree_sha256": "d8cf24ab4cbea4c2b84afe6061cdf4276bb5b4e34c0cb2a56712b63f0b6e4505",
+      "HEAD_matches_audited_runtime": true,
+      "worktree_matches_audited_runtime": true
+    },
+    {
+      "path": "backbone/prompt.py",
+      "audited_runtime_sha256": "ce57c5a4aa5c9c5ab9d7eb70ae27cb5a966ac2a1d9a540b45b55dfcd46ff2b04",
+      "current_repo_HEAD_sha256": "ce57c5a4aa5c9c5ab9d7eb70ae27cb5a966ac2a1d9a540b45b55dfcd46ff2b04",
+      "current_worktree_sha256": "ce57c5a4aa5c9c5ab9d7eb70ae27cb5a966ac2a1d9a540b45b55dfcd46ff2b04",
+      "HEAD_matches_audited_runtime": true,
+      "worktree_matches_audited_runtime": true
+    },
+    {
+      "path": "cl27/__init__.py",
+      "audited_runtime_sha256": "77f44223a067ed9123ca03c50fe5b4c423c6dc75afe3b47c2a291af4491e5211",
+      "current_repo_HEAD_sha256": "77f44223a067ed9123ca03c50fe5b4c423c6dc75afe3b47c2a291af4491e5211",
+      "current_worktree_sha256": "77f44223a067ed9123ca03c50fe5b4c423c6dc75afe3b47c2a291af4491e5211",
+      "HEAD_matches_audited_runtime": true,
+      "worktree_matches_audited_runtime": true
+    },
+    {
+      "path": "cl27/common.py",
+      "audited_runtime_sha256": "33b63ca2b6baef4585e677d54d9e72e6e5247efb24d997e6eeec968911e0c3bf",
+      "current_repo_HEAD_sha256": "33b63ca2b6baef4585e677d54d9e72e6e5247efb24d997e6eeec968911e0c3bf",
+      "current_worktree_sha256": "33b63ca2b6baef4585e677d54d9e72e6e5247efb24d997e6eeec968911e0c3bf",
+      "HEAD_matches_audited_runtime": true,
+      "worktree_matches_audited_runtime": true
+    },
+    {
+      "path": "cl27/data.py",
+      "audited_runtime_sha256": "18fae0aaa165451c0c7b8f5c06eab2fed34c99be4a31623f3d26b930a7a19230",
+      "current_repo_HEAD_sha256": "18fae0aaa165451c0c7b8f5c06eab2fed34c99be4a31623f3d26b930a7a19230",
+      "current_worktree_sha256": "18fae0aaa165451c0c7b8f5c06eab2fed34c99be4a31623f3d26b930a7a19230",
+      "HEAD_matches_audited_runtime": true,
+      "worktree_matches_audited_runtime": true
+    },
+    {
+      "path": "cl27/pilot_imagenetr.py",
+      "audited_runtime_sha256": "037325bb474f1a59a6c1f4d1c0a7960423cb50b0924e903c5b86836c017bb4f5",
+      "current_repo_HEAD_sha256": "037325bb474f1a59a6c1f4d1c0a7960423cb50b0924e903c5b86836c017bb4f5",
+      "current_worktree_sha256": "037325bb474f1a59a6c1f4d1c0a7960423cb50b0924e903c5b86836c017bb4f5",
+      "HEAD_matches_audited_runtime": true,
+      "worktree_matches_audited_runtime": true
+    },
+    {
+      "path": "cl27/replay.py",
+      "audited_runtime_sha256": "c334c443a977aa656e07c381ea1a3232dedc56159d70a0717131c50e754a17a9",
+      "current_repo_HEAD_sha256": "c334c443a977aa656e07c381ea1a3232dedc56159d70a0717131c50e754a17a9",
+      "current_worktree_sha256": "c334c443a977aa656e07c381ea1a3232dedc56159d70a0717131c50e754a17a9",
+      "HEAD_matches_audited_runtime": true,
+      "worktree_matches_audited_runtime": true
+    },
+    {
+      "path": "cl27/supervised.py",
+      "audited_runtime_sha256": "895b0962cbf7e3b77ad53675490290d211ac9983c3dc65ba61bd9e8a594dda7a",
+      "current_repo_HEAD_sha256": "895b0962cbf7e3b77ad53675490290d211ac9983c3dc65ba61bd9e8a594dda7a",
+      "current_worktree_sha256": "895b0962cbf7e3b77ad53675490290d211ac9983c3dc65ba61bd9e8a594dda7a",
+      "HEAD_matches_audited_runtime": true,
+      "worktree_matches_audited_runtime": true
+    },
+    {
+      "path": "cl27/transport_training.py",
+      "audited_runtime_sha256": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9",
+      "current_repo_HEAD_sha256": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9",
+      "current_worktree_sha256": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9",
+      "HEAD_matches_audited_runtime": true,
+      "worktree_matches_audited_runtime": true
+    },
+    {
+      "path": "models/__init__.py",
+      "audited_runtime_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "current_repo_HEAD_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "current_worktree_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "HEAD_matches_audited_runtime": true,
+      "worktree_matches_audited_runtime": true
+    },
+    {
+      "path": "models/base.py",
+      "audited_runtime_sha256": "55e59eb4698004ae33862332731f172476be28dffafc07e85ad72013d722bcbf",
+      "current_repo_HEAD_sha256": "55e59eb4698004ae33862332731f172476be28dffafc07e85ad72013d722bcbf",
+      "current_worktree_sha256": "55e59eb4698004ae33862332731f172476be28dffafc07e85ad72013d722bcbf",
+      "HEAD_matches_audited_runtime": true,
+      "worktree_matches_audited_runtime": true
+    },
+    {
+      "path": "models/er.py",
+      "audited_runtime_sha256": "5b43cdaf7ecf288dd9b0b64af16ea22b1681fce5ce212e886f00e2c13fbf356c",
+      "current_repo_HEAD_sha256": "5b43cdaf7ecf288dd9b0b64af16ea22b1681fce5ce212e886f00e2c13fbf356c",
+      "current_worktree_sha256": "5b43cdaf7ecf288dd9b0b64af16ea22b1681fce5ce212e886f00e2c13fbf356c",
+      "HEAD_matches_audited_runtime": true,
+      "worktree_matches_audited_runtime": true
+    },
+    {
+      "path": "utils/__init__.py",
+      "audited_runtime_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "current_repo_HEAD_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "current_worktree_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "HEAD_matches_audited_runtime": true,
+      "worktree_matches_audited_runtime": true
+    },
+    {
+      "path": "utils/data.py",
+      "audited_runtime_sha256": "a5f1b056a244439a45c7359c4328ae378c1557078ab81cf332ebaf0a8118f87c",
+      "current_repo_HEAD_sha256": "a5f1b056a244439a45c7359c4328ae378c1557078ab81cf332ebaf0a8118f87c",
+      "current_worktree_sha256": "a5f1b056a244439a45c7359c4328ae378c1557078ab81cf332ebaf0a8118f87c",
+      "HEAD_matches_audited_runtime": true,
+      "worktree_matches_audited_runtime": true
+    },
+    {
+      "path": "utils/data_manager.py",
+      "audited_runtime_sha256": "74601c9c46d1e51ee95ee20c8a261b28325b997586bd3bf6e78a361d41289857",
+      "current_repo_HEAD_sha256": "74601c9c46d1e51ee95ee20c8a261b28325b997586bd3bf6e78a361d41289857",
+      "current_worktree_sha256": "74601c9c46d1e51ee95ee20c8a261b28325b997586bd3bf6e78a361d41289857",
+      "HEAD_matches_audited_runtime": true,
+      "worktree_matches_audited_runtime": true
+    },
+    {
+      "path": "utils/factory.py",
+      "audited_runtime_sha256": "8b036ee9f3fd4b471e4a91e1abeea29267f3c7949298228ead87d42901233272",
+      "current_repo_HEAD_sha256": "8b036ee9f3fd4b471e4a91e1abeea29267f3c7949298228ead87d42901233272",
+      "current_worktree_sha256": "8b036ee9f3fd4b471e4a91e1abeea29267f3c7949298228ead87d42901233272",
+      "HEAD_matches_audited_runtime": true,
+      "worktree_matches_audited_runtime": true
+    },
+    {
+      "path": "utils/inc_net.py",
+      "audited_runtime_sha256": "62b178b90f2ab5262be5a35082e7d92d8faca74dae01135785bbb0454e9e52ed",
+      "current_repo_HEAD_sha256": "62b178b90f2ab5262be5a35082e7d92d8faca74dae01135785bbb0454e9e52ed",
+      "current_worktree_sha256": "62b178b90f2ab5262be5a35082e7d92d8faca74dae01135785bbb0454e9e52ed",
+      "HEAD_matches_audited_runtime": true,
+      "worktree_matches_audited_runtime": true
+    },
+    {
+      "path": "utils/toolkit.py",
+      "audited_runtime_sha256": "1f64bb032beacb6510bf9eff1e009ad217a42c9a7fa40cd867a56e71cb4123f6",
+      "current_repo_HEAD_sha256": "1f64bb032beacb6510bf9eff1e009ad217a42c9a7fa40cd867a56e71cb4123f6",
+      "current_worktree_sha256": "1f64bb032beacb6510bf9eff1e009ad217a42c9a7fa40cd867a56e71cb4123f6",
+      "HEAD_matches_audited_runtime": true,
+      "worktree_matches_audited_runtime": true
+    }
+  ],
+  "not_training_algorithms": {
+    "auditor_helper": {
+      "sha256": "ca025b07d92cc0eeed295d1c4f6a8db9655aa45487435fecaa5c839e426f9b3b",
+      "role": "Read-only recovery verification utility, excluded from training algorithm correspondence."
+    },
+    "independent_state_loader": {
+      "path": "remote_runtime/compare_checkpoint_state.py",
+      "sha256": "696416de70cdfb5e7033cc26c93ad005eb5e20918379f4ef01fc3d76142b2d02",
+      "role": "Trusted checkpoint loader/exact state comparator, excluded from training algorithm correspondence."
+    }
+  },
+  "coverage_limit": "runtime_source_files_sha256 records imported native-restoration sources, not an exhaustive trace of the original training entry point. It does not alone bind the original runner, CE cache/recorder wrapper or external timm/PyTorch binaries. Those retain separate snapshot/version/execution evidence.",
+  "known_execution_files_not_listed_in_this_audit": [
+    "cl27/runner.py",
+    "cl27/ce_trajectory.py",
+    "scripts/run_fixed_er_record.py"
+  ],
+  "actions": "Local read-only source comparison plus this private JSON only; no server execution, weight download, model/score mutation or skill/AgentB use."
+}

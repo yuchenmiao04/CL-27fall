@@ -1,0 +1,150 @@
+{
+  "job": "formal_cifar_transport_selected_v2",
+  "weights_included": false,
+  "files": {
+    "audit_tools/finalize_formal_cpu_audit.py": {
+      "bytes": 14037,
+      "sha256": "959254cc73ee61e574714d9ae31561cdc5a2c599115701c43216bacc7c783c46"
+    },
+    "audit_tools/metric_validator.py": {
+      "bytes": 15161,
+      "sha256": "fc49f07d6bacdcd8e71c6d38eba66cf4ca9187f4252a3187e180cde189026f9b"
+    },
+    "audit_tools/native_cpu_auditor.py": {
+      "bytes": 27460,
+      "sha256": "ca025b07d92cc0eeed295d1c4f6a8db9655aa45487435fecaa5c839e426f9b3b"
+    },
+    "audit_tools/state_loader.py": {
+      "bytes": 15046,
+      "sha256": "696416de70cdfb5e7033cc26c93ad005eb5e20918379f4ef01fc3d76142b2d02"
+    },
+    "formal/cohorts/formal_cifar_er_fixed_v1.cache_inventory.json": {
+      "bytes": 7221,
+      "sha256": "8cf88019bbaa222e1a6cf36c9bf5ecbd62f4bf22fcb9c815eb086de550340a1f"
+    },
+    "formal/completion_receipts/formal_cifar_er_fixed_v1.json": {
+      "bytes": 2402,
+      "sha256": "2a30b13d4f493893173858ac139e0a7bfa69fec8ad89fe1245e6d6a9ab49cdbb"
+    },
+    "formal/logs/formal_cifar_transport_selected_v2.log": {
+      "bytes": 2420,
+      "sha256": "635aeb37e15ee3aa65ed1051df7a4eaeab5a8de61318133f1e99ebe2d691551a"
+    },
+    "formal/receipts/formal_cifar_transport_selected_v2.json": {
+      "bytes": 1018,
+      "sha256": "cf23fff46b40df00cc8dc4a90dcffbe85c9bd63c8d5f073170de685b1f735812"
+    },
+    "formal/runs/formal_cifar_er_fixed_v1/config.json": {
+      "bytes": 1222,
+      "sha256": "5642ea285a4d05354b89e89b0618f36e1f96090beba00248c71a9cfa60dbd275"
+    },
+    "formal/runs/formal_cifar_er_fixed_v1/results.json": {
+      "bytes": 52633,
+      "sha256": "ae1721480c7b9b13796e8b1fa80bc402793d65179076a3392f5f1088befec7a8"
+    },
+    "formal/runs/formal_cifar_transport_selected_v2/config.json": {
+      "bytes": 1546,
+      "sha256": "fe41863891c5a9aa1c0f9b8abc695265b74867e2bf752448da5863f229dffb41"
+    },
+    "formal/runs/formal_cifar_transport_selected_v2/data_manifest.json": {
+      "bytes": 1785,
+      "sha256": "1471599966cbc1427d69bcff8a186e0c648b22fb2be88b6de103cb469bdcb823"
+    },
+    "formal/runs/formal_cifar_transport_selected_v2/results.json": {
+      "bytes": 97535,
+      "sha256": "441a308e205114116314f13286c0728f7f566a117591ecd0a8fa1cdc9bc453fa"
+    },
+    "runtime_source/backbone/linears.py": {
+      "bytes": 10398,
+      "sha256": "d8cf24ab4cbea4c2b84afe6061cdf4276bb5b4e34c0cb2a56712b63f0b6e4505"
+    },
+    "runtime_source/backbone/prompt.py": {
+      "bytes": 22521,
+      "sha256": "ce57c5a4aa5c9c5ab9d7eb70ae27cb5a966ac2a1d9a540b45b55dfcd46ff2b04"
+    },
+    "runtime_source/cl27/__init__.py": {
+      "bytes": 65,
+      "sha256": "77f44223a067ed9123ca03c50fe5b4c423c6dc75afe3b47c2a291af4491e5211"
+    },
+    "runtime_source/cl27/common.py": {
+      "bytes": 12000,
+      "sha256": "33b63ca2b6baef4585e677d54d9e72e6e5247efb24d997e6eeec968911e0c3bf"
+    },
+    "runtime_source/cl27/cores/__init__.py": {
+      "bytes": 61,
+      "sha256": "8e080541adf8a76f2aca0b6e8ba95858f46edf4848ae8da80fc93a3abbe13912"
+    },
+    "runtime_source/cl27/cores/transport.py": {
+      "bytes": 31937,
+      "sha256": "632d13b5dad439d7a4eeed0849668fc7dc103d2a838cebea861e42d85865ccd9"
+    },
+    "runtime_source/cl27/data.py": {
+      "bytes": 11588,
+      "sha256": "18fae0aaa165451c0c7b8f5c06eab2fed34c99be4a31623f3d26b930a7a19230"
+    },
+    "runtime_source/cl27/pilot_imagenetr.py": {
+      "bytes": 5614,
+      "sha256": "037325bb474f1a59a6c1f4d1c0a7960423cb50b0924e903c5b86836c017bb4f5"
+    },
+    "runtime_source/cl27/replay.py": {
+      "bytes": 10041,
+      "sha256": "c334c443a977aa656e07c381ea1a3232dedc56159d70a0717131c50e754a17a9"
+    },
+    "runtime_source/cl27/transport_training.py": {
+      "bytes": 6070,
+      "sha256": "3f3e5e40d679cecd09d0cf44ebb5d53901ba247eba27f4afaa6dd3231f0fe5c9"
+    },
+    "runtime_source/models/__init__.py": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "runtime_source/models/base.py": {
+      "bytes": 18381,
+      "sha256": "55e59eb4698004ae33862332731f172476be28dffafc07e85ad72013d722bcbf"
+    },
+    "runtime_source/models/history_transport.py": {
+      "bytes": 11903,
+      "sha256": "a9b32229256cca60cca90ae969df480c20f1f4455629ede69e600d14971f2824"
+    },
+    "runtime_source/utils/__init__.py": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "runtime_source/utils/data.py": {
+      "bytes": 10802,
+      "sha256": "a5f1b056a244439a45c7359c4328ae378c1557078ab81cf332ebaf0a8118f87c"
+    },
+    "runtime_source/utils/data_manager.py": {
+      "bytes": 9914,
+      "sha256": "74601c9c46d1e51ee95ee20c8a261b28325b997586bd3bf6e78a361d41289857"
+    },
+    "runtime_source/utils/factory.py": {
+      "bytes": 2258,
+      "sha256": "8b036ee9f3fd4b471e4a91e1abeea29267f3c7949298228ead87d42901233272"
+    },
+    "runtime_source/utils/inc_net.py": {
+      "bytes": 47964,
+      "sha256": "62b178b90f2ab5262be5a35082e7d92d8faca74dae01135785bbb0454e9e52ed"
+    },
+    "runtime_source/utils/toolkit.py": {
+      "bytes": 3570,
+      "sha256": "1f64bb032beacb6510bf9eff1e009ad217a42c9a7fa40cd867a56e71cb4123f6"
+    },
+    "server_backup/formal_cifar_transport_selected_v2/verification.json": {
+      "bytes": 1232,
+      "sha256": "c95d21e65b4a17f0898f2565da541cff0bac545ea9988e1122696b75cf0fe7af"
+    },
+    "verification/logs/audit_formal_cifar_transport_selected_v2_v1.log": {
+      "bytes": 21567,
+      "sha256": "6fed5279db552b604120e36f230d9205f51e34b4d237f6f8f633b9e925562e1c"
+    },
+    "verification/receipts/audit_formal_cifar_transport_selected_v2_v1.json": {
+      "bytes": 1465,
+      "sha256": "9e60b3699a93a4adc5cd31b97fac417972c78e79faae8f0284eb8af0d5280fef"
+    },
+    "formal/completion_receipts/formal_cifar_transport_selected_v2.json": {
+      "bytes": 2721,
+      "sha256": "239635209362305068849da6ac9989460bc5e171124f8aa364ee453cd93664fc"
+    }
+  }
+}

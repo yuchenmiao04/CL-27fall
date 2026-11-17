@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "runtime_root": "remote_runtime",
+  "python": "remote_python",
+  "state_dir": "remote_runtime/campaign_20261117/scheduling/selected_formal_state_v2",
+  "launcher": {
+    "path": "remote_runtime/launch_jobs.py",
+    "sha256": "56faed6c5511115c62948f2c7ff86d14c22bd53cf676acf22b98f99885472293"
+  },
+  "externals": [
+    {
+      "job": "formal_cifar_er_fixed_v1",
+      "gpu": 1,
+      "receipt": {
+        "path": "remote_runtime/campaign_20261117/formal/receipts/formal_cifar_er_fixed_v1.json",
+        "sha256": "0057a70c0e6d7e2808b6273ec0294715037bcdb5667d4977d6c8787f3cd92439"
+      },
+      "config": {
+        "path": "remote_runtime/campaign_20261117/formal/runs/formal_cifar_er_fixed_v1/config.json",
+        "sha256": "5642ea285a4d05354b89e89b0618f36e1f96090beba00248c71a9cfa60dbd275"
+      },
+      "result": "remote_runtime/campaign_20261117/formal/runs/formal_cifar_er_fixed_v1/results.json"
+    },
+    {
+      "job": "formal_imagenetr_er_fixed_v1",
+      "gpu": 0,
+      "receipt": {
+        "path": "remote_runtime/campaign_20261117/formal/receipts/formal_imagenetr_er_fixed_v1.json",
+        "sha256": "a10e5f0740138f43aff0443f1fc7cd2e96d7894a87d5fb527f13bf9648aab757"
+      },
+      "config": {
+        "path": "remote_runtime/campaign_20261117/formal/runs/formal_imagenetr_er_fixed_v1/config.json",
+        "sha256": "835372adbb325d1317eed07b92b87ab8af419f4425060f6a6aabf4e34c2b1a9d"
+      },
+      "result": "remote_runtime/campaign_20261117/formal/runs/formal_imagenetr_er_fixed_v1/results.json"
+    },
+    {
+      "job": "cifar_current_bounded64_full_v4",
+      "gpu": 1,
+      "receipt": {
+        "path": "remote_runtime/campaign_20261117/development/receipts/cifar_current_bounded64_full_v4.json",
+        "sha256": "0c84a8d363689d6131078bac8de4d6fb704d4cdb769e6774be5f0e7273fcada5"
+      },
+      "config": {
+        "path": "remote_runtime/campaign_20261117/development/runs/cifar_current_bounded64_full_v4/config.json",
+        "sha256": "a7a3a1727a6c90e0ba4c5d79d4f8240db2577815a76beaeaaa41958f48fece0a"
+      },
+      "result": "remote_runtime/campaign_20261117/development/runs/cifar_current_bounded64_full_v4/results.json"
+    },
+    {
+      "job": "cifar_current_mb2_full_v5",
+      "gpu": 0,
+      "receipt": {
+        "path": "remote_runtime/campaign_20261117/development/receipts/cifar_current_mb2_full_v5.json",
+        "sha256": "c014bd7452f69b0cf39e2b4571d6dfee476674101953bf9d21c172ab7458ce41"
+      },
+      "config": {
+        "path": "remote_runtime/campaign_20261117/development/runs/cifar_current_mb2_full_v5/config.json",
+        "sha256": "2e29969a360815190bf7d6a33a122d1c491911c6b6644ce59806b0162447e466"
+      },
+      "result": "remote_runtime/campaign_20261117/development/runs/cifar_current_mb2_full_v5/results.json"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "formal_imagenetr_transport_selected_v3",
+      "spec": {
+        "path": "remote_runtime/formal_imagenetr_transport_selected_v3.json",
+        "sha256": "10c06893ac71c505f40759dc4ebac525383c128bb8f335846aef615c51de1e0d"
+      },
+      "config": {
+        "path": "remote_runtime/campaign_20261117/formal/configs/formal_imagenetr_transport_selected_v3.json",
+        "sha256": "7a90eee367afef3606f0be7b180ff2ef8d2edf5b74ffd85094e5f05bcc5cca8a"
+      },
+      "predecessor": "formal_imagenetr_er_fixed_v1",
+      "cache_dir": "remote_runtime/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1"
+    },
+    {
+      "id": "formal_imagenetr_plastic_shared_selected_v5",
+      "spec": {
+        "path": "remote_runtime/formal_imagenetr_plastic_shared_selected_v5.json",
+        "sha256": "70a8fa924268f92500c5049446dd44b1c1b5bf4dcf83aa9837fe28b568f6a76c"
+      },
+      "config": {
+        "path": "remote_runtime/campaign_20261117/formal/configs/formal_imagenetr_plastic_shared_selected_v5.json",
+        "sha256": "ef4eb5db5329bf262ba306361cd89ee567804c03be194e1c3a50f7ca81d0d1c9"
+      },
+      "predecessor": "formal_imagenetr_er_fixed_v1",
+      "cache_dir": "remote_runtime/campaign_20261117/formal/ce_trajectories/imagenetr_fixed_er_v1"
+    }
+  ],
+  "reviewed_recovery": {
+    "prior_queue_sha256": "494b68fc6916b4c2149e3e678042b643a29b24d09d9acc27985b68b3786d0d18",
+    "old_controller_original_pid": 34947,
+    "old_controller_absent_verified": true,
+    "reason": "Original v1 stopped on a command identity observation during completed-CF-reader shutdown. Exact offending process/cmd was not captured; empty cmd shutdown is a guarded hypothesis, not a proven retrospective cause.",
+    "scope": "Only two unstarted R readers; original specs/config pins unchanged. Existing module/ER/development training is not restarted. GPU1 may remain blocked as unknown; this queue has no GPU1 jobs.",
+    "reviewed_utc": "2026-11-17T11:33:52.469028+00:00"
+  }
+}
