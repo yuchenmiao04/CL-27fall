@@ -1,0 +1,1267 @@
+{
+  "schema_version": 1,
+  "status": "complete",
+  "scope": "Four verified additions; original twelve results, resource records and checkpoint coverage retained unchanged.",
+  "expected_additions": 4,
+  "actual_additions": 4,
+  "pending_jobs": [],
+  "inputs": {
+    "extension_summary": {
+      "path": "experiments/extension_20261117/summary/summary.json",
+      "sha256": "263767d5e8bb923e94db9b98ba080e5faabb3d762b9cf3abfbbcfab423b0fb09"
+    },
+    "original_summary": {
+      "path": "experiments/campaign_20261117/summary/summary.json",
+      "sha256": "f5140644974cd4f3958a3fd76b477f2ea5f3551197055b8cae6a1c111e53df9e"
+    },
+    "original_checkpoint_index": {
+      "path": "experiments/campaign_20261117/recovery/formal_checkpoint_index_partial_v1.json",
+      "sha256": "218986d791a4bdf5429eb32d0bb03c0a7412ba268816f8be95a89f863c4e1d84"
+    },
+    "original_resource_evidence": {
+      "path": "experiments/campaign_20261117/resources/PARTIAL_RESOURCE_EVIDENCE.json",
+      "sha256": "3be127996c71f83313005dc52dd9b11b555bade395913827eadf9621064ba0a6"
+    },
+    "conversion_script_sha256": "ba1dd43255c54caf834904886dec89637177cbaaa35eb22dc8500ce72c88362d"
+  },
+  "rows": [
+    {
+      "job": "formal_cifar_current_epochs20_v1",
+      "dataset": "cifar224",
+      "method": "current_adapted",
+      "comparison_variant": "epochs20",
+      "host_alias": "current20_server",
+      "optimizer_qualified_nn_parameters": 85903112,
+      "optimizer_qualification_scope": "Native optimizer-family membership; not a count of parameters observed to receive gradients",
+      "restored_requires_grad_nn_parameters": 85903112,
+      "restored_requires_grad_scope": "requires_grad at the restored task boundary; not observed gradient updates",
+      "auxiliary_numeric_bytes_excluding_optimizers": 18890600,
+      "auxiliary_numeric_sum_scope": "Explicit disjoint auxiliary groups; nested class-mean/covariance subtotals are not added twice",
+      "checkpoint_file_bytes": 1402950139,
+      "restored_components": {
+        "schema_version": 1,
+        "method": "current_adapted",
+        "neural_network": {
+          "resident_nn_parameters": 171701768,
+          "resident_nn_parameter_bytes": 686807072,
+          "gradient_eligible_nn_parameters": 85903112,
+          "gradient_eligible_nn_parameter_bytes": 343612448,
+          "registered_nn_buffer_bytes": 8,
+          "components": {
+            "frozen_anchor": {
+              "parameters": 85798656,
+              "parameter_bytes": 343194624,
+              "gradient_eligible_parameters": 0,
+              "gradient_eligible_parameter_bytes": 0,
+              "registered_buffer_bytes": 0
+            },
+            "predictive_backbone": {
+              "parameters": 85798656,
+              "parameter_bytes": 343194624,
+              "gradient_eligible_parameters": 85798656,
+              "gradient_eligible_parameter_bytes": 343194624,
+              "registered_buffer_bytes": 0
+            },
+            "module_libraries": {
+              "parameters": 104456,
+              "parameter_bytes": 417824,
+              "gradient_eligible_parameters": 104456,
+              "gradient_eligible_parameter_bytes": 417824,
+              "registered_buffer_bytes": 8
+            }
+          },
+          "component_partition_verified": true,
+          "gradient_eligibility_scope": "requires_grad at the restored task boundary; not observed gradient updates",
+          "byte_scope": "Logical tensor payload of unique registered Parameter/buffer objects; no activations, Python overhead, or allocator/peak-memory claim"
+        },
+        "architecture": {
+          "library_positions": [
+            7,
+            9
+          ],
+          "library_count": 2,
+          "experts_per_library": [
+            4,
+            4
+          ],
+          "expert_ranks": [
+            8,
+            8
+          ],
+          "learned_expert_count": 8,
+          "fixed_null_options": 2
+        },
+        "optimizer": {
+          "persisted_optimizer_count": 2,
+          "persisted_optimizer_state_tensor_bytes": 687225528,
+          "per_optimizer": {
+            "modules": {
+              "state_tensor_bytes": 835680,
+              "parameter_groups": 1,
+              "bound_parameter_objects": 8,
+              "bound_parameter_elements": 104456,
+              "state_entries": 8
+            },
+            "backbone": {
+              "state_tensor_bytes": 686389848,
+              "parameter_groups": 1,
+              "bound_parameter_objects": 150,
+              "bound_parameter_elements": 85798656,
+              "state_entries": 150
+            }
+          },
+          "scope": "Actual restored optimizer state tensors, excluding parameter weights and Python hyperparameter/container overhead"
+        },
+        "auxiliary": {
+          "frozen_anchor_statistics_bytes": 5346088,
+          "analytic_readout_bytes": 1230400,
+          "resident_anchor_feature_cache_bytes": 12304000,
+          "private_torch_rng_state_bytes": 10112
+        },
+        "replay": {
+          "images": 2000,
+          "inline_rgb_array_bytes": 6144000,
+          "referenced_images": 0,
+          "referenced_encoded_image_file_bytes": 0,
+          "image_path_utf8_bytes": 0,
+          "image_id_label_int64_payload_bytes": 32000,
+          "decoded_rgb_plus_id_label_payload_bytes": 6176000,
+          "scope": "Referenced source-file bytes and decoded RGB payload are separate quantities, not additional in-RAM image copies; metadata/container overhead excluded"
+        },
+        "measurement_scope": "Measured from actual CPU-restored completed-task objects; logical tensor payloads and source-image sizes, not matched compute, training FLOPs, wall time, or peak resident memory"
+      },
+      "training_execution": {
+        "execution": {
+          "wall_seconds": 7933.227325133979,
+          "numeric_checkpoint_payload_bytes": 1392923208,
+          "gpu_peak_allocated_bytes": 4884455936,
+          "device_type": "cuda",
+          "torch": "2.7.1+cu128",
+          "numpy": "1.26.4"
+        },
+        "stage_wall_seconds": [
+          1496.5571226216853,
+          3978.267981512472,
+          3938.6265628151596,
+          3926.268507696688,
+          3978.4792269542813,
+          3937.0746044460684,
+          3953.4637484569103,
+          4040.085186045617,
+          3948.229359269142,
+          3979.6762499064207
+        ],
+        "final_method_record": {
+          "replay_images": 2000,
+          "replay_payload_bytes": 6176000,
+          "numeric_payload_bytes": {
+            "encoder_weights": 686807080,
+            "statistics": 5346088,
+            "readouts": 1230400,
+            "resident_anchor_cache": 12304000,
+            "optimizer_state": 687225528
+          }
+        },
+        "measurement_scope": "Stage totals retain original prefix timers. Raw wall/peak cover only the resumed segment; no complete-lineage runtime or matched-compute claim.",
+        "execution_scope": "Resumed segment only, measured by the unchanged runner after checkpoint restoration.",
+        "gpu_peak_scope": "Resumed process only; earlier-process peaks are not reconstructed.",
+        "full_run_wall_seconds": null,
+        "completed_stage_wall_seconds_total": 37176.728549724445,
+        "original_checkpoint_stage_wall_seconds_total": 29248.822940548882,
+        "resumed_stage_wall_seconds_total": 7927.905609175563,
+        "interrupted_work": {
+          "attempts": [
+            {
+              "source_log_sha256": "bcdb4ce5d4d31e9079f612571b0d311d5cf8b4e5f67373115f551c28226e3c80",
+              "completed_epoch_regions": [
+                {
+                  "task": 2,
+                  "epoch": 1,
+                  "wall_seconds": 195.79793496988714
+                },
+                {
+                  "task": 2,
+                  "epoch": 2,
+                  "wall_seconds": 195.1866283286363
+                },
+                {
+                  "task": 2,
+                  "epoch": 3,
+                  "wall_seconds": 195.77553369291127
+                },
+                {
+                  "task": 2,
+                  "epoch": 4,
+                  "wall_seconds": 195.01447444036603
+                },
+                {
+                  "task": 2,
+                  "epoch": 5,
+                  "wall_seconds": 197.11261150427163
+                },
+                {
+                  "task": 2,
+                  "epoch": 6,
+                  "wall_seconds": 197.93478108383715
+                },
+                {
+                  "task": 2,
+                  "epoch": 7,
+                  "wall_seconds": 197.62758880667388
+                },
+                {
+                  "task": 2,
+                  "epoch": 8,
+                  "wall_seconds": 196.79960833489895
+                },
+                {
+                  "task": 2,
+                  "epoch": 9,
+                  "wall_seconds": 198.69530573487282
+                },
+                {
+                  "task": 2,
+                  "epoch": 10,
+                  "wall_seconds": 195.9294544197619
+                },
+                {
+                  "task": 2,
+                  "epoch": 11,
+                  "wall_seconds": 194.52990077994764
+                }
+              ],
+              "completed_extra_stage_seconds": 0,
+              "known_seconds_lower_bound": 2160.4038220960647,
+              "total_interrupted_work_seconds": null,
+              "scope": "Lower bound from retained completed epoch/stage regions after the saved checkpoint; overlapping bounds use max, not sum. Unrecorded/incomplete work is unknown."
+            },
+            {
+              "source_log_sha256": "533a9e5377851938ba3414eb59bf7c135ed32ede046cbc27f232c2c1dc486cf7",
+              "completed_epoch_regions": [
+                {
+                  "task": 8,
+                  "epoch": 1,
+                  "wall_seconds": 196.59245633147657
+                },
+                {
+                  "task": 8,
+                  "epoch": 2,
+                  "wall_seconds": 194.8243240788579
+                },
+                {
+                  "task": 8,
+                  "epoch": 3,
+                  "wall_seconds": 196.09845757111907
+                }
+              ],
+              "completed_extra_stage_seconds": 0,
+              "known_seconds_lower_bound": 587.5152379814535,
+              "total_interrupted_work_seconds": null,
+              "scope": "Lower bound from retained completed epoch/stage regions after the saved checkpoint; overlapping bounds use max, not sum. Unrecorded/incomplete work is unknown."
+            }
+          ],
+          "known_seconds_lower_bound": 2747.919060077518,
+          "total_interrupted_work_seconds": null,
+          "scope": "Distinct interrupted processes in chronological order. Each includes only measured work discarded after its last retained checkpoint."
+        },
+        "completed_stage_segments": [
+          {
+            "first_stage": 1,
+            "last_stage": 2,
+            "wall_seconds": 5474.825104134157
+          },
+          {
+            "first_stage": 3,
+            "last_stage": 8,
+            "wall_seconds": 23773.997836414725
+          },
+          {
+            "first_stage": 9,
+            "last_stage": 10,
+            "wall_seconds": 7927.905609175563
+          }
+        ]
+      },
+      "attempt_accounting": {
+        "recovery_manifest_sha256_chronological": [
+          "194f569ee2adbe981383134ceb7d1b66576ee58959d61fce6d41eac555d8613f",
+          "a3d692b702f0f7cda34da47b7b9327670ab84a22fb5853dea04ff68d00acb460"
+        ],
+        "checkpoint_prefix_lengths": [
+          2,
+          8
+        ],
+        "completed_stage_segments": [
+          {
+            "first_stage": 1,
+            "last_stage": 2,
+            "wall_seconds": 5474.825104134157
+          },
+          {
+            "first_stage": 3,
+            "last_stage": 8,
+            "wall_seconds": 23773.997836414725
+          },
+          {
+            "first_stage": 9,
+            "last_stage": 10,
+            "wall_seconds": 7927.905609175563
+          }
+        ],
+        "discarded_work_seconds_lower_bound": 2747.919060077518,
+        "full_run_wall_seconds": null,
+        "full_run_gpu_peak_bytes": null
+      },
+      "cpu_audit_execution": {
+        "command": [
+          "/root/cl27-env/bin/python",
+          "/root/autodl-tmp/cl27/extension_20261117/tools/recovery2/backup_followup_checkpoint.py",
+          "--manifest",
+          "/root/autodl-tmp/cl27/extension_20261117/campaign/manifest.json",
+          "--recovery-manifest",
+          "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v2/manifest.json",
+          "--job",
+          "formal_cifar_current_epochs20_v1",
+          "--backup-root",
+          "/root/autodl-tmp/cl27/formal_backups/recovery_20261118_v2",
+          "--evidence-root",
+          "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v2/checkpoint_evidence",
+          "--state-loader",
+          "/root/autodl-tmp/cl27/runtime_extension_a006566/scripts/compare_checkpoint_state.py"
+        ],
+        "pid": 6714,
+        "utc": "2026-11-18T05:10:22.435751+00:00",
+        "returncode": 0,
+        "wall_seconds": 55.301725551486015,
+        "maximum_child_rss_kib": 5076584,
+        "user_seconds": 46.338695,
+        "system_seconds": 13.141301,
+        "resource_scope": "CPU audit child process only; Linux maximum RSS in KiB, not training resources.",
+        "not_training_cost": true,
+        "sidecar_sha256": "2fde75d7cfe1fff5909458607b7c09fbe77943eb4ba23736e0c5fa4ebbf37ee1"
+      },
+      "sidecars": {
+        "evidence": {
+          "path": "experiments/extension_20261117/checkpoint_evidence/current20/cifar_checkpoint_evidence.json",
+          "sha256": "e233f59ac13390d19ccae0887c1c2ae3ee564fb048eefa6bbe2af67cbcbfb6ac",
+          "bytes": 19214,
+          "remote_path": "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v2/checkpoint_evidence/formal_cifar_current_epochs20_v1.json",
+          "host_alias": "current20_server"
+        },
+        "restore": {
+          "path": "experiments/extension_20261117/checkpoint_evidence/current20/cifar_native_restore.json",
+          "sha256": "1e3459d9901a2c3a2d5409d5b7c38447f21cf91b7ed84c1f9bcd11800b913ed1",
+          "bytes": 14584,
+          "remote_path": "/root/autodl-tmp/cl27/formal_backups/recovery_20261118_v2/formal_cifar_current_epochs20_v1/native_restore.json",
+          "host_alias": "current20_server"
+        },
+        "cpu_execution": {
+          "path": "experiments/extension_20261117/checkpoint_evidence/current20/cifar_cpu_audit_execution.json",
+          "sha256": "2fde75d7cfe1fff5909458607b7c09fbe77943eb4ba23736e0c5fa4ebbf37ee1",
+          "bytes": 1027,
+          "remote_path": "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v2/backup_audits/formal_cifar_current_epochs20_v1_v4/execution.json",
+          "host_alias": "current20_server"
+        }
+      },
+      "remote_sidecar_capture": {
+        "path": "experiments/extension_20261117/partitions/current20/sidecar_transfer_verification.json",
+        "sha256": "3fe3d0e7576d6e324da241dd076de1654ed8ba01e9716949a2d76973924bd20b"
+      }
+    },
+    {
+      "job": "formal_imagenetr_current_epochs20_v1",
+      "dataset": "imagenetr",
+      "method": "current_adapted",
+      "comparison_variant": "epochs20",
+      "host_alias": "current20_server",
+      "optimizer_qualified_nn_parameters": 85903112,
+      "optimizer_qualification_scope": "Native optimizer-family membership; not a count of parameters observed to receive gradients",
+      "restored_requires_grad_nn_parameters": 85903112,
+      "restored_requires_grad_scope": "requires_grad at the restored task boundary; not observed gradient updates",
+      "auxiliary_numeric_bytes_excluding_optimizers": 33040200,
+      "auxiliary_numeric_sum_scope": "Explicit disjoint auxiliary groups; nested class-mean/covariance subtotals are not added twice",
+      "checkpoint_file_bytes": 1408956059,
+      "restored_components": {
+        "schema_version": 1,
+        "method": "current_adapted",
+        "neural_network": {
+          "resident_nn_parameters": 171701768,
+          "resident_nn_parameter_bytes": 686807072,
+          "gradient_eligible_nn_parameters": 85903112,
+          "gradient_eligible_nn_parameter_bytes": 343612448,
+          "registered_nn_buffer_bytes": 8,
+          "components": {
+            "frozen_anchor": {
+              "parameters": 85798656,
+              "parameter_bytes": 343194624,
+              "gradient_eligible_parameters": 0,
+              "gradient_eligible_parameter_bytes": 0,
+              "registered_buffer_bytes": 0
+            },
+            "predictive_backbone": {
+              "parameters": 85798656,
+              "parameter_bytes": 343194624,
+              "gradient_eligible_parameters": 85798656,
+              "gradient_eligible_parameter_bytes": 343194624,
+              "registered_buffer_bytes": 0
+            },
+            "module_libraries": {
+              "parameters": 104456,
+              "parameter_bytes": 417824,
+              "gradient_eligible_parameters": 104456,
+              "gradient_eligible_parameter_bytes": 417824,
+              "registered_buffer_bytes": 8
+            }
+          },
+          "component_partition_verified": true,
+          "gradient_eligibility_scope": "requires_grad at the restored task boundary; not observed gradient updates",
+          "byte_scope": "Logical tensor payload of unique registered Parameter/buffer objects; no activations, Python overhead, or allocator/peak-memory claim"
+        },
+        "architecture": {
+          "library_positions": [
+            7,
+            9
+          ],
+          "library_count": 2,
+          "experts_per_library": [
+            4,
+            4
+          ],
+          "expert_ranks": [
+            8,
+            8
+          ],
+          "learned_expert_count": 8,
+          "fixed_null_options": 2
+        },
+        "optimizer": {
+          "persisted_optimizer_count": 2,
+          "persisted_optimizer_state_tensor_bytes": 687225528,
+          "per_optimizer": {
+            "modules": {
+              "state_tensor_bytes": 835680,
+              "parameter_groups": 1,
+              "bound_parameter_objects": 8,
+              "bound_parameter_elements": 104456,
+              "state_entries": 8
+            },
+            "backbone": {
+              "state_tensor_bytes": 686389848,
+              "parameter_groups": 1,
+              "bound_parameter_objects": 150,
+              "bound_parameter_elements": 85798656,
+              "state_entries": 150
+            }
+          },
+          "scope": "Actual restored optimizer state tensors, excluding parameter weights and Python hyperparameter/container overhead"
+        },
+        "auxiliary": {
+          "frozen_anchor_statistics_bytes": 5961288,
+          "analytic_readout_bytes": 2460800,
+          "resident_anchor_feature_cache_bytes": 24608000,
+          "private_torch_rng_state_bytes": 10112
+        },
+        "replay": {
+          "images": 4000,
+          "inline_rgb_array_bytes": 0,
+          "referenced_images": 4000,
+          "referenced_encoded_image_file_bytes": 295870968,
+          "image_path_utf8_bytes": 263294,
+          "image_id_label_int64_payload_bytes": 64000,
+          "decoded_rgb_plus_id_label_payload_bytes": 3481332484,
+          "scope": "Referenced source-file bytes and decoded RGB payload are separate quantities, not additional in-RAM image copies; metadata/container overhead excluded"
+        },
+        "measurement_scope": "Measured from actual CPU-restored completed-task objects; logical tensor payloads and source-image sizes, not matched compute, training FLOPs, wall time, or peak resident memory"
+      },
+      "training_execution": {
+        "execution": {
+          "wall_seconds": 12394.917939409614,
+          "numeric_checkpoint_payload_bytes": 1407072808,
+          "gpu_peak_allocated_bytes": 4884455936,
+          "device_type": "cuda",
+          "torch": "2.7.1+cu128",
+          "numpy": "1.26.4"
+        },
+        "stage_wall_seconds": [
+          2186.9377010166645,
+          4595.3308726307005,
+          4086.957210239023,
+          3930.3116038236767,
+          3783.7898960579187,
+          4691.2644430380315,
+          3699.408741509542,
+          4852.598429612815,
+          3511.2538716569543,
+          4023.9427694529295
+        ],
+        "final_method_record": {
+          "replay_images": 4000,
+          "replay_payload_bytes": 3481332484,
+          "numeric_payload_bytes": {
+            "encoder_weights": 686807080,
+            "statistics": 5961288,
+            "readouts": 2460800,
+            "resident_anchor_cache": 24608000,
+            "optimizer_state": 687225528
+          }
+        },
+        "measurement_scope": "Stage totals retain original prefix timers. Raw wall/peak cover only the resumed segment; no complete-lineage runtime or matched-compute claim.",
+        "execution_scope": "Resumed segment only, measured by the unchanged runner after checkpoint restoration.",
+        "gpu_peak_scope": "Resumed process only; earlier-process peaks are not reconstructed.",
+        "full_run_wall_seconds": null,
+        "completed_stage_wall_seconds_total": 39361.795539038256,
+        "original_checkpoint_stage_wall_seconds_total": 26974.000468315557,
+        "resumed_stage_wall_seconds_total": 12387.7950707227,
+        "interrupted_work": {
+          "attempts": [
+            {
+              "source_log_sha256": "96ec10cbded01dcce1652497f08f277ca4a821e06b5245882f708e87e8351b0d",
+              "completed_epoch_regions": [
+                {
+                  "task": 2,
+                  "epoch": 1,
+                  "wall_seconds": 208.03695415332913
+                },
+                {
+                  "task": 2,
+                  "epoch": 2,
+                  "wall_seconds": 202.81337195634842
+                },
+                {
+                  "task": 2,
+                  "epoch": 3,
+                  "wall_seconds": 205.26176477596164
+                },
+                {
+                  "task": 2,
+                  "epoch": 4,
+                  "wall_seconds": 197.97664241865277
+                }
+              ],
+              "completed_extra_stage_seconds": 0,
+              "known_seconds_lower_bound": 814.088733304292,
+              "total_interrupted_work_seconds": null,
+              "scope": "Lower bound from retained completed epoch/stage regions after the saved checkpoint; overlapping bounds use max, not sum. Unrecorded/incomplete work is unknown."
+            },
+            {
+              "source_log_sha256": "2c36ef2c19846ec2c6be3635764ada11862e73794de169958a80e19ba7446ce3",
+              "completed_epoch_regions": [
+                {
+                  "task": 7,
+                  "epoch": 1,
+                  "wall_seconds": 236.172004211694
+                },
+                {
+                  "task": 7,
+                  "epoch": 2,
+                  "wall_seconds": 234.7118095457554
+                },
+                {
+                  "task": 7,
+                  "epoch": 3,
+                  "wall_seconds": 231.96299903281033
+                },
+                {
+                  "task": 7,
+                  "epoch": 4,
+                  "wall_seconds": 235.33673409186304
+                },
+                {
+                  "task": 7,
+                  "epoch": 5,
+                  "wall_seconds": 237.1131442990154
+                },
+                {
+                  "task": 7,
+                  "epoch": 6,
+                  "wall_seconds": 235.0470510646701
+                },
+                {
+                  "task": 7,
+                  "epoch": 7,
+                  "wall_seconds": 238.1642681788653
+                },
+                {
+                  "task": 7,
+                  "epoch": 8,
+                  "wall_seconds": 234.89384756982327
+                },
+                {
+                  "task": 7,
+                  "epoch": 9,
+                  "wall_seconds": 235.40753706730902
+                },
+                {
+                  "task": 7,
+                  "epoch": 10,
+                  "wall_seconds": 234.3443618528545
+                },
+                {
+                  "task": 7,
+                  "epoch": 11,
+                  "wall_seconds": 230.71326955780387
+                },
+                {
+                  "task": 7,
+                  "epoch": 12,
+                  "wall_seconds": 233.21280010789633
+                },
+                {
+                  "task": 7,
+                  "epoch": 13,
+                  "wall_seconds": 235.05556534975767
+                },
+                {
+                  "task": 7,
+                  "epoch": 14,
+                  "wall_seconds": 236.3640734627843
+                },
+                {
+                  "task": 7,
+                  "epoch": 15,
+                  "wall_seconds": 230.29828647337854
+                },
+                {
+                  "task": 7,
+                  "epoch": 16,
+                  "wall_seconds": 231.36580986902118
+                },
+                {
+                  "task": 7,
+                  "epoch": 17,
+                  "wall_seconds": 235.86103508248925
+                },
+                {
+                  "task": 7,
+                  "epoch": 18,
+                  "wall_seconds": 235.28637181967497
+                }
+              ],
+              "completed_extra_stage_seconds": 0,
+              "known_seconds_lower_bound": 4221.310968637466,
+              "total_interrupted_work_seconds": null,
+              "scope": "Lower bound from retained completed epoch/stage regions after the saved checkpoint; overlapping bounds use max, not sum. Unrecorded/incomplete work is unknown."
+            }
+          ],
+          "known_seconds_lower_bound": 5035.399701941758,
+          "total_interrupted_work_seconds": null,
+          "scope": "Distinct interrupted processes in chronological order. Each includes only measured work discarded after its last retained checkpoint."
+        },
+        "completed_stage_segments": [
+          {
+            "first_stage": 1,
+            "last_stage": 2,
+            "wall_seconds": 6782.268573647365
+          },
+          {
+            "first_stage": 3,
+            "last_stage": 7,
+            "wall_seconds": 20191.73189466819
+          },
+          {
+            "first_stage": 8,
+            "last_stage": 10,
+            "wall_seconds": 12387.7950707227
+          }
+        ]
+      },
+      "attempt_accounting": {
+        "recovery_manifest_sha256_chronological": [
+          "194f569ee2adbe981383134ceb7d1b66576ee58959d61fce6d41eac555d8613f",
+          "a3d692b702f0f7cda34da47b7b9327670ab84a22fb5853dea04ff68d00acb460"
+        ],
+        "checkpoint_prefix_lengths": [
+          2,
+          7
+        ],
+        "completed_stage_segments": [
+          {
+            "first_stage": 1,
+            "last_stage": 2,
+            "wall_seconds": 6782.268573647365
+          },
+          {
+            "first_stage": 3,
+            "last_stage": 7,
+            "wall_seconds": 20191.73189466819
+          },
+          {
+            "first_stage": 8,
+            "last_stage": 10,
+            "wall_seconds": 12387.7950707227
+          }
+        ],
+        "discarded_work_seconds_lower_bound": 5035.399701941758,
+        "full_run_wall_seconds": null,
+        "full_run_gpu_peak_bytes": null
+      },
+      "cpu_audit_execution": {
+        "command": [
+          "/root/cl27-env/bin/python",
+          "/root/autodl-tmp/cl27/extension_20261117/tools/recovery2/backup_followup_checkpoint.py",
+          "--manifest",
+          "/root/autodl-tmp/cl27/extension_20261117/campaign/manifest.json",
+          "--recovery-manifest",
+          "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v2/manifest.json",
+          "--job",
+          "formal_imagenetr_current_epochs20_v1",
+          "--backup-root",
+          "/root/autodl-tmp/cl27/formal_backups/recovery_20261118_v2",
+          "--evidence-root",
+          "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v2/checkpoint_evidence",
+          "--state-loader",
+          "/root/autodl-tmp/cl27/runtime_extension_a006566/scripts/compare_checkpoint_state.py"
+        ],
+        "pid": 9339,
+        "utc": "2026-11-18T06:24:52.788540+00:00",
+        "returncode": 0,
+        "wall_seconds": 61.602473974227905,
+        "maximum_child_rss_kib": 4844036,
+        "user_seconds": 49.446162,
+        "system_seconds": 16.20333,
+        "resource_scope": "CPU audit child process only; Linux maximum RSS in KiB, not training resources.",
+        "not_training_cost": true,
+        "sidecar_sha256": "ce145e7e8ff96dd706b2fa55e376a8a597db0747ba21f419edd29dce1c99e7c9"
+      },
+      "sidecars": {
+        "evidence": {
+          "path": "experiments/extension_20261117/checkpoint_evidence/current20/imagenetr_checkpoint_evidence.json",
+          "sha256": "a75838a33f11f1b9bb0099abe7679690a62edc6787df5c56f9a7836231a6aa75",
+          "bytes": 19249,
+          "remote_path": "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v2/checkpoint_evidence/formal_imagenetr_current_epochs20_v1.json",
+          "host_alias": "current20_server"
+        },
+        "restore": {
+          "path": "experiments/extension_20261117/checkpoint_evidence/current20/imagenetr_native_restore.json",
+          "sha256": "6fc0237921416997478b5e8cfe5066e18817feb01c17aa26b26ef0148a687f74",
+          "bytes": 14594,
+          "remote_path": "/root/autodl-tmp/cl27/formal_backups/recovery_20261118_v2/formal_imagenetr_current_epochs20_v1/native_restore.json",
+          "host_alias": "current20_server"
+        },
+        "cpu_execution": {
+          "path": "experiments/extension_20261117/checkpoint_evidence/current20/imagenetr_cpu_audit_execution.json",
+          "sha256": "ce145e7e8ff96dd706b2fa55e376a8a597db0747ba21f419edd29dce1c99e7c9",
+          "bytes": 1030,
+          "remote_path": "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v2/backup_audits/formal_imagenetr_current_epochs20_v1_v4/execution.json",
+          "host_alias": "current20_server"
+        }
+      },
+      "remote_sidecar_capture": {
+        "path": "experiments/extension_20261117/partitions/current20/sidecar_transfer_verification.json",
+        "sha256": "3fe3d0e7576d6e324da241dd076de1654ed8ba01e9716949a2d76973924bd20b"
+      }
+    },
+    {
+      "job": "formal_cifar_tuna_native_v1",
+      "dataset": "cifar224",
+      "method": "tuna",
+      "comparison_variant": "epochs20",
+      "host_alias": "tuna_server",
+      "optimizer_qualified_nn_parameters": 3424320,
+      "optimizer_qualification_scope": "Native optimizer-family membership; not a count of parameters observed to receive gradients",
+      "restored_requires_grad_nn_parameters": 3805540,
+      "restored_requires_grad_scope": "requires_grad at the restored task boundary; not observed gradient updates",
+      "auxiliary_numeric_bytes_excluding_optimizers": 236636800,
+      "auxiliary_numeric_sum_scope": "Explicit disjoint auxiliary groups; nested class-mean/covariance subtotals are not added twice",
+      "checkpoint_file_bytes": 595681838,
+      "restored_components": {
+        "schema_version": 1,
+        "method": "tuna",
+        "neural_network": {
+          "resident_nn_parameters": 89604196,
+          "resident_nn_parameter_bytes": 358416784,
+          "gradient_eligible_nn_parameters": 3805540,
+          "gradient_eligible_nn_parameter_bytes": 15222160,
+          "registered_nn_buffer_bytes": 0,
+          "components": {
+            "original_backbone_body": {
+              "parameters": 85798656,
+              "parameter_bytes": 343194624,
+              "gradient_eligible_parameters": 0,
+              "gradient_eligible_parameter_bytes": 0,
+              "registered_buffer_bytes": 0
+            },
+            "native_backbone_heads": {
+              "parameters": 76900,
+              "parameter_bytes": 307600,
+              "gradient_eligible_parameters": 76900,
+              "gradient_eligible_parameter_bytes": 307600,
+              "registered_buffer_bytes": 0
+            },
+            "historical_adapters": {
+              "parameters": 3043200,
+              "parameter_bytes": 12172800,
+              "gradient_eligible_parameters": 3043200,
+              "gradient_eligible_parameter_bytes": 12172800,
+              "registered_buffer_bytes": 0
+            },
+            "current_adapters": {
+              "parameters": 304320,
+              "parameter_bytes": 1217280,
+              "gradient_eligible_parameters": 304320,
+              "gradient_eligible_parameter_bytes": 1217280,
+              "registered_buffer_bytes": 0
+            },
+            "merged_adapters": {
+              "parameters": 304320,
+              "parameter_bytes": 1217280,
+              "gradient_eligible_parameters": 304320,
+              "gradient_eligible_parameter_bytes": 1217280,
+              "registered_buffer_bytes": 0
+            },
+            "class_predictor_heads": {
+              "parameters": 76800,
+              "parameter_bytes": 307200,
+              "gradient_eligible_parameters": 76800,
+              "gradient_eligible_parameter_bytes": 307200,
+              "registered_buffer_bytes": 0
+            }
+          },
+          "component_partition_verified": true,
+          "gradient_eligibility_scope": "requires_grad at the restored task boundary; not observed gradient updates",
+          "byte_scope": "Logical tensor payload of unique registered Parameter/buffer objects; no activations, Python overhead, or allocator/peak-memory claim"
+        },
+        "architecture": {
+          "current_adapter_layers": 12,
+          "historical_adapter_sets": 10,
+          "historical_adapter_layers_per_set": [
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
+            12
+          ],
+          "historical_adapter_layers": 120,
+          "merged_adapter_layers": 12,
+          "class_predictor_heads": 10
+        },
+        "optimizer": {
+          "persisted_optimizer_count": 0,
+          "persisted_optimizer_state_tensor_bytes": 0,
+          "per_optimizer": {},
+          "scope": "Native TUNA does not retain its main/CA optimizers across task boundaries; zero persisted state is not a training peak-memory measurement"
+        },
+        "auxiliary": {
+          "class_mean_bytes": 307200,
+          "class_covariance_bytes": 235929600,
+          "historical_class_statistics_bytes": 236236800,
+          "training_arrival_id_bytes": 400000,
+          "native_prefix_state_bytes": 0
+        },
+        "replay": {
+          "images": 0,
+          "inline_rgb_array_bytes": 0,
+          "referenced_images": 0,
+          "referenced_encoded_image_file_bytes": 0,
+          "image_path_utf8_bytes": 0,
+          "image_id_label_int64_payload_bytes": 0,
+          "decoded_rgb_plus_id_label_payload_bytes": 0
+        },
+        "measurement_scope": "Measured from actual CPU-restored completed-task objects; logical tensor payloads and source-image sizes, not matched compute, training FLOPs, wall time, or peak resident memory"
+      },
+      "training_execution": {
+        "execution": {
+          "wall_seconds": 3045.29311337322,
+          "numeric_checkpoint_payload_bytes": 595053584,
+          "gpu_peak_allocated_bytes": 2053014528,
+          "device_type": "cuda",
+          "torch": "2.7.1+cu128",
+          "numpy": "1.26.4"
+        },
+        "stage_wall_seconds": [
+          358.45454958081245,
+          381.5905964151025,
+          399.04002184420824,
+          413.64674650877714,
+          420.1085444763303,
+          457.0890551581979,
+          479.6628909111023,
+          518.200247079134,
+          556.0718756243587,
+          599.3397771716118
+        ],
+        "final_method_record": {
+          "raw_replay_images": 0,
+          "resources": {
+            "gradient_eligible_nn_parameters": 3424320,
+            "resident_nn_parameters": 89604196,
+            "network_parameter_bytes": 358416784,
+            "historical_statistics_bytes": 236236800,
+            "replay_raw_payload_bytes": 0,
+            "training_backbones": 1,
+            "inference_backbones": 1,
+            "native_eval_backbone_invocations_per_batch": 11,
+            "inference_invocation_count_scope": "Derived from unchanged native _eval_cnn branches, not a profiler measurement",
+            "persisted_optimizer_bytes": 0
+          }
+        },
+        "measurement_scope": "Stage totals retain original prefix timers. Raw wall/peak cover only the resumed segment; no complete-lineage runtime or matched-compute claim.",
+        "execution_scope": "Resumed segment only, measured by the unchanged runner after checkpoint restoration.",
+        "gpu_peak_scope": "Resumed process only; earlier-process peaks are not reconstructed.",
+        "full_run_wall_seconds": null,
+        "completed_stage_wall_seconds_total": 4583.204304769635,
+        "original_checkpoint_stage_wall_seconds_total": 1552.7319143489003,
+        "resumed_stage_wall_seconds_total": 3030.472390420735,
+        "interrupted_work": {
+          "source_log_sha256": "de6c8fc7f6f4dafd9757f6eed3d41ca9cc41fe179a24420b4a536550572caa52",
+          "completed_epoch_regions": [],
+          "completed_extra_stage_seconds": 0,
+          "known_seconds_lower_bound": 0,
+          "total_interrupted_work_seconds": null,
+          "scope": "Lower bound from retained completed epoch/stage regions after the saved checkpoint; overlapping bounds use max, not sum. Unrecorded/incomplete work is unknown."
+        }
+      },
+      "attempt_accounting": {
+        "recovery_manifest_sha256_chronological": [
+          "5ce2a19e047d5129295d89b89ecce38dd9adf761ecec211e917201d2afb2af0d"
+        ],
+        "checkpoint_prefix_lengths": [
+          4
+        ],
+        "completed_stage_segments": [
+          {
+            "first_stage": 1,
+            "last_stage": 4,
+            "wall_seconds": 1552.7319143489003
+          },
+          {
+            "first_stage": 5,
+            "last_stage": 10,
+            "wall_seconds": 3030.472390420735
+          }
+        ],
+        "discarded_work_seconds_lower_bound": 0,
+        "full_run_wall_seconds": null,
+        "full_run_gpu_peak_bytes": null
+      },
+      "cpu_audit_execution": {
+        "command": [
+          "/root/cl27-env/bin/python",
+          "/root/autodl-tmp/cl27/extension_20261117/tools/backup_followup_checkpoint_v3.py",
+          "--manifest",
+          "/root/autodl-tmp/cl27/extension_20261117/campaign_tuna20/manifest.json",
+          "--recovery-manifest",
+          "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v1/manifest.json",
+          "--job",
+          "formal_cifar_tuna_native_v1",
+          "--backup-root",
+          "/root/autodl-tmp/cl27/formal_backups/recovery_20261118",
+          "--evidence-root",
+          "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v1/checkpoint_evidence",
+          "--state-loader",
+          "/root/autodl-tmp/cl27/runtime_extension_a006566/scripts/compare_checkpoint_state.py"
+        ],
+        "pid": 18920,
+        "utc": "2026-11-17T20:04:26.068594+00:00",
+        "returncode": 0,
+        "wall_seconds": 27.554059222340584,
+        "maximum_child_rss_kib": 2601380,
+        "user_seconds": 26.497707,
+        "system_seconds": 4.932508,
+        "resource_scope": "CPU audit child process only; Linux maximum RSS in KiB, not training resources.",
+        "not_training_cost": true,
+        "sidecar_sha256": "a3dd74f3612cb617f3db7c4786014028365ac07929eaf803d1aabff4f2025d08"
+      },
+      "sidecars": {
+        "evidence": {
+          "path": "experiments/extension_20261117/checkpoint_evidence/tuna/cifar_checkpoint_evidence.json",
+          "sha256": "b231831d5e4e28b03ebf30aa42a15fca2e035728a9120b6cf8da59940efc7f01",
+          "bytes": 12041,
+          "remote_path": "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v1/checkpoint_evidence/formal_cifar_tuna_native_v1.json",
+          "host_alias": "tuna_server"
+        },
+        "restore": {
+          "path": "experiments/extension_20261117/checkpoint_evidence/tuna/cifar_native_restore.json",
+          "sha256": "37fe0dece0d355d720fff5cbb78b15c617de265fb313391c8d759609594cffa1",
+          "bytes": 7790,
+          "remote_path": "/root/autodl-tmp/cl27/formal_backups/recovery_20261118/formal_cifar_tuna_native_v1/native_restore.json",
+          "host_alias": "tuna_server"
+        },
+        "cpu_execution": {
+          "path": "experiments/extension_20261117/checkpoint_evidence/tuna/cifar_cpu_audit_execution.json",
+          "sha256": "a3dd74f3612cb617f3db7c4786014028365ac07929eaf803d1aabff4f2025d08",
+          "bytes": 1019,
+          "remote_path": "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v1/backup_audits/formal_cifar_tuna_native_v1_v3/execution.json",
+          "host_alias": "tuna_server"
+        }
+      },
+      "remote_sidecar_capture": {
+        "path": "experiments/extension_20261117/partitions/tuna/sidecar_transfer_verification.json",
+        "sha256": "3f9f3ab340fd5673f2871bef20806f9d9cc2f89303f418916556a231d6a0f7d1"
+      }
+    },
+    {
+      "job": "formal_imagenetr_tuna_native_v1",
+      "dataset": "imagenetr",
+      "method": "tuna",
+      "comparison_variant": "epochs20",
+      "host_alias": "tuna_server",
+      "optimizer_qualified_nn_parameters": 3501120,
+      "optimizer_qualification_scope": "Native optimizer-family membership; not a count of parameters observed to receive gradients",
+      "restored_requires_grad_nn_parameters": 3959240,
+      "restored_requires_grad_scope": "requires_grad at the restored task boundary; not observed gradient updates",
+      "auxiliary_numeric_bytes_excluding_optimizers": 472665600,
+      "auxiliary_numeric_sum_scope": "Explicit disjoint auxiliary groups; nested class-mean/covariance subtotals are not added twice",
+      "checkpoint_file_bytes": 832355251,
+      "restored_components": {
+        "schema_version": 1,
+        "method": "tuna",
+        "neural_network": {
+          "resident_nn_parameters": 89757896,
+          "resident_nn_parameter_bytes": 359031584,
+          "gradient_eligible_nn_parameters": 3959240,
+          "gradient_eligible_nn_parameter_bytes": 15836960,
+          "registered_nn_buffer_bytes": 0,
+          "components": {
+            "original_backbone_body": {
+              "parameters": 85798656,
+              "parameter_bytes": 343194624,
+              "gradient_eligible_parameters": 0,
+              "gradient_eligible_parameter_bytes": 0,
+              "registered_buffer_bytes": 0
+            },
+            "native_backbone_heads": {
+              "parameters": 153800,
+              "parameter_bytes": 615200,
+              "gradient_eligible_parameters": 153800,
+              "gradient_eligible_parameter_bytes": 615200,
+              "registered_buffer_bytes": 0
+            },
+            "historical_adapters": {
+              "parameters": 3043200,
+              "parameter_bytes": 12172800,
+              "gradient_eligible_parameters": 3043200,
+              "gradient_eligible_parameter_bytes": 12172800,
+              "registered_buffer_bytes": 0
+            },
+            "current_adapters": {
+              "parameters": 304320,
+              "parameter_bytes": 1217280,
+              "gradient_eligible_parameters": 304320,
+              "gradient_eligible_parameter_bytes": 1217280,
+              "registered_buffer_bytes": 0
+            },
+            "merged_adapters": {
+              "parameters": 304320,
+              "parameter_bytes": 1217280,
+              "gradient_eligible_parameters": 304320,
+              "gradient_eligible_parameter_bytes": 1217280,
+              "registered_buffer_bytes": 0
+            },
+            "class_predictor_heads": {
+              "parameters": 153600,
+              "parameter_bytes": 614400,
+              "gradient_eligible_parameters": 153600,
+              "gradient_eligible_parameter_bytes": 614400,
+              "registered_buffer_bytes": 0
+            }
+          },
+          "component_partition_verified": true,
+          "gradient_eligibility_scope": "requires_grad at the restored task boundary; not observed gradient updates",
+          "byte_scope": "Logical tensor payload of unique registered Parameter/buffer objects; no activations, Python overhead, or allocator/peak-memory claim"
+        },
+        "architecture": {
+          "current_adapter_layers": 12,
+          "historical_adapter_sets": 10,
+          "historical_adapter_layers_per_set": [
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
+            12
+          ],
+          "historical_adapter_layers": 120,
+          "merged_adapter_layers": 12,
+          "class_predictor_heads": 10
+        },
+        "optimizer": {
+          "persisted_optimizer_count": 0,
+          "persisted_optimizer_state_tensor_bytes": 0,
+          "per_optimizer": {},
+          "scope": "Native TUNA does not retain its main/CA optimizers across task boundaries; zero persisted state is not a training peak-memory measurement"
+        },
+        "auxiliary": {
+          "class_mean_bytes": 614400,
+          "class_covariance_bytes": 471859200,
+          "historical_class_statistics_bytes": 472473600,
+          "training_arrival_id_bytes": 192000,
+          "native_prefix_state_bytes": 0
+        },
+        "replay": {
+          "images": 0,
+          "inline_rgb_array_bytes": 0,
+          "referenced_images": 0,
+          "referenced_encoded_image_file_bytes": 0,
+          "image_path_utf8_bytes": 0,
+          "image_id_label_int64_payload_bytes": 0,
+          "decoded_rgb_plus_id_label_payload_bytes": 0
+        },
+        "measurement_scope": "Measured from actual CPU-restored completed-task objects; logical tensor payloads and source-image sizes, not matched compute, training FLOPs, wall time, or peak resident memory"
+      },
+      "training_execution": {
+        "execution": {
+          "wall_seconds": 1619.5569207444787,
+          "numeric_checkpoint_payload_bytes": 831697184,
+          "gpu_peak_allocated_bytes": 3689417216,
+          "device_type": "cuda",
+          "torch": "2.7.1+cu128",
+          "numpy": "1.26.4"
+        },
+        "stage_wall_seconds": [
+          207.59908244758844,
+          219.48424692451954,
+          237.54539554566145,
+          265.3386794552207,
+          275.9849300906062,
+          354.52167484909296,
+          317.6151385381818,
+          436.896990545094,
+          388.78011732548475,
+          463.46097882837057
+        ],
+        "final_method_record": {
+          "raw_replay_images": 0,
+          "resources": {
+            "gradient_eligible_nn_parameters": 3501120,
+            "resident_nn_parameters": 89757896,
+            "network_parameter_bytes": 359031584,
+            "historical_statistics_bytes": 472473600,
+            "replay_raw_payload_bytes": 0,
+            "training_backbones": 1,
+            "inference_backbones": 1,
+            "native_eval_backbone_invocations_per_batch": 11,
+            "inference_invocation_count_scope": "Derived from unchanged native _eval_cnn branches, not a profiler measurement",
+            "persisted_optimizer_bytes": 0
+          }
+        },
+        "measurement_scope": "Stage totals retain original prefix timers. Raw wall/peak cover only the resumed segment; no complete-lineage runtime or matched-compute claim.",
+        "execution_scope": "Resumed segment only, measured by the unchanged runner after checkpoint restoration.",
+        "gpu_peak_scope": "Resumed process only; earlier-process peaks are not reconstructed.",
+        "full_run_wall_seconds": null,
+        "completed_stage_wall_seconds_total": 3167.2272345498204,
+        "original_checkpoint_stage_wall_seconds_total": 1560.4740093126893,
+        "resumed_stage_wall_seconds_total": 1606.7532252371311,
+        "interrupted_work": {
+          "source_log_sha256": "98ad95f19bcca722fc9dd882ce9d8ad3aeda5407155ed6996762366c714c3f3d",
+          "completed_epoch_regions": [],
+          "completed_extra_stage_seconds": 0,
+          "known_seconds_lower_bound": 0,
+          "total_interrupted_work_seconds": null,
+          "scope": "Lower bound from retained completed epoch/stage regions after the saved checkpoint; overlapping bounds use max, not sum. Unrecorded/incomplete work is unknown."
+        }
+      },
+      "attempt_accounting": {
+        "recovery_manifest_sha256_chronological": [
+          "5ce2a19e047d5129295d89b89ecce38dd9adf761ecec211e917201d2afb2af0d"
+        ],
+        "checkpoint_prefix_lengths": [
+          6
+        ],
+        "completed_stage_segments": [
+          {
+            "first_stage": 1,
+            "last_stage": 6,
+            "wall_seconds": 1560.4740093126893
+          },
+          {
+            "first_stage": 7,
+            "last_stage": 10,
+            "wall_seconds": 1606.7532252371311
+          }
+        ],
+        "discarded_work_seconds_lower_bound": 0,
+        "full_run_wall_seconds": null,
+        "full_run_gpu_peak_bytes": null
+      },
+      "cpu_audit_execution": {
+        "command": [
+          "/root/cl27-env/bin/python",
+          "/root/autodl-tmp/cl27/extension_20261117/tools/backup_followup_checkpoint_v3.py",
+          "--manifest",
+          "/root/autodl-tmp/cl27/extension_20261117/campaign_tuna20/manifest.json",
+          "--recovery-manifest",
+          "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v1/manifest.json",
+          "--job",
+          "formal_imagenetr_tuna_native_v1",
+          "--backup-root",
+          "/root/autodl-tmp/cl27/formal_backups/recovery_20261118",
+          "--evidence-root",
+          "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v1/checkpoint_evidence",
+          "--state-loader",
+          "/root/autodl-tmp/cl27/runtime_extension_a006566/scripts/compare_checkpoint_state.py"
+        ],
+        "pid": 15117,
+        "utc": "2026-11-17T19:40:34.416414+00:00",
+        "returncode": 0,
+        "wall_seconds": 36.063675448298454,
+        "maximum_child_rss_kib": 3126152,
+        "user_seconds": 33.71669,
+        "system_seconds": 6.595176,
+        "resource_scope": "CPU audit child process only; Linux maximum RSS in KiB, not training resources.",
+        "not_training_cost": true,
+        "sidecar_sha256": "653739bb6a8c26a4c9982b7387a4d77b189494f7c1d1cf56e2d4e17bbc89b703"
+      },
+      "sidecars": {
+        "evidence": {
+          "path": "experiments/extension_20261117/checkpoint_evidence/tuna/imagenetr_checkpoint_evidence.json",
+          "sha256": "5ef4d3278c0e0747e1945cc189a49b3de22e7384dbb066fa51ade31beab8f18f",
+          "bytes": 12074,
+          "remote_path": "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v1/checkpoint_evidence/formal_imagenetr_tuna_native_v1.json",
+          "host_alias": "tuna_server"
+        },
+        "restore": {
+          "path": "experiments/extension_20261117/checkpoint_evidence/tuna/imagenetr_native_restore.json",
+          "sha256": "4b174bdfa6f2c4770edc0dd8d8a86ccbedf00be2bec2e1bfa701c6bb47a84acb",
+          "bytes": 7797,
+          "remote_path": "/root/autodl-tmp/cl27/formal_backups/recovery_20261118/formal_imagenetr_tuna_native_v1/native_restore.json",
+          "host_alias": "tuna_server"
+        },
+        "cpu_execution": {
+          "path": "experiments/extension_20261117/checkpoint_evidence/tuna/imagenetr_cpu_audit_execution.json",
+          "sha256": "653739bb6a8c26a4c9982b7387a4d77b189494f7c1d1cf56e2d4e17bbc89b703",
+          "bytes": 1022,
+          "remote_path": "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v1/backup_audits/formal_imagenetr_tuna_native_v1_v3/execution.json",
+          "host_alias": "tuna_server"
+        }
+      },
+      "remote_sidecar_capture": {
+        "path": "experiments/extension_20261117/partitions/tuna/sidecar_transfer_verification.json",
+        "sha256": "3f9f3ab340fd5673f2871bef20806f9d9cc2f89303f418916556a231d6a0f7d1"
+      }
+    }
+  ],
+  "original_resource_record_count": 12,
+  "original_resource_definitions": {
+    "parameter_count": "Native timm parameter-name registry matched exact completed checkpoint names/shapes. Counts use tensor.numel and actual dtype; buffers counted separately. No byte-to-parameter inference.",
+    "gradient_eligible": "Parameters selected by native optimizer families. Frozen D/analytic learning is counted separately, not called zero learning. Reader CE work is shared with fixed ER.",
+    "active_inference_backbones": "Networks whose forward participates in the configured final head. HT/PSB use one plastic body at inference and two bodies during training; current full head uses anchor plus plastic body.",
+    "training_frozen_anchor_parameter_bytes": "Extra fixed reference branch, excluded from deployed HT/PSB inference. Current reference branch remains active at inference. Shared one frozen body is its deployment body, not an extra anchor.",
+    "shared_numeric_state_bytes": "SharedPredictorBasis.resource_bytes sums G,C,feature_sum,counts,D and derived weights/intercept. Derived posterior is reconstructed on restore and absent from serialized predictor state.",
+    "history_statistics_bytes": "TransportHistory.resource_bytes includes anchor_G,anchor_C,current_G,current_C,counts,head,last_transport. Reported deployment_analytic_head_bytes is already included: do not add it again.",
+    "plastic_statistics_bytes": "Transport bytes plus SharedPredictorBasis resident bytes. Includes auxiliary transport ridge head and basis state. Deployment analytic head is a representation of basis weights/intercept already charged in basis bytes; no extra summation.",
+    "current_numeric_payload_bytes": "CurrentMethod.resource_bytes dictionary: encoder_weights (anchor/main/libraries), statistics (G,C), readouts (W0,V), resident_anchor_cache (memory_base), optimizer_state (both optimizer state_dicts). These are logical tensor bytes, not CUDA peak or serialized bytes.",
+    "replay_raw_payload_bytes": "ReplayMemory.payload_bytes sums ndarray.nbytes OR width*height*3 for each external image path, then adds 16 bytes per record. CIF arrays are raw RGB; ImageNet-R path payload is RGB-decoded equivalent, not compressed JPEG bytes, path-string bytes, or measured resident decoded memory.",
+    "numeric_checkpoint_payload_bytes": "runner numeric_bytes(model.checkpoint_core()): recursive tensor/ndarray logical payload. Excludes outer stages/RNG container, Python/object/RawRecord image contents and strings; does not deduplicate repeated references. Not checkpoint file size.",
+    "checkpoint_file_bytes": "Actual complete serialized checkpoint.pt size bound to its SHA; includes serialization and native state/replay representation. This is the disk number, distinct from resident logical numeric bytes.",
+    "actual_run_wall_seconds": "runner begins after model/data initialization and resume setup; includes training/evaluation, stage checkpoint/progress I/O, final core accounting and metrics-by-head construction before the wall field; excludes imports/setup, later CE report assembly and final results.json write. If resumed, it measures only this process remaining work even though stage records include inherited prefix.",
+    "stage_wall_seconds": "Starts before incremental_train, ends after evaluation and after_task, before stage checkpoint write. Sum need not equal run wall.",
+    "shared_native_ce_seconds": "Fixed ER native CE adaptation wall with device synchronization. Replayed by HT/PSB, not executed anew by readers; count once per dataset in actual campaign compute totals.",
+    "executor_wall_seconds": "CE wrapper actual call wall including identity guards, serialization/load, state and RNG work; record mode includes native CE, replay mode does not.",
+    "gpu_peak_allocated_bytes": "torch.cuda.max_memory_allocated of this process after reset before model/data creation. Excludes CUDA context, reserved/unallocated pool, other processes and CPU state. Reader peak does not measure full independent HT/PSB training peak.",
+    "ce_cache_disk": "Sealed execution/recovery files, counted once by dataset donor asset; separate from algorithm replay-image budget and resident auxiliary arrays.",
+    "rng_and_optimizer": "Outer runner RNG plus method-local replay RNG are recovery state. ER/HT/PSB reset AdamW per stage and save stage boundaries; Joint saves completed fit. Current persists two AdamW states and progress; dynamic phase requires_grad is not eligibility.",
+    "current_overlap_rule": "Count main/anchor/library Parameters once; encoder_weights is their plus buffer payload, not additional storage. Current auxiliary sum excludes encoder_weights and includes statistics/readouts/resident cache/persistent optimizer tensors. Optimizer tensors are not additional neural parameters.",
+    "current_successful_work": "Actual module/backbone successful steps and episode attempts/skips; no fixed step count is required, including the two skipped CIFAR task0 episodes. Terminal cumulative encoding counters are not summed across stages."
+  },
+  "model_payloads_read_or_transferred": false
+}

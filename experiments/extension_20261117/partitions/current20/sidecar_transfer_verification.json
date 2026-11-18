@@ -1,0 +1,38 @@
+{
+  "host_alias": "current20_server",
+  "observed_utc": "2026-11-18T06:26:39.860486+00:00",
+  "source_summary_sha256_captured_on_server": "30f9e4db2b3e98122b596b97793e98cfb3d8b1144cdf419c527e18c5b477b0c2",
+  "files": {
+    "checkpoint_evidence/current20/cifar_native_restore.json": {
+      "remote_sha256": "1e3459d9901a2c3a2d5409d5b7c38447f21cf91b7ed84c1f9bcd11800b913ed1",
+      "bytes": 14584,
+      "remote_path": "/root/autodl-tmp/cl27/formal_backups/recovery_20261118_v2/formal_cifar_current_epochs20_v1/native_restore.json"
+    },
+    "checkpoint_evidence/current20/cifar_checkpoint_evidence.json": {
+      "remote_sha256": "e233f59ac13390d19ccae0887c1c2ae3ee564fb048eefa6bbe2af67cbcbfb6ac",
+      "bytes": 19214,
+      "remote_path": "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v2/checkpoint_evidence/formal_cifar_current_epochs20_v1.json"
+    },
+    "checkpoint_evidence/current20/cifar_cpu_audit_execution.json": {
+      "remote_sha256": "2fde75d7cfe1fff5909458607b7c09fbe77943eb4ba23736e0c5fa4ebbf37ee1",
+      "bytes": 1027,
+      "remote_path": "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v2/backup_audits/formal_cifar_current_epochs20_v1_v4/execution.json"
+    },
+    "checkpoint_evidence/current20/imagenetr_native_restore.json": {
+      "remote_sha256": "6fc0237921416997478b5e8cfe5066e18817feb01c17aa26b26ef0148a687f74",
+      "bytes": 14594,
+      "remote_path": "/root/autodl-tmp/cl27/formal_backups/recovery_20261118_v2/formal_imagenetr_current_epochs20_v1/native_restore.json"
+    },
+    "checkpoint_evidence/current20/imagenetr_checkpoint_evidence.json": {
+      "remote_sha256": "a75838a33f11f1b9bb0099abe7679690a62edc6787df5c56f9a7836231a6aa75",
+      "bytes": 19249,
+      "remote_path": "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v2/checkpoint_evidence/formal_imagenetr_current_epochs20_v1.json"
+    },
+    "checkpoint_evidence/current20/imagenetr_cpu_audit_execution.json": {
+      "remote_sha256": "ce145e7e8ff96dd706b2fa55e376a8a597db0747ba21f419edd29dce1c99e7c9",
+      "bytes": 1030,
+      "remote_path": "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v2/backup_audits/formal_imagenetr_current_epochs20_v1_v4/execution.json"
+    }
+  },
+  "scope": "Owning-server file hashes checked after transfer. CPU audit timing is separate from training."
+}

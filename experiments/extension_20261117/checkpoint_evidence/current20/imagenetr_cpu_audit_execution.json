@@ -1,0 +1,26 @@
+{
+  "command": [
+    "/root/cl27-env/bin/python",
+    "/root/autodl-tmp/cl27/extension_20261117/tools/recovery2/backup_followup_checkpoint.py",
+    "--manifest",
+    "/root/autodl-tmp/cl27/extension_20261117/campaign/manifest.json",
+    "--recovery-manifest",
+    "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v2/manifest.json",
+    "--job",
+    "formal_imagenetr_current_epochs20_v1",
+    "--backup-root",
+    "/root/autodl-tmp/cl27/formal_backups/recovery_20261118_v2",
+    "--evidence-root",
+    "/root/autodl-tmp/cl27/extension_20261117/recovery_20261118_v2/checkpoint_evidence",
+    "--state-loader",
+    "/root/autodl-tmp/cl27/runtime_extension_a006566/scripts/compare_checkpoint_state.py"
+  ],
+  "pid": 9339,
+  "utc": "2026-11-18T06:24:52.788540+00:00",
+  "returncode": 0,
+  "wall_seconds": 61.602473974227905,
+  "maximum_child_rss_kib": 4844036,
+  "user_seconds": 49.446162,
+  "system_seconds": 16.20333,
+  "resource_scope": "CPU audit child process only; Linux maximum RSS in KiB, not training resources."
+}

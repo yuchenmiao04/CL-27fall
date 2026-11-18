@@ -21,9 +21,7 @@ It embeds and binds the original manifest. Selected configurations are in
 ## Execution
 
 The fixed-library runs started on two RTX 5090 GPUs at approximately
-2026-11-17 16:31 UTC. A second server with two RTX 4090 D GPUs is assigned the
-two TUNA runs, one per GPU. The user authorized this four-GPU partition; TUNA
-can start independently of the fixed-library runs after deployment checks.
+2026-11-17 16:31 UTC. Two RTX 4090 D GPUs on a second server ran the TUNA jobs in parallel, one per GPU.
 
 `run_followup_partition.py --partition current20` adopts only the two original
 fixed-library workers and never restarts them. The `tuna` partition launches
@@ -130,9 +128,11 @@ The fixed-library server restarted a second time. At 02:48 UTC on November 18,
 the previous controller and both workers had exited. The latest checkpoints
 contained eight completed CIFAR-100 stages and seven completed ImageNet-R
 stages. Each worker resumed from its corresponding checkpoint on a separate
-RTX 5090 in `recovery_20261118_v2`. The unfinished ninth CIFAR-100 stage
-and eighth ImageNet-R stage restart at epoch one. The second recovery manifest
+RTX 5090 in `recovery_20261118_v2`. The workers repeated the ninth CIFAR-100 stage and the eighth ImageNet-R stage from epoch one. The second recovery manifest
 has SHA-256 `a3d692b702f0f7cda34da47b7b9327670ab84a22fb5853dea04ff68d00acb460`.
 It binds the preceding recovery manifest, the retained stage records, and the
-original scientific configuration. The original twelve endpoints and two TUNA
-endpoints have completed verification.
+original scientific configuration. The two fixed-library runs completed all ten stages. Both final checkpoints passed native CPU restoration.
+
+## Complete results
+
+The four additions and the original twelve entries give eight results per dataset. The fixed-library rows retain both image-training budgets. Joint reports Final only. [Final, AIA and forgetting](summary/summary.md) · [Full-precision results](summary/summary.json) · [Measured resources](resources/RESOURCE_REPORT.md) · [Checkpoint index](recovery/CHECKPOINT_INDEX.md)

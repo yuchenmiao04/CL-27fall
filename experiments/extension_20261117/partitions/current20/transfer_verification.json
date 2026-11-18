@@ -1,0 +1,18 @@
+{
+  "status": "verified_complete",
+  "partition": "current20",
+  "verified_results": 2,
+  "summary_sha256_captured_on_server": "30f9e4db2b3e98122b596b97793e98cfb3d8b1144cdf419c527e18c5b477b0c2",
+  "summary_sha256_verified_after_transfer": "30f9e4db2b3e98122b596b97793e98cfb3d8b1144cdf419c527e18c5b477b0c2",
+  "auditor_sha256": "32c0015137ae9f45d1f08b1ff3304850ade579548c07939ed36c64b60b167a6c",
+  "server_runtime_identity": {
+    "fingerprint_sha256": "e0312d1de3470c1bcbd1590bc757a5ba6d73fd6587024899a83a79df1b9ccf3e",
+    "gpu_models": [
+      "NVIDIA GeForce RTX 5090",
+      "NVIDIA GeForce RTX 5090"
+    ],
+    "rule": "sha256(canonical JSON of boot_id and sorted GPU UUIDs)"
+  },
+  "weight_payload_downloaded": false,
+  "scope": "Two fixed-library 20-epoch endpoints."
+}

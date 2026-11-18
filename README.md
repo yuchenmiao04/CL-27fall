@@ -1,6 +1,6 @@
 # CL-27fall
 
-在固定版本 LAMDA-PILOT 中接入四个类别增量学习候选方法，并提供 ER 与离线 Joint 两个基础对照。2026-11-17 原定的12组正式实验均已完成并核验。结果见[原12组正式结果](experiments/campaign_20261117/summary/summary.md)，最终配置及选择依据见[开发记录](experiments/campaign_20261117/development/SELECTIONS.md)。小规模正确性验证与完整性能实验分开保存。用户随后在两个数据集各追加固定模块库20-epoch变体和TUNA，四组均已启动；已核验结果与完成状态见[追加实验目录](experiments/extension_20261117/README.md)。原5-epoch结果保留。TUNA采用原生算法机制、每阶段20个图像训练epochs，首阶段不做分类器对齐，后九阶段各做30个对齐epochs。
+在固定版本 LAMDA-PILOT 中接入四个类别增量学习候选方法，并提供 ER 与离线 Joint 两个基础对照。2026-11-17 原定的12组正式实验均已完成并核验。结果见[原12组正式结果](experiments/campaign_20261117/summary/summary.md)，最终配置及选择依据见[开发记录](experiments/campaign_20261117/development/SELECTIONS.md)。小规模正确性验证与完整性能实验分开保存。用户随后在两个数据集各追加固定模块库20-epoch变体和TUNA，四组均已完成核验，结果见[追加实验目录](experiments/extension_20261117/README.md)。原5-epoch结果保留。TUNA采用原生算法机制、每阶段20个图像训练epochs，首阶段不做分类器对齐，后九阶段各做30个对齐epochs。
 
 | 方法名 | 学习对象 | 历史信息 | 骨干更新 |
 | --- | --- | --- | --- |
@@ -79,3 +79,7 @@ python scripts/verify_pretrained.py \
 确定性提特征使用独立的 DataLoader 随机数生成器，避免额外 anchor 编码影响后续 CE 头初始化或训练顺序。这修复了早期代码的一项随机流耦合；旧提交的验证记录保留为历史证据，不能期待与修复后训练权重逐位相同。新版本另外核对 ER 与统计迁移路线的匹配训练轨迹。
 
 本仓库不包含数据集、权重、运行 checkpoint 或服务器访问资料。上游作者归属与参考文献保留于原 README；使用相应代码时需引用 PILOT 及所用方法。
+
+## Final results
+
+The two datasets each have eight verified results. [Accuracy and forgetting](experiments/extension_20261117/summary/summary.md) · [Measured resources](experiments/extension_20261117/resources/RESOURCE_REPORT.md) · [Checkpoint index](experiments/extension_20261117/recovery/CHECKPOINT_INDEX.md)
