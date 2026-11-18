@@ -1,6 +1,6 @@
 # CL-27fall
 
-在固定版本 LAMDA-PILOT 中接入四个类别增量学习候选方法，并提供 ER 与离线 Joint 两个基础对照。2026-11-17 原定的12组正式实验均已完成并核验。结果见[正式结果](experiments/campaign_20261117/summary/summary.md)，最终配置及选择依据见[开发记录](experiments/campaign_20261117/development/SELECTIONS.md)。小规模正确性验证与完整性能实验分开保存。固定模块库的5 epochs是初始成本预算，本轮未完成训练长度对照；新增20-epoch变体及TUNA仍在讨论，尚未启动。
+在固定版本 LAMDA-PILOT 中接入四个类别增量学习候选方法，并提供 ER 与离线 Joint 两个基础对照。2026-11-17 原定的12组正式实验均已完成并核验。结果见[原12组正式结果](experiments/campaign_20261117/summary/summary.md)，最终配置及选择依据见[开发记录](experiments/campaign_20261117/development/SELECTIONS.md)。小规模正确性验证与完整性能实验分开保存。用户随后在两个数据集各追加固定模块库20-epoch变体和TUNA，四组均已启动；已核验结果与完成状态见[追加实验目录](experiments/extension_20261117/README.md)。原5-epoch结果保留。TUNA采用原生算法机制、每阶段20个图像训练epochs，首阶段不做分类器对齐，后九阶段各做30个对齐epochs。
 
 | 方法名 | 学习对象 | 历史信息 | 骨干更新 |
 | --- | --- | --- | --- |
@@ -15,6 +15,7 @@
 | --- | --- | --- |
 | `er` | 单个可塑 ViT＋普通 CE 头，当前数据＋PILOT 配额的图像回放 | Final、AIA、遗忘 |
 | `joint` | 相同预训练起点，一次训练全部类别并集，不受历史图像配额限制 | 只报 Final；AIA、遗忘为 null |
+| `tuna`（追加对照） | 相同预训练骨干＋原生Adapter及类别统计对齐，无旧图像回放 | Final、AIA、两种遗忘；预算和结果见追加实验目录 |
 
 ## 来源与文档
 
@@ -50,7 +51,7 @@ python main.py --config exps/smoke/er.json
 python main.py --config exps/smoke/joint.json
 ```
 
-输出目录必须为空；重复执行前指定新的 `output_dir`。持续学习 checkpoint 在任务完成后保存。恢复时保留原配置，添加 `resume` 指向任务边界 checkpoint，并更换 `output_dir`。四个候选及 ER 支持这种恢复。Joint 只保存完整联合训练 checkpoint，恢复保留已有 Final，不重新训练 / 评估，也不支持中途 epoch 恢复。多种子恢复同一个 checkpoint 会拒绝。
+输出目录必须为空；重复执行前指定新的 `output_dir`。持续学习checkpoint在任务完成后保存。恢复时保留原配置，添加 `resume` 指向任务边界checkpoint，并更换 `output_dir`。四个候选、ER及追加TUNA支持这种恢复；正式追加实验还使用绑定manifest、历史前缀和RNG身份的[恢复与核验流程](experiments/extension_20261117/PLAN.md)。Joint只保存完整联合训练checkpoint，恢复保留已有Final，不重新训练/评估，也不支持中途epoch恢复。多种子恢复同一个checkpoint会拒绝。
 
 真实预训练 ViT 的限定检查只用 CIFAR-100 训练集内部划分，每类三个拟合样本与三个留出样本、两任务、每任务十类、一个 epoch。脚本不下载数据；缺少权重时 timm 会下载公开权重。是否成功以验证报告为准。
 
@@ -69,7 +70,7 @@ python scripts/verify_pretrained.py \
 
 ## 正式配置
 
-初始配置模板在 `exps/pilot_figure2/`；本轮实际采用的配置、源码身份及审核记录见[主实验目录](experiments/campaign_20261117/README.md)。ER 与使用回放的候选采用 CIFAR-100 10×10 类、固定总回放容量2000；ImageNet-R 10×20 类、每类20张。冻结共享基实际旧图像量为0；Joint 一次访问全部训练类并集，只报 Final。统一使用历史 timm 的 IN21K→IN1K ViT-B/16、seed1993，测试不给任务编号。
+初始配置模板在 `exps/pilot_figure2/`；原12组实际采用的配置、源码身份及审核记录见[主实验目录](experiments/campaign_20261117/README.md)。模块20-epoch和TUNA的配置、预算变更及已核验结果见[追加实验目录](experiments/extension_20261117/README.md)。ER与使用回放的候选采用CIFAR-100 10×10类、固定总回放容量2000；ImageNet-R 10×20类、每类20张。冻结共享基与TUNA实际旧图像量为0；Joint一次访问全部训练类并集，只报Final。统一使用历史timm的IN21K→IN1K ViT-B/16、seed1993，测试不给任务编号。
 
 设置 `data_root` 后才可运行。CIFAR 根目录包含官方 `cifar-100-python/train` 和 `test`；ImageNet-R 使用 PILOT 准备后 `train/<class>/...`、`test/<class>/...`，不能任意重新划分后仍声称是原论文协议。
 

@@ -11,8 +11,9 @@ SHA-256 `8a70c7e5a6011bb293c833387d71046173503d4ba94efca3c3ee2587b82e4c43`.
 The plan and complete method recipes are in [PLAN.md](PLAN.md).
 
 The user subsequently selected **20 image-training epochs for both TUNA
-datasets**, retaining classifier alignment at 30 epochs and all other native
-settings. The selected TUNA overlay manifest has SHA-256
+datasets**, retaining classifier alignment at 30 epochs in stages 2–10 and all
+other native settings; stage 1 has no classifier-alignment phase. The selected
+TUNA overlay manifest has SHA-256
 `04fda502b11e670bb3f13b35b31fef7545d2d47728b4947220210c6b3bd0c2c6`.
 It embeds and binds the original manifest. Selected configurations are in
 [execution/tuna_epochs20_configs](execution/tuna_epochs20_configs/).
@@ -125,6 +126,10 @@ Actual CPU-restored component and statistics counts are in
 [checkpoint_evidence/tuna](checkpoint_evidence/tuna/). Those small reports were
 transferred; checkpoint payloads remain on the server.
 
-The two fixed-library 20-epoch runs are still running. The extension currently
-has two of four verified endpoints; the original twelve results are unchanged.
+The fixed-library endpoints remain pending final verification. Their most
+recent successful observation, at 2026-11-18 01:59 UTC, recorded eight completed
+CIFAR-100 stages and seven completed ImageNet-R stages. SSH observations failed
+before authentication shortly afterwards; that does not establish worker
+termination. The extension currently has two of four verified endpoints;
+the original twelve results are unchanged.
 The full sixteen-result merge requires both host partitions to finish.

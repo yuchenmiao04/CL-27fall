@@ -77,7 +77,7 @@ image-training epochs per stage for both datasets.
 | Batch size | 16 | 32 |
 | Weight decay | 0.0005 | 0.0005 |
 | Scheduler | Cosine | Cosine |
-| Classifier-alignment epochs | 30 | 30 |
+| Classifier-alignment epochs, stages 2–10 | 30 | 30 |
 | Classifier-alignment learning rate | 0.005 | 0.005 |
 | Orthogonality regularization enabled | false | true |
 | Stored historical images | 0 | 0 |
@@ -87,8 +87,9 @@ and `configs/formal_imagenetr_tuna_native_v1.json`. Selected 20-epoch
 configurations are in `execution/tuna_epochs20_configs/`.
 `prepare_tuna_epochs20.py` first admits the exact original manifest and native
 recipes, then permits only the requested image-epoch change, budget marker,
-prefix and new output paths. Classifier alignment remains 30 epochs with the
-native cosine period of 5. The 20 image epochs do not imply matched FLOPs.
+prefix and new output paths. Classifier alignment is absent in stage 1 and
+remains 30 epochs in stages 2–10 with the native cosine period of 5. The 20
+image epochs do not imply matched FLOPs.
 
 The 15-/10-epoch runs were stopped at the user's explicit request. Their partial
 records remain in the original campaign and do not count as final results.
@@ -246,14 +247,17 @@ partial-stage work. Report those scopes explicitly. Neither that sum nor a
 resumed peak is an uninterrupted full-run measurement. Retained logs can
 support lower bounds on discarded work; unmeasured work remains unknown.
 
-## Runtime estimate and local checks
+## Initial runtime estimate and local checks
 
 Using the original measured 5-epoch epoch-loop time plus measured non-epoch
 overhead gives approximate 20-epoch durations of 10.30 hours for CIFAR-100 and
 12.24 hours for ImageNet-R on the former hardware. These are extrapolations,
 not measurements on the cloned server; do not assume a fourfold factor for
-the entire run. Native TUNA runtime has not yet been measured. Re-estimate
-using actual stage/epoch timing after launch, without changing the recipes.
+the entire run. TUNA had not been measured when these initial estimates were
+written. Its observed stage durations and resumed-process measurements are now
+recorded in [partitions/tuna/summary.json](partitions/tuna/summary.json); complete
+uninterrupted-run wall time remains unknown after recovery. Use the recorded
+timing scopes without changing the recipes.
 
 Local queue validation uses fake processes, NVML snapshots, checkpoints, and
 disk accounting; it does not train or allocate CUDA memory:
