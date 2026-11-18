@@ -464,7 +464,7 @@ def tuna20_campaign_fixture(base_path, base_evidence_root):
     return path, evidence_root
 
 
-def recovery_fixture(source_path, source_evidence_root, partition, monkeypatch):
+def recovery_fixture(source_path, source_evidence_root, partition, monkeypatch, *, chained=False):
     original = audit.read(source_path)
     root = source_path.parent / ("recovery-" + partition)
     rows, configs, final_data = [], {}, {}
@@ -473,12 +473,15 @@ def recovery_fixture(source_path, source_evidence_root, partition, monkeypatch):
             continue
         job, dataset = old["job"], old["dataset"]
         count = 2 if partition == "current20" else (4 if dataset == "cifar224" else 6)
+        if chained:
+            count = 8 if dataset == "cifar224" else 7
         old_run = Path(old["output_dir"])
         result, data = audit.read(old_run / "results.json"), audit.read(old_run / "data_manifest.json")
         prefix = copy.deepcopy(result["stages"][:count])
         progress_path = old_run / "progress.json"
         write(progress_path, {"status": "running", "stages": prefix})
-        old_log = Path(original["campaign_root"]) / "formal/logs" / (job + ".log")
+        old_logs = (Path(original["recovery_root"]) / "logs" if chained else Path(original["campaign_root"]) / "formal/logs")
+        old_log = old_logs / (job + ".log")
         old_log.parent.mkdir(parents=True, exist_ok=True)
         old_log.write_text(json.dumps({"epoch_progress": True, "task": count, "epoch": 1, "wall_seconds": 7.5}) + "\n")
         snapshot = root / "resume_sources" / job / "checkpoint.pt"
@@ -515,6 +518,10 @@ def recovery_fixture(source_path, source_evidence_root, partition, monkeypatch):
                 ("repo", "python", "environment", "pretrained_npz", "source_files_sha256", "source_commit")}
     manifest.update(schema_version=1, kind="followup_task_boundary_recovery", partition=partition,
                     source_manifest={"path": str(source_path), "sha256": audit.sha(source_path)}, recovery_root=str(root), jobs=rows)
+    if chained:
+        monkeypatch.setattr(audit, "FIRST_CURRENT_RECOVERY_SHA256", audit.sha(source_path))
+        manifest.update(schema_version=2, parent_recovery_manifest=manifest["source_manifest"],
+                        source_manifest=original["source_manifest"])
     path = root / "manifest.json"
     write(path, manifest)
     recovery_sha = audit.sha(path)
@@ -539,6 +546,13 @@ def recovery_fixture(source_path, source_evidence_root, partition, monkeypatch):
         backup.parent.mkdir(parents=True)
         backup.write_bytes((run / "checkpoint.pt").read_bytes())
         report = copy.deepcopy(evidence["restore_report"])
+        if chained:
+            report["parent_recovery_manifest_sha256"] = audit.sha(source_path)
+            report["parent_recovery_prefix_verification"] = {
+                key: report[key] for key in ("recovery_prefix_verified", "saved_stage_count", "source_checkpoint_stages_sha256",
+                    "restored_final_prefix_sha256", "original_checkpoint_sha256", "resume_checkpoint_sha256",
+                    "recovery_prefix_compared_nodes", "recovery_prefix_ignored_paths", "source_checkpoint_prefix_semantic_sha256",
+                    "source_checkpoint_rng_semantic_sha256")}
         report.update(recovery_prefix_verified=True, saved_stage_count=lineage["saved_stage_count"],
                       source_checkpoint_stages_sha256=lineage["prefix_stages_sha256"], restored_final_prefix_sha256=lineage["prefix_stages_sha256"],
                       original_checkpoint_sha256=cp_sha, resume_checkpoint_sha256=cp_sha,
@@ -554,7 +568,8 @@ def recovery_fixture(source_path, source_evidence_root, partition, monkeypatch):
                         source_metadata_sha256=metadata_shas, source_receipt_sha256=audit.sha(receipt_path),
                         recovery_manifest_sha256=recovery_sha, recovery_lineage=expected_lineage)
         write(evidence_root / (job + ".json"), evidence)
-    checked = {"manifest": manifest, "configs": configs, "source_manifest": original}
+    checked = {"manifest": manifest, "configs": configs,
+               "source_manifest": audit.read(original["source_manifest"]["path"]) if chained else original}
     monkeypatch.setattr(audit, "read_guarded_recovery", lambda p: checked)
     return path, evidence_root
 
@@ -830,7 +845,7 @@ def test_recovery_still_requires_wall_time_covering_the_resumed_stage_regions(tm
         check()
 
 
-def partition_reports_fixture(tmp_path, monkeypatch, *, recovered=False):
+def partition_reports_fixture(tmp_path, monkeypatch, *, recovered=False, chained=False):
     manifest_path, evidence_root, _ = completed_campaign_fixture(tmp_path, monkeypatch)
     overlay_path, overlay_evidence = tuna20_campaign_fixture(manifest_path, evidence_root)
     paths = []
@@ -841,6 +856,8 @@ def partition_reports_fixture(tmp_path, monkeypatch, *, recovered=False):
         recovery_path = None
         if recovered:
             recovery_path, active_evidence = recovery_fixture(active_path, active_evidence, group, monkeypatch)
+            if chained and group == "current20":
+                recovery_path, active_evidence = recovery_fixture(recovery_path, active_evidence, group, monkeypatch, chained=True)
         summary = audit.audit_campaign(active_path, active_evidence, partition=group,
                                        host_alias=group + "-host", host_key_fingerprint=HOST_KEY,
                                        recovery_manifest_path=recovery_path)
@@ -853,6 +870,47 @@ def partition_reports_fixture(tmp_path, monkeypatch, *, recovered=False):
 def merge_reports(manifest_path, paths):
     return audit.merge_partition_summaries(
         manifest_path, paths, expected_summary_sha256=[audit.sha(path) for path in paths])
+
+
+def test_second_recovery_merges_with_only_the_exact_sealed_historical_tuna(tmp_path, monkeypatch):
+    manifest, paths = partition_reports_fixture(tmp_path, monkeypatch, recovered=True, chained=True)
+    tuna = audit.read(paths[1])
+    tuna["auditor_sha256"] = audit.SEALED_TUNA_AUDITOR_SHA256
+    write(paths[1], tuna)
+    monkeypatch.setattr(audit, "SEALED_TUNA_SUMMARY_SHA256", audit.sha(paths[1]))
+    merged = merge_reports(manifest, paths)
+    assert merged["verified_results"] == 4
+    assert {p["partition"]: p["auditor_sha256"] for p in merged["partition_reports"]} == {
+        "tuna": audit.SEALED_TUNA_AUDITOR_SHA256, "current20": audit.sha(audit.__file__)}
+    for row in merged["rows"]:
+        if row["method"] != "current_adapted":
+            continue
+        cut = 8 if row["dataset"] == "cifar224" else 7
+        proof, resources = row["checkpoint_audit"], row["resources"]
+        assert proof["parent_recovery_prefix_verification"]["saved_stage_count"] == 2
+        assert proof["recovery_prefix_verification"]["saved_stage_count"] == cut
+        assert [(r["first_stage"], r["last_stage"]) for r in resources["completed_stage_segments"]] == [(1, 2), (3, cut), (cut + 1, 10)]
+        assert sum(r["wall_seconds"] for r in resources["completed_stage_segments"]) == resources["completed_stage_wall_seconds_total"]
+        assert resources["interrupted_work"]["known_seconds_lower_bound"] == 15.
+        assert resources["full_run_wall_seconds"] is None
+    tuna["audit_scope"] += " "
+    write(paths[1], tuna)
+    with pytest.raises(audit.AuditError, match="scientific identity"):
+        merge_reports(manifest, paths)
+
+
+@pytest.mark.parametrize("mutation,match", [
+    (lambda s: s.pop("parent_recovery_manifest_export"), "metadata export"),
+    (lambda s: s["rows"][0]["checkpoint_audit"]["parent_recovery_prefix_verification"].update(saved_stage_count=7), "prefix proof differs"),
+    (lambda s: s["rows"][0]["recovery_exports"]["parent"]["interrupted_work"].update(known_seconds_lower_bound=40.0), "lower bound differs"),
+])
+def test_chained_merge_rejects_missing_or_mutated_parent_evidence(tmp_path, monkeypatch, mutation, match):
+    manifest, paths = partition_reports_fixture(tmp_path, monkeypatch, recovered=True, chained=True)
+    report = audit.read(paths[0])
+    mutation(report)
+    write(paths[0], report)
+    with pytest.raises(audit.AuditError, match=match):
+        merge_reports(manifest, paths)
 
 
 def test_global_merge_recomputes_four_rows_without_opening_remote_models(tmp_path, monkeypatch):

@@ -26,6 +26,9 @@ SOURCE_SHA = {
     'current20': '8a70c7e5a6011bb293c833387d71046173503d4ba94efca3c3ee2587b82e4c43',
     'tuna': '04fda502b11e670bb3f13b35b31fef7545d2d47728b4947220210c6b3bd0c2c6',
 }
+CURRENT20_PARENT_SHA = '194f569ee2adbe981383134ceb7d1b66576ee58959d61fce6d41eac555d8613f'
+LAST_SAVED_STAGES = {'cifar224': 8, 'imagenetr': 7}
+PARENT_CONTROLLER_SHA = '55cc2a6c9ae9620327912050daa630b35ba2f3658ca001e505219fa01f35ca85'
 RNG_POLICY = 'canonical_loader_isolated_v1'
 DATA_SHA = {'cifar224': '98b4aa3a9e6bfd167c52eb391f6dc1b028f2fb920f8a20c8c48751282b8f7ed4',
             'imagenetr': '014b448f085423b32b6ca0468e7165f896460ff3e4341d1f7bcc305d96a2de76'}
@@ -71,20 +74,46 @@ def _context(path, partition):
     return base, api, runner, data.ProtocolDataManager
 
 
-def old_worker_observation(base, job):
-    path = base.receipt_path(job)
+def terminal_observation(path, probe, label):
     receipt = read(path)
-    base.check_receipt(job, receipt)
-    info = base.probe(receipt['pid'])
+    ticks = receipt.get('proc_start_ticks', receipt.get('start_ticks'))
+    need(type(receipt['pid']) is int and receipt['pid'] > 0 and type(ticks) is int and ticks > 0,
+         'Invalid process identity: ' + label)
+    info = probe(receipt['pid'])
     if info is None:
         state = 'original_pid_absent'
-    elif info['startticks'] != receipt['proc_start_ticks']:
+    elif info['startticks'] != ticks:
         state = 'original_pid_reused'
     else:
-        need(info['state'] in {'Z', 'X', 'x'}, 'Original worker identity is still live: ' + job)
+        need(info['state'] in {'Z', 'X', 'x'}, 'Original worker identity is still live: ' + label)
         state = 'original_process_terminal_' + info['state']
-    return {**bound(path), 'pid': receipt['pid'], 'proc_start_ticks': receipt['proc_start_ticks'],
+    return {**bound(path), 'pid': receipt['pid'], 'proc_start_ticks': ticks,
             'observation': state}
+
+
+def old_worker_observation(base, job):
+    path = base.receipt_path(job)
+    base.check_receipt(job, read(path))
+    return terminal_observation(path, base.probe, job)
+
+
+def parent_queue(path, partition, base, *, context=None, checkpoint_digest=sha):
+    path = Path(path).resolve()
+    need(partition == 'current20' and sha(path) == CURRENT20_PARENT_SHA,
+         'Wrong parent recovery manifest')
+    manifest = read(path)
+    need(manifest['schema_version'] == 1 and manifest['partition'] == partition
+         and manifest['source_manifest'] == bound(base.path), 'Wrong parent scientific lineage')
+    validate_recovery_manifest(path, context=context, checkpoint_digest=checkpoint_digest)
+    return queue_view(base, path, manifest)
+
+
+def check_parent_prefix(parent, prefix):
+    retained = parent['lineage']['prefix_stages']
+    need(len(prefix) >= LAST_SAVED_STAGES[parent['dataset']] and len(prefix) > len(retained),
+         'Checkpoint precedes the last observed saved stage')
+    need(canonical_sha(prefix[:len(retained)]) == canonical_sha(retained),
+         'Checkpoint changed the parent recovery prefix')
 
 
 def prepared_fingerprint(runner, cfg):
@@ -112,11 +141,19 @@ def check_checkpoint(state, cfg, data, runner):
     return runner.jsonable(stages)
 
 
-def prepare(manifest_path, partition, recovery_root):
+def prepare(manifest_path, partition, recovery_root, parent_recovery_manifest=None):
     manifest_path, recovery_root = Path(manifest_path).resolve(), Path(recovery_root).resolve()
     need(not recovery_root.exists(), 'Refusing existing recovery output')
     base, api, runner, data_manager = _context(manifest_path, partition)
     need(all(not row['pids'] for row in base.memory().values()), 'GPU occupancy blocks reboot recovery')
+    known_parent = manifest_path.parent.parent / 'recovery_20261118_v1' / 'manifest.json'
+    need(partition != 'current20' or not known_parent.exists() or parent_recovery_manifest is not None,
+         'Existing recovery requires an explicit parent; refusing to rewind to the original checkpoint')
+    previous = base
+    parent_dispatcher = None
+    if parent_recovery_manifest is not None:
+        previous = parent_queue(parent_recovery_manifest, partition, base)
+        parent_dispatcher = terminal_observation(parent_dispatcher_path(previous), previous.probe, 'parent dispatcher')
     staging = recovery_root.with_name(recovery_root.name + '.preparing')
     need(not staging.exists(), 'Unresolved previous recovery preparation')
     staging.mkdir(parents=True, exist_ok=False)
@@ -124,12 +161,12 @@ def prepare(manifest_path, partition, recovery_root):
         (staging / 'configs').mkdir()
         entries = []
         for job in GROUPS[partition]:
-            old = base.entries[job]
+            old = previous.entries[job]
             cfg = read(old['config']['path'])
             output = Path(old['output_dir'])
             need(not (output / 'checkpoint.tmp').exists() and not (output / 'results.json').exists(),
                  'Partial-save or already-complete source requires review: ' + job)
-            observation = old_worker_observation(base, job)
+            observation = old_worker_observation(previous, job)
             saved = read(output / 'config.json')
             need({k: v for k, v in saved.items() if k != 'config'} == dict(cfg, seed=1993),
                  'Original executed config differs')
@@ -151,7 +188,10 @@ def prepare(manifest_path, partition, recovery_root):
             state = runner.torch.load(snapshot, map_location='cpu', weights_only=False)
             prefix = check_checkpoint(state, cfg, data, runner)
             progress = read(output / 'progress.json')
-            need(progress['stages'][:len(prefix)] == prefix, 'Checkpoint prefix differs from source progress')
+            need(canonical_sha(progress['stages'][:len(prefix)]) == canonical_sha(prefix),
+                 'Checkpoint prefix differs from source progress')
+            if parent_recovery_manifest is not None:
+                check_parent_prefix(old, prefix)
             final_snapshot = recovery_root / 'resume_sources' / job / 'checkpoint.pt'
             new_cfg = dict(cfg, resume=str(final_snapshot), output_dir=str(recovery_root / 'runs' / job))
             need(prepared_fingerprint(runner, new_cfg) == state['config_fingerprint'], 'Recovery scientific fingerprint changed')
@@ -160,7 +200,7 @@ def prepare(manifest_path, partition, recovery_root):
             write_value = json.dumps(new_cfg, indent=2, allow_nan=False) + '\n'
             staged_config.write_text(write_value)
             lineage = {
-                'original_manifest': bound(manifest_path), 'original_prepared_config': copy.deepcopy(old['config']),
+                'original_manifest': bound(previous.path), 'original_prepared_config': copy.deepcopy(old['config']),
                 'original_saved_config': bound(output / 'config.json'), 'original_output_dir': str(output),
                 'original_progress': bound(output / 'progress.json'), 'original_data_manifest': bound(output / 'data_manifest.json'),
                 'source_checkpoint': dict(path=str(checkpoint), sha256=checkpoint_sha, bytes=size),
@@ -169,7 +209,7 @@ def prepare(manifest_path, partition, recovery_root):
                 'random_stream_policy': state['random_stream_policy'], 'saved_stage_count': len(prefix),
                 'prefix_stages': prefix, 'prefix_stages_sha256': canonical_sha(prefix), 'original_receipt': observation,
             }
-            old_log = base.formal / 'logs' / (job + '.log')
+            old_log = previous.formal / 'logs' / (job + '.log')
             if old_log.is_file():
                 lineage['original_log'] = bound(old_log)
             entries.append(dict(job=job, gpu=old['gpu'], dataset=old['dataset'], method=old['method'],
@@ -183,6 +223,9 @@ def prepare(manifest_path, partition, recovery_root):
             source_manifest=bound(manifest_path), recovery_root=str(recovery_root), jobs=entries,
             preparation_helper_sha256=sha(__file__), prepared_unix=time.time(),
             resource_scope='Raw resumed execution wall/peak cover only the resumed segment; saved stage records remain unchanged.')
+        if parent_recovery_manifest is not None:
+            manifest.update(schema_version=2, parent_recovery_manifest=bound(previous.path),
+                            parent_dispatcher_terminal=parent_dispatcher)
         (staging / 'manifest.json').write_text(json.dumps(manifest, indent=2, allow_nan=False) + '\n')
         base.validate()
         need(not recovery_root.exists(), 'Recovery path appeared during preparation')
@@ -193,21 +236,58 @@ def prepare(manifest_path, partition, recovery_root):
     return recovery_root / 'manifest.json'
 
 
-def validate_recovery_manifest(path):
+def parent_dispatcher_path(previous):
+    path = previous.root / 'dispatcher_receipt.json'
+    receipt = read(path)
+    command = receipt['command']
+    expected = [previous.manifest['python'], str(previous.root.parent / 'tools' / 'resume_followup_after_reboot_controller_v2.py'),
+                '--manifest', previous.manifest['source_manifest']['path'], '--partition', 'current20',
+                '--recovery-root', str(previous.root), '--execute', '--poll-seconds', '30']
+    need(command == expected and receipt['partition'] == 'current20'
+         and receipt['recovery_manifest_sha256'] == previous.manifest_sha
+         and receipt['controller_sha256'] == PARENT_CONTROLLER_SHA, 'Parent dispatcher receipt differs')
+    return path
+
+
+def validate_terminal_receipt(observation, path):
+    need({k: observation[k] for k in ('path', 'sha256')} == bound(path), 'Original process receipt changed')
+    raw = read(path)
+    need((observation['pid'], observation['proc_start_ticks'])
+         == (raw['pid'], raw.get('proc_start_ticks', raw.get('start_ticks')))
+         and observation['observation'] in {'original_pid_absent', 'original_pid_reused',
+                                            'original_process_terminal_Z', 'original_process_terminal_X',
+                                            'original_process_terminal_x'}, 'Original process observation differs')
+
+
+def validate_recovery_manifest(path, *, context=None, checkpoint_digest=sha):
     """Validate JSON/source/hash lineage without deserializing model payloads."""
     path = Path(path).resolve()
     manifest = read(path)
-    need(manifest['schema_version'] == 1 and manifest['kind'] == 'followup_task_boundary_recovery', 'Wrong recovery schema')
-    base, api, runner, _ = _context(manifest['source_manifest']['path'], manifest['partition'])
+    version = manifest['schema_version']
+    need(type(version) is int and version in {1, 2} and manifest['kind'] == 'followup_task_boundary_recovery',
+         'Wrong recovery schema')
+    need(('parent_recovery_manifest' in manifest) == (version == 2)
+         and ('parent_dispatcher_terminal' in manifest) == (version == 2), 'Wrong recovery parent structure')
+    if context is None:
+        context = _context(manifest['source_manifest']['path'], manifest['partition'])
+    base, api, runner, _ = context
     need(manifest['source_manifest'] == bound(base.path), 'Recovery source manifest changed')
     root = Path(manifest['recovery_root'])
     need(path == root / 'manifest.json' and {r['job'] for r in manifest['jobs']} == set(GROUPS[manifest['partition']])
          and len(manifest['jobs']) == 2, 'Wrong recovery roots/jobs')
     for key in ('repo', 'python', 'environment', 'pretrained_npz', 'source_files_sha256', 'source_commit'):
         need(manifest[key] == base.manifest[key], 'Recovery source/runtime identity changed: ' + key)
+    previous = base
+    if version == 2:
+        parent = manifest['parent_recovery_manifest']
+        previous = parent_queue(parent['path'], manifest['partition'], base, context=context, checkpoint_digest=checkpoint_digest)
+        need(parent == bound(previous.path), 'Parent recovery binding differs')
+        dispatcher = manifest['parent_dispatcher_terminal']
+        dispatcher_path = parent_dispatcher_path(previous)
+        validate_terminal_receipt(dispatcher, dispatcher_path)
     configs = {}
     for row in manifest['jobs']:
-        old, lineage = base.entries[row['job']], row['lineage']
+        old, lineage = previous.entries[row['job']], row['lineage']
         need((row['gpu'], row['dataset'], row['method'], row['comparison_variant'], row['environment'])
              == tuple(old[k] for k in ('gpu', 'dataset', 'method', 'comparison_variant', 'environment')), 'Recovery job identity differs')
         cfg_path = root / 'configs' / (row['job'] + '.json')
@@ -216,34 +296,47 @@ def validate_recovery_manifest(path):
         expected = dict(read(old['config']['path']), resume=str(root / 'resume_sources' / row['job'] / 'checkpoint.pt'), output_dir=row['output_dir'])
         need(cfg == expected and cfg['seed'] == [1993], 'Only resume/output_dir may differ from the original scientific config')
         need(row['command'] == [manifest['python'], str(base.repo / 'main.py'), '--config', str(cfg_path)], 'Recovery command changed')
-        need(lineage['original_manifest'] == bound(base.path) and lineage['original_prepared_config'] == old['config']
+        need(lineage['original_manifest'] == bound(previous.path) and lineage['original_prepared_config'] == old['config']
              and lineage['original_output_dir'] == old['output_dir'], 'Recovery original bindings changed')
         for key, name in [('original_saved_config', 'config.json'), ('original_progress', 'progress.json'), ('original_data_manifest', 'data_manifest.json')]:
             need(lineage[key] == bound(Path(old['output_dir']) / name), 'Recovery original metadata changed: ' + key)
         for key, expected_path in [('source_checkpoint', Path(old['output_dir']) / 'checkpoint.pt'),
                                    ('resume_checkpoint', Path(cfg['resume']))]:
             value = lineage[key]
-            need(value['path'] == str(expected_path) and value['sha256'] == sha(expected_path)
+            need(value['path'] == str(expected_path) and value['sha256'] == checkpoint_digest(expected_path)
                  and value['bytes'] == expected_path.stat().st_size, 'Retained checkpoint bytes changed: ' + key)
         need(lineage['source_checkpoint']['sha256'] == lineage['resume_checkpoint']['sha256']
              and lineage['source_checkpoint']['bytes'] == lineage['resume_checkpoint']['bytes'], 'Snapshot/source checkpoint differs')
         receipt = lineage['original_receipt']
-        need({k: receipt[k] for k in ('path', 'sha256')} == bound(base.receipt_path(row['job'])), 'Original process receipt changed')
-        raw_receipt = read(receipt['path'])
-        base.check_receipt(row['job'], raw_receipt)
-        need((receipt['pid'], receipt['proc_start_ticks']) == (raw_receipt['pid'], raw_receipt['proc_start_ticks'])
-             and receipt['observation'] in {'original_pid_absent', 'original_pid_reused',
-                                           'original_process_terminal_Z', 'original_process_terminal_X', 'original_process_terminal_x'},
-             'Original process observation differs')
+        receipt_path = previous.receipt_path(row['job'])
+        validate_terminal_receipt(receipt, receipt_path)
+        previous.check_receipt(row['job'], read(receipt_path))
         if 'original_log' in lineage:
-            need(lineage['original_log'] == bound(base.formal / 'logs' / (row['job'] + '.log')), 'Original log changed')
+            need(lineage['original_log'] == bound(previous.formal / 'logs' / (row['job'] + '.log')), 'Original log changed')
         prefix, n = lineage['prefix_stages'], lineage['saved_stage_count']
         need(0 < n < 10 and len(prefix) == n and [s['task'] for s in prefix] == list(range(n))
              and lineage['prefix_stages_sha256'] == canonical_sha(prefix), 'Recovery prefix metadata changed')
+        if version == 2:
+            check_parent_prefix(old, prefix)
+            actual_progress = read(lineage['original_progress']['path'])['stages']
+            need(canonical_sha(actual_progress[:n]) == canonical_sha(prefix),
+                 'Retained prefix differs from parent progress')
         need(lineage['random_stream_policy'] == RNG_POLICY and lineage['data_fingerprint'] == DATA_SHA[row['dataset']]
              and lineage['config_fingerprint'] == prepared_fingerprint(runner, cfg), 'Recovery fingerprint/RNG differs')
         configs[row['job']] = cfg
     return {'manifest': manifest, 'configs': configs, 'source_manifest': base.manifest}
+
+
+def queue_view(base, path, manifest):
+    q = copy.copy(base)
+    q.path, q.manifest_sha = path, sha(path)
+    q.manifest = manifest
+    q.root = Path(manifest['recovery_root'])
+    q.formal, q.state = q.root, q.root / 'queue'
+    q.entries = {r['job']: r for r in manifest['jobs']}
+    q.handles, q.locked = {}, False
+    q.check_cache = base.check_cache
+    return q
 
 
 def recovery_queue(path):
@@ -254,32 +347,51 @@ def recovery_queue(path):
     Standard receipts produced by an operator are adoptable without rewriting.
     """
     path = Path(path).resolve()
-    admitted = validate_recovery_manifest(path)
-    manifest = admitted['manifest']
-    base, api, _, _ = _context(manifest['source_manifest']['path'], manifest['partition'])
-    q = copy.copy(base)
-    q.path, q.manifest_sha = path, sha(path)
-    q.manifest = manifest
-    q.root = Path(manifest['recovery_root'])
-    q.formal, q.state = q.root, q.root / 'queue'
-    q.entries = {r['job']: r for r in manifest['jobs']}
-    q.handles, q.locked = {}, False
-    q.check_cache = base.check_cache
+    manifest = read(path)
+    context = _context(manifest['source_manifest']['path'], manifest['partition'])
+    base, api, _, _ = context
+    q = queue_view(base, path, manifest)
+    checked_files = {}
+    checked_jobs = set()
+
+    def stable_digest(file):
+        file = Path(file)
+        stat = file.stat()
+        stamp = (stat.st_dev, stat.st_ino, stat.st_size, stat.st_mtime_ns, stat.st_ctime_ns)
+        if file not in checked_files or checked_files[file][0] != stamp:
+            digest = sha(file)
+            after = file.stat()
+            need((after.st_dev, after.st_ino, after.st_size, after.st_mtime_ns, after.st_ctime_ns) == stamp,
+                 'Retained file changed while reading its bytes')
+            checked_files[file] = (stamp, digest)
+        return checked_files[file][1]
+
     def validate():
         need(sha(path) == q.manifest_sha, 'Recovery manifest changed after admission')
-        validate_recovery_manifest(path)
+        base.validate()
+        pretrained = manifest['pretrained_npz']
+        need(stable_digest(pretrained['path']) == pretrained['sha256'], 'Pretrained checkpoint changed')
+        validate_recovery_manifest(path, context=context, checkpoint_digest=stable_digest)
+
+    validate()  # Populate the process-local cache from actual file contents before any launch.
     q.validate = validate
+
     def complete(job):
+        if job not in checked_jobs:
+            # Sealing must read all retained bytes afresh, including the original checkpoint.
+            checked_files.clear()
+            validate()
         evidence = api.FollowupQueue.complete(q, job)
         row = q.entries[job]
         result = read(Path(row['output_dir']) / 'results.json')
         lineage = row['lineage']
-        need(result['stages'][:lineage['saved_stage_count']] == lineage['prefix_stages'],
+        need(canonical_sha(result['stages'][:lineage['saved_stage_count']]) == lineage['prefix_stages_sha256'],
              'Resumed result changed the saved checkpoint prefix')
         need(result['config_fingerprint'] == lineage['config_fingerprint']
              and result['data_fingerprint'] == lineage['data_fingerprint']
              and read(Path(row['output_dir']) / 'data_manifest.json') == read(lineage['original_data_manifest']['path']),
              'Completed resumed result fingerprint changed')
+        checked_jobs.add(job)
         return evidence
     q.complete = complete
     return q, api
@@ -362,6 +474,8 @@ def main():
     parser.add_argument('--manifest', type=Path, required=True)
     parser.add_argument('--partition', choices=GROUPS, required=True)
     parser.add_argument('--recovery-root', type=Path, required=True)
+    parser.add_argument('--parent-recovery-manifest', type=Path,
+                        help='Previous recovery manifest when its workers were interrupted again')
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument('--prepare', action='store_true', help='Prepare only (default)')
     mode.add_argument('--plan', action='store_true', help='Read-only observation of an already prepared recovery')
@@ -373,13 +487,16 @@ def main():
         manifest = read(path)
         need(manifest['partition'] == args.partition and manifest['source_manifest'] == bound(args.manifest.resolve()),
              'CLI source/partition does not match prepared recovery')
+        if args.parent_recovery_manifest is not None:
+            need(manifest.get('parent_recovery_manifest') == bound(args.parent_recovery_manifest.resolve()),
+                 'CLI recovery parent differs from prepared recovery')
         controller = RecoveryController(path)
         if args.execute:
             controller.run(args.poll_seconds)
         else:
             print(json.dumps(controller.cycle(False), indent=2, allow_nan=False))
         return
-    path = prepare(args.manifest, args.partition, args.recovery_root)
+    path = prepare(args.manifest, args.partition, args.recovery_root, args.parent_recovery_manifest)
     print(json.dumps(dict(status='prepared_recovery_no_training', manifest=str(path), sha256=sha(path))))
 
 

@@ -41,6 +41,9 @@ PARTITIONS = {
 }
 RUNTIME_ID_RULE = "sha256(canonical JSON of boot_id and sorted GPU UUIDs)"
 BASE_MANIFEST_SHA256 = "8a70c7e5a6011bb293c833387d71046173503d4ba94efca3c3ee2587b82e4c43"
+FIRST_CURRENT_RECOVERY_SHA256 = "194f569ee2adbe981383134ceb7d1b66576ee58959d61fce6d41eac555d8613f"
+SEALED_TUNA_SUMMARY_SHA256 = "aee0a3ff3629b40e2ae98b6d2446722d72257757c30591231a11c8174eac0373"
+SEALED_TUNA_AUDITOR_SHA256 = "ae30b86235b9417f2fbacf65066bc2949bb6d5e4915dd1f6bd173246e5006c03"
 TUNA20_OVERLAY_KEYS = {"user_requested_image_epochs", "base_manifest_sha256",
                        "base_manifest_path", "base_manifest_text"}
 # Counts are from the already verified full selected PILOT data, seed1993.
@@ -182,7 +185,8 @@ def read_guarded_recovery(path):
 
 
 def validate_recovery_header(recovery, original, original_sha, partition):
-    need(recovery.get("schema_version") == 1 and recovery.get("kind") == "followup_task_boundary_recovery"
+    version = recovery.get("schema_version")
+    need(type(version) is int and version in (1, 2) and recovery.get("kind") == "followup_task_boundary_recovery"
          and recovery.get("partition") == partition and partition in {"current20", "tuna"},
          "Wrong explicit task-boundary recovery schema/partition")
     need(recovery.get("source_manifest") == {"path": str(Path(original["campaign_root"]) / "manifest.json"),
@@ -195,10 +199,18 @@ def validate_recovery_header(recovery, original, original_sha, partition):
          and {row.get("job") for row in rows} == set(PARTITIONS[partition]), "Recovery must bind exactly its two assigned jobs")
     root = Path(recovery["recovery_root"])
     need(root.is_absolute() and str(root) != original["campaign_root"], "Recovery needs a fresh absolute output root")
+    if version == 2:
+        binding = recovery.get("parent_recovery_manifest", {})
+        need(partition == "current20" and original_sha == BASE_MANIFEST_SHA256
+             and binding.get("sha256") == FIRST_CURRENT_RECOVERY_SHA256
+             and Path(binding.get("path", "")) != root / "manifest.json",
+             "Chained recovery must refer to the exact first current20 recovery")
+    else:
+        need("parent_recovery_manifest" not in recovery, "First recovery cannot declare an earlier recovery")
     return {row["job"]: row for row in rows}
 
 
-def recovery_context(recovery, recovery_sha, entry, original_entry, prepared, actual, metadata):
+def recovery_context(recovery, recovery_sha, entry, original_entry, prepared, actual, metadata, *, parent=None):
     root, lineage = Path(recovery["recovery_root"]), entry["lineage"]
     job = entry["job"]
     need(all(entry.get(key) == original_entry.get(key) for key in
@@ -210,7 +222,8 @@ def recovery_context(recovery, recovery_sha, entry, original_entry, prepared, ac
          "Recovery command/output/config paths differ")
     need(same_json_value(actual, {**prepared, "resume": resume, "output_dir": output}),
          "Recovery may change only resume and output_dir")
-    need(lineage["original_manifest"] == recovery["source_manifest"]
+    expected_source = recovery.get("parent_recovery_manifest", recovery["source_manifest"])
+    need(lineage["original_manifest"] == expected_source
          and lineage["original_prepared_config"] == original_entry["config"]
          and lineage["original_output_dir"] == original_entry["output_dir"], "Recovery original job/config binding differs")
     for key, filename in (("config", "config.json"), ("progress", "progress.json"), ("data_manifest", "data_manifest.json")):
@@ -234,7 +247,18 @@ def recovery_context(recovery, recovery_sha, entry, original_entry, prepared, ac
          and lineage["random_stream_policy"] == RNG_POLICY
          and lineage["data_fingerprint"] == metadata["data_manifest"].get("fingerprint") == DATA[entry["dataset"]]["fingerprint"],
          "Recovery configuration/data/RNG fingerprint differs")
-    return {"manifest_sha256": recovery_sha, "manifest": recovery, "entry": entry, "lineage": lineage,
+    if recovery["schema_version"] == 2:
+        need(parent is not None and parent["manifest_sha256"] == expected_source["sha256"]
+             and expected_source["path"] == str(Path(parent["manifest"]["recovery_root"]) / "manifest.json")
+             and parent["manifest"]["schema_version"] == 1
+             and parent["entry"] == original_entry
+             and parent["saved_stage_count"] < count
+             and same_json_value(prefix[:parent["saved_stage_count"]], parent["prefix_stages"])
+             and same_json_value(metadata["data_manifest"], parent["original_metadata"]["data_manifest"]),
+             "Latest source does not extend the exact first recovery prefix/data")
+    else:
+        need(parent is None, "First recovery cannot have an extra parent context")
+    return {"manifest_sha256": recovery_sha, "manifest": recovery, "entry": entry, "lineage": lineage, "parent": parent,
             "actual_config": actual, "original_metadata": metadata, "saved_stage_count": count,
             "prefix_stages": prefix, "prefix_stages_sha256": lineage["prefix_stages_sha256"]}
 
@@ -274,6 +298,45 @@ def read_interrupted_work(context):
     return interrupted_work_summary(context, events)
 
 
+def bind_interrupted_work(context, latest):
+    context["interrupted_attempt"] = latest
+    parent = context.get("parent")
+    if parent is None:
+        context["interrupted_work"] = latest
+        return
+    attempts = [parent["interrupted_attempt"], latest]
+    context["interrupted_work"] = {
+        "attempts": attempts,
+        "known_seconds_lower_bound": sum(row["known_seconds_lower_bound"] for row in attempts),
+        "total_interrupted_work_seconds": None,
+        "scope": "Distinct interrupted processes in chronological order. Each includes only measured work discarded after its last retained checkpoint."}
+
+
+def recovery_metadata_exports(entry):
+    lineage = entry["lineage"]
+    return {"prepared_config": metadata_export(entry["config"]["path"]),
+            **{key: metadata_export(lineage[name]["path"]) for key, name in (
+                ("original_config", "original_saved_config"), ("original_progress", "original_progress"),
+                ("original_data_manifest", "original_data_manifest"))}}
+
+
+def context_from_exports(manifest, digest, entry, original_entry, prepared, exports, *, parent=None):
+    lineage = entry["lineage"]
+    actual = load_metadata_export(exports, "prepared_config", entry["config"]["sha256"])
+    metadata = {key: load_metadata_export(exports, export, lineage[binding]["sha256"]) for key, export, binding in (
+        ("config", "original_config", "original_saved_config"), ("progress", "original_progress", "original_progress"),
+        ("data_manifest", "original_data_manifest", "original_data_manifest"))}
+    return recovery_context(manifest, digest, entry, original_entry, prepared, actual, metadata, parent=parent)
+
+
+def verify_exported_cost(context, exports):
+    cost = exports.get("interrupted_work")
+    need(isinstance(cost, dict), "Recovery interrupted-work observations are missing")
+    derived = interrupted_work_summary(context, cost.get("completed_epoch_regions"))
+    need(same_json_value(cost, derived), "Recovery interrupted-work lower bound differs from its retained observations")
+    bind_interrupted_work(context, derived)
+
+
 def validate_recovery_seal(context, receipt, seal, metadata_shas):
     manifest, entry, lineage = context["manifest"], context["entry"], context["lineage"]
     need(receipt.get("job") == entry["job"] and receipt.get("manifest_sha256") == context["manifest_sha256"]
@@ -308,7 +371,15 @@ def validate_recovery_prefix_proof(proof, context):
     need(isinstance(proof, dict) and proof.get("recovery_manifest_sha256") == context["manifest_sha256"]
          and same_json_value(proof.get("recovery_lineage"), recovery_expected_proof(context)),
          "Native recovery evidence is not bound to the exact parent checkpoint lineage")
-    report = proof.get("recovery_prefix_verification", {})
+    validate_native_source_prefix(proof.get("recovery_prefix_verification", {}), context)
+    parent = context.get("parent")
+    if parent is not None:
+        need(proof.get("parent_recovery_manifest_sha256") == parent["manifest_sha256"],
+             "Original native proof lacks the first recovery manifest binding")
+        validate_native_source_prefix(proof.get("parent_recovery_prefix_verification", {}), parent)
+
+
+def validate_native_source_prefix(report, context):
     lineage = context["lineage"]
     need(report.get("recovery_prefix_verified") is True
          and report.get("saved_stage_count") == context["saved_stage_count"]
@@ -647,6 +718,11 @@ def validate_records(prepared, saved, result, data, sources, *, recovery=None):
             resumed_stage_wall_seconds_total=sum(stage_seconds[prefix_count:]),
             interrupted_work=recovery.get("interrupted_work") or interrupted_work_summary(recovery),
             measurement_scope="Stage totals retain original prefix timers. Raw wall/peak cover only the resumed segment; no complete-lineage runtime or matched-compute claim.")
+        if recovery.get("parent") is not None:
+            boundaries = (0, recovery["parent"]["saved_stage_count"], prefix_count, len(stage_seconds))
+            resources["completed_stage_segments"] = [
+                {"first_stage": start + 1, "last_stage": end, "wall_seconds": sum(stage_seconds[start:end])}
+                for start, end in zip(boundaries, boundaries[1:])]
     return metrics, resources
 
 
@@ -739,6 +815,9 @@ def validate_checkpoint_evidence(path, entry, run, *, sources, manifest_sha256, 
                          "restored_final_prefix_sha256", "original_checkpoint_sha256", "resume_checkpoint_sha256",
                          "recovery_prefix_compared_nodes", "recovery_prefix_ignored_paths",
                          "source_checkpoint_prefix_semantic_sha256", "source_checkpoint_rng_semantic_sha256")})
+        if recovery.get("parent") is not None:
+            proof["parent_recovery_prefix_verification"] = report.get("parent_recovery_prefix_verification", {})
+            proof["parent_recovery_manifest_sha256"] = report.get("parent_recovery_manifest_sha256")
         validate_recovery_prefix_proof(proof, recovery)
         need(isinstance(proof["source_receipt_sha256"], str)
              and re.fullmatch(r"[0-9a-f]{64}", proof["source_receipt_sha256"]),
@@ -768,12 +847,18 @@ def audit_campaign(manifest_path, evidence_root=None, *, allow_incomplete=False,
         need(not overlay and manifest_digest == BASE_MANIFEST_SHA256,
              "Current20 partition must retain the authoritative original manifest")
     recovery_manifest, recovery_rows, recovery_configs = None, {}, {}
+    parent_manifest, parent_rows, parent_export = None, {}, None
     if recovery_manifest_path is not None:
         recovery_manifest_path = Path(recovery_manifest_path).resolve()
         checked = read_guarded_recovery(recovery_manifest_path)
         need(same_json_value(checked["source_manifest"], manifest), "Recovery selected original manifest changed")
         recovery_manifest, recovery_configs = checked["manifest"], checked["configs"]
         recovery_rows = validate_recovery_header(recovery_manifest, manifest, manifest_digest, partition)
+        if recovery_manifest["schema_version"] == 2:
+            binding = recovery_manifest["parent_recovery_manifest"]
+            parent_export = metadata_export(binding["path"])
+            parent_manifest = load_metadata_export({"parent": parent_export}, "parent", binding["sha256"])
+            parent_rows = validate_recovery_header(parent_manifest, manifest, manifest_digest, partition)
     evidence_root = Path(evidence_root or ((recovery_manifest_path.parent if recovery_manifest is not None
                                           else manifest_path.parent) / "checkpoint_evidence"))
     rows = []
@@ -784,12 +869,23 @@ def audit_campaign(manifest_path, evidence_root=None, *, allow_incomplete=False,
         recovery = None
         if recovery_manifest is not None:
             recovered = recovery_rows[job]
-            lineage = recovered["lineage"]
-            original_metadata = {key: read(lineage[name]["path"]) for key, name in (
-                ("config", "original_saved_config"), ("progress", "original_progress"), ("data_manifest", "original_data_manifest"))}
-            recovery = recovery_context(recovery_manifest, sha(recovery_manifest_path), recovered, entry,
-                                        configs[job], recovery_configs[job], original_metadata)
-            recovery["interrupted_work"] = read_interrupted_work(recovery)
+            row_exports = recovery_metadata_exports(recovered)
+            source_entry, source_config, parent = entry, configs[job], None
+            if parent_manifest is not None:
+                source_entry = parent_rows[job]
+                parent_exports = recovery_metadata_exports(source_entry)
+                parent = context_from_exports(parent_manifest, parent_export["sha256"], source_entry,
+                                              entry, configs[job], parent_exports)
+                bind_interrupted_work(parent, read_interrupted_work(parent))
+                parent_exports["interrupted_work"] = parent["interrupted_attempt"]
+                row_exports["parent"] = parent_exports
+                source_config = parent["actual_config"]
+            recovery = context_from_exports(recovery_manifest, sha(recovery_manifest_path), recovered,
+                                            source_entry, source_config, row_exports, parent=parent)
+            need(same_json_value(recovery["actual_config"], recovery_configs[job]),
+                 "Recovery may change only resume and output_dir")
+            bind_interrupted_work(recovery, read_interrupted_work(recovery))
+            row_exports["interrupted_work"] = recovery["interrupted_attempt"]
             run = Path(recovered["output_dir"])
         row = {"job": job, "dataset": entry["dataset"], "method": entry["method"],
                "comparison_variant": entry["comparison_variant"], "seed": 1993,
@@ -823,11 +919,7 @@ def audit_campaign(manifest_path, evidence_root=None, *, allow_incomplete=False,
                 row["status"] = "verified_complete"
             if recovery is not None:
                 recovery_root = Path(recovery_manifest["recovery_root"])
-                row["recovery_exports"] = {"prepared_config": metadata_export(recovery_rows[job]["config"]["path"]),
-                    **{key: metadata_export(lineage[name]["path"]) for key, name in (
-                        ("original_config", "original_saved_config"), ("original_progress", "original_progress"),
-                        ("original_data_manifest", "original_data_manifest"))},
-                    "interrupted_work": recovery["interrupted_work"]}
+                row["recovery_exports"] = row_exports
                 if row["status"] == "verified_complete":
                     receipt_path = recovery_root / "receipts" / (job + ".json")
                     seal_path = recovery_root / "queue" / (job + ".complete.json")
@@ -871,6 +963,8 @@ def audit_campaign(manifest_path, evidence_root=None, *, allow_incomplete=False,
     if recovery_manifest is not None:
         summary["recovery_manifest_export"] = metadata_export(recovery_manifest_path)
         summary["recovery_manifest_sha256"] = sha(recovery_manifest_path)
+    if parent_export is not None:
+        summary["parent_recovery_manifest_export"] = parent_export
     return summary
 
 
@@ -926,6 +1020,7 @@ def merge_partition_summaries(manifest_path, summary_paths, *, expected_summary_
             need(not summary.get("training_budget_overlay"), "Current20 report must retain its original budget manifest")
         active_jobs = {entry["job"]: entry for entry in active_manifest["jobs"]}
         recovered_manifest, recovered_rows, recovered_digest = None, {}, None
+        parent_manifest, parent_rows = None, {}
         if "recovery_manifest_export" in summary or "recovery_manifest_sha256" in summary:
             recovered_digest = summary.get("recovery_manifest_sha256")
             recovered_manifest = load_metadata_export(
@@ -934,6 +1029,14 @@ def merge_partition_summaries(manifest_path, summary_paths, *, expected_summary_
             recoveries.append({"partition": group, "manifest_sha256": recovered_digest,
                                "source_manifest_sha256": active_digest,
                                "manifest_export": summary["recovery_manifest_export"]})
+            if recovered_manifest["schema_version"] == 2:
+                binding = recovered_manifest["parent_recovery_manifest"]
+                parent_export = summary.get("parent_recovery_manifest_export")
+                parent_manifest = load_metadata_export({"parent": parent_export}, "parent", binding["sha256"])
+                parent_rows = validate_recovery_header(parent_manifest, active_manifest, active_digest, group)
+                recoveries[-1]["parent_recovery_manifest_export"] = parent_export
+        need(parent_manifest is not None or "parent_recovery_manifest_export" not in summary,
+             "Extra parent export without a chained recovery")
         need(summary.get("status") == "verified_complete"
              and summary.get("expected_results") == summary.get("verified_results")
              == summary.get("metrics_verified_results") == 2
@@ -953,11 +1056,14 @@ def merge_partition_summaries(manifest_path, summary_paths, *, expected_summary_
         need(runtime["fingerprint_sha256"] not in runtimes,
              "Partitions must have distinct physical runtime fingerprints")
         runtimes.add(runtime["fingerprint_sha256"])
+        producer = summary.get("auditor_sha256")
+        exact_historical_report = (group == "tuna" and report_digest == SEALED_TUNA_SUMMARY_SHA256
+                                   and producer == SEALED_TUNA_AUDITOR_SHA256)
         need(summary.get("manifest_sha256") == active_digest
              and summary.get("source_commit") == source_commit
              and summary.get("source_files_sha256") == sources
              and summary.get("upstream_commit") == UPSTREAM
-             and summary.get("auditor_sha256") == auditor_digest
+             and (producer == auditor_digest or exact_historical_report)
              and summary.get("seed") == 1993,
              "Partition manifest/source/auditor/scientific identity differs")
         rows = summary.get("rows", [])
@@ -968,7 +1074,7 @@ def merge_partition_summaries(manifest_path, summary_paths, *, expected_summary_
         proof = {"partition": group, "host": host, "jobs": list(jobs),
                  "summary_path": str(path), "summary_sha256": report_digest,
                  "server_captured_summary_sha256": expected_report_digest,
-                 "auditor_sha256": auditor_digest, "manifest_sha256": active_digest,
+                 "auditor_sha256": producer, "manifest_sha256": active_digest,
                  "base_manifest_sha256": manifest_digest}
         if budget_proof is not None:
             proof["training_budget_overlay"] = overlays[-1]
@@ -998,20 +1104,17 @@ def merge_partition_summaries(manifest_path, summary_paths, *, expected_summary_
             if recovered_manifest is not None:
                 recovery_exports = row.get("recovery_exports", {})
                 recovered = recovered_rows[job]
-                lineage = recovered["lineage"]
-                actual_cfg = load_metadata_export(recovery_exports, "prepared_config", recovered["config"]["sha256"])
-                old_metadata = {key: load_metadata_export(recovery_exports, export_name, lineage[lineage_key]["sha256"])
-                                for key, export_name, lineage_key in (
-                                    ("config", "original_config", "original_saved_config"),
-                                    ("progress", "original_progress", "original_progress"),
-                                    ("data_manifest", "original_data_manifest", "original_data_manifest"))}
-                recovery = recovery_context(recovered_manifest, recovered_digest, recovered, entry,
-                                            prepared, actual_cfg, old_metadata)
-                cost = recovery_exports.get("interrupted_work", {})
-                need(isinstance(cost, dict), "Recovery interrupted-work observations are missing")
-                derived_cost = interrupted_work_summary(recovery, cost.get("completed_epoch_regions"))
-                need(same_json_value(cost, derived_cost), "Recovery interrupted-work lower bound differs from its retained observations")
-                recovery["interrupted_work"] = derived_cost
+                source_entry, source_config, parent = entry, prepared, None
+                if parent_manifest is not None:
+                    source_entry = parent_rows[job]
+                    parent_exports = recovery_exports.get("parent")
+                    parent = context_from_exports(parent_manifest, recovered_manifest["parent_recovery_manifest"]["sha256"],
+                                                  source_entry, entry, prepared, parent_exports)
+                    verify_exported_cost(parent, parent_exports)
+                    source_config = parent["actual_config"]
+                recovery = context_from_exports(recovered_manifest, recovered_digest, recovered, source_entry,
+                                                source_config, recovery_exports, parent=parent)
+                verify_exported_cost(recovery, recovery_exports)
                 receipt = load_metadata_export(recovery_exports, "receipt", row.get("checkpoint_audit", {}).get("source_receipt_sha256"))
                 seal = load_metadata_export(recovery_exports, "completion_seal", recovery_exports.get("completion_seal", {}).get("sha256"))
                 validate_recovery_seal(recovery, receipt, seal, {key: source[key + "_sha256"]

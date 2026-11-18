@@ -126,10 +126,13 @@ Actual CPU-restored component and statistics counts are in
 [checkpoint_evidence/tuna](checkpoint_evidence/tuna/). Those small reports were
 transferred; checkpoint payloads remain on the server.
 
-The fixed-library endpoints remain pending final verification. Their most
-recent successful observation, at 2026-11-18 01:59 UTC, recorded eight completed
-CIFAR-100 stages and seven completed ImageNet-R stages. SSH observations failed
-before authentication shortly afterwards; that does not establish worker
-termination. The extension currently has two of four verified endpoints;
-the original twelve results are unchanged.
-The full sixteen-result merge requires both host partitions to finish.
+The fixed-library server restarted a second time. At 02:48 UTC on November 18,
+the previous controller and both workers had exited. The latest checkpoints
+contained eight completed CIFAR-100 stages and seven completed ImageNet-R
+stages. Each worker resumed from its corresponding checkpoint on a separate
+RTX 5090 in `recovery_20261118_v2`. The unfinished ninth CIFAR-100 stage
+and eighth ImageNet-R stage restart at epoch one. The second recovery manifest
+has SHA-256 `a3d692b702f0f7cda34da47b7b9327670ab84a22fb5853dea04ff68d00acb460`.
+It binds the preceding recovery manifest, the retained stage records, and the
+original scientific configuration. The original twelve endpoints and two TUNA
+endpoints have completed verification.

@@ -209,6 +209,7 @@ def admit(manifest_path, job, *, validation_only=False, run_dir=None,
     """Bind metadata to launch identity before copying any model payload."""
     need(isinstance(job, str) and job and Path(job).name == job and job not in {'.', '..'}, 'Invalid job name')
     recovery_manifest, recovery_digest, recovery_entry = None, None, None
+    parent_binding, parent_lineage = None, None
     canonical_sha = None
     if recovery_manifest_path is not None:
         need(not validation_only, 'Recovery and validation-only modes are separate')
@@ -230,6 +231,12 @@ def admit(manifest_path, job, *, validation_only=False, run_dir=None,
         rows = [entry for entry in recovery_manifest['jobs'] if entry['job'] == job]
         need(len(rows) == 1, 'Recovery does not declare this exact job')
         recovery_entry = rows[0]
+        if recovery_manifest['schema_version'] == 2:
+            parent_binding = recovery_manifest['parent_recovery_manifest']
+            need(sha(parent_binding['path']) == parent_binding['sha256'], 'Parent recovery manifest changed')
+            parent_rows = [e for e in read(parent_binding['path'])['jobs'] if e['job'] == job]
+            need(len(parent_rows) == 1, 'Parent recovery must declare this exact job')
+            parent_lineage = parent_rows[0]['lineage']
     else:
         manifest = read(manifest_path) if manifest_path else None
         manifest_digest = sha(manifest_path) if manifest_path else None
@@ -311,6 +318,7 @@ def admit(manifest_path, job, *, validation_only=False, run_dir=None,
                 recovery_manifest_path=recovery_manifest_path if recovery_entry else None,
                 recovery_manifest_sha256=recovery_digest,
                 recovery_lineage=copy.deepcopy(recovery_entry['lineage']) if recovery_entry else None,
+                parent_recovery_manifest=parent_binding, parent_recovery_lineage=parent_lineage,
                 metadata=values, metadata_sha256=digests, pretrained_npz=pretrained_npz,
                 checkpoint=checkpoint, checkpoint_sha256=sha(checkpoint),
                 checkpoint_bytes=checkpoint.stat().st_size, source_terminal=terminal)
@@ -536,6 +544,14 @@ def recovery_input_guard(admission):
          'Recovery manifest changed during native audit')
     need(sha(admission['manifest_path']) == admission['manifest_sha256'],
          'Original selected manifest changed during recovery audit')
+    parent_binding = admission.get('parent_recovery_manifest')
+    if parent_binding:
+        need(sha(parent_binding['path']) == parent_binding['sha256'], 'Parent recovery manifest changed during audit')
+        verify_recovery_checkpoint_bytes(admission['parent_recovery_lineage'])
+    verify_recovery_checkpoint_bytes(lineage)
+
+
+def verify_recovery_checkpoint_bytes(lineage):
     for name in ('source_checkpoint', 'resume_checkpoint'):
         record = lineage[name]
         path = Path(record['path'])
@@ -550,17 +566,34 @@ def recovery_prefix_proof(admission, state, comparator):
     lineage = admission.get('recovery_lineage')
     if lineage is None:
         return {}
+    recovery_input_guard(admission)
+    # Check both sources against the same final typed stage history. Do not
+    # retain two parent model payloads in memory simultaneously.
+    proof = compare_recovery_source(lineage, admission['metadata'], state, comparator)
+    if admission.get('parent_recovery_manifest'):
+        proof['parent_recovery_manifest_sha256'] = admission['parent_recovery_manifest']['sha256']
+        proof['parent_recovery_prefix_verification'] = compare_recovery_source(
+            admission['parent_recovery_lineage'], admission['metadata'], state, comparator)
+    proof['recovery_execution_scope'] = {
+        'wall_seconds': admission['metadata']['results']['execution']['wall_seconds'],
+        'wall_seconds_scope': 'Resumed segment only, timed by the unchanged runner after restoration; earlier prefix stages retain their original stage timers',
+        'gpu_peak_scope': 'Resumed process only, after its CUDA peak reset; not a whole-lineage peak',
+        'interrupted_uncheckpointed_work_cost_reconstructed': False,
+        'complete_lineage_training_cost_claimed': False}
+    return proof
+
+
+def compare_recovery_source(lineage, metadata, state, comparator):
     import numpy as np
     import torch
     from cl27.common import jsonable
-    recovery_input_guard(admission)
     source, digest = comparator.load_trusted_checkpoint(Path(lineage['resume_checkpoint']['path']))
     need(digest == lineage['source_checkpoint']['sha256'] == lineage['resume_checkpoint']['sha256'],
          'Loaded recovery source checkpoint SHA differs')
     count = lineage['saved_stage_count']
     need(type(count) is int and 0 < count < 10 and len(source['stages']) == count,
          'Recovery source is not the declared partial completed-task boundary')
-    cfg, result = admission['metadata']['config'], admission['metadata']['results']
+    cfg, result = metadata['config'], metadata['results']
     need(source['config_fingerprint'] == state['config_fingerprint'] == lineage['config_fingerprint']
          and source['data_fingerprint'] == state['data_fingerprint'] == lineage['data_fingerprint']
          and source['random_stream_policy'] == state['random_stream_policy'] == lineage['random_stream_policy'],
@@ -602,13 +635,7 @@ def recovery_prefix_proof(admission, state, comparator):
                 source_checkpoint_prefix_semantic_sha256=comparator.hash_state(source['stages'], ('recovery_prefix',)).hex(),
                 source_checkpoint_rng_semantic_sha256=comparator.hash_state(rng, ('rng',)).hex(),
                 original_checkpoint_sha256=lineage['source_checkpoint']['sha256'],
-                resume_checkpoint_sha256=lineage['resume_checkpoint']['sha256'],
-                recovery_execution_scope={
-                    'wall_seconds': result['execution']['wall_seconds'],
-                    'wall_seconds_scope': 'Resumed segment only, timed by the unchanged runner after restoration; earlier prefix stages retain their original stage timers',
-                    'gpu_peak_scope': 'Resumed process only, after its CUDA peak reset; not a whole-lineage peak',
-                    'interrupted_uncheckpointed_work_cost_reconstructed': False,
-                    'complete_lineage_training_cost_claimed': False})
+                resume_checkpoint_sha256=lineage['resume_checkpoint']['sha256'])
 
 
 def native_restore(admission, checkpoint, comparator_path):
@@ -787,6 +814,9 @@ def backup(admission, backup_root, evidence_root, *, validation_only=False,
                 recovery_input_guard(admission)
                 atomic_copy(admission['recovery_manifest_path'], temporary / 'source_recovery_manifest.json', admission['recovery_manifest_sha256'])
                 write_new_json(temporary / 'source_recovery_lineage.json', admission['recovery_lineage'])
+                if admission.get('parent_recovery_manifest'):
+                    parent = admission['parent_recovery_manifest']
+                    atomic_copy(parent['path'], temporary / 'parent_recovery_manifest.json', parent['sha256'])
             if admission['seal'] is not None:
                 write_new_json(temporary / 'source_completion_seal.json', admission['seal'])
             atomic_copy(admission['checkpoint'], temporary / 'checkpoint.pt', admission['checkpoint_sha256'])
@@ -799,6 +829,15 @@ def backup(admission, backup_root, evidence_root, *, validation_only=False,
                      and report.get('source_checkpoint_stages_sha256') == report.get('restored_final_prefix_sha256') == lineage['prefix_stages_sha256']
                      and isinstance(report.get('recovery_execution_scope'), dict),
                      'Recovery evidence requires the independent native pickle-prefix proof')
+                if admission.get('parent_recovery_manifest'):
+                    ancestor = admission['parent_recovery_lineage']
+                    parent_proof = report.get('parent_recovery_prefix_verification', {})
+                    need(report.get('parent_recovery_manifest_sha256') == admission['parent_recovery_manifest']['sha256']
+                         and parent_proof.get('recovery_prefix_verified') is True
+                         and parent_proof.get('saved_stage_count') == ancestor['saved_stage_count']
+                         and parent_proof.get('restored_final_prefix_sha256') == ancestor['prefix_stages_sha256']
+                         and parent_proof.get('original_checkpoint_sha256') == ancestor['source_checkpoint']['sha256'],
+                         'Chained recovery lacks its independent original pickle-prefix proof')
             after = terminal_process(admission['receipt'], probe=probe, seal=admission['seal'], validation_only=validation_only)
             recovery_input_guard(admission)
             need(all(sha(admission['run_dir'] / (name + '.json')) == value for name, value in admission['metadata_sha256'].items())

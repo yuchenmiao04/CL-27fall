@@ -467,3 +467,37 @@ def test_recovery_source_checkpoint_mutation_never_produces_native_prefix_proof(
     snapshot.write_bytes(b'changed retained checkpoint')
     with pytest.raises(ValueError, match='checkpoint bytes changed'):
         backup.recovery_prefix_proof(f['admission'], f['state'], comparator)
+
+
+def test_second_recovery_reopens_both_checkpoints_against_final_typed_history(recovered_fixture, tmp_path):
+    f = recovered_fixture
+    parent = f['lineage']
+    count = 8
+    latest_path = tmp_path / 'later_original.pt'
+    snapshot = tmp_path / 'immutable_copy.pt'
+    state = copy.deepcopy(f['state'])
+    state['stages'] = state['stages'][:count]
+    state['learner'].update(cur_task=7, known_classes=80, total_classes=80, task_diagnostics=[{}] * count)
+    def bind_intermediate():
+        torch.save(state, latest_path)
+        snapshot.write_bytes(latest_path.read_bytes())
+        def binding(p):
+            return dict(path=str(p), sha256=backup.sha(p), bytes=p.stat().st_size)
+        prefix_sha = hashlib.sha256(json.dumps(
+            state['stages'], sort_keys=True, separators=(',', ':'), allow_nan=False).encode()).hexdigest()
+        return dict(parent, saved_stage_count=count, prefix_stages=state['stages'], prefix_stages_sha256=prefix_sha,
+                    source_checkpoint=binding(latest_path), resume_checkpoint=binding(snapshot))
+    admission = dict(f['admission'], recovery_lineage=bind_intermediate(),
+                     parent_recovery_lineage=parent, parent_recovery_manifest=dict(path=str(f['path']), sha256=backup.sha(f['path'])))
+    final = copy.deepcopy(f['state'])
+    proof = backup.recovery_prefix_proof(admission, final, comparator)
+    assert proof['saved_stage_count'] == count
+    assert proof['parent_recovery_prefix_verification']['saved_stage_count'] == 2
+    # A common mutation in the intermediate and final stages passes their
+    # mutual comparison but contradicts the immutable original two stages.
+    state['stages'][0]['wall_seconds'] += .25
+    final['stages'][0]['wall_seconds'] += .25
+    admission['metadata']['results']['stages'][0]['wall_seconds'] += .25
+    admission['recovery_lineage'] = bind_intermediate()
+    with pytest.raises(ValueError, match='exact typed source prefix'):
+        backup.recovery_prefix_proof(admission, final, comparator)

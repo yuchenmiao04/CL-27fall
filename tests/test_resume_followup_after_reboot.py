@@ -159,3 +159,120 @@ def test_recovery_observer_refuses_changed_saved_prefix(tmp_path, monkeypatch):
     with c.q.exclusive(), pytest.raises(ValueError, match='changed the saved checkpoint prefix'):
         c.cycle(True)
     assert len(f.calls) == 4
+
+
+def second_recovery_fixture(root, monkeypatch):
+    f, base = fixture(root, monkeypatch)
+    parent_root = root / 'recovery_20261118_v1'
+    parent = recovery.prepare(f.path, 'current20', parent_root)
+    q, _ = recovery.recovery_queue(parent)
+    with q.exclusive():
+        for job in (CF20, R20):
+            q.launch(job)
+    for job, stages in [(CF20, 8), (R20, 7)]:
+        row = q.entries[job]
+        cfg = queue.read(row['config']['path'])
+        out = Path(row['output_dir'])
+        data = queue.read(row['lineage']['original_data_manifest']['path'])
+        state = torch.load(cfg['resume'], weights_only=False)
+        for task in range(2, stages):
+            state['stages'].append(dict(state['stages'][0], task=task,
+                                        seen_classes=(task + 1) * cfg['increment']))
+        state['learner'].update(cur_task=stages - 1, known_classes=stages * cfg['increment'],
+                                total_classes=stages * cfg['increment'], task_diagnostics=[{}] * stages)
+        # The two checkpoints need not share final model state or RNG after further training.
+        state['rng']['torch'] = torch.full((4,), 55, dtype=torch.uint8)
+        state['learner']['core']['updated'] = torch.tensor(stages)
+        save(out / 'progress.json', {'status': 'running', 'stages': state['stages']})
+        save(out / 'config.json', dict(cfg, seed=1993, config=row['config']['path']))
+        save(out / 'data_manifest.json', data)
+        torch.save(state, out / 'checkpoint.pt')
+    dispatcher = dict(pid=2460, start_ticks=1234, partition='current20',
+                      recovery_manifest_sha256=q.manifest_sha, controller_sha256=recovery.PARENT_CONTROLLER_SHA,
+                      command=[base.manifest['python'], str(root / 'tools' / 'resume_followup_after_reboot_controller_v2.py'),
+                               '--manifest', str(f.path), '--partition', 'current20', '--recovery-root', str(parent_root),
+                               '--execute', '--poll-seconds', '30'])
+    save(parent_root / 'dispatcher_receipt.json', dispatcher)
+    monkeypatch.setattr(recovery, 'CURRENT20_PARENT_SHA', recovery.sha(parent))
+    f.probes.clear()
+    for gpu in f.snapshot.values():
+        gpu['pids'] = []
+    return f, parent
+
+
+def test_second_recovery_uses_latest_stages_and_retains_chain(tmp_path, monkeypatch):
+    f, parent = second_recovery_fixture(tmp_path, monkeypatch)
+    old = files(parent.parent), files(f.campaign)
+    path = recovery.prepare(f.path, 'current20', tmp_path / 'recovery2', parent)
+    checked = recovery.validate_recovery_manifest(path)
+    manifest = checked['manifest']
+    assert manifest['schema_version'] == 2
+    assert manifest['source_manifest'] == recovery.bound(f.path)
+    assert manifest['parent_recovery_manifest'] == recovery.bound(parent)
+    for row, n in zip(manifest['jobs'], [8, 7]):
+        lineage = row['lineage']
+        assert lineage['original_manifest'] == recovery.bound(parent)
+        assert lineage['saved_stage_count'] == n and len(lineage['prefix_stages']) == n
+        source = parent.parent / 'runs' / row['job'] / 'checkpoint.pt'
+        cp = Path(checked['configs'][row['job']]['resume'])
+        assert cp.read_bytes() == source.read_bytes()
+        state = torch.load(cp, weights_only=False)
+        assert state['learner']['core']['updated'].item() == n
+        assert state['rng']['torch'].tolist() == [55] * 4
+    controller = recovery.RecoveryController(path)
+    assert [a['state'] for a in controller.cycle()['actions']] == ['ready', 'ready']
+    with controller.q.exclusive():
+        controller.cycle(True)
+    assert len(f.calls) == 6
+    assert (files(parent.parent), files(f.campaign)) == old
+
+
+@pytest.mark.parametrize('fault', ['parent-digest', 'ancestor-prefix-type', 'rewind', 'live-dispatcher', 'live-worker', 'missing-parent'])
+def test_second_recovery_rejects_invalid_chain(tmp_path, monkeypatch, fault):
+    f, parent = second_recovery_fixture(tmp_path, monkeypatch)
+    out = parent.parent / 'runs' / CF20
+    if fault == 'parent-digest':
+        monkeypatch.setattr(recovery, 'CURRENT20_PARENT_SHA', '0' * 64)
+    if fault in {'ancestor-prefix-type', 'rewind'}:
+        state = torch.load(out / 'checkpoint.pt', weights_only=False)
+        if fault == 'ancestor-prefix-type':
+            state['stages'][0]['evaluation_images'] = 123.0  # equal in Python, differently typed JSON
+        else:
+            state['stages'] = state['stages'][:-1]
+            state['learner'].update(cur_task=6, known_classes=70, total_classes=70, task_diagnostics=[{}] * 7)
+        torch.save(state, out / 'checkpoint.pt')
+        save(out / 'progress.json', {'stages': state['stages']})
+    if fault in {'live-dispatcher', 'live-worker'}:
+        path = parent.parent / ('dispatcher_receipt.json' if fault == 'live-dispatcher' else 'receipts/' + CF20 + '.json')
+        receipt = queue.read(path)
+        f.probes[receipt['pid']] = dict(startticks=receipt.get('proc_start_ticks', receipt.get('start_ticks')), state='R')
+    with pytest.raises(ValueError, match='Wrong parent|changed the parent recovery prefix|precedes the last|still live|explicit parent'):
+        recovery.prepare(f.path, 'current20', tmp_path / 'recovery2', None if fault == 'missing-parent' else parent)
+    assert not (tmp_path / 'recovery2').exists()
+    assert len(f.calls) == 4
+
+
+def test_controller_skips_unchanged_checkpoint_bytes_and_detects_replacement(tmp_path, monkeypatch):
+    f, parent = second_recovery_fixture(tmp_path, monkeypatch)
+    path = recovery.prepare(f.path, 'current20', tmp_path / 'recovery2', parent)
+    reads = []
+    sha = recovery.sha
+
+    def counting_sha(file):
+        if Path(file).name == 'checkpoint.pt':
+            reads.append(Path(file))
+        return sha(file)
+
+    monkeypatch.setattr(recovery, 'sha', counting_sha)
+    q, _ = recovery.recovery_queue(path)
+    assert len(set(reads)) == len(reads) == 8
+    reads.clear()
+    q.validate()
+    assert not reads
+    snapshot = Path(q.entries[CF20]['lineage']['resume_checkpoint']['path'])
+    replacement = snapshot.with_name('replacement.pt')
+    replacement.write_bytes(b'x' * snapshot.stat().st_size)
+    replacement.replace(snapshot)
+    with pytest.raises(ValueError, match='Retained checkpoint bytes changed'):
+        q.validate()
+    assert reads == [snapshot]
